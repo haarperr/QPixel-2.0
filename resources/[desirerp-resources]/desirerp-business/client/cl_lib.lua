@@ -48,7 +48,7 @@ end)
 RegisterCommand("hotreload", function()
     RefreshEmploymentList()
 end) 
-
+ 
 -- this event gets triggered whenever you get fired from a job. and your in the city
 RegisterNetEvent('desirerp-business:employmentStatus')
 AddEventHandler('desirerp-business:employmentStatus', function(pBusiness, pEmployed)
