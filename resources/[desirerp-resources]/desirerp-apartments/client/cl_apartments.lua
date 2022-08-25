@@ -455,28 +455,28 @@ end
 
 RegisterNetEvent('hotel:outfit')
 AddEventHandler('hotel:outfit', function(args,sentType)
-    if sentType == 1 then
-        print("args",json.encode(args))
-        local id = args[1]
-        -- table.remove(args, 1)
-        -- table.remove(args, 1)
-        strng = ""
-        for i = 1, #args do
-            strng = strng .. " " .. args[i]
+    if nearClothing() then
+        if sentType == 1 then
+            print("args",json.encode(args))
+            local id = args[1]
+            -- table.remove(args, 1)
+            -- table.remove(args, 1)
+            strng = ""
+            for i = 1, #args do
+                strng = strng .. " " .. args[i]
+            end
+            TriggerEvent("raid_clothes:outfits", sentType, id, strng)
+        elseif sentType == 2 then
+            local id = args[2]
+            TriggerEvent("raid_clothes:outfits", sentType, id)
+        elseif sentType == 3 then
+            local id = args[2]
+            TriggerEvent('item:deleteClothesDna')
+            TriggerEvent('InteractSound_CL:PlayOnOne','Clothes1', 0.6)
+            TriggerEvent("raid_clothes:outfits", sentType, id)
+        else
+            TriggerServerEvent("raid_clothes:list_outfits")
         end
-        TriggerEvent("desirerp_clothing:outfits", sentType, id, strng)
-    elseif sentType == 2 then
-        local id = args[2]
-        print(sendType)
-        print(id)
-        TriggerEvent("desirerp_clothing:outfits", sentType, id)
-    elseif sentType == 3 then
-        local id = args[2]
-        TriggerEvent('item:deleteClothesDna')
-        TriggerEvent('InteractSound_CL:PlayOnOne','Clothes1', 0.6)
-        TriggerEvent("desirerp_clothing:outfits", sentType, id)
-    else
-        TriggerServerEvent("desirerp_clothing:list_outfits")
     end
 end)
 

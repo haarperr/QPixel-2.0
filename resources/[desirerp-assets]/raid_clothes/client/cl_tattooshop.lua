@@ -1,36 +1,44 @@
 tattoosShops = {
-	{1322.645, -1651.976, 52.275},
-	{-1153.676, -1425.68, 4.954},
+	-- {1322.645, -1651.976, 52.275},
+	-- {-1153.676, -1425.68, 4.954},
 	{322.139, 180.467, 103.587},
-	{-3170.071, 1075.059, 20.829},
+	-- {-3170.071, 1075.059, 20.829},
 }
 
 Citizen.CreateThread(function()
 
-	exports["desirerp-polyzone"]:AddBoxZone("tattoo_shop", vector3(1323.0, -1652.8, 52.28), 4.2, 6.8, {
-		heading=40,
-		minZ=51.95,
-		maxZ=53.95
-	})
+	-- exports["desirerp-polyzone"]:AddBoxZone("tattoo_shop", vector3(1323.0, -1652.8, 52.28), 4.2, 6.8, {
+	-- 	heading=40,
+	-- 	minZ=51.95,
+	-- 	maxZ=53.95
+	-- })
 	
-	exports["desirerp-polyzone"]:AddBoxZone("tattoo_shop", vector3(-1154.29, -1426.76, 4.95), 4.8, 7.2, {
-		heading=32,
-		minZ=3.95,
-		maxZ=7.95
-	})
+	-- exports["desirerp-polyzone"]:AddBoxZone("tattoo_shop", vector3(-1154.29, -1426.76, 4.95), 4.8, 7.2, {
+	-- 	heading=32,
+	-- 	minZ=3.95,
+	-- 	maxZ=7.95
+	-- })
+	
+	-- exports["desirerp-polyzone"]:AddBoxZone("tattoo_shop", vector3(-3170.18, 1076.27, 20.83), 7.0, 4.8, {
+	-- 	heading=335,
+	-- 	minZ=19.83,
+	-- 	maxZ=24.03
+	-- })
 	
 	exports["desirerp-polyzone"]:AddBoxZone("tattoo_shop", vector3(323.34, 180.65, 103.59), 5.2, 6.4, {
 		heading=337,
 		minZ=102.24,
 		maxZ=106.64
 	})
-	
-	exports["desirerp-polyzone"]:AddBoxZone("tattoo_shop", vector3(-3170.18, 1076.27, 20.83), 7.0, 4.8, {
-		heading=335,
-		minZ=19.83,
-		maxZ=24.03
+
+	exports["desirerp-polyzone"]:AddBoxZone("tattoo_shop", vector3(1771.34, 2583.39, 45.73), 2.0, 2.2, {
+		heading=0,
+		minZ=44.73,
+		maxZ=46.93,
+		data = {
+			isFree = true -- Prison
+		}
 	})
-	
 end)
   
 

@@ -283,9 +283,9 @@ function Login.setClothingForChar()
     end
 
     TriggerServerEvent('desirerp-spawn:SetNewRouting', math.random(1, 999))
-    TriggerEvent('desirerp_clothing:setclothes', {}, nil, true)
-    -- TriggerEvent("raid_clothes:openClothing")
-    -- TriggerEvent("raid_clothes:inSpawn", true)
+    --TriggerEvent('desirerp_clothing:setclothes', {}, nil, true)
+    TriggerEvent("raid_clothes:openClothing")
+    TriggerEvent("raid_clothes:inSpawn", true)
 
     SetEntityHeading(PlayerPedId(),64.71)
 
@@ -312,7 +312,7 @@ AddEventHandler("desirerp-spawn:finishedClothing", function(endType)
 
     Citizen.Wait(2000)
 
-    -- TriggerEvent("raid_clothes:inSpawn", false)
+    TriggerEvent("raid_clothes:inSpawn", false)
 
     if distance <= 10 then
         SetEntityVisible(PlayerPedId(), false)

@@ -137,7 +137,7 @@ function Login.nativeStart(AlreadySpawned)
 	if not AlreadySpawned then
 		tatCategory = exports["raid_clothes"]:GetTatCategs()
 		tattooHashList = exports["raid_clothes"]:GetTatCategs()
-		--Login.custompeds = exports["desirerp_clothing"]:GetCustomSkins()
+		Login.custompeds = exports["raid_clothes"]:GetCustomSkins()
 
 		--Prevent blur from getting stuck
 		while IsScreenblurFadeRunning() do

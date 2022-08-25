@@ -1,9 +1,21 @@
-
 Citizen.CreateThread(function()
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(1007.55, -2553.71, 32.86), 2, 2.0, {
+		heading=355,
+		minZ=31.66,
+		maxZ=35.66
+  	})
+
   exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(1098.07, 203.27, -49.44), 1.8, 2.4, {
 		heading=315,
 		minZ=-50.44,
 		maxZ=-48.04
+  })
+
+    exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-306.95, 213.33, 99.88), 2.5, 2.5, {
+		heading=10,
+		minZ=97.68,
+		maxZ=101.68
   })
 
 	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(1692.16, 4822.06, 42.06), 5.2, 4.4, {
@@ -71,6 +83,12 @@ Citizen.CreateThread(function()
 		minZ=30.09,
 		maxZ=31.69
 	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-210.18, -1336.95, 30.89), 2.0, 2.0, {
+		heading=359,
+		minZ=29.89,
+		maxZ=33.09
+	})
 	
 	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(617.2, 2762.5, 42.09), 5.6, 8.4, {
 		heading=3,
@@ -111,12 +129,6 @@ Citizen.CreateThread(function()
 		}
 	})
 
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-824.44, -1237.3, 7.34), 5.0, 3.8, {
-		heading=320,
-		minZ=6.34,
-		maxZ=9.34
-	})
-
 	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-1086.98, -831.58, 19.3), 9.2, 5.4, {
 		heading=38,
 		minZ=18.3,
@@ -128,72 +140,145 @@ Citizen.CreateThread(function()
 		minZ=27.77,
 		maxZ=31.17
 	})
-	
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(100.39, 3615.53, 40.91), 1.2, 1.6, {
-		heading=0,
-		minZ=39.57,
-		maxZ=41.70
-  	})
-	
 
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(461.48, -997.72, 30.69), 4.8, 5, {
-		name="clothing_shop",
-		heading=0,
-		minZ=27.89,
-		maxZ=31.89
-
-  	})
-
-
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(300.1, -599.38, 43.28), 4.2, 2, {
-		name="clothing_shop",
-		heading=70,
-		minZ=42.28,
-		maxZ=44.68
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(300.4, -597.8, 43.28), 5, 5, { 	-- EMS
+		heading=340,
+		minZ=41.28,
+		maxZ=45.28
 	})
 
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(380.96, -1609.45, 29.29), 4.4, 2, {
-		name="clothing_shop",
-		heading=50,
-		minZ=28.29,
-		maxZ=31.49
-	})
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(3.09, 6512.54, 31.88), 5.0, 5.0, {
+		heading=312,
+		minZ=31.0,
+		maxZ=35.0
+  	})
 
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(1834.74, 2572.4, 46.01), 3.6, 4.4, {
-		name="clothing_shop",
-		heading=270,
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-3213.95, 793.54, 14.08), 2, 2.2, {
+		heading=35,
+		minZ=12.88,
+		maxZ=16.88
+  	})
+	  
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-3202.29, 785.99, 14.08), 2, 2, {
+		heading=35,
+		minZ=13.28,
+		maxZ=16.08
+  	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-3218.8, 783.85, 14.09), 4, 5.0, {
+		heading=35,
+		minZ=12.89,
+		maxZ=16.89
+  	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-3218.71, 801.18, 14.1), 2, 2, {
+		heading=30,
+		minZ=13.1,
+		maxZ=17.1
+  	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-1368.05, -613.25, 30.32), 3, 2.6, {
+		heading=35,
+		minZ=27.52,
+		maxZ=31.52
+  	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(1853.6, 3688.39, 29.82), 2, 2.4, {
+		heading=300,
+		--debugPoly=true,
+		minZ=27.02,
+		maxZ=31.02
+  	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-720.57, 269.61, 84.65), 2, 1.6, {
+		heading=25,
+		--debugPoly=true,
+		minZ=82.85,
+		maxZ=86.85
+  	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(178.62, -251.4, 54.07), 1.5, 2.5, {
+		heading=340,
+		--debugPoly=true,
+		minZ=52.07,
+		maxZ=56.07
+  	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-467.8, 48.31, 52.41), 1.5, 2.3, {
+		heading=355,
+		--debugPoly=true,
+		minZ=50.61,
+		maxZ=54.61
+  	})
+
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(1835.14, 2572.9, 46.01), 5, 5, {
+		heading=0,
+		--debugPoly=true,
 		minZ=43.01,
 		maxZ=47.01
-	})
+  	})
 
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(956.81, -966.08, 39.51), 2.8, 3, {
-		name="clothing_shop",
-		heading=2,
-		minZ=36.51,
-		maxZ=40.51
-	})
-
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(550.29, -182.62, 54.49), 3, 3, {
-		name="clothing_shop",
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(390.39, -11.59, 86.68), 5, 5, {
 		heading=0,
-		minZ=51.49,
-		maxZ=55.49
-	})
+		--debugPoly=true
+  	})
 
-	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(105.44, -1303.18, 28.79), 3, 3, {
-		name="clothing_shop",
-		heading=31,
-		minZ=25.99,
-		maxZ=29.99
-	})
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-1184.49, -902.06, 13.98), 2, 2.4, {
+		heading=40,
+		--debugPoly=true,
+		minZ=12.58,
+		maxZ=16.58
+  	})
 
-	  exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(4.7838411331177, 6512.74609375, 31.877830505371), 3, 3, {
-		name="clothing_shop",
-		heading=31,
-		minZ=31.87-1,
-		maxZ=31.87+1
-	})
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-1425.05, -457.24, 35.91), 1, 2.0, {
+		heading=300,
+		--debugPoly=true,
+		minZ=32.91,
+		maxZ=36.91
+  	})
 
-
-
+	exports["desirerp-polyzone"]:AddBoxZone("clothing_shop", vector3(-172.48, 289.78, 93.76), 2, 2, {
+		heading=0,
+		--debugPoly=true,
+		minZ=91.76,
+		maxZ=95.76
+  	})
 end)
+
+-- Blips --
+
+local displayClothingStoreBlips = true
+
+local ClothingShop = {
+	{name="Clothing Store", id=73, x=-162.658, y=-303.397, z=39.733},
+	{name="Clothing Store", id=73, x=75.950, y=-1392.891, z=29.376},
+	{name="Clothing Store", id=73, x=-822.194, y=-1074.134, z=11.328},
+	{name="Clothing Store", id=73, x=-1450.711, y=-236.83, z=49.809},
+	{name="Clothing Store", id=73, x=4.254, y=6512.813, z=31.877},
+	{name="Clothing Store", id=73, x=615.180, y=2762.933, z=44.088},
+	{name="Clothing Store", id=73, x=1196.785, y=2709.558, z=38.222},
+	{name="Clothing Store", id=73, x=-3171.453, y=1043.857, z=20.863},
+	{name="Clothing Store", id=73, x=-1100.959, y=2710.211, z=19.107},
+	{name="Clothing Store", id=73, x=-1192.9453125, y=-772.62481689453, z=17.3254737854},
+	{name="Clothing Store", id=73, x=-707.33416748047, y=-155.07914733887, z=37.415187835693},
+	{name="Clothing Store", id=73, x=1683.45667, y=4823.17725, z=42.1631294},
+	{name="Clothing Store", id=73, x=-712.215881, y=-155.352982, z=37.4151268},
+	{name="Clothing Store", id=73, x=121.76, y=-224.6, z=54.56},
+	{name="Clothing Store", id=73, x=-1207.5267333984, y=-1456.9530029297, z=4.3763856887817},
+}
+
+--Display Map Blips
+Citizen.CreateThread(function()
+	if (displayClothingStoreBlips == true) then
+	  for _, item in pairs(ClothingShop) do
+		item.blip = AddBlipForCoord(item.x, item.y, item.z)
+		SetBlipSprite(item.blip, item.id)
+		SetBlipScale(item.blip, 0.7)
+		SetBlipColour(item.blip, 3)
+		SetBlipAsShortRange(item.blip, true)
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString(item.name)
+		EndTextCommandSetBlipName(item.blip)
+	  end
+	end
+  end)

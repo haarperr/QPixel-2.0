@@ -39,12 +39,12 @@ function Login.characterLoaded()
   -- TriggerServerEvent("weapon:general:check")
   -- Anything that might need to wait for the client to get information, do it here.
   TriggerServerEvent("login:get:keys")
-  -- TriggerServerEvent("raid_clothes:retrieve_tats")
+  TriggerServerEvent("raid_clothes:retrieve_tats")
   
   -- // New Clothing Menu // --
-  TriggerServerEvent("desirerp_clothing:retrieve_tats")
-  TriggerServerEvent('desirerp_clothing:get_character_current')
-  TriggerServerEvent('desirerp_clothing:get_character_face')
+  --TriggerServerEvent("desirerp_clothing:retrieve_tats")
+  --TriggerServerEvent('desirerp_clothing:get_character_current')
+  --TriggerServerEvent('desirerp_clothing:get_character_face')
 
   TriggerServerEvent("desirerp-weapons:getAmmo")
   Wait(4000)

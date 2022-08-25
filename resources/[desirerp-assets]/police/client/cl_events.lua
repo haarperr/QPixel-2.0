@@ -619,7 +619,7 @@ RegisterInterfaceCallback("desirerp-police:handler", function(data, cb)
     elseif eventData == EVENTS.CLOTHING then
         exports["desirerp-interface"]:hideInteraction()
         Wait(500)
-        TriggerEvent('desirerp_clothing:openMenu')
+        TriggerEvent("raid_clothes:openClothing", true, true)
     elseif eventData == EVENTS.SWITCHER then
         isCop = false
         TransitionToBlurred(500)

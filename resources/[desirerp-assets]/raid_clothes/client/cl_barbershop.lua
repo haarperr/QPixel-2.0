@@ -51,4 +51,13 @@ Citizen.CreateThread(function()
 		maxZ=8.99
 	})
 
+	exports["desirerp-polyzone"]:AddBoxZone("barber_shop", vector3(1769.06, 2588.21, 45.73), 2.2, 2.8, {
+		heading=0,
+		minZ=44.73,
+		maxZ=47.13,
+		data = {
+			isFree = true -- Prison
+		}
+	})
+
 end)

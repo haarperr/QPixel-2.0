@@ -18,7 +18,8 @@
                 <h5 class="green-text text-darken-4" id="totalPriceWithTax"></h5>
             </div>
             <div class="modal-footer">
-                <a href="#!" id="save" class="modal-close waves-effect waves-light btn green">Save Changes</a>
+                <!-- <a href="#!" id="save-bank" class="modal-close waves-effect waves-light btn green">Pay (Bank)</a> -->
+                <a href="#!" id="save" class="modal-close waves-effect waves-light btn green">Pay (Cash)</a>
                 <a href="#!" id="discard" class="modal-close waves-effect waves-light btn red">Discard Changes</a>
                 <a href="#!" id="cancel" class="modal-close waves-effect waves-light btn grey">Go Back</a>
             </div>
@@ -886,6 +887,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="eyeColor" class="col s12 panel">
+                            <div class="col s12 panel-title">
+                                <h6 class="grey-text text-lighten-3 panel-label">Eye Color</h6>
+                            </div>
+                            <div class="col s12 panel-bottom">
+                                <div class="col s6 panel-col">
+                                    <h6 class="grey-text text-lighten-3 panel-label">Colors: <span class="total-number">8</span>
+                                    </h6>
+                                    <button class="button-left col s4 waves-effect waves-light btn">
+                                        <i class="material-icons">chevron_left</i>
+                                    </button>
+                                    <input id="eyeColorVal" class="input-number col s4" type="number" value="0" />
+                                    <button class="button-right col s4 waves-effect waves-light btn">
+                                        <i class="material-icons">chevron_right</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         <div id="cheek" class="col s12 panel">
                             <div class="col s12 panel-title">
                                 <h6 class="grey-text text-lighten-3 panel-label">Cheeks</h6>
@@ -1201,6 +1220,24 @@
                                     </ul>
                                 </div>
                             </div>
+                        </div>
+                        <div id="fadeStyle" class="col s12 panel">
+                          <div class="col s12 panel-title">
+                              <h6 class="grey-text text-lighten-3 panel-label">Fade</h6>
+                          </div>
+                          <div class="col s12 panel-bottom">
+                              <div class="col s6 panel-col">
+                                  <h6 class="grey-text text-lighten-3 panel-label">Item: <span class="total-number"></span>
+                                  </h6>
+                                  <button class="button-left col s4 waves-effect waves-light btn">
+                                      <i class="material-icons">chevron_left</i>
+                                  </button>
+                                  <input class="input-number col s4" type="number" value="0" />
+                                  <button class="button-right col s4 waves-effect waves-light btn">
+                                      <i class="material-icons">chevron_right</i>
+                                  </button>
+                              </div>
+                          </div>
                         </div>
                         <div id="FacialHair" class="col s12 panel">
                             <div class="col s12 panel-title">

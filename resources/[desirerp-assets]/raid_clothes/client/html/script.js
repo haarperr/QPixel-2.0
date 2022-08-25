@@ -15,22 +15,41 @@ let whitelisted = {
     ]
 };
 
-// whitelisted["male"] = {
-//     jackets:[19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,35,67,68,70,71,73,74,76,81,82,83,105,149,205],
-//     undershirts:[16,17,19,20,22,24,25,26,28,29,33,34,35,36,39,40,42,57,58,102,115,116,166,173,174],
-//     pants:[21,22,23,24,25,28,35],
-//     decals:[1,2,3,4,5,6,58],
-//     vest:[1,2,7,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
-//     hats:[20,21,24,25,26,27,30,33,34,50,90,166],
-// }
+let hiddenItems = {
+    male: {
+      neck: [153],
+      decals: [
+        82, // queen jacket
+      ],
+      undershirts: [
+        193, // queen hat
+      ],
+    },
+    female: {
+      hair: [177],
+      neck: [121],
+      masks:[206],
+    },
+}
 
-// whitelisted["female"] = {
-//     jackets:[17,18,19,20,21,22,23,24,25,26,27,28,29,30,67,68,102,157],
-//     undershirts:[16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,66,67,68,70,71,72,78,79,105,143,198],
-//     pants:[18,19,20,21,22,23,24,39],
-//     vest:[8,9,11,12,13,14,15,16,17,18,19,21,22],
-//     hats:[20,21,23,24,25,26,28,29,31,37,39,75,77,153],
-// }
+whitelisted["male"] = {
+    jackets:[],
+    undershirts:[],
+    legs:[],
+    decals:[],
+    vest:[],
+    hats:[],
+    masks:[],
+}
+whitelisted["female"] = {
+    jackets:[],
+    undershirts:[],
+    legs:[],
+    decals:[],
+    vest:[],
+    hats:[],
+    masks:[],
+}
 
 const throttle = (func, limit) => {
     let inThrottle
@@ -46,6 +65,10 @@ $(function () {
     $('.modal').modal();
 
     window.addEventListener('message', function (event) {
+        if (event.data.type == "build") {
+            whitelisted = event.data.offsets
+        }
+
         if (event.data.type == "enableclothing_shop") {
             open = event.data.enable;
             if (open) {
@@ -73,6 +96,7 @@ $(function () {
             makeupColors = createPalette(event.data.makeupColors);
             AddPalettes();
             SetHairColor(event.data.hairColor);
+            SetEyeColor(event.data.eyeColor);
         }
 
         if (event.data.type == "menutotals") {
@@ -81,7 +105,8 @@ $(function () {
             let textureTotal = event.data.textureTotal;
             let headoverlayTotal = event.data.headoverlayTotal;
             let skinTotal = event.data.skinTotal;
-            UpdateTotals(drawTotal, propDrawTotal, textureTotal, headoverlayTotal, skinTotal);
+            let fadeTotal = event.data.fadeTotal;
+            UpdateTotals(drawTotal, propDrawTotal, textureTotal, headoverlayTotal, skinTotal, fadeTotal);
         }
         if (event.data.type == "clothing_shopdata") {
             let drawables = event.data.drawables;
@@ -89,7 +114,8 @@ $(function () {
             let drawtextures = event.data.drawtextures;
             let proptextures = event.data.proptextures;
             let skin = event.data.skin;
-            UpdateInputs(drawables, props, drawtextures, proptextures, skin);
+            let currentFade = event.data.currentFade;
+            UpdateInputs(drawables, props, drawtextures, proptextures, skin, currentFade);
         }
 
         if (event.data.type == "barber_shop") {
@@ -130,14 +156,22 @@ $(function () {
     };
 
     $('#save').on('click', function() {
-        CloseMenu(true)
+        CloseMenu(true, 'cash')
+        $.post('https://raid_clothes/prop_shit', JSON.stringify({}))
+    })
+    $('#save-bank').on('click', function() {
+        CloseMenu(true, 'bank')
     })
     $('#discard').on('click', function() {
         CloseMenu(false)
     })
 
-    function CloseMenu(save) {
-        $.post('https://raid_clothes/escape', JSON.stringify({save:save}));
+    function CloseMenu(save, paymentType) {
+        $.post('https://raid_clothes/escape', JSON.stringify({
+          save: save,
+          paymentType,
+          fadeStyle: $('#fadeStyle').find('.input-number').eq(0).val()
+        }));
     }
 
     $(document).on('contextmenu', function() {
@@ -155,7 +189,7 @@ $(function () {
         t.fadeIn(100);
     })
 
-    function UpdateTotals(drawTotal, propDrawTotal, textureTotal, headoverlayTotal, skinTotal) {
+    function UpdateTotals(drawTotal, propDrawTotal, textureTotal, headoverlayTotal, skinTotal, fadeTotal) {
         for (var i = 0; i < Object.keys(drawTotal).length; i++) {
             if (drawTotal[i][0] == "hair") {
                 $('.hair').each(function() {
@@ -177,12 +211,14 @@ $(function () {
             $("#" + key).find('.total-number').eq(0).text(headoverlayTotal[key]);
         }
 
+        $("#fadeStyle").find('.total-number').eq(0).text(fadeTotal);
+
         let skinConts = $('#skins').find('.total-number');
         skinConts.eq(0).text(skinTotal[0]+1);
         skinConts.eq(1).text(skinTotal[1]+1);
     }
 
-    function UpdateInputs(drawables, props, drawtextures, proptextures, skin) {
+    function UpdateInputs(drawables, props, drawtextures, proptextures, skin, currentFade) {
         for (var i = 0; i < Object.keys(drawables).length; i++) {
             if (drawables[i][0] == "hair") {
                 $('.hair').each(function() {
@@ -202,6 +238,8 @@ $(function () {
         for (var i = 0; i < Object.keys(proptextures).length; i++) {
             $("#" + proptextures[i][0]).find('.input-number').eq(1).val(proptextures[i][1]);
         }
+
+        $('.fadeStyle').find('.input-number').eq(0).val(currentFade);
 
         if (skin['name'] == "skin_male") {
             $('#skin_male').val(skin['value'])
@@ -223,7 +261,6 @@ $(function () {
         input.val(parseInt(input.val()) + 1)
         inputChange(input,true)
     })
-
     $('.input-number').on('input', function () {
         inputChange($(this),true)
     })
@@ -257,28 +294,35 @@ $(function () {
                 $(ele).val(0)
             }
 
-            if(!isService && ($('#skin_female').val() == 1 || $('#skin_male').val() == 1)) {
-                let clothingName = $(ele).parents('.panel').attr('id');
-                let clothingID = parseInt($(ele).val());
-                let isNotValid = true
-                let gender = "male";
-                if($('#skin_female').val() >= 1 && $('#skin_male').val() == 0)
-                    gender = "female";
-
-                if(ele.is(inputs.eq(0)) && whitelisted[gender][clothingName]){
-                    while (isNotValid) {
-                        if(whitelisted[gender][clothingName].indexOf(clothingID) > -1 ){
-                            isNotValid = true
-                            if(inputType){clothingID++;}else{clothingID--;}
-
-                        }
-                        else
-                        {
-                            isNotValid = false;
+            if(($('#skin_female').val() == 1 || $('#skin_male').val() == 1)) {
+                try {
+                    let clothingName = $(ele).parents('.panel').attr('id');
+                    let clothingID = parseInt($(ele).val());
+                    let isNotValid = true
+                    let gender = "male";
+                    if($('#skin_female').val() >= 1 && $('#skin_male').val() == 0)
+                        gender = "female";
+                    if(ele.is(inputs.eq(0)) && (whitelisted[gender][clothingName] || hiddenItems[gender][clothingName])) {
+                        while (isNotValid) {
+                            if(
+                                (!isService && whitelisted[gender][clothingName] && whitelisted[gender][clothingName].indexOf(clothingID) > -1)
+                              || (hiddenItems[gender][clothingName] && hiddenItems[gender][clothingName].indexOf(clothingID) > -1)
+                            ) {
+                                isNotValid = true
+                                if(inputType) {
+                                  clothingID++;
+                                } else {
+                                  clothingID--;
+                                }
+                            }
+                            else
+                            {
+                                isNotValid = false;
+                            }
                         }
                     }
-                }
-                $(ele).val(clothingID)
+                    $(ele).val(clothingID)
+                } catch (err) {}
             }
 
             if ($(ele).parents('.panel').attr('id') == "skins") {
@@ -334,6 +378,9 @@ $(function () {
                     SaveHeadBlend();
                     break;
                 case "button-appear":
+                case "button-faceshape":
+                    SaveEyeColor();
+                    break;
                 case "button-hair":
                 case "button-features":
                     SaveHeadOverlay(ele);
@@ -517,6 +564,16 @@ $(function () {
 
     function SaveFaceShape(ele) {
         $.post('https://raid_clothes/savefacefeatures', JSON.stringify({name: ele.attr('data-value'), scale: ele.val()}))
+    }
+
+    function SetEyeColor(data) {
+        $('#eyeColorVal').val(data)
+    }
+    
+    function SaveEyeColor() {
+        $.post('https://raid_clothes/saveeyecolor', JSON.stringify({
+            eyeColor: $('#eyeColorVal').val(),
+        }));
     }
 
     function SetupHeadStructure(data) {

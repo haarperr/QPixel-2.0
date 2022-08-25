@@ -5,6 +5,7 @@ local cam = false
 local customCam = false
 local oldPed = false
 local startingMenu = false
+local inStore = false
 
 local drawable_names = {"face", "masks", "hair", "torsos", "legs", "bags", "shoes", "neck", "undershirts", "vest", "decals", "jackets"}
 local prop_names = {"hats", "glasses", "earrings", "mouth", "lhand", "rhand", "watches", "braclets"}
@@ -25,33 +26,23 @@ local MenuData = {
         basePrice = 200
     },
     barber_shop = {
-        text = "To actually get some bitches",
+        text = "Fix your ugly mug",
         displayName = "Barber Shop",
         basePrice = 200
     },
-   tattoo_shop = {
-       text = "Get tattoos",
+    tattoo_shop = {
+        text = "Become edgy",
         displayName = "Tattoo Parlor",
         basePrice = 200
     }
 }
 
-function GetSkinSex(pEntity)
-    for i, v in ipairs(frm_skins) do
-        if (GetHashKey(v) == GetEntityModel(pEntity)) then
-            return "male"
-        end
-    end
-    for i, v in ipairs(fr_skins) do
-        if (GetHashKey(v) == GetEntityModel(pEntity)) then
-            return "female"
-        end
-    end
-    return "male"
-end
-
-
 local listening = false
+
+
+function isNearClothing()
+    return inStore
+end
 
 function RefreshUI()
     hairColors = {}
@@ -70,7 +61,8 @@ function RefreshUI()
         type="colors",
         hairColors=hairColors,
         makeupColors=makeupColors,
-        hairColor=GetPedHair()
+        hairColor=GetPedHair(),
+        eyeColor=GetPedEyeColor(player)
     })
     SendNUIMessage({
         type = "menutotals",
@@ -98,7 +90,7 @@ function RefreshUI()
     SendNUIMessage({
         type = "tattoo_shop",
         totals = tatCategory,
-        values = GetTats(),
+        values = GetTats()
     })
 end
 
@@ -226,22 +218,6 @@ function GetSkinTotal()
   }
 end
 
-
-local HasCahinOn = false
-AddEventHandler("desirerp-inventory:itemUsed", function(pItem)
-    if pItem == "mdmchain" then
-        TriggerEvent("animation:PlayAnimation", "veston")
-        Wait(2600)
-        if not HasCahinOn then
-            HasCahinOn = true
-            TriggerEvent("attachProp", 'mdm_chain', 10706, -0.02, 0.02, -0.06, -366.0, 19.0, -163.0, true, true)
-        else
-            TriggerEvent("destroyProp")
-            HasCahinOn = false
-        end
-    end
-end)
-
 local toggleClothing = {}
 function ToggleProps(data)
     local name = data["name"]
@@ -331,7 +307,7 @@ function LoadPed(data)
     SetPedHeadBlend(data.headBlend)
     SetHeadStructure(data.headStructure)
     SetHeadOverlayData(data.headOverlay)
-    SetTats(GetTats())
+    SetPedEyeColor(player, tonumber(data.eyeColor))
     return
 end
 
@@ -347,6 +323,7 @@ function GetCurrentPed()
         props = GetProps(),
         drawtextures = GetDrawTextures(),
         proptextures = GetPropTextures(),
+        eyeColor = GetPedEyeColor(player),
     }
 end
 
@@ -384,49 +361,6 @@ AddEventHandler("raid_clothes:inSpawn", function(pInSpawn)
     inSpawn = pInSpawn
 end)
 
-local statusS = false
-RegisterNetEvent("raid_clothes:Spawning")
-AddEventHandler("raid_clothes:Spawning", function(pStatus)
-    statusS = pStatus
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        if statusS == true then
-            TriggerServerEvent("desirerp-spawn:inspawn", true)
-        end
-    end
-end)
-
-local hairTied = false
-local currentHairStyle = nil
-local supportedModels = {
-  [`mp_f_freemode_01`] = 4,
-  [`mp_m_freemode_01`] = 2,
-}
-AddEventHandler("desirerp-inventory:itemUsed", function(item)
-  if item ~= "hairtie" then return end
-  local hairValue = supportedModels[GetEntityModel(PlayerPedId())]
-  if hairValue == nil then return end
-  TriggerEvent("animation:PlayAnimation", "hairtie")
-  Wait(1000)
-  if not hairTied then
-    hairTied = true
-    local draw = GetPedDrawableVariation(PlayerPedId(), 2)
-    local text = GetPedTextureVariation(PlayerPedId(), 2)
-    local pal = GetPedPaletteVariation(PlayerPedId(), 2)
-    currentHairStyle = { draw, text, pal }
-    SetPedComponentVariation(PlayerPedId(), 2, hairValue, text, pal)
-  else
-    hairTied = false
-    SetPedComponentVariation(PlayerPedId(), 2, currentHairStyle[1], currentHairStyle[2], currentHairStyle[3])
-  end
-end)
-
-
-
-
 function SetSkin(model, setDefault)
     -- TODO: If not isCop and model not in copModellist, do below.
     -- Model is a hash, GetHashKey(modelName)
@@ -462,6 +396,7 @@ function SetSkin(model, setDefault)
         end
     end
     SetEntityInvincible(PlayerPedId(),false)
+    TriggerEvent("Animation:Set:Reset")
 end
 
 
@@ -469,6 +404,9 @@ RegisterNUICallback('updateclothes', function(data, cb)
     toggleClothing[data["name"]] = nil
     selectedValue = has_value(drawable_names, data["name"])
     if (selectedValue > -1) then
+        if data["name"] == "face" and tonumber(data["value"]) == -1 then
+            return
+        end
         SetPedComponentVariation(player, tonumber(selectedValue), tonumber(data["value"]), tonumber(data["texture"]), 2)
         cb({
             GetNumberOfPedTextureVariations(player, tonumber(selectedValue), tonumber(data["value"]))
@@ -649,6 +587,15 @@ RegisterNUICallback('savehaircolor', function(data, cb)
     SetPedHairColor(player, tonumber(data['firstColour']), tonumber(data['secondColour']))
 end)
 
+RegisterNUICallback('saveeyecolor', function(data, cb)
+    local color = tonumber(data['eyeColor'])
+    if (color == 255) then
+        color = 0
+    end
+    SetPedEyeColor(player, color)
+    cb('ok')
+end)
+
 RegisterNUICallback('savefacefeatures', function(data, cb)
     local index = has_value(face_features, data["name"])
     if (index <= -1) then return end
@@ -696,7 +643,8 @@ function EnableGUI(enable, menu, pPriceText, pPrice,disableDestroyCams)
         enable = enable,
         menu = menu,
         priceText = pPriceText,
-        price = pPrice
+        price = pPrice,
+        isService = isService
     })
 
     if (not enable and not startingMenu) then
@@ -801,18 +749,18 @@ AddEventHandler("clothing:close", function()
 end)
 
 RegisterNUICallback('escape', function(data, cb)
+    TriggerEvent('attachedItems:block', false)
     local shouldSave = data['save'] or false
     if shouldSave and currentPrice > 0 then
-        TriggerServerEvent("clothing:checkMoney", currentPrice)
-        if exports["isPed"]:isPed("mycash") < currentPrice then 
+        local purchaseSuccess = RPC.execute("clothing:purchase", currentPrice)
+        if not purchaseSuccess then 
+            TriggerEvent("DoLongHudText", "You don't have enough money!", 2)
             shouldSave = false
         end
     end
-    print(startingMenu)
-    if not startingMenu then
-        TriggerServerEvent("police:SetMeta")
-    end
     Save(shouldSave,true)
+    Citizen.Wait(750)
+    TriggerEvent("AttachWeapons")
     cb('ok')
 end)
 
@@ -895,15 +843,8 @@ end)
 -- Main menu
 
 function OpenMenu(name, pPriceText, pPrice)
-    if name == "tattoo_shop" then
-        TriggerServerEvent("raid_clothes:retrieve_tats")
-        while currentTats == nil do
-            Citizen.Wait(1)
-        end
-    end
     player = PlayerPedId()
     oldPed = GetCurrentPed()
-
     local isAllowed = false
     if(oldPed.model == 1885233650 or oldPed.model == -1667301416) then isAllowed = true end
     if((oldPed.model ~= 1885233650 or oldPed.model ~= -1667301416) and (name == "clothing_shop" or name == "tattoo_shop")) then isAllowed = true end
@@ -922,8 +863,7 @@ function Save(save, close)
     if save then
 
         data = GetCurrentPed()
-        local ped = PlayerPedId()
-        NetworkSetEntityInvisibleToNetwork(ped,false)
+        
         if (GetCurrentPed().model == GetHashKey("mp_f_freemode_01") or GetCurrentPed().model == GetHashKey("mp_m_freemode_01")) and startingMenu then
             -- nothing 
         else
@@ -933,6 +873,7 @@ function Save(save, close)
 
         if not startingMenu or passedClothing then
             TriggerServerEvent("raid_clothes:insert_character_current", data)
+            
             TriggerServerEvent("raid_clothes:insert_character_face", data)
             TriggerServerEvent("raid_clothes:set_tats", currentTats)
             TriggerEvent("desirerp-spawn:finishedClothing","Finished")
@@ -946,7 +887,6 @@ function Save(save, close)
     else
         TriggerEvent("desirerp-spawn:finishedClothing","Old")
         LoadPed(oldPed)
-        
     end
 
     if close then
@@ -957,47 +897,31 @@ function Save(save, close)
     TriggerEvent("ressurection:relationships:norevive")
     TriggerEvent("gangs:setDefaultRelations")
     TriggerEvent("facewear:update")
-    TriggerServerEvent('desirerp-weapons:getAmmo')
+    TriggerEvent('desirerp-weapons:getAmmo')
     CustomCamera('torso',true)
+    TriggerEvent("e-blips:updateAfterPedChange",exports["isPed"]:isPed("myjob"))
     startingMenu = false
 end
 
 local showBarberShopBlips = false
-local showTattoShopBlips = false
+local showTattooShopBlips = false
 
-RegisterNetEvent('hairDresser:ToggleHair')
-AddEventHandler('hairDresser:ToggleHair', function()
-   showBarberShopBlips = not showBarberShopBlips
-   for _, item in pairs(barberShops) do
-        if not showBarberShopBlips then
-            if item.blip ~= nil then
-                RemoveBlip(item.blip)
-            end
-        else
-            item.blip = AddBlipForCoord(item[1], item[2], item[2])
-            SetBlipScale(item.blip, 0.7)
-            SetBlipSprite(item.blip, 71)
-            SetBlipColour(item.blip, 10)
-            SetBlipAsShortRange(item.blip, true)
-            BeginTextCommandSetBlipName("STRING")
-            AddTextComponentString("Barber Shop")
-            EndTextCommandSetBlipName(item.blip)
-        end
-    end
+RegisterNetEvent('raid_clothes:saveCharacterClothes')
+AddEventHandler('raid_clothes:saveCharacterClothes', function()
+    local data = GetCurrentPed()
+    TriggerServerEvent("raid_clothes:insert_character_current", data)
 end)
 
-
-RegisterNetEvent('Tattos:ToggleBlips')
-AddEventHandler('Tattos:ToggleBlips', function()
-    showTattoShopBlips = not showTattoShopBlips
+RegisterNetEvent('tattoo:ToggleTattoo')
+AddEventHandler('tattoo:ToggleTattoo', function()
+   showTattooShopBlips = not showTattooShopBlips
    for _, item in pairs(tattoosShops) do
-        if not showTattoShopBlips then
+        if not showTattooShopBlips then
             if item.blip ~= nil then
                 RemoveBlip(item.blip)
             end
         else
             item.blip = AddBlipForCoord(item[1], item[2], item[2])
-            SetBlipScale(item.blip, 0.7)
             SetBlipSprite(item.blip, 75)
             SetBlipColour(item.blip, 1)
             SetBlipAsShortRange(item.blip, true)
@@ -1009,13 +933,9 @@ AddEventHandler('Tattos:ToggleBlips', function()
 end)
 
 function addBlips()
+    showBarberShopBlips = true
     TriggerEvent('hairDresser:ToggleHair')
-    TriggerEvent('Tattos:ToggleBlips')
 end
-
-AddEventHandler("desirerp-base:initialSpawnModelLoaded", function()
-    TriggerServerEvent("clothing:checkIfNew")
-end)
 
 RegisterNetEvent("raid_clothes:inService")
 AddEventHandler("raid_clothes:inService", function(service)
@@ -1032,6 +952,17 @@ AddEventHandler("raid_clothes:hasEnough", function(menu)
     end
 
     OpenMenu(menu)
+end)
+
+
+RegisterNetEvent("raid_clothes:admin:open")
+AddEventHandler("raid_clothes:admin:open", function(name)
+    OpenMenu(name)
+end)
+
+RegisterNetEvent("raid_clothes:police:open")
+AddEventHandler("raid_clothes:police:open", function(name)
+    OpenMenu(name)
 end)
 
 RegisterNetEvent("raid_clothes:setclothes")
@@ -1054,9 +985,9 @@ AddEventHandler("raid_clothes:setclothes", function(data,alreadyExist)
 	TriggerEvent("facewear:update")
     TriggerServerEvent("raid_clothes:get_character_face")
     TriggerServerEvent("raid_clothes:retrieve_tats")
-    TriggerServerEvent("police:getAnimData")
     TriggerServerEvent("police:SetMeta")
-
+    TriggerEvent("Animation:Set:Reset")
+    TriggerEvent("e-blips:updateAfterPedChange",exports["isPed"]:isPed("myjob"))
 end)
 
 RegisterNetEvent("raid_clothes:AdminSetModel")
@@ -1068,20 +999,17 @@ end)
 
 RegisterNetEvent("raid_clothes:defaultReset")
 AddEventHandler("raid_clothes:defaultReset", function()
-    DoScreenFadeOut(10)
     local LocalPlayer = exports["desirerp-base"]:getModule("LocalPlayer")
     local gender = LocalPlayer:getCurrentCharacter().gender
+    Citizen.Wait(1000)
     if gender ~= 0 then
         SetSkin(`mp_f_freemode_01`, true)
     else
         SetSkin(`mp_m_freemode_01`, true)
     end
-    DoScreenFadeIn(2500)
-    SetEntityCoords(PlayerPedId(), -474.53564453125, -670.66833496094, 11.809024810791)
-    SetEntityHeading(PlayerPedId(), 359.04397583008)
-
-    TriggerEvent("raid_clothes:openClothing")
-    TriggerEvent("raid_clothes:inSpawn", true)
+    OpenMenu("clothing_shop")
+    startingMenu = true
+    passedClothing = false
 end)
 
 RegisterNetEvent("raid_clothes:settattoos")
@@ -1113,8 +1041,8 @@ AddEventHandler("raid_clothes:setpedfeatures", function(data)
         false)
     SetHeadStructure(data.headStructure)
     SetPedHairColor(player, tonumber(haircolor[1]), tonumber(haircolor[2]))
+    SetPedEyeColor(player, tonumber(data.eyeColor))
     SetHeadOverlayData(data.headOverlay)
-    TriggerServerEvent("raid_clothes:retrieve_tats")
 end)
 
 function DisplayHelpText(str)
@@ -1123,10 +1051,113 @@ function DisplayHelpText(str)
     DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 end
 
+RegisterNetEvent('raid_clothes:outfits')
+AddEventHandler('raid_clothes:outfits', function(pAction, pId, pName)
+    if pAction == 1 then
+        TriggerServerEvent("raid_clothes:set_outfit",pId, pName, GetCurrentPed())
+    elseif pAction == 2 then
+        TriggerServerEvent("raid_clothes:remove_outfit",pId)
+    elseif pAction == 3 then 
+        --TriggerEvent("hud:saveCurrentMeta")
+        TriggerEvent('item:deleteClothesDna')
+        TriggerEvent('InteractSound_CL:PlayOnOne','Clothes1', 0.6)
+        TriggerServerEvent("raid_clothes:get_outfit", pId)
+    else
+        TriggerServerEvent("raid_clothes:list_outfits")
+    end
+end)
+
+RegisterInterfaceCallback("desirerp-ui:raid_clothes:addOutfitPrompt", function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+    Wait(1) --wait to fix ui bug?
+    exports['desirerp-interface']:openApplication('textbox', {
+        callbackUrl = 'desirerp-ui:raid_clothes:addOutfit',
+        key = 1,
+        items = {
+            {
+                icon = "pencil-alt",
+                label = "Outfit Number",
+                name = "outfitSlot",
+            },
+            {
+                icon = "pencil-alt",
+                label = "Outfit Name",
+                name = "outfitName",
+            },
+        },
+        show = true,
+    })
+end)
+
+RegisterInterfaceCallback("desirerp-ui:raid_clothes:addOutfit", function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+    local outfitSlot = data.values.outfitSlot
+    local outfitName = data.values.outfitName
+    if outfitName == nil then outfitName = "Outfit" end
+    
+    TriggerServerEvent("raid_clothes:set_outfit", outfitSlot, outfitName, GetCurrentPed())
+end)
+
+RegisterInterfaceCallback("desirerp-ui:raid_clothes:changeOutfit", function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = 'done' } })
+    TriggerEvent('hotel:outfit', { true, data.key }, 3)
+    exports["desirerp-ui"]:hideContextMenu()
+end)
+
+RegisterInterfaceCallback("desirerp-ui:raid_clothes:deleteOutfit", function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = 'done' } })
+    TriggerEvent('hotel:outfit', { true, data.key }, 2)
+    exports["desirerp-ui"]:hideContextMenu()
+end)
+
+RegisterNetEvent('raid_clothes:ListOutfits')
+AddEventHandler('raid_clothes:ListOutfits', function(skincheck)
+    local menuData = {}
+    local takenSlots = {}
+    for i = 1, #skincheck do
+        local slot = tonumber(skincheck[i].slot)
+        takenSlots[slot] = true
+        menuData[#menuData + 1] = {
+            title = slot .. " | " .. skincheck[i].name,
+            description = '',
+            key = slot,
+            children = {
+                { title = "Change Outfit", action = "desirerp-ui:raid_clothes:changeOutfit", key = slot},
+                { title = "Delete Outfit", action = "desirerp-ui:raid_clothes:deleteOutfit", key = slot},
+            }
+        }
+    end
+    if #menuData >= 0 then
+        if #menuData < 20 then
+            --Find first empty slot
+            local emptySlot = -1
+            for i=1,10 do
+                if emptySlot == -1 and takenSlots[i] == nil then
+                    emptySlot = i
+                end
+            end
+            menuData[#menuData + 1] = {
+                title = "Save Current Outfit",
+                description = '',
+                key = emptySlot,
+                action = "desirerp-ui:raid_clothes:addOutfitPrompt"
+            }
+        end
+        exports['desirerp-interface']:showContextMenu(menuData)
+    else
+        TriggerEvent("DoLongHudText", "No saved outfits", 2)
+    end
+end)
+
+-- LoadPed(data) Sets clothing based on the data structure given, the same structure that GetCurrentPed() returns
+-- GetCurrentPed() Gives you the data structure of the currently worn clothes
 
 function SetCustomNuiFocus(hasKeyboard, hasMouse)
   HasNuiFocus = hasKeyboard or hasMouse
   SetNuiFocus(hasKeyboard, hasMouse)
+  --SetNuiFocusKeepInput(HasNuiFocus)
+
+  -- TriggerEvent("desirerp-voice:focus:set", HasNuiFocus, hasKeyboard, hasMouse)
 end
 
 
@@ -1154,15 +1185,22 @@ end)
 local function listenForKeypress(zoneName, zoneData, isFree)
     listening = true
     Citizen.CreateThread(function()
+        local priceWithTax = RPC.execute("PriceWithTaxString1", zoneData.basePrice, "Services")
+        local currentCash = RPC.execute("getCurrentCashPlayer")
+
         while listening do
             if IsControlJustReleased(0, 244) then
                 if zoneName == "tattoo_shop" then
+                    -- TODO: Make this not retarded, use RPC please FOR THE LOVE OF FUCKING GOD
                     TriggerServerEvent("raid_clothes:retrieve_tats")
                     while currentTats == nil do
                         Citizen.Wait(0)
                     end
                 end
-                OpenMenu(zoneName, 0, 0)
+                currentPrice = isFree and 0 or priceWithTax.total
+                priceWithTax.text = isFree and 0 or priceWithTax.text
+                OpenMenu(zoneName, priceWithTax.text, currentPrice)
+                TriggerEvent('attachedItems:block', true)
 
                 exports['desirerp-interface']:hideInteraction()
             end
@@ -1171,18 +1209,22 @@ local function listenForKeypress(zoneName, zoneData, isFree)
     end)
 end
 
-RegisterNetEvent("raid_clothes:admin:open", function(pShop)
-    OpenMenu(pShop, 0, 0)
+RegisterNUICallback('prop_shit', function()
+    TriggerEvent('attachedItems:block', false)
 end)
 
 RegisterNetEvent('raid_clothes:openClothing')
 AddEventHandler('raid_clothes:openClothing', function(pDontShowBarber, pShouldCost)
     if pShouldCost ~= nil and pShouldCost then
-        OpenMenu("clothing_shop", 0, 0)
+        local priceWithTax = RPC.execute("PriceWithTaxString", MenuData.clothing_shop.basePrice, "Services")
+        currentPrice = priceWithTax.total
+        priceWithTax.text = priceWithTax.text
+        OpenMenu("clothing_shop", priceWithTax.text, currentPrice)
         startingMenu = false
+        TriggerEvent('attachedItems:block', true)
     else
         currentPrice = 0
-        OpenMenu("clothing_shop", currentPrice, 0)
+        OpenMenu("clothing_shop", '', 0)
         startingMenu = true
     end
     passedClothing = pDontShowBarber or false
@@ -1191,9 +1233,9 @@ end)
 AddEventHandler("desirerp-polyzone:enter", function(zone, data)
     local currentZone = MenuData[zone]
     if currentZone then
-        exports['desirerp-interface']:showInteraction('[M] '..MenuData[zone].text..'')
-        TriggerEvent("raid_clothes:enable", true)
+        exports['desirerp-interface']:showInteraction(("[M] %s"):format(currentZone.text))
         listenForKeypress(zone, currentZone, ((data and data.isFree) and true or false))
+        inStore = true
     end
 end)
 
@@ -1201,172 +1243,210 @@ AddEventHandler("desirerp-polyzone:exit", function(zone)
     local currentZone = MenuData[zone]
     if currentZone then
         listening = false
-        TriggerEvent("raid_clothes:enable", false)
+        exports['desirerp-interface']:hideInteraction()
+        inStore = false
     end
 end)
 
-RegisterNetEvent('raid_clothes:outfits')
-AddEventHandler('raid_clothes:outfits', function(pAction, pId, pName)
-    if pAction == 1 then
-        TriggerServerEvent("raid_clothes:set_outfit",pId, pName, GetCurrentPed())
-    elseif pAction == 2 then
-        TriggerServerEvent("raid_clothes:remove_outfit",pId)
-    elseif pAction == 3 then 
-        TriggerEvent('item:deleteClothesDna')
-        TriggerEvent('InteractSound_CL:PlayOnOne','Clothes1', 0.6)
-        TriggerServerEvent("raid_clothes:get_outfit", pId)
-    else
-        TriggerEvent("hud:saveCurrentMeta")
-        TriggerServerEvent("raid_clothes:list_outfits")
-    end
-end)
-
-RegisterCommand("g1", function(source, args, rawCommand)
-    TriggerEvent("facewear:adjust",2,false)
-end, false)
-
-RegisterCommand("g0", function(source, args, rawCommand)
-    TriggerEvent("facewear:adjust",2,true)
-end, false)
-
-
-
-RegisterCommand("m1", function(source, args, rawCommand)
-    TriggerEvent("facewear:adjust",4,false)
-end, false)
-
-RegisterCommand("m0", function(source, args, rawCommand)
-    TriggerEvent("facewear:adjust",4,true)
-end, false)
-
--- RegisterCommand("t1", function(source, args, rawCommand)
---     TriggerEvent("facewear:adjust",5,false)
--- end, false)
-
--- RegisterCommand("t0", function(source, args, rawCommand)
---     TriggerEvent("facewear:adjust",5,true)
--- end, false)
-
-RegisterCommand("h1", function(source, args, rawCommand)
-    TriggerEvent("facewear:adjust",6,false)
-end, false)
-
-RegisterCommand("h0", function(source, args, rawCommand)
-    TriggerEvent("facewear:adjust",6,true)
-end, false)
-
-
-RegisterNetEvent('raid_clothes:enable')
-AddEventHandler('raid_clothes:enable', function(status)
-    actionDress = status
-end)
-
-RegisterCommand("outfitadd", function(source, args, rawCommand)
-    if actionDress == true then
-        if args[1] and args[2] then
-            TriggerEvent('raid_clothes:outfits', 1, args[1], args[2])
-        else
-            TriggerEvent('DoLongHudText', "You need to do something like /outfitadd 1 party | 1 being the slot id, party is the name of your outfit", 1)
-        end
-    else
-        TriggerEvent('DoLongHudText', "You are not near a wardrobe", 2)
-    end
-end, false)
-
-RegisterCommand("outfits", function(source, args, rawCommand)
-    if actionDress == true then
-        TriggerEvent('raid_clothes:outfits', 4)
-    else
-        TriggerEvent('DoLongHudText', "You are not near a wardrobe", 2)
-    end
-end, false)  
-
-
-
-RegisterNetEvent("raid_clothes:list:outfits")
-AddEventHandler("raid_clothes:list:outfits", function(data)
-    TriggerServerEvent("raid_clothes:options:oufits", data.slot)
-end)
-
-
-RegisterNetEvent("raid_clothes:use:outfit")
-AddEventHandler("raid_clothes:use:outfit", function(data)
-    TriggerServerEvent("raid_clothes:get_outfit", data.slot)
-end)
-
-RegisterNetEvent("raid_clothes:remove:outfit")
-AddEventHandler("raid_clothes:remove:outfit", function(data)
-    TriggerServerEvent("raid_clothes:remove_outfit", data.slot)
-end)
-
-
-RegisterNetEvent("raid_clothes:return", function()
-    TriggerEvent("hud:saveCurrentMeta")
-    TriggerServerEvent("raid_clothes:list_outfits")
-end)
-
-RegisterNetEvent("raid_clothes:attempt:change", function(data)
-    local pNewName = exports["desirerp-applications"]:KeyboardInput({
-        header = "New outfit name",
-        rows = {
-            {
-                id = 0,
-                txt = "What do you want to rename it to?"
-            },
-        }
-    })
-    if pNewName then
-        TriggerServerEvent('raid_clothes:attempt:change',  data.slot, pNewName[1].input)
-    else
-        TriggerEvent("DoLongHudText", "Name cannot be blank", 2)
-    end
-end)
-local Clothing = {
-    {-162.658, -303.397, 39.733},
-    {75.950, -1392.891, 29.376},
-    {-822.194, -1074.134, 11.328},
-    {-1450.711, -236.83, 49.809},
-    {4.254, 6512.813, 31.877},
-    {615.180, 2762.933, 44.088},
-    {1196.785, 2709.558, 38.222},
-    {-3171.453, 1043.857, 20.863},
-    {-1100.959, 2710.211, 19.107},
-    {-1192.9453125, -772.62481689453, 17.3254737854},
-    {-707.33416748047, -155.07914733887, 37.415187835693},
-    {1683.45667, 4823.17725, 42.1631294},
-    {121.76, -224.6, 54.56},
-    {-1207.5267333984, -1456.9530029297, 4.3763856887817},
-    {425.29736328125, -806.68359375, 29.491121292114}
+local hairTied = false
+local currentHairStyle = nil
+local supportedModels = {
+  [`mp_f_freemode_01`] = 4,
+  [`mp_m_freemode_01`] = 2,
 }
-
-local showClothes = true
-
-RegisterNetEvent('clothing:blips')
-AddEventHandler('clothing:blips', function()
-    showClothes = not showClothes
-   for _, item in pairs(Clothing) do
-        if not showClothes then
-            if item.blip ~= nil then
-                RemoveBlip(item.blip)
-            end
-        else
-            item.blip = AddBlipForCoord(item[1], item[2], item[3])
-            SetBlipSprite(item.blip, 73)
-            SetBlipScale(item.blip, 0.7)
-			SetBlipColour(item.blip, 3)
-            SetBlipAsShortRange(item.blip, true)
-            BeginTextCommandSetBlipName("STRING")
-            AddTextComponentString("Clothing Store")
-            EndTextCommandSetBlipName(item.blip)
-        end
+AddEventHandler("desirerp-inventory:itemUsed", function(item)
+    if item ~= "hairtie" then return end
+    local hairValue = supportedModels[GetEntityModel(PlayerPedId())]
+    if hairValue == nil then return end
+    TriggerEvent("animation:PlayAnimation", "hairtie")
+    Wait(1000)
+    if not hairTied then
+        hairTied = true
+        local draw = GetPedDrawableVariation(PlayerPedId(), 2)
+        local text = GetPedTextureVariation(PlayerPedId(), 2)
+        local pal = GetPedPaletteVariation(PlayerPedId(), 2)
+        currentHairStyle = { draw, text, pal }
+        SetPedComponentVariation(PlayerPedId(), 2, hairValue, text, pal)
+    else
+        hairTied = false
+        SetPedComponentVariation(PlayerPedId(), 2, currentHairStyle[1], currentHairStyle[2], currentHairStyle[3])
     end
 end)
 
-Citizen.CreateThread(function()
-    showClothes = false
-    TriggerEvent('clothing:blips')
+
+
+---- WIP----
+local inmenucustom = false
+RegisterNetEvent("raid_clothes:setclothessss")
+AddEventHandler("raid_clothes:setclothessss", function(data,alreadyExist)
+    player = PlayerPedId()
+    -- local function setDefault()
+    --     --- decapritated function
+    -- end
+    Citizen.Wait(500)
+    SetClothing(data.drawables, data.props, data.drawtextures, data.proptextures)
+    Citizen.Wait(500)
+	TriggerEvent("facewear:update")
+    TriggerServerEvent("raid_clothes:get_character_face")
+    TriggerServerEvent("raid_clothes:retrieve_tats")
+    TriggerEvent("Animation:Set:Reset")
+    TriggerEvent("e-blips:updateAfterPedChange",exports["isPed"]:isPed("myjob"))
 end)
 
+RegisterCommand('clearprops', function()
+    SetSkin(GetEntityModel(PlayerPedId()), true)
+    TriggerServerEvent("clothing:checkIfNew") 
+end)
+
+--- addd pricing adding function
+RegisterNetEvent("raid_clothes:set_sale_outfit")
+AddEventHandler("raid_clothes:set_sale_outfit", function(name,price)
+    if name and price then
+        TriggerServerEvent("raid_clothes:set_outfit_for_sale", name, price, GetCurrentPed())
+    end
+end)
+
+RegisterNetEvent("raid_clothes_get_meta")
+AddEventHandler("raid_clothes_get_meta", function(name)
+    RPC.execute("raid_clothes:get_custom_outfits_confirmation",name)
+end)
+
+RegisterNetEvent("raid_clothes:open_customs")
+AddEventHandler("raid_clothes:open_customs", function()
+    inmenucustom = true
+    RPC.execute("raid_clothes:get_custom_outfits")
+    TriggerServerEvent("raid_clothes:get_character_current_for_customs")
+end)
+
+RegisterNetEvent("clothing:client:thinkingstarts")
+AddEventHandler("clothing:client:thinkingstarts", function()
+    -- TriggerServerEvent("raid_clothes:get_character_current_for_customs")
+    -- RPC.execute("raid_clothes:get_custom_outfits")
+end)
+
+RegisterNetEvent("raid_clothes:bought_customs")
+AddEventHandler("raid_clothes:bought_customs", function(id)
+    inmenucustom = false
+    RPC.execute("raid_clothes:bought_customs",id)
+end)
+
+RegisterNetEvent("desirerp-context:closeglobal")
+AddEventHandler("desirerp-context:closeglobal", function()
+    if inmenucustom then
+        inmenucustom = false
+        TriggerServerEvent("raid_clothes:get_character_current_for_customs")
+    end
+end)
+
+RegisterNetEvent("raid_clothes:save_customs")
+AddEventHandler("raid_clothes:save_customs", function()
+    local data = {
+        {
+            title = "Put Outfit For Sale",
+            description = "",
+            key = true,
+            action = "desirerp-ui:raid_clothes:CustomaddOutfitPrompt"
+        },
+    }
+
+    exports["desirerp-interface"]:showContextMenu(data)
+end)
+
+RegisterInterfaceCallback("desirerp-ui:raid_clothes:CustomaddOutfitPrompt", function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = 'done' } })
+    Wait(1) --wait to fix ui bug?
+    exports['desirerp-ui']:openApplication('textbox', {
+        callbackUrl = 'desirerp-ui:raid_clothes:addCustomOutfit',
+        key = data.key,
+        items = {
+            {
+                icon = "pencil-alt",
+                label = "Outfit Name",
+                name = "outfitName",
+            },
+            {
+                icon = "pencil-alt",
+                label = "Outfit Price",
+                name = "outfitSlot",
+            },           
+        },
+        show = true,
+    })
+end)
+
+RegisterInterfaceCallback("desirerp-ui:raid_clothes:addCustomOutfit", function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+    exports['desirerp-ui']:closeApplication('textbox')
+    local Name = data[1].value
+    local Price = data[2].value
+    -- if outfitName == nil then outfitName = "" end
+    SetNuiFocus(false, false)
+    exports["desirerp-ui"]:hideContextMenu()
+    --TriggerServerEvent("raid_clothes:set_outfit", outfitSlot, outfitName, GetCurrentPed())
+    TriggerEvent("raid_clothes:set_sale_outfit",Name,Price)
+    SetNuiFocus(false, false)
+end)
+
+
+
+
+
+-- Small and simple 
+-- TO DO : Change the inventory picture on shared list , Add a custom chain texture  
+
+  local AllowedPeds = {
+    [`mp_f_freemode_01`] = 4,
+    [`mp_m_freemode_01`] = 2,
+  }
+
+  local isChainOn = false
+
+
+  -- chains start
+
+  RegisterNetEvent("zyloz:togglechain") -- hoodlums
+  AddEventHandler("zyloz:togglechain", function()
+    local playerPed = PlayerPedId()
+    local allowedmodels = AllowedPeds[GetEntityModel(PlayerPedId())]
+    if allowedmodels then
+    if not isChainOn then
+        TriggerEvent("animation:PlayAnimation", "adjusttie")
+    Wait(2000)
+    isChainOn = true
+    SetPedComponentVariation(PlayerPedId(), 7, 51, 0, 0)
+    else
+        TriggerEvent("animation:PlayAnimation", "adjusttie")
+    Wait(2000)
+    isChainOn = false
+    SetPedComponentVariation(PlayerPedId(), 7, -1, 0, 0)
+   end
+  end
+end)
+
+RegisterNetEvent("zyloz:togglechain2") -- hoodlums
+AddEventHandler("zyloz:togglechain2", function()
+  local playerPed = PlayerPedId()
+  local allowedmodels = AllowedPeds[GetEntityModel(PlayerPedId())]
+  if allowedmodels then
+  if not isChainOn then
+      TriggerEvent("animation:PlayAnimation", "adjusttie")
+  Wait(2000)
+  isChainOn = true
+  SetPedComponentVariation(PlayerPedId(), 7, 51, 0, 0)
+  else
+      TriggerEvent("animation:PlayAnimation", "adjusttie")
+  Wait(2000)
+  isChainOn = false
+  SetPedComponentVariation(PlayerPedId(), 7, -1, 0, 0)
+ end
+end
+end)
+
+RegisterNetEvent('Void:clothing:admin', function()
+    OpenMenu("clothing_shop")
+end)
+
+--// Commands / Events
 
 local facialWear = {
 	[1] = { ["Prop"] = -1, ["Texture"] = -1 },
@@ -1375,32 +1455,8 @@ local facialWear = {
 	[4] = { ["Prop"] = -1, ["Palette"] = -1, ["Texture"] = -1 }, -- this is actually a pedtexture variations, not a prop
 	[5] = { ["Prop"] = -1, ["Palette"] = -1, ["Texture"] = -1 }, -- this is actually a pedtexture variations, not a prop
 	[6] = { ["Prop"] = -1, ["Palette"] = -1, ["Texture"] = -1 }, -- this is actually a pedtexture variations, not a prop
+    [7] = { ["Prop"] = -1, ["Palette"] = -1, ["Texture"] = -1 },
 }
-
-RegisterNetEvent("facewear:update")
-AddEventHandler("facewear:update",function()
-	for i = 0, 3 do
-		if GetPedPropIndex(PlayerPedId(), i) ~= -1 then
-			facialWear[i+1]["Prop"] = GetPedPropIndex(PlayerPedId(), i)
-		end
-		if GetPedPropTextureIndex(PlayerPedId(), i) ~= -1 then
-			facialWear[i+1]["Texture"] = GetPedPropTextureIndex(PlayerPedId(), i)
-		end
-	end
-
-	if GetPedDrawableVariation(PlayerPedId(), 1) ~= -1 then
-		facialWear[4]["Prop"] = GetPedDrawableVariation(PlayerPedId(), 1)
-		facialWear[4]["Palette"] = GetPedPaletteVariation(PlayerPedId(), 1)
-		facialWear[4]["Texture"] = GetPedTextureVariation(PlayerPedId(), 1)
-	end
-
-	if GetPedDrawableVariation(PlayerPedId(), 11) ~= -1 then
-		facialWear[5]["Prop"] = GetPedDrawableVariation(PlayerPedId(), 11)
-		facialWear[5]["Palette"] = GetPedPaletteVariation(PlayerPedId(), 11)
-		facialWear[5]["Texture"] = GetPedTextureVariation(PlayerPedId(), 11)
-	end
-end)
-
 
 RegisterNetEvent("facewear:adjust")
 AddEventHandler("facewear:adjust",function(faceType,remove)
@@ -1410,7 +1466,6 @@ AddEventHandler("facewear:adjust",function(faceType,remove)
 	local AnimationOn = "none"
 	local AnimationOff = "none"
 	local PropIndex = 0
-    local IsMale = GetSkinSex(PlayerPedId()) == "male"
 
 	local AnimSet = "mp_masks@on_foot"
 	local AnimationOn = "put_on_mask"
@@ -1459,6 +1514,11 @@ AddEventHandler("facewear:adjust",function(faceType,remove)
 			AnimationOn = "takeoff_mask"
 			AnimationOff = "takeoff_mask"
 		end
+    elseif faceType == 7 then
+        PropIndex = 9
+        AnimSet = "clothingtie"
+        AnimationOn = "try_tie_positive_a"
+        AnimationOff = "try_tie_positive_a"
 	elseif faceType == 5 then
 		PropIndex = 11
 		AnimSet = "oddjobs@basejump@ig_15"
@@ -1467,8 +1527,6 @@ AddEventHandler("facewear:adjust",function(faceType,remove)
 		--mp_safehouseshower@male@ male_shower_idle_d_towel
 		--mp_character_creation@customise@male_a drop_clothes_a
 		--oddjobs@basejump@ig_15 puton_parachute_bag
-    elseif faceType == "stolenshoes" then
-        PropIndex = 6
 	end
 
 	loadAnimDict( AnimSet )
@@ -1492,7 +1550,7 @@ AddEventHandler("facewear:adjust",function(faceType,remove)
 	else
 		TaskPlayAnim( PlayerPedId(), AnimSet, AnimationOn, 4.0, 3.0, -1, 49, 1.0, 0, 0, 0 )
 		Citizen.Wait(500)
-		if faceType ~= 5 and faceType ~= 2 then
+		if faceType ~= 5 and faceType ~= 2 and faceType ~= 7 then
 			if faceType == 4 then
 				SetPedComponentVariation(PlayerPedId(), PropIndex, facialWear[faceType]["Prop"], facialWear[faceType]["Texture"], facialWear[faceType]["Palette"])
 			else
@@ -1524,53 +1582,121 @@ AddEventHandler("facewear:adjust",function(faceType,remove)
 		Citizen.Wait(1200)
 	end
 
-    if faceType == "stolenshoes" then
-        local bareFootIndex = 34
-    
-        if not IsMale then
-            bareFootIndex = 35
-        end
-    
-        if currentDrawable ~= -1 and currentDrawable ~= bareFootIndex then
-            SetPedComponentVariation(PlayerPedId(), PropIndex, bareFootIndex, 0, -1)
-            TriggerServerEvent("np-clothes:facewearSendItem", pSteal, pType, ItemMeta)
-        end
-    end
+    if faceType == 7 then
+		Citizen.Wait(1500)
+		if remove then
+			facialWear[7]["Prop"] = GetPedDrawableVariation(PlayerPedId(), 9)
+			facialWear[7]["Palette"] = GetPedPaletteVariation(PlayerPedId(), 9)
+			facialWear[7]["Texture"] = GetPedTextureVariation(PlayerPedId(), 9)
+			SetPedComponentVariation(GetPlayerPed(-1), tonumber(PropIndex), 0, 0, false)
+		end
 
+		if not remove then
+			Citizen.Wait(140)
+			-- SetPedPropIndex( PlayerPedId(), tonumber(PropIndex), tonumber(facialWear[PropIndex+1]["Prop"]), tonumber(facialWear[PropIndex+1]["Texture"]), false)
+			SetPedComponentVariation(GetPlayerPed(-1), tonumber(PropIndex), tonumber(facialWear[7]["Prop"]), tonumber(facialWear[7]["Texture"]), false)
+			-- SetPedComponentVariation(GetPlayerPed(-1), tonumber(PropIndex), 4, 0, false)
+		end
+	end
 	ClearPedTasks(PlayerPedId())
 end)
 
+--// Vest Command
 
-function loadAnim( dict )
-    while ( not HasAnimDictLoaded( dict ) ) do
-        RequestAnimDict( dict )
-        Citizen.Wait( 5 )
+RegisterCommand("v0", function(source, args, rawCommand)
+    if GetPedDrawableVariation(PlayerPedId(), 9) ~= 0 then
+        TriggerEvent("facewear:adjust",7,true)
     end
+end, false)
+
+RegisterCommand("v1", function(source, args, rawCommand)
+if GetPedDrawableVariation(PlayerPedId(), 9) == 0 or GetPedDrawableVariation(PlayerPedId(), 9) == -1 then
+    TriggerEvent("facewear:adjust",7,false)
 end
+end, false)
 
+--// Hat Commands
 
-
-function loadAnimDict( dict )
-    while ( not HasAnimDictLoaded( dict ) ) do
-        RequestAnimDict( dict )
-        Citizen.Wait( 5 )
-    end
-end
-
-RegisterNetEvent("shoes:steal")
-AddEventHandler("shoes:steal", function(pArgs, pEntity)
-    if not stoleShoes then
-        stoleShoes = true
-        loadAnimDict("random@domestic")
-        TaskTurnPedToFaceEntity(PlayerPedId(), pEntity, -1)
-        TaskPlayAnim(PlayerPedId(),"random@domestic", "pickup_low",5.0, 1.0, 1.0, 48, 0.0, 0, 0, 0)
-        Citizen.Wait(1600)
-        ClearPedTasks(PlayerPedId())
-        TriggerServerEvent("facewear:adjust", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)), "stolenshoes", true, true)
-        TriggerEvent("player:receiveItem", "-828058162", 2)
-        Citizen.Wait(180000)
-        stoleShoes = false
+RegisterCommand("h1", function(source, args, rawCommand)
+    if exports['desirerp-inventory']:hasEnoughOfItem('hat', 1) then
+        TriggerEvent("facewear:adjust",6,false)
+        TriggerEvent('inventory:removeItem', 'hat', 1)
     else
-        TriggerEvent('DoLongHudText', 'Wait a bit.', 2)
+        TriggerEvent('DoLongHudText', 'You need a hat, get one from the clothing store', 2)
     end
+end, false)
+
+RegisterCommand("h0", function(source, args, rawCommand)
+    if exports['desirerp-inventory']:hasEnoughOfItem('hat', 1) then
+        TriggerEvent("facewear:adjust",6,true)
+    else
+        TriggerEvent('player:receiveItem', "hat", 1)
+        TriggerEvent("facewear:adjust",6,true)
+    end
+end, false)
+
+--// Mask Commands
+
+RegisterCommand("m1", function(source, args, rawCommand)
+    if exports['desirerp-inventory']:hasEnoughOfItem('mask', 1) then
+        TriggerEvent("facewear:adjust",4,false)   
+        TriggerEvent('inventory:removeItem', 'mask', 1)
+    else
+        TriggerEvent('DoLongHudText', 'You need a mask, buy one at the clothing store', 2)
+    end
+end, false)
+
+RegisterCommand("m0", function(source, args, rawCommand)
+    if exports['desirerp-inventory']:hasEnoughOfItem('mask', 1) then
+        TriggerEvent("facewear:adjust",4,true)
+    else
+        TriggerEvent('player:receiveItem', "mask", 1)
+        TriggerEvent("facewear:adjust",4,true)
+    end
+end, false)
+
+--// Glasses Commands
+
+RegisterCommand("g1", function(source, args, rawCommand)
+    TriggerEvent("facewear:adjust",2,false)
+end, false)
+
+RegisterCommand("g0", function(source, args, rawCommand)
+    TriggerEvent("facewear:adjust",2,true)
+end, false)
+
+-- // Chains // --
+
+local hasChainEquip = false
+local equippingChain = false
+local chainModels = {
+    ["cgchain"] = "cg_chain",
+    ["gsfchain"] = "gsf_chain",
+    ["cerberuschain"] = "cerberus_chain",
+    ["mdmchain"] = "mdm_chain",
+    ["vagoschain"] = "esv_chain",
+    ["koilchain"] = "koil_chain",
+    ["mtfchain"] = "mtf_chain",
+}
+local storedpItem = false
+local storedpInfo = false
+
+AddEventHandler("desirerp-inventory:itemUsed", function(pItem, pInfo)
+  storedpItem = pItem
+  storedpInfo = pInfo
+  local model = chainModels[pItem]
+  print(model)
+  if not model then return end
+  if equippingChain then return end
+  local info = json.decode(pInfo)
+  equippingChain = true
+  ClearPedTasks(PlayerPedId())
+  if not hasChainEquip then
+    hasChainEquip = true
+    TriggerEvent("attachPropPerm", model, 10706, -0.02, 0.02, -0.06, -366.0, 19.0, -163.0, true, true)
+  else
+    hasChainEquip = false
+    TriggerEvent("destroyPropPerm")
+  end
+  equippingChain = false
 end)
