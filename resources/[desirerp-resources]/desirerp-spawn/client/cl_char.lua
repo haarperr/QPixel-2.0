@@ -310,7 +310,6 @@ AddEventHandler("desirerp-spawn:finishedClothing", function(endType)
     local pos = vector3(-3965.88,2014.55, 501.6)
     local distance = #(playerCoords - pos)
 
-    Citizen.Wait(2000)
 
     TriggerEvent("raid_clothes:inSpawn", false)
 

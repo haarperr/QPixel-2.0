@@ -430,6 +430,7 @@ function Spawn.selectedSpawn(spawnInfo)
 		end
 	end
 	
+	TriggerEvent("kazumi:raid_clothes_pedfix") --fix characters breaking 
 	isNear = false
  	Spawn.tempHousing  = {}
 end

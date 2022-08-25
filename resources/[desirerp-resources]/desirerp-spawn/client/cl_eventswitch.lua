@@ -14,6 +14,7 @@ function Login.characterLoaded()
   TriggerServerEvent('checkTypes')
   TriggerServerEvent('isVip')
   TriggerEvent("fx:clear")
+  TriggerServerEvent("raid_clothes:retrieve_tats")
   TriggerEvent('desirerp-bankrobbery:client:CreateTrollysEvent')
   TriggerServerEvent("currentconvictions")
   TriggerServerEvent("Evidence:checkDna")
@@ -39,7 +40,7 @@ function Login.characterLoaded()
   -- TriggerServerEvent("weapon:general:check")
   -- Anything that might need to wait for the client to get information, do it here.
   TriggerServerEvent("login:get:keys")
-  TriggerServerEvent("raid_clothes:retrieve_tats")
+
   
   -- // New Clothing Menu // --
   --TriggerServerEvent("desirerp_clothing:retrieve_tats")

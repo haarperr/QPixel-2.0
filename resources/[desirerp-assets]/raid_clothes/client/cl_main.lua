@@ -1298,6 +1298,15 @@ RegisterCommand('clearprops', function()
     TriggerServerEvent("clothing:checkIfNew") 
 end)
 
+RegisterNetEvent("kazumi:raid_clothes_pedfix")
+AddEventHandler("kazumi:raid_clothes_pedfix", function(name,price)
+    SetSkin(GetEntityModel(PlayerPedId()), true)
+    TriggerServerEvent("clothing:checkIfNew") 
+    print("I forgot what you looked like, Let me call your gardian...")
+    Citizen.Wait(2000)
+    print("Ahh! There we go, All done.")
+end)
+
 --- addd pricing adding function
 RegisterNetEvent("raid_clothes:set_sale_outfit")
 AddEventHandler("raid_clothes:set_sale_outfit", function(name,price)
