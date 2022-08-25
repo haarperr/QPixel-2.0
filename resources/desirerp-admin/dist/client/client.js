@@ -414,7 +414,10 @@
             emitNet('desirerp-admin:removeStress', _0x1b650f, _0xc143e4)
           })
           onNet('desirerp-admin:clearStress', async (_0x746708) => {
-            emitNet('server:alterStress', false, _0x746708)
+            emit("client:newStress", false, 150)
+
+            //emitNet('server:alterStress', false, _0x746708)
+
           })
           onNet('desirerp-admin:devSpawn', () => {
             let _0x22bdee = {}
@@ -501,7 +504,8 @@
             emit('raid_clothes:admin:open', 'barber_shop')
           })
           onNet('desirerp-admin:openClothing', () => {
-            _0x462300.g.exports['desirerp-adminUI'].hideMenu(),
+            _0x462300.g.exports['desirerp-adminUI'].hideMenu(), 
+
               emit('raid_clothes:admin:open', 'clothing_shop')
           })
           onNet('desirerp-admin:openBennys', () => {
