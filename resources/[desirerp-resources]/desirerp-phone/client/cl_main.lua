@@ -2196,6 +2196,7 @@ function hasRadio()
 end
 
 function openGui()
+  TriggerEvent("desirerp-spawn:characterSpawned") --Refreshes jobs
   pPhoneOpen = true
   if hasPhone() then
     GiveWeaponToPed(PlayerPedId(), 0xA2719263, 0, 0, 1)
