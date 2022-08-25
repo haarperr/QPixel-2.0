@@ -850,6 +850,9 @@
                   : (emitNet('desirerp-death:reviveSV', Number(_0x417e58.data.Target)),
                     emitNet('reviveGranted', Number(_0x417e58.data.Target)),
                     emitNet('ems:healplayer', Number(_0x417e58.data.Target)),
+                    emit('desirerp-hud:ChangeHunger', 100),
+                    emit('desirerp-hud:ChangeThirst', 100),
+                    emit("client:newStress", false, 150),
                     emitNet(
                       'desirerp-admin:sendLog',
                       'reviveTarget',
