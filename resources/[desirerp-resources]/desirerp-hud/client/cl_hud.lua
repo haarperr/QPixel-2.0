@@ -7,6 +7,7 @@ local pursuitmode = 0
 local lastDamageTrigger = 0
 local nuke, gps, gpu = 0, 0, 0
 
+
 local isLoggedIn = false
 local HudActive = false
 local harness = 0
@@ -63,10 +64,15 @@ end)
 
 RegisterNetEvent("desirerp-weapons:client:showWeaponFireRate", function (pBool)
     weaponFireRate = pBool
-end)
+end) 
 
 RegisterNetEvent("desirerp-hud:harness_values", function(cinturon)
 	harness = cinturon
+end)
+
+RegisterNetEvent("desirerp-hud:pursuit_values", function(pursuit)
+	pursuitmode = pursuit
+    print(pursuit)
 end)
 
 function lerp(min, max, amt)

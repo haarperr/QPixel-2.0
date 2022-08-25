@@ -27,7 +27,8 @@ AddEventHandler("desirep-hud:pursuit_mode_b",function()
 				 SetVehicleHandlingField(veh, 'CHandlingData', 'fInitialDriveForce', 0.4270000)
 				 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 1.000000)
  
-				 SelectedPursuitMode = 50
+				 SelectedPursuitMode = 33
+				 TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
 				 SendNUIMessage({action = "pursuitmode", pursuitmode = SelectedPursuitMode})
 			 else
 				 TriggerEvent('DoLongHudText', 'You are not in a HEAT vehicle',2)
@@ -55,10 +56,11 @@ AddEventHandler("desirep-hud:pursuit_mode_a",function()
 				 TriggerEvent('DoLongHudText', 'New Mode : ' ..First)
 				 PursuitEnabled = true
 				 SetVehicleHandlingField(veh, 'CHandlingData', 'fInitialDriveForce', 0.3970000)
-				 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 1.000000)
+				 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 1.000000) 
 
-				 SelectedPursuitMode = 35
-				 SendNUIMessage({action = "pursuitmodecheck", pursuitmode = SelectedPursuitMode})
+				 SelectedPursuitMode = 66
+				 TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
+				 SendNUIMessage({action = "pursuitmodecheck", pursuitmode = SelectedPursuitMode}) 
 			 else
 				 TriggerEvent('DoLongHudText', 'You are not in a HEAT vehicle',2)
 			 end
@@ -89,6 +91,7 @@ AddEventHandler("desirep-hud:pursuit_mode_s",function()
 				 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 1.100000)
  
 				 SelectedPursuitMode = 100
+				 TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
 				 SendNUIMessage({action = "pursuitmode", pursuitmode = SelectedPursuitMode})
 			 else
 				 TriggerEvent('DoLongHudText', 'You are not in a HEAT vehicle',2)
@@ -121,6 +124,7 @@ if (IsPedInAnyVehicle(PlayerPedId(), true)) then
 		 SetVehicleHandlingField(veh, 'CHandlingData', 'fInitialDriveForce', 0.305000)
 		 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 0.850000)
 		 SelectedPursuitMode = 0
+		 TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
 		 SendNUIMessage({action = "pursuitmode", pursuitmode = SelectedPursuitMode})
 	 else
 		 TriggerEvent('DoLongHudText', 'You are not in a HEAT vehicle',2)
@@ -148,7 +152,7 @@ RegisterCommand('+evan_shift_pursuit_mode', function()
 			TriggerEvent('desirep-hud:pursuit_mode_s')
 		elseif InPursuitModeB then
 			passedFirstMode = false
-			passedSecondMode = false
+			passedSecondMode = false 
 			passedThirdMode = false
 			InPursuitModeAPlus = false
 			TriggerEvent('desirep-hud:pursuit_mode_off')
