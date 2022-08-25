@@ -1618,6 +1618,11 @@ RegisterCommand("v0", function(source, args, rawCommand)
     end
 end, false)
 
+RegisterCommand("testing", function(source, args, rawCommand)
+    TriggerEvent("desirerp-hud:boosting_value", 0)
+end, false)
+
+
 RegisterCommand("v1", function(source, args, rawCommand)
 if GetPedDrawableVariation(PlayerPedId(), 9) == 0 or GetPedDrawableVariation(PlayerPedId(), 9) == -1 then
     TriggerEvent("facewear:adjust",7,false)

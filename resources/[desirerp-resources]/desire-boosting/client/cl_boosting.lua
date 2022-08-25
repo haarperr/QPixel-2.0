@@ -351,7 +351,7 @@ function HackingIsCompleted()
   else
     return false
   end
-end
+end 
 
 function FinishPolice() 
   if isVin then
@@ -373,60 +373,70 @@ function DoHackingStagesCOP()
     TriggerEvent('DoLongHudText', 'You finish hack number: 1', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 1)
     end
   elseif hacks.number2 == true then
     hacks.number2 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 2', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 2)
     end
   elseif hacks.number3 == true then
     hacks.number3 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 3', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 3)
     end
   elseif hacks.number4 == true then
     hacks.number4 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 4', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 4)
     end
   elseif hacks.number5 == true then
     hacks.number5 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 5', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 5)
     end
   elseif hacks.number6 == true then
     hacks.number6 = false
-    TriggerEvent('DoLongHudText', 'You finish hack number: 5', 1)
+    TriggerEvent('DoLongHudText', 'You finish hack number: 6', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 6)
     end
   elseif hacks.number7 == true then
     hacks.number7 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 7', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 7)
     end
   elseif hacks.number8 == true then
     hacks.number8 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 8', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 8)
     end
   elseif hacks.number9 == true then
     hacks.number9 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 9', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 9)
     end
   elseif hacks.number10 == true then
     hacks.number10 = false
-    TriggerEvent('DoLongHudText', 'You finish hack number: 10', 1)
+    TriggerEvent('DoLongHudText', 'You finish the final hack!', 1)
     if HackingIsCompleted() then
       FinishPolice() 
+      TriggerEvent("desirerp-hud:boosting_value", 0)
     end
   end
   return true
@@ -937,6 +947,8 @@ AddEventHandler("lockpick:event", function()
             ClearPedTasksImmediately(Player)
             vehicleUnlock(vehicleHandle)
             TriggerEvent('DoLongHudText', 'Lockpick Success !', 1)
+            TriggerEvent("desirerp-hud:boosting_value", 1)
+            print("lockpickdone-start hud")
             if(GetVehicleNumberPlateText(vehicleHandle) == placa)then
             if isVin then
                 exports['desirerp-dispatch']:dispatchadd('10-99', 'Tracker Device Tampering - Grand Theft Auto', '227')
@@ -1082,6 +1094,7 @@ end)
 RegisterNetEvent("boosting:copBoosting")
 AddEventHandler("boosting:copBoosting", function()
   DoHackingStagesCOP()
+  --TriggerEvent("desirerp-hud:boosting_value", 1)
 end)
 
 
@@ -1209,6 +1222,7 @@ RegisterNUICallback("desire-boosting:DeclineContract", function(data, cb)
 end)
 
 RegisterNUICallback("desire-boosting:cancelContract", function(data, cb) 
+  TriggerEvent("desirerp-hud:boosting_value", 0)
   sendAppEvent("RemoveContractInfo", {IdToRemove = data.props.id})
   sendAppEvent('SetDisableButtons', {enableButtons = false})
   TriggerServerEvent("boosting:CancelContract", data)
