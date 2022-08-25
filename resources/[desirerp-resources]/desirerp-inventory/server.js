@@ -371,7 +371,7 @@ function GenerateInformation(src, player, itemid, itemdata, returnData = '{}') {
 
 RegisterServerEvent("desirerp-inventory:exploiterKick")
 onNet("desirerp-inventory:exploiterKick", async() => {
-    DropPlayer(source, "You have officially been caught in 4k trying to drop items on the floor whilst using them, thanks - Aspect...#0999")
+    //DropPlayer(source, "You have officially been caught in 4k trying to drop items on the floor whilst using them, thanks - Aspect...#0999")
 
     // let connect = {
     //     {
