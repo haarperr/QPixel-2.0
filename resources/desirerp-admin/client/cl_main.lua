@@ -612,3 +612,45 @@ Citizen.CreateThread( function()
     EndFindObject(handle)
     return rped
   end
+
+  
+  local performanceModIndices = {11,12,13,15,16}
+  function PerformanceUpgradeVehicle(vehicle, customWheels)
+      customWheels = customWheels or false
+      local max
+      if DoesEntityExist(vehicle) and IsEntityAVehicle(vehicle) then
+          for _, modType in ipairs(performanceModIndices) do
+              max = GetNumVehicleMods(vehicle, modType) - 1
+              SetVehicleMod(vehicle, modType, max, customWheels)
+          end
+          ToggleVehicleMod(vehicle, 18, true) -- Turbo
+          SetVehicleFixed(vehicle)
+      end
+
+      print("FULLY")
+  end
+  
+  local vehicles = {}
+  for k, v in pairs(QBCore.Shared.Vehicles) do
+      local category = v["category"]
+      if vehicles[category] == nil then
+          vehicles[category] = { }
+      end
+      vehicles[category][k] = v
+  end
+  
+  function getVehicleFromVehList(hash)
+    for _, v in pairs(QBCore.Shared.Vehicles) do
+      if hash == v.hash then
+        return v.model
+      end
+    end
+  end
+  
+  RegisterNetEvent('Admin:Tuning:Vehicle', function()
+    print("YEEET")
+      local vehicle = GetVehiclePedIsIn(PlayerPedId())
+      PerformanceUpgradeVehicle(vehicle)
+      print("FULLY TUNING NOW...")
+      --QBCore.Functions.Notify("Max Upgraded this Vehicle", "success")
+  end)

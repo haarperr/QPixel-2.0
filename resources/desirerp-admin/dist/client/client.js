@@ -192,10 +192,11 @@
                 emit('vehicle:keys:addNew', _0x1e7ce6, _0x3a050d)
                 SetModelAsNoLongerNeeded(_0x1b0a4c)
                 TaskWarpPedIntoVehicle(_0x2f2ae6, _0x1e7ce6, -1)
-                SetVehicleDirtLevel(_0x1e7ce6, 0)
+                SetVehicleDirtLevel(_0x1e7ce6, 0) 
                 SetVehicleWindowTint(_0x1e7ce6, 0)
+
                 _0x25cd55 &&
-                  _0x462300.g.exports['desirerp-vehicles'].SetVehicleMods(_0x1e7ce6, {
+                  _0x462300.g.exports['desirerp-vehicles'].SetVehicleMods(_0x1e7ce6, { 
                     Spoilers: 1,
                     FrontBumper: 1,
                     RearBumper: 1,
@@ -246,7 +247,7 @@
                     UNK47: -1,
                     Livery: -1,
                   })
-              })
+              }) 
             }
           )
           let _0x5b3749 = undefined

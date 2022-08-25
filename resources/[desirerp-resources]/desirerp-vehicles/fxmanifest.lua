@@ -14,5 +14,6 @@ server_scripts {
 }
 
 exports {
-    'GetVehicleTable'
+    'GetVehicleTable',
+    'SetVehicleMods',
 }
