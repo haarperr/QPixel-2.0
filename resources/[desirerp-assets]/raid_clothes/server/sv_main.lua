@@ -5,6 +5,24 @@ RPC.register("getCurrentCashPlayer",function(pSource)
     return cash
 end)
 
+RegisterServerEvent("clothing:checkMoney")
+AddEventHandler("clothing:checkMoney", function(askingPrice)
+    local src = source
+    local target = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+
+    if not askingPrice then
+        askingPrice = 0
+    end
+
+    if (tonumber(target:getCash()) >= askingPrice) then
+        target:removeMoney(askingPrice)
+        TriggerClientEvent("DoShortHudText", src, "You Paid $"..askingPrice, 8)
+        TriggerClientEvent("clothing:close", src)
+    else
+        TriggerClientEvent("DoShortHudText", src, "You need $"..askingPrice, 2)
+    end
+end)
+
 RPC.register("clothing:purchase",function(pSource,pPrice)
     local src = source
     local user = exports["desirerp-base"]:getModule("Player"):GetUser(pSource)

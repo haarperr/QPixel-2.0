@@ -1,107 +1,107 @@
-2022/08/25-01:47:57.649833 241c RocksDB version: 6.10.0
-2022/08/25-01:47:57.649865 241c Git sha rocksdb_build_git_sha:@@GIT_SHA@@
-2022/08/25-01:47:57.649876 241c Compile date Apr 22 2022
-2022/08/25-01:47:57.649883 241c DB SUMMARY
-2022/08/25-01:47:57.650547 241c CURRENT file:  CURRENT
-2022/08/25-01:47:57.650558 241c IDENTITY file:  IDENTITY
-2022/08/25-01:47:57.650605 241c MANIFEST file:  MANIFEST-000044 size: 59 Bytes
-2022/08/25-01:47:57.650615 241c SST files in F:\[Servers]\QPixel-2.0\db\default dir, Total Num: 0, files: 
-2022/08/25-01:47:57.650622 241c Write Ahead Log file in F:\[Servers]\QPixel-2.0\db\default: 000045.log size: 0 ; 
-2022/08/25-01:47:57.650629 241c                         Options.error_if_exists: 0
-2022/08/25-01:47:57.650636 241c                       Options.create_if_missing: 1
-2022/08/25-01:47:57.650750 241c                         Options.paranoid_checks: 1
-2022/08/25-01:47:57.650756 241c                                     Options.env: 000002584BD569C0
-2022/08/25-01:47:57.650760 241c                                      Options.fs: Legacy File System
-2022/08/25-01:47:57.650762 241c                                Options.info_log: 000002584BEC16C0
-2022/08/25-01:47:57.650765 241c                Options.max_file_opening_threads: 16
-2022/08/25-01:47:57.650768 241c                              Options.statistics: 0000000000000000
-2022/08/25-01:47:57.650770 241c                               Options.use_fsync: 0
-2022/08/25-01:47:57.650773 241c                       Options.max_log_file_size: 0
-2022/08/25-01:47:57.650775 241c                  Options.max_manifest_file_size: 1073741824
-2022/08/25-01:47:57.650778 241c                   Options.log_file_time_to_roll: 0
-2022/08/25-01:47:57.650781 241c                       Options.keep_log_file_num: 10
-2022/08/25-01:47:57.650783 241c                    Options.recycle_log_file_num: 0
-2022/08/25-01:47:57.650786 241c                         Options.allow_fallocate: 1
-2022/08/25-01:47:57.650788 241c                        Options.allow_mmap_reads: 0
-2022/08/25-01:47:57.650791 241c                       Options.allow_mmap_writes: 0
-2022/08/25-01:47:57.650793 241c                        Options.use_direct_reads: 0
-2022/08/25-01:47:57.650795 241c                        Options.use_direct_io_for_flush_and_compaction: 0
-2022/08/25-01:47:57.650798 241c          Options.create_missing_column_families: 0
-2022/08/25-01:47:57.650800 241c                              Options.db_log_dir: 
-2022/08/25-01:47:57.650803 241c                                 Options.wal_dir: F:\[Servers]\QPixel-2.0\db\default
-2022/08/25-01:47:57.650806 241c                Options.table_cache_numshardbits: 6
-2022/08/25-01:47:57.650808 241c                      Options.max_subcompactions: 1
-2022/08/25-01:47:57.650810 241c                         Options.WAL_ttl_seconds: 0
-2022/08/25-01:47:57.650813 241c                       Options.WAL_size_limit_MB: 0
-2022/08/25-01:47:57.650815 241c                        Options.max_write_batch_group_size_bytes: 1048576
-2022/08/25-01:47:57.650818 241c             Options.manifest_preallocation_size: 4194304
-2022/08/25-01:47:57.650821 241c                     Options.is_fd_close_on_exec: 1
-2022/08/25-01:47:57.650823 241c                   Options.advise_random_on_open: 1
-2022/08/25-01:47:57.650825 241c                    Options.db_write_buffer_size: 0
-2022/08/25-01:47:57.650828 241c                    Options.write_buffer_manager: 000002584C71C650
-2022/08/25-01:47:57.650831 241c         Options.access_hint_on_compaction_start: 1
-2022/08/25-01:47:57.650833 241c  Options.new_table_reader_for_compaction_inputs: 0
-2022/08/25-01:47:57.650835 241c           Options.random_access_max_buffer_size: 1048576
-2022/08/25-01:47:57.650838 241c                      Options.use_adaptive_mutex: 0
-2022/08/25-01:47:57.650840 241c                            Options.rate_limiter: 0000000000000000
-2022/08/25-01:47:57.650843 241c     Options.sst_file_manager.rate_bytes_per_sec: 0
-2022/08/25-01:47:57.650846 241c                       Options.wal_recovery_mode: 2
-2022/08/25-01:47:57.650848 241c                  Options.enable_thread_tracking: 0
-2022/08/25-01:47:57.650864 241c                  Options.enable_pipelined_write: 0
-2022/08/25-01:47:57.650868 241c                  Options.unordered_write: 0
-2022/08/25-01:47:57.650871 241c         Options.allow_concurrent_memtable_write: 1
-2022/08/25-01:47:57.650873 241c      Options.enable_write_thread_adaptive_yield: 1
-2022/08/25-01:47:57.650876 241c             Options.write_thread_max_yield_usec: 100
-2022/08/25-01:47:57.650878 241c            Options.write_thread_slow_yield_usec: 3
-2022/08/25-01:47:57.650881 241c                               Options.row_cache: None
-2022/08/25-01:47:57.650883 241c                              Options.wal_filter: None
-2022/08/25-01:47:57.650886 241c             Options.avoid_flush_during_recovery: 0
-2022/08/25-01:47:57.650888 241c             Options.allow_ingest_behind: 0
-2022/08/25-01:47:57.650891 241c             Options.preserve_deletes: 0
-2022/08/25-01:47:57.650893 241c             Options.two_write_queues: 0
-2022/08/25-01:47:57.650895 241c             Options.manual_wal_flush: 0
-2022/08/25-01:47:57.650898 241c             Options.atomic_flush: 0
-2022/08/25-01:47:57.650900 241c             Options.avoid_unnecessary_blocking_io: 0
-2022/08/25-01:47:57.650903 241c                 Options.persist_stats_to_disk: 0
-2022/08/25-01:47:57.650905 241c                 Options.write_dbid_to_manifest: 0
-2022/08/25-01:47:57.650908 241c                 Options.log_readahead_size: 0
-2022/08/25-01:47:57.650910 241c                 Options.file_checksum_gen_factory: Unknown
-2022/08/25-01:47:57.650913 241c                 Options.best_efforts_recovery: 0
-2022/08/25-01:47:57.650915 241c             Options.max_background_jobs: 2
-2022/08/25-01:47:57.650917 241c             Options.max_background_compactions: -1
-2022/08/25-01:47:57.650920 241c             Options.avoid_flush_during_shutdown: 0
-2022/08/25-01:47:57.650922 241c           Options.writable_file_max_buffer_size: 1048576
-2022/08/25-01:47:57.650925 241c             Options.delayed_write_rate : 16777216
-2022/08/25-01:47:57.650927 241c             Options.max_total_wal_size: 0
-2022/08/25-01:47:57.650930 241c             Options.delete_obsolete_files_period_micros: 21600000000
-2022/08/25-01:47:57.650932 241c                   Options.stats_dump_period_sec: 600
-2022/08/25-01:47:57.650935 241c                 Options.stats_persist_period_sec: 600
-2022/08/25-01:47:57.650937 241c                 Options.stats_history_buffer_size: 1048576
-2022/08/25-01:47:57.650940 241c                          Options.max_open_files: -1
-2022/08/25-01:47:57.650942 241c                          Options.bytes_per_sync: 0
-2022/08/25-01:47:57.650945 241c                      Options.wal_bytes_per_sync: 0
-2022/08/25-01:47:57.650947 241c                   Options.strict_bytes_per_sync: 0
-2022/08/25-01:47:57.650950 241c       Options.compaction_readahead_size: 0
-2022/08/25-01:47:57.650952 241c                  Options.max_background_flushes: -1
-2022/08/25-01:47:57.650955 241c Compression algorithms supported:
-2022/08/25-01:47:57.650960 241c 	kZSTD supported: 0
-2022/08/25-01:47:57.650963 241c 	kSnappyCompression supported: 0
-2022/08/25-01:47:57.650965 241c 	kBZip2Compression supported: 0
-2022/08/25-01:47:57.650968 241c 	kZlibCompression supported: 1
-2022/08/25-01:47:57.650970 241c 	kLZ4Compression supported: 1
-2022/08/25-01:47:57.650973 241c 	kXpressCompression supported: 0
-2022/08/25-01:47:57.650975 241c 	kLZ4HCCompression supported: 1
-2022/08/25-01:47:57.650977 241c 	kZSTDNotFinalCompression supported: 0
-2022/08/25-01:47:57.650982 241c Fast CRC32 supported: Not supported on x86
-2022/08/25-01:47:57.651563 241c [db\version_set.cc:4515] Recovering from manifest file: F:\[Servers]\QPixel-2.0\db\default/MANIFEST-000044
-2022/08/25-01:47:57.651637 241c [db\column_family.cc:579] --------------- Options for column family [default]:
-2022/08/25-01:47:57.651643 241c               Options.comparator: leveldb.BytewiseComparator
-2022/08/25-01:47:57.651645 241c           Options.merge_operator: None
-2022/08/25-01:47:57.651648 241c        Options.compaction_filter: None
-2022/08/25-01:47:57.651663 241c        Options.compaction_filter_factory: None
-2022/08/25-01:47:57.651667 241c         Options.memtable_factory: SkipListFactory
-2022/08/25-01:47:57.651670 241c            Options.table_factory: BlockBasedTable
-2022/08/25-01:47:57.651693 241c            table_factory options:   flush_block_policy_factory: FlushBlockBySizePolicyFactory (000002584B6A2D30)
+2022/08/25-02:02:13.579001 41f8 RocksDB version: 6.10.0
+2022/08/25-02:02:13.579033 41f8 Git sha rocksdb_build_git_sha:@@GIT_SHA@@
+2022/08/25-02:02:13.579044 41f8 Compile date Apr 22 2022
+2022/08/25-02:02:13.579052 41f8 DB SUMMARY
+2022/08/25-02:02:13.579584 41f8 CURRENT file:  CURRENT
+2022/08/25-02:02:13.579594 41f8 IDENTITY file:  IDENTITY
+2022/08/25-02:02:13.579633 41f8 MANIFEST file:  MANIFEST-000050 size: 59 Bytes
+2022/08/25-02:02:13.579642 41f8 SST files in F:\[Servers]\QPixel-2.0\db\default dir, Total Num: 0, files: 
+2022/08/25-02:02:13.579649 41f8 Write Ahead Log file in F:\[Servers]\QPixel-2.0\db\default: 000051.log size: 0 ; 
+2022/08/25-02:02:13.579656 41f8                         Options.error_if_exists: 0
+2022/08/25-02:02:13.579663 41f8                       Options.create_if_missing: 1
+2022/08/25-02:02:13.579780 41f8                         Options.paranoid_checks: 1
+2022/08/25-02:02:13.579788 41f8                                     Options.env: 0000015A1F75B110
+2022/08/25-02:02:13.579791 41f8                                      Options.fs: Legacy File System
+2022/08/25-02:02:13.579794 41f8                                Options.info_log: 0000015A1FADF6E0
+2022/08/25-02:02:13.579796 41f8                Options.max_file_opening_threads: 16
+2022/08/25-02:02:13.579799 41f8                              Options.statistics: 0000000000000000
+2022/08/25-02:02:13.579802 41f8                               Options.use_fsync: 0
+2022/08/25-02:02:13.579804 41f8                       Options.max_log_file_size: 0
+2022/08/25-02:02:13.579807 41f8                  Options.max_manifest_file_size: 1073741824
+2022/08/25-02:02:13.579809 41f8                   Options.log_file_time_to_roll: 0
+2022/08/25-02:02:13.579812 41f8                       Options.keep_log_file_num: 10
+2022/08/25-02:02:13.579814 41f8                    Options.recycle_log_file_num: 0
+2022/08/25-02:02:13.579817 41f8                         Options.allow_fallocate: 1
+2022/08/25-02:02:13.579819 41f8                        Options.allow_mmap_reads: 0
+2022/08/25-02:02:13.579822 41f8                       Options.allow_mmap_writes: 0
+2022/08/25-02:02:13.579824 41f8                        Options.use_direct_reads: 0
+2022/08/25-02:02:13.579827 41f8                        Options.use_direct_io_for_flush_and_compaction: 0
+2022/08/25-02:02:13.579829 41f8          Options.create_missing_column_families: 0
+2022/08/25-02:02:13.579832 41f8                              Options.db_log_dir: 
+2022/08/25-02:02:13.579834 41f8                                 Options.wal_dir: F:\[Servers]\QPixel-2.0\db\default
+2022/08/25-02:02:13.579837 41f8                Options.table_cache_numshardbits: 6
+2022/08/25-02:02:13.579840 41f8                      Options.max_subcompactions: 1
+2022/08/25-02:02:13.579842 41f8                         Options.WAL_ttl_seconds: 0
+2022/08/25-02:02:13.579845 41f8                       Options.WAL_size_limit_MB: 0
+2022/08/25-02:02:13.579847 41f8                        Options.max_write_batch_group_size_bytes: 1048576
+2022/08/25-02:02:13.579850 41f8             Options.manifest_preallocation_size: 4194304
+2022/08/25-02:02:13.579852 41f8                     Options.is_fd_close_on_exec: 1
+2022/08/25-02:02:13.579855 41f8                   Options.advise_random_on_open: 1
+2022/08/25-02:02:13.579857 41f8                    Options.db_write_buffer_size: 0
+2022/08/25-02:02:13.579860 41f8                    Options.write_buffer_manager: 0000015A205C47D0
+2022/08/25-02:02:13.579862 41f8         Options.access_hint_on_compaction_start: 1
+2022/08/25-02:02:13.579865 41f8  Options.new_table_reader_for_compaction_inputs: 0
+2022/08/25-02:02:13.579867 41f8           Options.random_access_max_buffer_size: 1048576
+2022/08/25-02:02:13.579870 41f8                      Options.use_adaptive_mutex: 0
+2022/08/25-02:02:13.579872 41f8                            Options.rate_limiter: 0000000000000000
+2022/08/25-02:02:13.579875 41f8     Options.sst_file_manager.rate_bytes_per_sec: 0
+2022/08/25-02:02:13.579878 41f8                       Options.wal_recovery_mode: 2
+2022/08/25-02:02:13.579880 41f8                  Options.enable_thread_tracking: 0
+2022/08/25-02:02:13.579902 41f8                  Options.enable_pipelined_write: 0
+2022/08/25-02:02:13.579907 41f8                  Options.unordered_write: 0
+2022/08/25-02:02:13.579910 41f8         Options.allow_concurrent_memtable_write: 1
+2022/08/25-02:02:13.579912 41f8      Options.enable_write_thread_adaptive_yield: 1
+2022/08/25-02:02:13.579915 41f8             Options.write_thread_max_yield_usec: 100
+2022/08/25-02:02:13.579917 41f8            Options.write_thread_slow_yield_usec: 3
+2022/08/25-02:02:13.579920 41f8                               Options.row_cache: None
+2022/08/25-02:02:13.579922 41f8                              Options.wal_filter: None
+2022/08/25-02:02:13.579925 41f8             Options.avoid_flush_during_recovery: 0
+2022/08/25-02:02:13.579927 41f8             Options.allow_ingest_behind: 0
+2022/08/25-02:02:13.579930 41f8             Options.preserve_deletes: 0
+2022/08/25-02:02:13.579932 41f8             Options.two_write_queues: 0
+2022/08/25-02:02:13.579934 41f8             Options.manual_wal_flush: 0
+2022/08/25-02:02:13.579937 41f8             Options.atomic_flush: 0
+2022/08/25-02:02:13.579939 41f8             Options.avoid_unnecessary_blocking_io: 0
+2022/08/25-02:02:13.579942 41f8                 Options.persist_stats_to_disk: 0
+2022/08/25-02:02:13.579944 41f8                 Options.write_dbid_to_manifest: 0
+2022/08/25-02:02:13.579947 41f8                 Options.log_readahead_size: 0
+2022/08/25-02:02:13.579949 41f8                 Options.file_checksum_gen_factory: Unknown
+2022/08/25-02:02:13.579952 41f8                 Options.best_efforts_recovery: 0
+2022/08/25-02:02:13.579954 41f8             Options.max_background_jobs: 2
+2022/08/25-02:02:13.579957 41f8             Options.max_background_compactions: -1
+2022/08/25-02:02:13.579959 41f8             Options.avoid_flush_during_shutdown: 0
+2022/08/25-02:02:13.579962 41f8           Options.writable_file_max_buffer_size: 1048576
+2022/08/25-02:02:13.579964 41f8             Options.delayed_write_rate : 16777216
+2022/08/25-02:02:13.579967 41f8             Options.max_total_wal_size: 0
+2022/08/25-02:02:13.579969 41f8             Options.delete_obsolete_files_period_micros: 21600000000
+2022/08/25-02:02:13.579972 41f8                   Options.stats_dump_period_sec: 600
+2022/08/25-02:02:13.579974 41f8                 Options.stats_persist_period_sec: 600
+2022/08/25-02:02:13.579977 41f8                 Options.stats_history_buffer_size: 1048576
+2022/08/25-02:02:13.579979 41f8                          Options.max_open_files: -1
+2022/08/25-02:02:13.579982 41f8                          Options.bytes_per_sync: 0
+2022/08/25-02:02:13.579984 41f8                      Options.wal_bytes_per_sync: 0
+2022/08/25-02:02:13.579987 41f8                   Options.strict_bytes_per_sync: 0
+2022/08/25-02:02:13.579989 41f8       Options.compaction_readahead_size: 0
+2022/08/25-02:02:13.579992 41f8                  Options.max_background_flushes: -1
+2022/08/25-02:02:13.579994 41f8 Compression algorithms supported:
+2022/08/25-02:02:13.580000 41f8 	kZSTD supported: 0
+2022/08/25-02:02:13.580002 41f8 	kSnappyCompression supported: 0
+2022/08/25-02:02:13.580005 41f8 	kBZip2Compression supported: 0
+2022/08/25-02:02:13.580008 41f8 	kZlibCompression supported: 1
+2022/08/25-02:02:13.580010 41f8 	kLZ4Compression supported: 1
+2022/08/25-02:02:13.580012 41f8 	kXpressCompression supported: 0
+2022/08/25-02:02:13.580015 41f8 	kLZ4HCCompression supported: 1
+2022/08/25-02:02:13.580017 41f8 	kZSTDNotFinalCompression supported: 0
+2022/08/25-02:02:13.580022 41f8 Fast CRC32 supported: Not supported on x86
+2022/08/25-02:02:13.580529 41f8 [db\version_set.cc:4515] Recovering from manifest file: F:\[Servers]\QPixel-2.0\db\default/MANIFEST-000050
+2022/08/25-02:02:13.580603 41f8 [db\column_family.cc:579] --------------- Options for column family [default]:
+2022/08/25-02:02:13.580609 41f8               Options.comparator: leveldb.BytewiseComparator
+2022/08/25-02:02:13.580612 41f8           Options.merge_operator: None
+2022/08/25-02:02:13.580615 41f8        Options.compaction_filter: None
+2022/08/25-02:02:13.580648 41f8        Options.compaction_filter_factory: None
+2022/08/25-02:02:13.580653 41f8         Options.memtable_factory: SkipListFactory
+2022/08/25-02:02:13.580656 41f8            Options.table_factory: BlockBasedTable
+2022/08/25-02:02:13.580680 41f8            table_factory options:   flush_block_policy_factory: FlushBlockBySizePolicyFactory (0000015A1A756260)
   cache_index_and_filter_blocks: 0
   cache_index_and_filter_blocks_with_high_priority: 1
   pin_l0_filter_and_index_blocks_in_cache: 0
@@ -113,7 +113,7 @@
   hash_index_allow_collision: 1
   checksum: 1
   no_block_cache: 0
-  block_cache: 000002584C0FE960
+  block_cache: 0000015A1EF9ADE0
   block_cache_name: LRUCache
   block_cache_options:
     capacity : 8388608
@@ -137,88 +137,88 @@
   format_version: 4
   enable_index_compression: 1
   block_align: 0
-2022/08/25-01:47:57.651696 241c        Options.write_buffer_size: 67108864
-2022/08/25-01:47:57.651699 241c  Options.max_write_buffer_number: 2
-2022/08/25-01:47:57.651702 241c          Options.compression: LZ4
-2022/08/25-01:47:57.651704 241c                  Options.bottommost_compression: Disabled
-2022/08/25-01:47:57.651707 241c       Options.prefix_extractor: nullptr
-2022/08/25-01:47:57.651709 241c   Options.memtable_insert_with_hint_prefix_extractor: nullptr
-2022/08/25-01:47:57.651712 241c             Options.num_levels: 7
-2022/08/25-01:47:57.651714 241c        Options.min_write_buffer_number_to_merge: 1
-2022/08/25-01:47:57.651716 241c     Options.max_write_buffer_number_to_maintain: 0
-2022/08/25-01:47:57.651719 241c     Options.max_write_buffer_size_to_maintain: 0
-2022/08/25-01:47:57.651721 241c            Options.bottommost_compression_opts.window_bits: -14
-2022/08/25-01:47:57.651724 241c                  Options.bottommost_compression_opts.level: 32767
-2022/08/25-01:47:57.651726 241c               Options.bottommost_compression_opts.strategy: 0
-2022/08/25-01:47:57.651729 241c         Options.bottommost_compression_opts.max_dict_bytes: 0
-2022/08/25-01:47:57.651732 241c         Options.bottommost_compression_opts.zstd_max_train_bytes: 0
-2022/08/25-01:47:57.651734 241c         Options.bottommost_compression_opts.parallel_threads: 1
-2022/08/25-01:47:57.651737 241c                  Options.bottommost_compression_opts.enabled: false
-2022/08/25-01:47:57.651739 241c            Options.compression_opts.window_bits: -14
-2022/08/25-01:47:57.651742 241c                  Options.compression_opts.level: 32767
-2022/08/25-01:47:57.651744 241c               Options.compression_opts.strategy: 0
-2022/08/25-01:47:57.651747 241c         Options.compression_opts.max_dict_bytes: 0
-2022/08/25-01:47:57.651749 241c         Options.compression_opts.zstd_max_train_bytes: 0
-2022/08/25-01:47:57.651752 241c         Options.compression_opts.parallel_threads: 1
-2022/08/25-01:47:57.651754 241c                  Options.compression_opts.enabled: false
-2022/08/25-01:47:57.651756 241c      Options.level0_file_num_compaction_trigger: 4
-2022/08/25-01:47:57.651759 241c          Options.level0_slowdown_writes_trigger: 20
-2022/08/25-01:47:57.651761 241c              Options.level0_stop_writes_trigger: 36
-2022/08/25-01:47:57.651764 241c                   Options.target_file_size_base: 67108864
-2022/08/25-01:47:57.651766 241c             Options.target_file_size_multiplier: 1
-2022/08/25-01:47:57.651769 241c                Options.max_bytes_for_level_base: 268435456
-2022/08/25-01:47:57.651771 241c Options.level_compaction_dynamic_level_bytes: 0
-2022/08/25-01:47:57.651774 241c          Options.max_bytes_for_level_multiplier: 10.000000
-2022/08/25-01:47:57.651777 241c Options.max_bytes_for_level_multiplier_addtl[0]: 1
-2022/08/25-01:47:57.651781 241c Options.max_bytes_for_level_multiplier_addtl[1]: 1
-2022/08/25-01:47:57.651783 241c Options.max_bytes_for_level_multiplier_addtl[2]: 1
-2022/08/25-01:47:57.651785 241c Options.max_bytes_for_level_multiplier_addtl[3]: 1
-2022/08/25-01:47:57.651788 241c Options.max_bytes_for_level_multiplier_addtl[4]: 1
-2022/08/25-01:47:57.651790 241c Options.max_bytes_for_level_multiplier_addtl[5]: 1
-2022/08/25-01:47:57.651793 241c Options.max_bytes_for_level_multiplier_addtl[6]: 1
-2022/08/25-01:47:57.651795 241c       Options.max_sequential_skip_in_iterations: 8
-2022/08/25-01:47:57.651798 241c                    Options.max_compaction_bytes: 1677721600
-2022/08/25-01:47:57.651800 241c                        Options.arena_block_size: 8388608
-2022/08/25-01:47:57.651803 241c   Options.soft_pending_compaction_bytes_limit: 68719476736
-2022/08/25-01:47:57.651805 241c   Options.hard_pending_compaction_bytes_limit: 274877906944
-2022/08/25-01:47:57.651808 241c       Options.rate_limit_delay_max_milliseconds: 100
-2022/08/25-01:47:57.651810 241c                Options.disable_auto_compactions: 0
-2022/08/25-01:47:57.651813 241c                        Options.compaction_style: kCompactionStyleLevel
-2022/08/25-01:47:57.651816 241c                          Options.compaction_pri: kMinOverlappingRatio
-2022/08/25-01:47:57.651819 241c Options.compaction_options_universal.size_ratio: 1
-2022/08/25-01:47:57.651821 241c Options.compaction_options_universal.min_merge_width: 2
-2022/08/25-01:47:57.651824 241c Options.compaction_options_universal.max_merge_width: 4294967295
-2022/08/25-01:47:57.651826 241c Options.compaction_options_universal.max_size_amplification_percent: 200
-2022/08/25-01:47:57.651829 241c Options.compaction_options_universal.compression_size_percent: -1
-2022/08/25-01:47:57.651832 241c Options.compaction_options_universal.stop_style: kCompactionStopStyleTotalSize
-2022/08/25-01:47:57.651834 241c Options.compaction_options_fifo.max_table_files_size: 1073741824
-2022/08/25-01:47:57.651837 241c Options.compaction_options_fifo.allow_compaction: 0
-2022/08/25-01:47:57.651840 241c                   Options.table_properties_collectors: 
-2022/08/25-01:47:57.651843 241c                   Options.inplace_update_support: 0
-2022/08/25-01:47:57.651845 241c                 Options.inplace_update_num_locks: 10000
-2022/08/25-01:47:57.651848 241c               Options.memtable_prefix_bloom_size_ratio: 0.000000
-2022/08/25-01:47:57.651850 241c               Options.memtable_whole_key_filtering: 0
-2022/08/25-01:47:57.651853 241c   Options.memtable_huge_page_size: 0
-2022/08/25-01:47:57.651855 241c                           Options.bloom_locality: 0
-2022/08/25-01:47:57.651858 241c                    Options.max_successive_merges: 0
-2022/08/25-01:47:57.651860 241c                Options.optimize_filters_for_hits: 0
-2022/08/25-01:47:57.651863 241c                Options.paranoid_file_checks: 0
-2022/08/25-01:47:57.651865 241c                Options.force_consistency_checks: 0
-2022/08/25-01:47:57.651867 241c                Options.report_bg_io_stats: 0
-2022/08/25-01:47:57.651870 241c                               Options.ttl: 2592000
-2022/08/25-01:47:57.651872 241c          Options.periodic_compaction_seconds: 0
-2022/08/25-01:47:57.653708 241c [db\version_set.cc:4672] Recovered from manifest file:F:\[Servers]\QPixel-2.0\db\default/MANIFEST-000044 succeeded,manifest_file_number is 44, next_file_number is 46, last_sequence is 0, log_number is 43,prev_log_number is 0,max_column_family is 0,min_log_number_to_keep is 0
-2022/08/25-01:47:57.653719 241c [db\version_set.cc:4681] Column family [default] (ID 0), log number is 43
-2022/08/25-01:47:57.654586 241c EVENT_LOG_v1 {"time_micros": 1661388477654580, "job": 1, "event": "recovery_started", "log_files": [45]}
-2022/08/25-01:47:57.654594 241c [db\db_impl\db_impl_open.cc:774] Recovering log #45 mode 2
-2022/08/25-01:47:57.654667 241c [db\version_set.cc:3920] Creating manifest 47
-2022/08/25-01:47:57.659056 241c EVENT_LOG_v1 {"time_micros": 1661388477659050, "job": 1, "event": "recovery_finished"}
-2022/08/25-01:47:57.660126 241c [file\delete_scheduler.cc:73] Deleted file F:\[Servers]\QPixel-2.0\db\default/000045.log immediately, rate_bytes_per_sec 0, total_trash_size 0 max_trash_db_ratio 0.250000
-2022/08/25-01:47:57.660136 241c [db\db_impl\db_impl_files.cc:552] [JOB 2] Delete info log file F:\[Servers]\QPixel-2.0\db\default//LOG.old.1661372084137175
-2022/08/25-01:47:57.662733 241c [db\db_impl\db_impl_open.cc:1576] SstFileManager instance 000002584C71FBE0
-2022/08/25-01:47:57.663281 241c DB pointer 000002584B75C7D0
-2022/08/25-01:47:57.663708 68d0 [db\db_impl\db_impl.cc:854] ------- DUMPING STATS -------
-2022/08/25-01:47:57.663716 68d0 [db\db_impl\db_impl.cc:855] 
+2022/08/25-02:02:13.580683 41f8        Options.write_buffer_size: 67108864
+2022/08/25-02:02:13.580685 41f8  Options.max_write_buffer_number: 2
+2022/08/25-02:02:13.580688 41f8          Options.compression: LZ4
+2022/08/25-02:02:13.580690 41f8                  Options.bottommost_compression: Disabled
+2022/08/25-02:02:13.580693 41f8       Options.prefix_extractor: nullptr
+2022/08/25-02:02:13.580695 41f8   Options.memtable_insert_with_hint_prefix_extractor: nullptr
+2022/08/25-02:02:13.580698 41f8             Options.num_levels: 7
+2022/08/25-02:02:13.580700 41f8        Options.min_write_buffer_number_to_merge: 1
+2022/08/25-02:02:13.580703 41f8     Options.max_write_buffer_number_to_maintain: 0
+2022/08/25-02:02:13.580705 41f8     Options.max_write_buffer_size_to_maintain: 0
+2022/08/25-02:02:13.580707 41f8            Options.bottommost_compression_opts.window_bits: -14
+2022/08/25-02:02:13.580710 41f8                  Options.bottommost_compression_opts.level: 32767
+2022/08/25-02:02:13.580713 41f8               Options.bottommost_compression_opts.strategy: 0
+2022/08/25-02:02:13.580715 41f8         Options.bottommost_compression_opts.max_dict_bytes: 0
+2022/08/25-02:02:13.580718 41f8         Options.bottommost_compression_opts.zstd_max_train_bytes: 0
+2022/08/25-02:02:13.580720 41f8         Options.bottommost_compression_opts.parallel_threads: 1
+2022/08/25-02:02:13.580722 41f8                  Options.bottommost_compression_opts.enabled: false
+2022/08/25-02:02:13.580725 41f8            Options.compression_opts.window_bits: -14
+2022/08/25-02:02:13.580728 41f8                  Options.compression_opts.level: 32767
+2022/08/25-02:02:13.580730 41f8               Options.compression_opts.strategy: 0
+2022/08/25-02:02:13.580732 41f8         Options.compression_opts.max_dict_bytes: 0
+2022/08/25-02:02:13.580735 41f8         Options.compression_opts.zstd_max_train_bytes: 0
+2022/08/25-02:02:13.580737 41f8         Options.compression_opts.parallel_threads: 1
+2022/08/25-02:02:13.580740 41f8                  Options.compression_opts.enabled: false
+2022/08/25-02:02:13.580742 41f8      Options.level0_file_num_compaction_trigger: 4
+2022/08/25-02:02:13.580745 41f8          Options.level0_slowdown_writes_trigger: 20
+2022/08/25-02:02:13.580747 41f8              Options.level0_stop_writes_trigger: 36
+2022/08/25-02:02:13.580778 41f8                   Options.target_file_size_base: 67108864
+2022/08/25-02:02:13.580780 41f8             Options.target_file_size_multiplier: 1
+2022/08/25-02:02:13.580783 41f8                Options.max_bytes_for_level_base: 268435456
+2022/08/25-02:02:13.580785 41f8 Options.level_compaction_dynamic_level_bytes: 0
+2022/08/25-02:02:13.580788 41f8          Options.max_bytes_for_level_multiplier: 10.000000
+2022/08/25-02:02:13.580792 41f8 Options.max_bytes_for_level_multiplier_addtl[0]: 1
+2022/08/25-02:02:13.580795 41f8 Options.max_bytes_for_level_multiplier_addtl[1]: 1
+2022/08/25-02:02:13.580798 41f8 Options.max_bytes_for_level_multiplier_addtl[2]: 1
+2022/08/25-02:02:13.580800 41f8 Options.max_bytes_for_level_multiplier_addtl[3]: 1
+2022/08/25-02:02:13.580803 41f8 Options.max_bytes_for_level_multiplier_addtl[4]: 1
+2022/08/25-02:02:13.580805 41f8 Options.max_bytes_for_level_multiplier_addtl[5]: 1
+2022/08/25-02:02:13.580807 41f8 Options.max_bytes_for_level_multiplier_addtl[6]: 1
+2022/08/25-02:02:13.580810 41f8       Options.max_sequential_skip_in_iterations: 8
+2022/08/25-02:02:13.580812 41f8                    Options.max_compaction_bytes: 1677721600
+2022/08/25-02:02:13.580815 41f8                        Options.arena_block_size: 8388608
+2022/08/25-02:02:13.580817 41f8   Options.soft_pending_compaction_bytes_limit: 68719476736
+2022/08/25-02:02:13.580820 41f8   Options.hard_pending_compaction_bytes_limit: 274877906944
+2022/08/25-02:02:13.580822 41f8       Options.rate_limit_delay_max_milliseconds: 100
+2022/08/25-02:02:13.580825 41f8                Options.disable_auto_compactions: 0
+2022/08/25-02:02:13.580828 41f8                        Options.compaction_style: kCompactionStyleLevel
+2022/08/25-02:02:13.580831 41f8                          Options.compaction_pri: kMinOverlappingRatio
+2022/08/25-02:02:13.580834 41f8 Options.compaction_options_universal.size_ratio: 1
+2022/08/25-02:02:13.580836 41f8 Options.compaction_options_universal.min_merge_width: 2
+2022/08/25-02:02:13.580838 41f8 Options.compaction_options_universal.max_merge_width: 4294967295
+2022/08/25-02:02:13.580841 41f8 Options.compaction_options_universal.max_size_amplification_percent: 200
+2022/08/25-02:02:13.580844 41f8 Options.compaction_options_universal.compression_size_percent: -1
+2022/08/25-02:02:13.580847 41f8 Options.compaction_options_universal.stop_style: kCompactionStopStyleTotalSize
+2022/08/25-02:02:13.580849 41f8 Options.compaction_options_fifo.max_table_files_size: 1073741824
+2022/08/25-02:02:13.580853 41f8 Options.compaction_options_fifo.allow_compaction: 0
+2022/08/25-02:02:13.580857 41f8                   Options.table_properties_collectors: 
+2022/08/25-02:02:13.580859 41f8                   Options.inplace_update_support: 0
+2022/08/25-02:02:13.580862 41f8                 Options.inplace_update_num_locks: 10000
+2022/08/25-02:02:13.580864 41f8               Options.memtable_prefix_bloom_size_ratio: 0.000000
+2022/08/25-02:02:13.580867 41f8               Options.memtable_whole_key_filtering: 0
+2022/08/25-02:02:13.580870 41f8   Options.memtable_huge_page_size: 0
+2022/08/25-02:02:13.580872 41f8                           Options.bloom_locality: 0
+2022/08/25-02:02:13.580874 41f8                    Options.max_successive_merges: 0
+2022/08/25-02:02:13.580877 41f8                Options.optimize_filters_for_hits: 0
+2022/08/25-02:02:13.580879 41f8                Options.paranoid_file_checks: 0
+2022/08/25-02:02:13.580882 41f8                Options.force_consistency_checks: 0
+2022/08/25-02:02:13.580884 41f8                Options.report_bg_io_stats: 0
+2022/08/25-02:02:13.580887 41f8                               Options.ttl: 2592000
+2022/08/25-02:02:13.580889 41f8          Options.periodic_compaction_seconds: 0
+2022/08/25-02:02:13.582465 41f8 [db\version_set.cc:4672] Recovered from manifest file:F:\[Servers]\QPixel-2.0\db\default/MANIFEST-000050 succeeded,manifest_file_number is 50, next_file_number is 52, last_sequence is 0, log_number is 49,prev_log_number is 0,max_column_family is 0,min_log_number_to_keep is 0
+2022/08/25-02:02:13.582474 41f8 [db\version_set.cc:4681] Column family [default] (ID 0), log number is 49
+2022/08/25-02:02:13.583240 41f8 EVENT_LOG_v1 {"time_micros": 1661389333583235, "job": 1, "event": "recovery_started", "log_files": [51]}
+2022/08/25-02:02:13.583249 41f8 [db\db_impl\db_impl_open.cc:774] Recovering log #51 mode 2
+2022/08/25-02:02:13.583327 41f8 [db\version_set.cc:3920] Creating manifest 53
+2022/08/25-02:02:13.592678 41f8 EVENT_LOG_v1 {"time_micros": 1661389333592673, "job": 1, "event": "recovery_finished"}
+2022/08/25-02:02:13.593647 41f8 [file\delete_scheduler.cc:73] Deleted file F:\[Servers]\QPixel-2.0\db\default/000051.log immediately, rate_bytes_per_sec 0, total_trash_size 0 max_trash_db_ratio 0.250000
+2022/08/25-02:02:13.593658 41f8 [db\db_impl\db_impl_files.cc:552] [JOB 2] Delete info log file F:\[Servers]\QPixel-2.0\db\default//LOG.old.1661372704367619
+2022/08/25-02:02:13.596039 41f8 [db\db_impl\db_impl_open.cc:1576] SstFileManager instance 0000015A1FABE3D0
+2022/08/25-02:02:13.596527 41f8 DB pointer 0000015A1F413030
+2022/08/25-02:02:13.596803 5514 [db\db_impl\db_impl.cc:854] ------- DUMPING STATS -------
+2022/08/25-02:02:13.596812 5514 [db\db_impl\db_impl.cc:855] 
 ** DB Stats **
 Uptime(secs): 0.0 total, 0.0 interval
 Cumulative writes: 0 writes, 0 keys, 0 commit groups, 0.0 writes per commit group, ingest: 0.00 GB, 0.00 MB/s
@@ -259,6 +259,58 @@ Level    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Mov
 Priority    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Uptime(secs): 0.0 total, 0.0 interval
+Flush(GB): cumulative 0.000, interval 0.000
+AddFile(GB): cumulative 0.000, interval 0.000
+AddFile(Total Files): cumulative 0, interval 0
+AddFile(L0 Files): cumulative 0, interval 0
+AddFile(Keys): cumulative 0, interval 0
+Cumulative compaction: 0.00 GB write, 0.00 MB/s write, 0.00 GB read, 0.00 MB/s read, 0.0 seconds
+Interval compaction: 0.00 GB write, 0.00 MB/s write, 0.00 GB read, 0.00 MB/s read, 0.0 seconds
+Stalls(count): 0 level0_slowdown, 0 level0_slowdown_with_compaction, 0 level0_numfiles, 0 level0_numfiles_with_compaction, 0 stop for pending_compaction_bytes, 0 slowdown for pending_compaction_bytes, 0 memtable_compaction, 0 memtable_slowdown, interval 0 total count
+
+** File Read Latency Histogram By Level [default] **
+2022/08/25-02:12:13.598226 5514 [db\db_impl\db_impl.cc:854] ------- DUMPING STATS -------
+2022/08/25-02:12:13.598248 5514 [db\db_impl\db_impl.cc:855] 
+** DB Stats **
+Uptime(secs): 600.0 total, 600.0 interval
+Cumulative writes: 0 writes, 0 keys, 0 commit groups, 0.0 writes per commit group, ingest: 0.00 GB, 0.00 MB/s
+Cumulative WAL: 0 writes, 0 syncs, 0.00 writes per sync, written: 0.00 GB, 0.00 MB/s
+Cumulative stall: 00:00:0.000 H:M:S, 0.0 percent
+Interval writes: 0 writes, 0 keys, 0 commit groups, 0.0 writes per commit group, ingest: 0.00 MB, 0.00 MB/s
+Interval WAL: 0 writes, 0 syncs, 0.00 writes per sync, written: 0.00 MB, 0.00 MB/s
+Interval stall: 00:00:0.000 H:M:S, 0.0 percent
+
+** Compaction Stats [default] **
+Level    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sum      0/0    0.00 KB   0.0      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+ Int      0/0    0.00 KB   0.0      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+
+** Compaction Stats [default] **
+Priority    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Uptime(secs): 600.0 total, 600.0 interval
+Flush(GB): cumulative 0.000, interval 0.000
+AddFile(GB): cumulative 0.000, interval 0.000
+AddFile(Total Files): cumulative 0, interval 0
+AddFile(L0 Files): cumulative 0, interval 0
+AddFile(Keys): cumulative 0, interval 0
+Cumulative compaction: 0.00 GB write, 0.00 MB/s write, 0.00 GB read, 0.00 MB/s read, 0.0 seconds
+Interval compaction: 0.00 GB write, 0.00 MB/s write, 0.00 GB read, 0.00 MB/s read, 0.0 seconds
+Stalls(count): 0 level0_slowdown, 0 level0_slowdown_with_compaction, 0 level0_numfiles, 0 level0_numfiles_with_compaction, 0 stop for pending_compaction_bytes, 0 slowdown for pending_compaction_bytes, 0 memtable_compaction, 0 memtable_slowdown, interval 0 total count
+
+** File Read Latency Histogram By Level [default] **
+
+** Compaction Stats [default] **
+Level    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sum      0/0    0.00 KB   0.0      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+ Int      0/0    0.00 KB   0.0      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+
+** Compaction Stats [default] **
+Priority    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Uptime(secs): 600.0 total, 0.0 interval
 Flush(GB): cumulative 0.000, interval 0.000
 AddFile(GB): cumulative 0.000, interval 0.000
 AddFile(Total Files): cumulative 0, interval 0

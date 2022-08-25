@@ -749,18 +749,18 @@ AddEventHandler("clothing:close", function()
 end)
 
 RegisterNUICallback('escape', function(data, cb)
-    TriggerEvent('attachedItems:block', false)
     local shouldSave = data['save'] or false
     if shouldSave and currentPrice > 0 then
-        local purchaseSuccess = RPC.execute("clothing:purchase", currentPrice)
-        if not purchaseSuccess then 
-            TriggerEvent("DoLongHudText", "You don't have enough money!", 2)
+        TriggerServerEvent("clothing:checkMoney", currentPrice)
+        if exports["isPed"]:isPed("mycash") < currentPrice then 
             shouldSave = false
         end
     end
+    print(startingMenu)
+    if not startingMenu then
+        TriggerServerEvent("police:SetMeta")
+    end
     Save(shouldSave,true)
-    Citizen.Wait(750)
-    TriggerEvent("AttachWeapons")
     cb('ok')
 end)
 
@@ -1185,7 +1185,7 @@ end)
 local function listenForKeypress(zoneName, zoneData, isFree)
     listening = true
     Citizen.CreateThread(function()
-        local priceWithTax = RPC.execute("PriceWithTaxString1", zoneData.basePrice, "Services")
+        local priceWithTax = 200
         local currentCash = RPC.execute("getCurrentCashPlayer")
 
         while listening do
@@ -1197,9 +1197,9 @@ local function listenForKeypress(zoneName, zoneData, isFree)
                         Citizen.Wait(0)
                     end
                 end
-                currentPrice = isFree and 0 or priceWithTax.total
-                priceWithTax.text = isFree and 0 or priceWithTax.text
-                OpenMenu(zoneName, priceWithTax.text, currentPrice)
+                currentPrice = isFree and 0 or priceWithTax
+                priceWithTax = isFree and 0 or priceWithTax
+                OpenMenu(zoneName, priceWithTax, currentPrice)
                 TriggerEvent('attachedItems:block', true)
 
                 exports['desirerp-interface']:hideInteraction()
