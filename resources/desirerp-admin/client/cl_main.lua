@@ -612,3 +612,23 @@ Citizen.CreateThread( function()
     EndFindObject(handle)
     return rped
   end
+
+RegisterNetEvent('kazumi:Command:DeleteVehicle');
+AddEventHandler('kazumi:Command:DeleteVehicle', function()
+  local ped = PlayerPedId() 
+  local veh = GetVehiclePedIsUsing(ped)
+    if veh ~= 0 then
+      print("0")
+        SetEntityAsMissionEntity(veh, true, true)
+        DeleteVehicle(veh)
+    else
+        local pcoords = GetEntityCoords(ped)
+        local vehicles = GetGamePool('CVehicle')
+        for k, v in pairs(vehicles) do
+            if #(pcoords - GetEntityCoords(v)) <= 5.0 then
+                SetEntityAsMissionEntity(v, true, true)
+                DeleteVehicle(v)
+            end
+        end
+    end
+end)
