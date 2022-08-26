@@ -355,6 +355,7 @@ end
 
 function FinishPolice() 
   if isVin then
+    TriggerEvent("desirerp-hud:boosting_value", 0)
     sendAppEvent('BoostingNotification', {notify = {msg = "Go to the marked place and scratch the vin.", time = "3/4" , app = 'Boosting', img = 'https://imgur.com/FEPqpLc.png'}})
     TriggerEvent('DoLongHudText', 'Go to the marked place and scratch the vin', 1)
     isPoliceBlip = false
@@ -373,63 +374,63 @@ function DoHackingStagesCOP()
     TriggerEvent('DoLongHudText', 'You finish hack number: 1', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 1)
+      TriggerEvent("desirerp-hud:boosting_value", 2)
     end
   elseif hacks.number2 == true then
     hacks.number2 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 2', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 2)
+      TriggerEvent("desirerp-hud:boosting_value", 3)
     end
   elseif hacks.number3 == true then
     hacks.number3 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 3', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 3)
+      TriggerEvent("desirerp-hud:boosting_value", 4)
     end
   elseif hacks.number4 == true then
     hacks.number4 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 4', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 4)
+      TriggerEvent("desirerp-hud:boosting_value", 5)
     end
   elseif hacks.number5 == true then
     hacks.number5 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 5', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 5)
+      TriggerEvent("desirerp-hud:boosting_value", 6)
     end
   elseif hacks.number6 == true then
     hacks.number6 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 6', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 6)
+      TriggerEvent("desirerp-hud:boosting_value", 7)
     end
   elseif hacks.number7 == true then
     hacks.number7 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 7', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 7)
+      TriggerEvent("desirerp-hud:boosting_value", 8)
     end
   elseif hacks.number8 == true then
     hacks.number8 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 8', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 8)
+      TriggerEvent("desirerp-hud:boosting_value", 9)
     end
   elseif hacks.number9 == true then
     hacks.number9 = false
     TriggerEvent('DoLongHudText', 'You finish hack number: 9', 1)
     if HackingIsCompleted() then
       FinishPolice() 
-      TriggerEvent("desirerp-hud:boosting_value", 9)
+      TriggerEvent("desirerp-hud:boosting_value", 10)
     end
   elseif hacks.number10 == true then
     hacks.number10 = false
@@ -1134,23 +1135,23 @@ RegisterNUICallback("desire-boosting:startContract", function(data, cb)
         if exports['desirerp-inventory']:hasEnoughOfItem('trackerdisabler', 1) then
             local mexico, minutes = InCoolDown()
             if mexico then
-            HackingStage(NumberOfContractsByLevel(data.props.type))
-            AlredyContract = true
-            TriggerServerEvent("boosting:IsInContract", true)
-            TriggerServerEvent("boosting:RemoveBNE", units + tonumber(data.props.ExtraVin))
-            local vehicle, plate = CreateVeh(data.props.vehicle, data.props.coords)
-            placa = plate
-            isVin = data.IsVin
-            VehicleStoled = vehicle
-            sendAppEvent('BoostingNotification', {notify = {msg = 'Your contract has been started Information Plate: '..plate, time = getClock() , app = 'Boosting', img = 'https://imgur.com/FEPqpLc.png'}})
-            IdToRemove = data.props.id
-            CreateBlip(data.props.coords)
-            sendAppEvent('SetDisableButtons', {enableButtons = true})
-            sendAppEvent('BoostingNotification', {notify = {msg = "You need to find the car and lockpick it in zone marked in map", time = "1/4" , app = 'Boosting', img = 'https://imgur.com/FEPqpLc.png'}})
-            cb({Contract = true})
+              HackingStage(NumberOfContractsByLevel(data.props.type))
+              AlredyContract = true
+              TriggerServerEvent("boosting:IsInContract", true)
+              TriggerServerEvent("boosting:RemoveBNE", units + tonumber(data.props.ExtraVin))
+              local vehicle, plate = CreateVeh(data.props.vehicle, data.props.coords)
+              placa = plate
+              isVin = data.IsVin
+              VehicleStoled = vehicle
+              sendAppEvent('BoostingNotification', {notify = {msg = 'Your contract has been started Information Plate: '..plate, time = getClock() , app = 'Boosting', img = 'https://imgur.com/FEPqpLc.png'}})
+              IdToRemove = data.props.id
+              CreateBlip(data.props.coords)
+              sendAppEvent('SetDisableButtons', {enableButtons = true})
+              sendAppEvent('BoostingNotification', {notify = {msg = "You need to find the car and lockpick it in zone marked in map", time = "1/4" , app = 'Boosting', img = 'https://imgur.com/FEPqpLc.png'}})
+              cb({Contract = true})
             else
-            sendAppEvent('BoostingNotification', {notify = {msg = "You can't start this contract wait "..minutes.." minutes", time = getClock() , app = 'Boosting', img = 'https://imgur.com/FEPqpLc.png'}})
-            cb({Contract = false})
+              sendAppEvent('BoostingNotification', {notify = {msg = "You can't start this contract wait "..minutes.." minutes", time = getClock() , app = 'Boosting', img = 'https://imgur.com/FEPqpLc.png'}})
+              cb({Contract = false})
             end
         else
             sendAppEvent('BoostingNotification', {notify = {msg = "You need to have a tracker disabler to start a contract !", time = getClock() , app = 'Boosting', img = 'https://imgur.com/FEPqpLc.png'}})

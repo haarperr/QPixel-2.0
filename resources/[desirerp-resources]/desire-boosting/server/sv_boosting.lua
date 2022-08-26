@@ -583,7 +583,7 @@ AddEventHandler('desirerp-boosting:pay_gne', function()
         end
     end)
 end)
-
+ 
 RegisterServerEvent('desirerp-boosting:giveGNE')
 AddEventHandler('desirerp-boosting:giveGNE', function(amount)
     local src = source
