@@ -1250,7 +1250,7 @@ RegisterNUICallback('vehspawn', function(data)
         SpawnVehicle(car.model, coords[1],coords[2],coords[3], car.fuel, car.data, car.license_plate, true,car.engine_damage,car.body_damage)
         startSpawnTime()
       else
-        TriggerEvent('DoLongHudText', "Check you car in phone, its not yet out in garage.")
+        TriggerEvent('DoLongHudText', "Your vehicle is stored in your garage.")
       end
     else
       TriggerEvent('DoLongHudText', "Please wait "..timeSpawn.." to use spawn again.")
