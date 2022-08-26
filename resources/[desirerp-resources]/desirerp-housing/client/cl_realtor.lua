@@ -799,7 +799,32 @@ end)
 RegisterNetEvent("desirerp-housing:buy")
 AddEventHandler("desirerp-housing:buy", function(pPropertyId, pSeller)
     local tax = Housing.info[pPropertyId]["price"]
-    -- redothis
+    local price = Housing.info[pPropertyId]["price"]
+    Citizen.Wait(3000)
+
+    TriggerEvent('desirerp-context:sendMenu', {
+        {
+            header = "Property",
+            context = Housing.info[pPropertyId]["street"],
+            event = ""
+        },
+        {
+            header = "Price",
+            context = "$" .. price .. " Incl. " .. tax .. "% tax",
+            event = ""
+        },
+        {
+            header = "Purchase",
+            context = "",
+            event = "desirerp-housing:buyed",
+            args = {
+                pPropertyId ,
+                price, 
+                tax, 
+                pSeller
+                }
+        },
+    })
 end)
 
 RegisterCommand('rent', function()
