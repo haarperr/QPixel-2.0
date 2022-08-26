@@ -79,7 +79,7 @@ AddEventHandler("desirerp-admin:searchPlayerInventory", function(pTarget)
     TriggerClientEvent("server-inventory-open", source, "1", 'ply-'..cid)
 end)
 
---[[ RegisterCommand('dv', function(source, args)
+RegisterCommand('dv', function(source, args)
     local src = source
     local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
 	local char = user:getCurrentCharacter()
@@ -87,5 +87,5 @@ end)
     if isAdministrator(src) then
         TriggerClientEvent('kazumi:Command:DeleteVehicle',src)
     end
-end) ]]
+end)
 
