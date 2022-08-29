@@ -150,6 +150,8 @@ function RemoveContractByIDToDB(id)
     })
 end
 
+
+
 function InitBoostingUser(src)
     local user = GetIdentifier(src)
     local query = DatabaseQuery('SELECT * FROM `boosting_users` WHERE `identifier` = @identifier', {
@@ -468,11 +470,32 @@ end)
 RegisterNetEvent("boosting:getLevel", function()
     local src = source
     local identifier = GetIdentifier(src)
-    local gnes = GetGNE(identifier)
+    local user = GetIdentifier(src)
+    local query = DatabaseQuery('SELECT * FROM `boosting_users` WHERE `identifier` = @identifier', {
+        ['@identifier'] = user
+    })
 
-    print(gnes.gne)
-    TriggerClientEvent("boosting:setlevel", src, gnes.level, gnes.gne)
-    TriggerClientEvent("boosting:sendHowMuchGNEIHave",src,gnes.gne)
+    if query[1] == nil then
+        DatabaseQuery('INSERT INTO `boosting_users` (`identifier`, `level`, `gne`) VALUES (@identifier, @level, @gne)', {
+            ['@identifier'] = user,
+            ['@level'] = 0,
+            ['@gne'] = 0,
+            ['@cooldown'] = 0,
+        })
+        TriggerClientEvent("boosting:setlevel", src, 0)
+
+        --original trigger
+        local gnes = GetGNE(identifier)
+        print(gnes.gne)
+        print("ARE YOU READING THIS? CLOSE AND RE-OPEN THE TABLET THANKS :) ")
+        TriggerClientEvent("boosting:setlevel", src, gnes.level, gnes.gne)
+        TriggerClientEvent("boosting:sendHowMuchGNEIHave",src,gnes.gne)
+    else
+        local gnes = GetGNE(identifier)
+        print(gnes.gne)
+        TriggerClientEvent("boosting:setlevel", src, gnes.level, gnes.gne)
+        TriggerClientEvent("boosting:sendHowMuchGNEIHave",src,gnes.gne)
+    end
 end)
 
 RegisterNetEvent("boosting:completeVinContract")
