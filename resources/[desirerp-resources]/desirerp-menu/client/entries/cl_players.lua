@@ -99,6 +99,8 @@ PedEntries[#PedEntries+1] = {
   end
 }
 
+
+
 PedEntries[#PedEntries+1] = {
   data = {
     id = "steal",
@@ -122,6 +124,65 @@ PedEntries[#PedEntries+1] = {
     return not IsDisabled() and not (isPolice or isDoc) and pEntity and pContext.flags['isPlayer'] and (pContext.flags['isCuffed'] or pContext.flags['isDead'] or isPersonBeingHeldUp(pEntity))
   end
 }
+
+
+PedEntries[#PedEntries+1] = {
+    data = {
+      id = "police-props",
+      title = "Police Barriers",
+      icon = "#police-action-frisk",
+    },
+    subMenus = {"police:barrier1", "police:barrier2", "police:barrier3","police:pickupp" },
+    isEnabled = function(pEntity, pContext)
+        return (isPolice or isDoc or isJudge or isMedic)
+      end
+  }
+
+--barriers
+
+MenuItems['police:barrier1'] = {
+data = {
+    id = "police:barrier1",
+    title = "Cone",
+    icon = "#police-action-frisk",
+    event = "barriers:cone",
+    parameters = { true }
+}
+}
+
+MenuItems['police:barrier2'] = {
+data = {
+    id = "police:barrier2",
+    title = "Barrier",
+    icon = "#police-action-frisk",
+    event = "barriers:sbarrier",
+    parameters = { true }
+}
+}
+
+MenuItems['police:barrier3'] = {
+data = {
+    id = "police:barrier3",
+    title = "Road Closure",
+    icon = "#police-action-frisk",
+    event = "barriers:barrier",
+    parameters = { true }
+}
+}
+
+MenuItems['police:pickupp'] = {
+data = {
+    id = "police:pickupp",
+    title = "Pickup",
+    icon = "#police-action-frisk",
+    event = "barriers:pickup",
+    parameters = { true }
+}
+}
+
+
+
+
 
 MenuItems['police:frisk'] = {
   data = {
