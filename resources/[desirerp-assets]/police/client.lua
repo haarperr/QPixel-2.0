@@ -3826,7 +3826,14 @@ AddEventHandler("police:chatCommand", function(args, cmd, isVehicleCmd)
     end
 end)
 
-RegisterCommand('callsign', function(source, args)
+RegisterNetEvent('kazumi:pd:icon:fix')
+AddEventHandler('kazumi:pd:icon:fix', function(data)
+
+    TriggerServerEvent("dispatch:change-police", data, currentCallSign)
+    
+end)
+
+RegisterCommand('callsigncar', function(source, args)
     if isCop then
         if args[1] == "plate" then
             if currentCallSign == nil then
