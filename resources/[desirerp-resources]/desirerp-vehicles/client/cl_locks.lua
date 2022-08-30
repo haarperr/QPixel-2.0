@@ -45,7 +45,7 @@ AddEventHandler('keys:unlockDoor', function(targetVehicle, allow)
             SetVehicleDoorsLockedForAllPlayers(targetVehicle, true)
 
             if playSound then
-                TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 3.0, 'lock', 0.4)
+                TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 3.0, 'lock', 0.6)
                 TriggerEvent('DoLongHudText', 'Vehicle Locked!', 1)
             end
             
@@ -82,7 +82,7 @@ AddEventHandler('keys:unlockDoor', function(targetVehicle, allow)
 
             if playSound then
                 TriggerEvent('DoLongHudText', 'Vehicle Unlocked!', 1)
-               TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 5.0, 'unlock', 0.1)
+               TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 5.0, 'unlock', 0.3)
             end
 
             if not inveh then
