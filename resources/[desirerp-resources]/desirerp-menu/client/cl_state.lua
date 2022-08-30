@@ -23,6 +23,7 @@ polyChecks = {
 
 isDoc = false
 isPolice = false
+isPDM = false
 isMedic = false
 isMayor = false
 isCountyClerk = false
@@ -69,7 +70,7 @@ end)
 RegisterNetEvent("isJudge")
 AddEventHandler("isJudge", function()
     isJudge = true
-end)
+end) 
 
 RegisterNetEvent("isJudgeOff")
 AddEventHandler("isJudgeOff", function()
@@ -80,12 +81,14 @@ RegisterNetEvent("desirerp-jobmanager:playerBecameJob")
 AddEventHandler("desirerp-jobmanager:playerBecameJob", function(job, name, notify)
     if isMedic and job ~= "ems" then isMedic = false end
     if isPolice and job ~= "police" then isPolice = false end
+    if isPDM and job ~= "pdm" then isPDM = false end
     if isDoc and job ~= "doc" then isDoc = false end
     if isDoctor and job ~= "doctor" then isDoctor = false end
     if isNews and job ~= "news" then isNews = false end
     if isMayor and job ~= "mayor" then isMayor = false end
     if isCountyClerk and job ~= "county_clerk" then isCountyClerk = false end
     if job == "police" then isPolice = true end
+    if job == "pdm" then isPDM = true end
     if job == "ems" then isMedic = true end
     if job == "news" then isNews = true end
     if job == "doctor" then isDoctor = true end

@@ -628,7 +628,7 @@ end)
 
 RegisterNetEvent("desirerp-pdm:PDMCommission")
 AddEventHandler("desirerp-pdm:PDMCommission", function(newAmount)
-	if eexports["desirerp-business"]:IsEmployedAt("pdm") or #(vector3(-30.31887, -1089.345, 26.04948) - GetEntityCoords(PlayerPedId())) > 50.0 then
+	if exports["desirerp-business"]:IsEmployedAt("pdm") or #(vector3(-30.31887, -1089.345, 26.04948) - GetEntityCoords(PlayerPedId())) > 50.0 then
 	for i = 1, #carspawns do
 		if #(vector3(carspawns[i]["x"],carspawns[i]["y"],carspawns[i]["z"]) - GetEntityCoords(PlayerPedId())) < 2.0 then
 			carTable[i]["commission"] = tonumber(newAmount)
@@ -1367,6 +1367,79 @@ RegisterCommand('testdrivepdm', function(source, args, raw)
 end)
 
 RegisterCommand('enableBuypdm', function(source, args, raw)
+	if exports["desirerp-business"]:IsEmployedAt("pdm") then
+		TriggerEvent('desirerp-pdm:EnableBuy')
+	else
+		TriggerEvent('DoLongHudText', 'You dont have permissions for this!', 2)
+	end
+end)
+
+RegisterNetEvent('desirerp-fuel:pdmmenushit', function()
+
+
+	local menuData = {
+		{
+			title = "Change Commission",
+			icon = 'credit-card',
+			key = "EVENTS.CARD",
+			action = 'desirerp-pdm:pdmcom',
+			disabled = canPayBill
+		},
+	}
+	exports["desirerp-interface"]:showContextMenu(menuData)
+end)
+
+RegisterInterfaceCallback('desirerp-pdm:pdmcom', function(data, cb, pParams)
+	cb({ data = {}, meta = { ok = true, message = '' } })
+	exports['desirerp-interface']:openApplication('textbox', {
+		callbackUrl = 'desirerp-pdm:send_pdm',
+		key = 1,
+		items = {
+		  {
+			icon = "address-card", 
+			label = "Commission 0-60%",
+			name = "pPDMPayCom",
+		  },
+		},
+	  show = true,
+	})
+end)
+
+RegisterInterfaceCallback('desirerp-pdm:send_pdm', function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+	TriggerServerEvent("desirerp-pdm:wtf", data.values.pPDMPayCom)
+end) 
+
+
+
+RegisterNetEvent("desirerp-pdm:commissionpdm") 
+AddEventHandler("desirerp-pdm:commissionpdm", function(args)
+	print("YO")
+	if exports["desirerp-business"]:IsEmployedAt("pdm") then
+		print("IM PDM WORKER")
+		local amount = args
+		print(amount)
+		if tonumber(amount) > 0 and tonumber(amount) <= 60 then
+			TriggerEvent('desirerp-pdm:PDMCommission', amount)
+		else
+			TriggerEvent('DoLongHudText', 'Invalid amount "/commision [amount]', 2)
+		end
+	else
+		TriggerEvent('DoLongHudText', 'You dont have permissions for this!', 2)
+	end
+end) 
+
+RegisterNetEvent("desirerp-pdm:testdrivepdm")
+AddEventHandler("desirerp-pdm:testdrivepdm", function()
+	if exports["desirerp-business"]:IsEmployedAt("pdm") then
+		TriggerEvent('desirerp-pdm:testdrive')
+	else
+		TriggerEvent('DoLongHudText', 'You dont have permissions for this!', 2)
+	end
+end)
+
+RegisterNetEvent("desirerp-pdm:enableBuypdm")
+AddEventHandler("desirerp-pdm:enableBuypdm", function()
 	if exports["desirerp-business"]:IsEmployedAt("pdm") then
 		TriggerEvent('desirerp-pdm:EnableBuy')
 	else

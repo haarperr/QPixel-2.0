@@ -134,3 +134,10 @@ AddEventHandler('desirerp-cardealer:log', function(cid, model, price, plate, car
       }
       PerformHttpRequest("https://discord.com/api/webhooks/1012082353289580636/7mhdELCPIt2Ace6FgodYS-puKAtihhgQ8mCq8OqSCe5Kog8ir06CqtSvqZVIASWoZEFp", function(err, text, headers) end, 'POST', json.encode({username = "DesireRP", embeds = connect, avatar_url = "https://i.imgur.com/hMqEEQp.png"}), { ['Content-Type'] = 'application/json' })
 end)
+
+RegisterServerEvent('desirerp-pdm:wtf')
+AddEventHandler('desirerp-pdm:wtf', function(comis)
+    local src = source
+    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    TriggerClientEvent("desirerp-pdm:commissionpdm", src, comis)
+end)

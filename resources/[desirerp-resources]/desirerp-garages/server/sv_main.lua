@@ -212,7 +212,7 @@ RPC.register("desirerp-garages:states",function(pSource,state,plate,curGarage,fu
 		exports.ghmattimysql:execute("UPDATE characters_cars SET vehicle_state = @state, current_garage = @garage, fuel = @fuel WHERE license_plate = @plate", {['garage'] = curGarage.param, ['state'] = state.param, ['fuel'] = fuel.param, ['plate'] = plate.param})
     end)
 	return true
-end)
+end) 
 
 RPC.register("desirerp-garages:getonlyimpound",function(pSource)
 	local src = source

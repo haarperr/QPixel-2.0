@@ -3,10 +3,17 @@ game 'gta5'
 
 resource_manifest_version "44febabe-d386-4d18-afbe-5e627f4af937"
 
-server_script { 
-    'server/sv_main.lua'
+client_script "@desirerp-lib/client/cl_ui.lua"
+client_script "@desirerp-lib/client/cl_interface.lua"
+client_script "@desirerp-lib/client/cl_rpc.lua"
+
+client_scripts {
+  '@desirerp-lib/client/cl_rpc.lua',
+  'client/*.lua',
 }
 
-client_script {
-    "client/cl_main.lua"
+server_script "@desirerp-lib/server/sv_rpc.lua"
+server_script "@desirerp-lib/server/sv_sql.lua"
+server_scripts {
+  'server/*.lua',
 }
