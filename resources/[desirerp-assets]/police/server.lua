@@ -407,23 +407,28 @@ RegisterCommand('bill', function(source, args)
         end
     end)
 end)
-
+ 
 RegisterCommand('callsign', function(source, args)
     local src = source
     local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
     local character = user:getCurrentCharacter()
+    print("HI")
     exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
         if result[1].job == 'police' or result[1].job == 'ems' then
+            print("HELLO COCK")
             exports.ghmattimysql:execute("UPDATE jobs_whitelist SET `callsign` = @callsign WHERE cid = @cid", {
                 ['callsign'] = args[1],
                 ['cid'] = character.id
             })
             TriggerClientEvent('police:setCallSign', src, args[1])
+            currentCallSign = args[1]
         else
             TriggerClientEvent('DoLongHudText', src, 'You are not Police or EMS!', 2)
         end
     end)
 end)
+
+
 
 --- POLICE SEXTION -------------------------------
 
