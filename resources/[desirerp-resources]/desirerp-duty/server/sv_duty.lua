@@ -241,7 +241,7 @@ function SignOnRadio(src)
 	end)
 end
 
-RegisterCommand('callsign', function(source, args)
+--[[ RegisterCommand('callsign', function(source, args)
     local src = source
 	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
 	local character = user:getCurrentCharacter()
@@ -253,7 +253,7 @@ RegisterCommand('callsign', function(source, args)
 			TriggerClientEvent('DoLongHudText', src, 'You are not Police or EMS!', 2)
 		end
 	end)
-end)
+end) ]]
 
 
 RegisterServerEvent('desirerp-duty:AttemptDutySuits')

@@ -65,10 +65,23 @@ RegisterNUICallback('table_ayril', function(data, cb)
     TriggerServerEvent("dispatch:table_ayril", name)
 end)
 
-
+function dump(o)
+	if type(o) == 'table' then
+	   local s = '{ '
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ','
+	   end
+	   return s .. '} '
+	else
+	   return tostring(o)
+	end
+ end
 
 RegisterNUICallback('change-vehicle', function(data, cb)
-    TriggerServerEvent("dispatch:change-police", data)
+    TriggerEvent("kazumi:pd:icon:fix", data) 
+
+    --[[ TriggerServerEvent("dispatch:change-police", data) ]]
 end)
 
 RegisterNUICallback('under-police', function(data, cb)

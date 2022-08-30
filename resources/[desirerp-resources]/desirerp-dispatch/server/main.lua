@@ -124,10 +124,32 @@ AddEventHandler("dispatch:coords-police", function(code, coords, heading)
 end)
 
 RegisterNetEvent("dispatch:change-police")
-AddEventHandler("dispatch:change-police", function(data)
-    police_table[data.name].vehicle = data.icon
-    print(police_table[data.name].vehicle)
+AddEventHandler("dispatch:change-police", function(data, currentCallSign)
+
+
+
+    
+    print(dump(data))
+    print(dump(data.icon)) 
+    print(dump(data.name))
+    print(dump(currentCallSign))
+    print(dump(police_table[currentCallSign].vehicle))
+    police_table[currentCallSign].vehicle = data.icon 
 end)
+
+
+function dump(o)
+	if type(o) == 'table' then
+	   local s = '{ '
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ','
+	   end
+	   return s .. '} '
+	else
+	   return tostring(o)
+	end
+ end
 
 RegisterNetEvent("dispatch:get-police")
 AddEventHandler("dispatch:get-police", function()
