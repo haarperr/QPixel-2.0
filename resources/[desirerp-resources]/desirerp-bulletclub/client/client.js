@@ -13,41 +13,41 @@
               void 0
           _0x59ee9e.Events = {
             on: (_0x4af429, _0x12ba93) => {
-              return APX.Events.on(_0x4af429, _0x12ba93)
+              return DPX.Events.on(_0x4af429, _0x12ba93)
             },
             onNet: (_0x590ec8, _0x42e66e) => {
-              return APX.Events.onNet(_0x590ec8, _0x42e66e)
+              return DPX.Events.onNet(_0x590ec8, _0x42e66e)
             },
             emit: (_0x48e122, ..._0x827523) => {
-              return APX.Events.emit(_0x48e122, ..._0x827523)
+              return DPX.Events.emit(_0x48e122, ..._0x827523)
             },
             emitNet: (_0x4c7651, ..._0x56a753) => {
-              return APX.Events.emitNet(_0x4c7651, ..._0x56a753)
+              return DPX.Events.emitNet(_0x4c7651, ..._0x56a753)
             },
             remove: (_0x210fa4, _0x69991a) => {
-              return APX.Events.remove(_0x210fa4, _0x69991a)
+              return DPX.Events.remove(_0x210fa4, _0x69991a)
             },
           }
           _0x59ee9e.Procedures = {
             register: (_0x250d48, _0x99db80) => {
-              return APX.Procedures.register(_0x250d48, _0x99db80)
+              return DPX.Procedures.register(_0x250d48, _0x99db80)
             },
             execute: (_0x2063ee, ..._0x599124) => {
               return (
                 console.log('execute', _0x2063ee, _0x599124),
-                APX.Procedures.execute(_0x2063ee, ..._0x599124)
+                DPX.Procedures.execute(_0x2063ee, ..._0x599124)
               )
             },
           }
           _0x59ee9e.Zones = {
             isActive: (_0x1a9aae, _0x2459cc) => {
-              return APX.Zones.isActive(_0x1a9aae, _0x2459cc)
+              return DPX.Zones.isActive(_0x1a9aae, _0x2459cc)
             },
             onEnter: (_0x2845ef, _0x9eaa89) => {
-              return APX.Zones.onEnter(_0x2845ef, _0x9eaa89)
+              return DPX.Zones.onEnter(_0x2845ef, _0x9eaa89)
             },
             onExit: (_0x47dacf, _0xfcdb30) => {
-              return APX.Zones.onExit(_0x47dacf, _0xfcdb30)
+              return DPX.Zones.onExit(_0x47dacf, _0xfcdb30)
             },
             addBoxZone: (
               _0xbcbd01,
@@ -58,7 +58,7 @@
               _0x57071b,
               _0x54b51f = {}
             ) => {
-              return APX.Zones.addBoxZone(
+              return DPX.Zones.addBoxZone(
                 _0xbcbd01,
                 _0x45fd32,
                 _0x177b02,
@@ -77,7 +77,7 @@
               _0x374d54,
               _0x528018 = {}
             ) => {
-              return APX.Zones.addBoxTarget(
+              return DPX.Zones.addBoxTarget(
                 _0x1499e3,
                 _0x19df11,
                 _0x1a02df,
@@ -90,67 +90,67 @@
           }
           _0x59ee9e.Streaming = {
             loadModel: (_0x2a80a1) => {
-              return APX.Streaming.loadModel(_0x2a80a1)
+              return DPX.Streaming.loadModel(_0x2a80a1)
             },
             loadTexture: (_0x2923c5) => {
-              return APX.Streaming.loadTexture(_0x2923c5)
+              return DPX.Streaming.loadTexture(_0x2923c5)
             },
             loadAnim: (_0x21c395) => {
-              return APX.Streaming.loadAnim(_0x21c395)
+              return DPX.Streaming.loadAnim(_0x21c395)
             },
             loadClipSet: (_0x5e9268) => {
-              return APX.Streaming.loadClipSet(_0x5e9268)
+              return DPX.Streaming.loadClipSet(_0x5e9268)
             },
             loadWeaponAsset: (_0xbf7be2, _0x294015, _0x5e144f) => {
-              return APX.Streaming.loadWeaponAsset(_0xbf7be2)
+              return DPX.Streaming.loadWeaponAsset(_0xbf7be2)
             },
             loadNamedPtfxAsset: (_0x22361b) => {
-              return APX.Streaming.loadNamedPtfxAsset(_0x22361b)
+              return DPX.Streaming.loadNamedPtfxAsset(_0x22361b)
             },
           }
           _0x59ee9e.Utils = {
             cache: (_0x3bac3b, _0x53e624) => {
-              return APX.Utils.cache(_0x3bac3b, _0x53e624)
+              return DPX.Utils.cache(_0x3bac3b, _0x53e624)
             },
             cacheableMap: (_0x569b73, _0x5ace11) => {
-              return APX.Utils.cacheableMap(_0x569b73, _0x5ace11)
+              return DPX.Utils.cacheableMap(_0x569b73, _0x5ace11)
             },
             waitForCondition: (_0x46ec18, _0xa7c1fb) => {
-              return APX.Utils.waitForCondition(_0x46ec18, _0xa7c1fb)
+              return DPX.Utils.waitForCondition(_0x46ec18, _0xa7c1fb)
             },
             getMapRange: (_0x5bb90d, _0x2adc5b, _0x1f95a9) => {
-              return APX.Utils.getMapRange(_0x5bb90d, _0x2adc5b, _0x1f95a9)
+              return DPX.Utils.getMapRange(_0x5bb90d, _0x2adc5b, _0x1f95a9)
             },
             getDistance: (
               [_0x53eca8, _0x545330, _0x140b91],
               [_0x1e844a, _0x1642a0, _0x53dbbe]
             ) => {
-              return APX.Utils.getDistance(
+              return DPX.Utils.getDistance(
                 [_0x53eca8, _0x545330, _0x140b91],
                 [_0x1e844a, _0x1642a0, _0x53dbbe]
               )
             },
             getRandomNumber: (_0x5bb79e, _0x39625e) => {
-              return APX.Utils.getRandomNumber(_0x5bb79e, _0x39625e)
+              return DPX.Utils.getRandomNumber(_0x5bb79e, _0x39625e)
             },
           }
           _0x59ee9e.Interface = {
             addPeekEntryByModel: (_0x54dcee, _0xa2bab3, _0x2f031f) => {
-              return APX.Interface.addPeekEntryByModel(
+              return DPX.Interface.addPeekEntryByModel(
                 _0x54dcee,
                 _0xa2bab3,
                 _0x2f031f
               )
             },
             addPeekEntryByTarget: (_0x5f17ec, _0x2504dc, _0x482c7f) => {
-              return APX.Interface.addPeekEntryByTarget(
+              return DPX.Interface.addPeekEntryByTarget(
                 _0x5f17ec,
                 _0x2504dc,
                 _0x482c7f
               )
             },
             addPeekEntryByFlag: (_0x1cc87b, _0x31884a, _0x537aec) => {
-              return APX.Interface.addPeekEntryByFlag(
+              return DPX.Interface.addPeekEntryByFlag(
                 _0x1cc87b,
                 _0x31884a,
                 _0x537aec
@@ -162,7 +162,7 @@
               _0x5b0a19 = false,
               _0x20fb74 = null
             ) => {
-              return APX.Interface.taskbar(
+              return DPX.Interface.taskbar(
                 _0x38b0de,
                 _0x13cdd1,
                 _0x5b0a19,
@@ -170,7 +170,7 @@
               )
             },
             phoneConfirmation: (_0x16a8ed, _0x39aeae, _0x5d0910) => {
-              return APX.Interface.phoneConfirmation(
+              return DPX.Interface.phoneConfirmation(
                 _0x16a8ed,
                 _0x39aeae,
                 _0x5d0910
@@ -182,7 +182,7 @@
               _0x4d63f6,
               _0x1bc1b2 = true
             ) => {
-              return APX.Interface.phoneNotification(
+              return DPX.Interface.phoneNotification(
                 _0x57b989,
                 _0x130f0e,
                 _0x4d63f6,
@@ -192,7 +192,7 @@
           }
           _0x59ee9e.Hud = {
             createBlip: (_0xc4c11f, ..._0x515cbb) => {
-              return APX.Hud.createBlip(_0xc4c11f, ..._0x515cbb)
+              return DPX.Hud.createBlip(_0xc4c11f, ..._0x515cbb)
             },
             applyBlipSettings: (
               _0x210d13,
@@ -204,7 +204,7 @@
               _0x24ae8f,
               _0x39995d
             ) => {
-              return APX.Hud.applyBlipSettings(
+              return DPX.Hud.applyBlipSettings(
                 _0x210d13,
                 _0x4d1009,
                 _0x51620d,
