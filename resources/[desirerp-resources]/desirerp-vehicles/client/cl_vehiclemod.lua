@@ -169,20 +169,27 @@ pStalled = false
 
 function carCrash()
     if not pStalled then
-        local new_health = GetVehicleEngineHealth(currentVehicle) - math.random(50, 100)
-        TriggerEvent("DoLongHudText", "Your vehicle has stalled!", 2)
-        pStalled = true
-        SetVehicleEngineOn(currentVehicle, false, true, true)
-        SetVehicleEngineHealth(currentVehicle, new_health)
-        SetVehicleUndriveable(veh, true)
-        lastCurrentVehicleSpeed = 0.0
-        lastCurrentVehicleBodyHealth = new_health
-        if harness then
-            harnessDurability = harnessDurability - 5
-            TriggerEvent('desirerp-hud:harness_values', harnessDurability)
+        if GetVehicleEngineHealth(currentVehicle) <= 100.0 then
+            SetVehicleEngineHealth(currentVehicle, 0.0)
+            SetVehicleEngineOn(currentVehicle, false, true, true)
+            SetVehicleUndriveable(veh, true)
+            TriggerEvent("DoLongHudText", "Your vehicle has stalled!", 2)
+        else
+            local new_health = GetVehicleEngineHealth(currentVehicle) - math.random(150, 200)
+            TriggerEvent("DoLongHudText", "Your vehicle has stalled!", 2)
+            pStalled = true
+            SetVehicleEngineOn(currentVehicle, false, true, true)
+            SetVehicleEngineHealth(currentVehicle, new_health)
+            SetVehicleUndriveable(veh, true)
+            lastCurrentVehicleSpeed = 0.0
+            lastCurrentVehicleBodyHealth = new_health
+            if harness then
+                harnessDurability = harnessDurability - 5
+                TriggerEvent('desirerp-hud:harness_values', harnessDurability)
+            end
+            Citizen.Wait(10000)
+            pStalled = true
         end
-        Citizen.Wait(10000)
-        pStalled = true
     end
 end
 
