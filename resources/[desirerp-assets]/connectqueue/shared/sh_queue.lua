@@ -46,7 +46,7 @@ local os_time = os.time
 local table_insert = table.insert
 local table_remove = table.remove
 
-Queue.InitHostName = Queue.InitHostName ~= "DesireRP" and Queue.InitHostName or false
+Queue.InitHostName = Queue.InitHostName ~= "QPixel" and Queue.InitHostName or false
 
 for id, power in pairs(Config.Priority) do
     _Queue.Priority[string_lower(id)] = power
@@ -529,13 +529,13 @@ local function playerConnect(name, setKickReason, deferrals)
     local pIp = getIdentifier(self, source, "ip")
     local pTokens = getUserToken(self, source)
     local pTokenData = json.encode(pTokens)
-	local BanList = exports['desirerp-admin']:getBanList()
+	--local BanList = exports['desirerp-admin']:getBanList() 
 
     Citizen.Wait(500)
 
-    if (BanList == {}) then
+   --[[  if (BanList == {}) then
 		Citizen.Wait(1000)
-    end
+    end ]]
 
     local function done(msg, _deferrals)
         connecting = false
@@ -556,7 +556,7 @@ local function playerConnect(name, setKickReason, deferrals)
         return
     end
 
-	for i = 1, #BanList, 1 do
+	--[[ for i = 1, #BanList, 1 do
 		if ((tostring(BanList[i].license)) == tostring(pLicense)
 			or (tostring(BanList[i].license2)) == tostring(pLicense2) 
 			or (tostring(BanList[i].xbox)) == tostring(pXbox) 
@@ -578,7 +578,7 @@ local function playerConnect(name, setKickReason, deferrals)
 					local txtday     = math.floor(day)
 					local txthrs     = math.floor(hrs)
 					local txtminutes = math.ceil(minutes)
-						done("You are banned, you may appeal it at https://discord.gg/desireroleplay | Ban ID: " .. BanList[i].banid .. " | Reason: " .. BanList[i].reason .." | Unban Date: "..  os.date('%Y-%m-%d', BanList[i].expire))					
+						done("You are banned, you may appeal it at https://discord.gg/qpixel | Ban ID: " .. BanList[i].banid .. " | Reason: " .. BanList[i].reason .." | Unban Date: "..  os.date('%Y-%m-%d', BanList[i].expire))					
 						CancelEvent()
 						break
 				elseif tempsrestant >= 60 and tempsrestant < 1440 then
@@ -588,14 +588,14 @@ local function playerConnect(name, setKickReason, deferrals)
 					local txtday     = math.floor(day)
 					local txthrs     = math.floor(hrs)
 					local txtminutes = math.ceil(minutes)
-					done("You are banned, you may appeal it at https://discord.gg/desireroleplay | Ban ID: " .. BanList[i].banid .. " | Reason: " .. BanList[i].reason .." | Unban Date: "..  os.date('%Y-%m-%d', BanList[i].expire))					
+					done("You are banned, you may appeal it at https://discord.gg/qpixel | Ban ID: " .. BanList[i].banid .. " | Reason: " .. BanList[i].reason .." | Unban Date: "..  os.date('%Y-%m-%d', BanList[i].expire))					
 					CancelEvent()
 						break
 				elseif tempsrestant < 60 then
 					local txtday     = 0
 					local txthrs     = 0
 					local txtminutes = math.ceil(tempsrestant)
-					done("You are banned, you may appeal it at https://discord.gg/desireroleplay | Ban ID: " .. BanList[i].banid .. " | Reason: " .. BanList[i].reason .." | Unban Date: "..  os.date('%Y-%m-%d', BanList[i].expire))					
+					done("You are banned, you may appeal it at https://discord.gg/qpixel | Ban ID: " .. BanList[i].banid .. " | Reason: " .. BanList[i].reason .." | Unban Date: "..  os.date('%Y-%m-%d', BanList[i].expire))					
 					CancelEvent()
 						break
 				end
@@ -604,12 +604,12 @@ local function playerConnect(name, setKickReason, deferrals)
 				exports['desirerp-admin']:deletebanned(license)
 				break
 			elseif tonumber(BanList[i].expire) <= 0 then
-				done("You are banned, you may appeal it at https://discord.gg/desireroleplay | Ban ID: " .. BanList[i].banid .. " | Reason: " .. BanList[i].reason .." | Unban Date: Permanent") 
+				done("You are banned, you may appeal it at https://discord.gg/qpixel | Ban ID: " .. BanList[i].banid .. " | Reason: " .. BanList[i].reason .." | Unban Date: Permanent") 
 				CancelEvent() 
 				break 
 			end
 		end
-	end
+	end ]]
 
     local function update(msg, _deferrals)
         local deferrals = _deferrals or deferrals

@@ -67,8 +67,8 @@ Config.ShowTemp = false
 
 -- simple localization
 Config.Language = {
-    joining = "\xF0\x9F\x8E\x89Joining Desire RP...",
-    connecting = "\xE2\x8F\xB3Connecting to Desire RP...",
+    joining = "\xF0\x9F\x8E\x89Joining QPixel...",
+    connecting = "\xE2\x8F\xB3Connecting to QPixel...",
     idrr = "\xE2\x9D\x97[DPXQueue] Error: Couldn't retrieve any of your id's, try restarting.",
     err = "\xE2\x9D\x97[DPXQueue] There was an error",
     pos = "\xF0\x9F\x90\x8CYou are %d/%d in queue \xF0\x9F\x95\x9C%s",
