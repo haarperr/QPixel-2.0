@@ -301,17 +301,20 @@ Citizen.CreateThread( function()
             else
                 zone = GetLabelText(zone)
             end
+
+            
   
             drawTxt(0.8, 0.50, 0.4,0.4,0.30, "Heading: " .. GetEntityHeading(ped), 55, 155, 55, 255)
             drawTxt(0.8, 0.52, 0.4,0.4,0.30, "Coords: " .. pos, 55, 155, 55, 255)
             drawTxt(0.8, 0.54, 0.4,0.4,0.30, "Attached Ent: " .. GetEntityAttachedTo(ped), 55, 155, 55, 255)
             drawTxt(0.8, 0.56, 0.4,0.4,0.30, "Health: " .. GetEntityHealth(ped), 55, 155, 55, 255)
-            drawTxt(0.8, 0.58, 0.4,0.4,0.30, "H a G: " .. GetEntityHeightAboveGround(ped), 55, 155, 55, 255)
-            drawTxt(0.8, 0.60, 0.4,0.4,0.30, "Model: " .. GetEntityModel(ped), 55, 155, 55, 255)
-            drawTxt(0.8, 0.62, 0.4,0.4,0.30, "Speed: " .. GetEntitySpeed(ped), 55, 155, 55, 255)
-            drawTxt(0.8, 0.64, 0.4,0.4,0.30, "Frame Time: " .. GetFrameTime(), 55, 155, 55, 255)
-            drawTxt(0.8, 0.66, 0.4,0.4,0.30, "Street: " .. currentStreetName, 55, 155, 55, 255)
-            drawTxt(0.8, 0.68, 0.4,0.4,0.30, "Hood: " .. zone, 55, 155, 55, 255)
+            drawTxt(0.8, 0.58, 0.4,0.4,0.30, "Veh Health: " .. GetVehicleEngineHealth(veh), 55, 155, 55, 255)
+            drawTxt(0.8, 0.60, 0.4,0.4,0.30, "H a G: " .. GetEntityHeightAboveGround(ped), 55, 155, 55, 255)
+            drawTxt(0.8, 0.62, 0.4,0.4,0.30, "Model: " .. GetEntityModel(ped), 55, 155, 55, 255)
+            drawTxt(0.8, 0.64, 0.4,0.4,0.30, "Speed: " .. GetEntitySpeed(ped), 55, 155, 55, 255)
+            drawTxt(0.8, 0.66, 0.4,0.4,0.30, "Frame Time: " .. GetFrameTime(), 55, 155, 55, 255)
+            drawTxt(0.8, 0.68, 0.4,0.4,0.30, "Street: " .. currentStreetName, 55, 155, 55, 255)
+            drawTxt(0.8, 0.70, 0.4,0.4,0.30, "Hood: " .. zone, 55, 155, 55, 255)
   
   
   
