@@ -79,7 +79,7 @@ function LoadPhoneModule()
     exports("IncreasePhoneVolume", IncreasePhoneVolume)
     exports("DecreasePhoneVolume", DecreasePhoneVolume)
 
-    if Config.enableSubmixes and Config.enableFilters.phone then
+    --if Config.enableSubmixes and Config.enableFilters.phone then
         RegisterContextSubmix("phone")
 
         local filters = {
@@ -93,7 +93,7 @@ function LoadPhoneModule()
         }
 
         SetFilterParameters("phone", filters)
-    end
+    --end
 
     TriggerEvent("rp:voice:phone:ready")
 
