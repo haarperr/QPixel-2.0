@@ -486,40 +486,40 @@ table.insert(Config.DoorList, {
 	}
 })
 
--- Bollards 1
+-- Mrpd bollards 1 - "gabz_mrpd_bollards1"
 table.insert(Config.DoorList, {
-	textCoords = vector3(410.0258, -1028.32, 29.2202),
-	objCoords = vector3(410.0258, -1024.22, 29.2202),
-	objHeading = 270,
-	slides = true,
-	setText = true,
-	garage = true,
-	objHash = -1635161509, -- gabz_mrpd_bollards1
-	maxDistance = 6,
+	objHeading = 269.8766784668,
+	garage = false,
 	fixText = false,
+	maxDistance = 2.0,
 	locked = true,
 	lockpick = false,
-	audioRemote = true,
-	authorizedJobs = {
-		['police'] = 0,
-	}
+	audioRemote = false,
+	objHash = -1868050792,
+	slides = false,
+	authorizedJobs = { ['police']=0 },
+	objCoords = vector3(410.0258, -1020.157, 28.36596),		
+	-- oldMethod = true,
+	-- audioLock = {['file'] = 'metal-locker.ogg', ['volume'] = 0.6},
+	-- audioUnlock = {['file'] = 'metallic-creak.ogg', ['volume'] = 0.7},
+	-- autoLock = 1000
 })
 
--- Bollards 2
+-- Mrpd bollards 2 - "gabz_mrpd_bollards2"
 table.insert(Config.DoorList, {
-	textCoords = vector3(410.0258, -1020.19, 29.2202),
-	objCoords = vector3(410.0258, -1024.226, 29.22022),
-	objHeading = 270,
-	slides = true,
-	maxDistance = 6,
-	garage = true,
-	objHash = -1868050792, -- gabz_mrpd_bollards2
-	setText = true,
+	objHeading = 270.15423583984,
+	garage = false,
 	fixText = false,
+	maxDistance = 2.0,
 	locked = true,
 	lockpick = false,
-	audioRemote = true,
-	authorizedJobs = {
-		['police'] = 0,
-	}
+	audioRemote = false,
+	objHash = -1635161509,
+	slides = false,
+	authorizedJobs = { ['police']=0 },
+	objCoords = vector3(410.0258, -1028.319, 28.40051),		
+	-- oldMethod = true,
+	-- audioLock = {['file'] = 'metal-locker.ogg', ['volume'] = 0.6},
+	-- audioUnlock = {['file'] = 'metallic-creak.ogg', ['volume'] = 0.7},
+	-- autoLock = 1000
 })

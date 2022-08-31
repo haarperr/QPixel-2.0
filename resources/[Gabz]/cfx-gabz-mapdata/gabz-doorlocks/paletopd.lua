@@ -486,19 +486,19 @@ table.insert(Config.DoorList, {
 	-- autoLock = 1000
 })
 
--- paletopd_exterior - parkinglot bollards
+-- Paletopd bollard - "gabz_paletopd_bollards1"
 table.insert(Config.DoorList, {
-	slides = false,
-	objCoords = vector3(-456.4734, 6031.136, 31.13747),
-	objHeading = 44.844528198242,
-	fixText = false,
-	locked = true,
-	authorizedJobs = { ['police']=0 },
+	objHeading = 44.84627532959,
 	garage = false,
+	fixText = false,
 	maxDistance = 2.0,
-	objHash = -470936668,
+	locked = true,
 	lockpick = false,
-	audioRemote = false,		
+	audioRemote = false,
+	objHash = -470936668,
+	slides = false,
+	authorizedJobs = { ['police']=0 },
+	objCoords = vector3(-453.5876, 6028.265, 30.35073),		
 	-- oldMethod = true,
 	-- audioLock = {['file'] = 'metal-locker.ogg', ['volume'] = 0.6},
 	-- audioUnlock = {['file'] = 'metallic-creak.ogg', ['volume'] = 0.7},
