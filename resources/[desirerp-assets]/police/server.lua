@@ -1495,4 +1495,4 @@ AddEventHandler('police:openSwatArmory', function()
 			TriggerClientEvent("DoLongHudText", src,"You are not a high enough rank to use this!", 2)
 		end
 	end)
-end)
+end) 
