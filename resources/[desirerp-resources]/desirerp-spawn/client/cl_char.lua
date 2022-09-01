@@ -35,6 +35,8 @@ function Login.CreatePlayerCharacterPeds(characterModelData,isReset)
 
     Login.CurrentClothing = characterModelData
 
+    TriggerEvent("desirerp-weathersync:client:DisableSyncSpawn")
+
     local events = exports["desirerp-base"]:getModule("Events")
     events:Trigger("desirerp-base:fetchPlayerCharacters", nil, function(data)
         if data.err then
@@ -337,7 +339,8 @@ end
 function spawnChar()
     Login.actionsBlocked = false
     deleteTrain()
-    TriggerEvent("desirerp-weathersync:spawned")
+    --TriggerEvent("desirerp-weathersync:spawned")
+    TriggerEvent("desirerp-weathersync:client:EnableSync")
     -- SetPlayerInvincible(PlayerPedId(), true)
     TriggerEvent("desirerp-base:firstSpawn")
 

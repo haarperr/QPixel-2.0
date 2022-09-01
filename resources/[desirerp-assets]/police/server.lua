@@ -241,6 +241,8 @@ AddEventHandler('police:jailGranted', function(args)
         reason = reason .. " " .. args[argscount]
     end
 
+    print(tonumber(args[1]))
+ 
     local player = tonumber(args[1])
     local target = exports["desirerp-base"]:getModule("Player"):GetUser(player)
     local character = target:getCurrentCharacter()
@@ -1068,7 +1070,7 @@ function jailUser(player, reason, cid, time, src)
         duration = time,
         charges = reason
     })
-
+  
     TriggerEvent("server-jail-items", character.id, true)
     exports["desirerp-base"]:getModule("JobManager"):SetJob(target, "unemployed", true)
 

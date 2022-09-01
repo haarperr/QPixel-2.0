@@ -342,6 +342,7 @@ end
 
 
 function Spawn.selectedSpawn(spawnInfo)
+	TriggerEvent("desirerp-weathersync:client:EnableSync")
 
 	if spawnInfo == nil or spawnInfo == "" or type(spawnInfo) ~= "string" then
 		return

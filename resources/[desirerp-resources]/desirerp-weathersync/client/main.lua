@@ -28,12 +28,28 @@ AddEventHandler('desirerp-weathersync:client:DisableSync', function()
 	disable = true
 
 	Citizen.CreateThread(function() 
-		while disable do
+		while disable do 
 			SetRainLevel(0.0)
 			SetWeatherTypePersist('EXTRASUNNY')
 			SetWeatherTypeNow('EXTRASUNNY')
 			SetWeatherTypeNowPersist('EXTRASUNNY')
 			NetworkOverrideClockTime(23, 0, 0)
+			Citizen.Wait(5000)
+		end
+	end)
+end)
+
+RegisterNetEvent('desirerp-weathersync:client:DisableSyncSpawn')
+AddEventHandler('desirerp-weathersync:client:DisableSyncSpawn', function()
+	disable = true
+
+	Citizen.CreateThread(function() 
+		while disable do 
+			SetRainLevel(0.0)
+			SetWeatherTypePersist('EXTRASUNNY')
+			SetWeatherTypeNow('EXTRASUNNY')
+			SetWeatherTypeNowPersist('EXTRASUNNY')
+			NetworkOverrideClockTime(12, 0, 0)
 			Citizen.Wait(5000)
 		end
 	end)
