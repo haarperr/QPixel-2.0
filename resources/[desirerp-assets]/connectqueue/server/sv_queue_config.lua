@@ -69,11 +69,11 @@ Config.ShowTemp = false
 Config.Language = {
     joining = "\xF0\x9F\x8E\x89Joining QPixel...",
     connecting = "\xE2\x8F\xB3Connecting to QPixel...",
-    idrr = "\xE2\x9D\x97[DPXQueue] Error: Couldn't retrieve any of your id's, try restarting.",
-    err = "\xE2\x9D\x97[DPXQueue] There was an error",
+    idrr = "\xE2\x9D\x97[QPixel-Queue] Error: Couldn't retrieve any of your id's, try restarting.",
+    err = "\xE2\x9D\x97[QPixel-Queue] There was an error",
     pos = "\xF0\x9F\x90\x8CYou are %d/%d in queue \xF0\x9F\x95\x9C%s",
-    connectingerr = "\xE2\x9D\x97[DPXQueue] Error: Error adding you to connecting list",
-    timedout = "\xE2\x9D\x97[DPXQueue] Error: Timed out?",
-    wlonly = "\xE2\x9D\x97[DPXQueue] You must be whitelisted to join this server. To apply, head to : https://discord.gg/novelcity",
-    steam = "\xE2\x9D\x97 [DPXQueue] Error: Steam must be running"
+    connectingerr = "\xE2\x9D\x97[QPixel-Queue] Error: Error adding you to connecting list",
+    timedout = "\xE2\x9D\x97[QPixel-Queue] Error: Timed out?",
+    wlonly = "\xE2\x9D\x97[QPixel-Queue] You must be whitelisted to join this server. To apply, head to : https://discord.gg/qpixel",
+    steam = "\xE2\x9D\x97 [QPixel-Queue] Error: Steam must be running"
 }
