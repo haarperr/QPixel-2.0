@@ -1484,10 +1484,15 @@ end)
 RegisterServerEvent('police:openSwatArmory')
 AddEventHandler('police:openSwatArmory', function()
     local src = source
+    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local character = user:getCurrentCharacter()
 
-    if GetPlayerIdentifier(src) == 'steam:110000142b5b05b' or GetPlayerIdentifier(src) == 'steam:11000013fcd2349' or GetPlayerIdentifier(src) == 'steam:110000117a6e648' or GetPlayerIdentifier(src) == 'steam:11000011762c0b0' or GetPlayerIdentifier(src) == 'steam:11000011643e066' or GetPlayerIdentifier(src) == 'steam:1100001360ba9af' or GetPlayerIdentifier(src) == 'steam:110000117824f8b' then
-        TriggerClientEvent('server-inventory-open', src, '22', 'Shop')
-    else
-        TriggerClientEvent('DoLongHudText' ,src, 'You dont have access to use this', 2)
-    end
+    exports.oxmysql:execute('SELECT rank FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
+        print('Rank: ' .. result[1].rank)
+        if result[1].rank >= 7 then
+			TriggerClientEvent('server-inventory-open', src, '22', 'Shop')
+		else
+			TriggerClientEvent("DoLongHudText", src,"You are not a high enough rank to use this!", 2)
+		end
+	end)
 end)
