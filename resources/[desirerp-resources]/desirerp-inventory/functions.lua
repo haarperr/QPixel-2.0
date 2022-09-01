@@ -855,7 +855,7 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
     end
 
     if (itemid == "pdbadge") then
-        TriggerEvent("desirerp-badge:client:showbadge")
+        TriggerEvent("desirerp-policeBadge:showBadge")
     end
 
     if (itemid == "joint" or itemid == "weed5oz" or itemid == "weedq" or itemid == "beer" or itemid == "vodka" or itemid == "whiskey" or itemid == "lsdtab" or itemid == 'winemilkshake' or itemid == 'honestwineglass' or itemid == "customjointitem") then
