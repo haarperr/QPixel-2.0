@@ -31,6 +31,29 @@ local gangType = 0
 local incall = false
 local drivingInstructor = false
 
+function TargetVehicle()
+  local playerped = PlayerPedId()
+  local coordA = GetEntityCoords(playerped, 1)
+  local coordB = GetOffsetFromEntityInWorldCoords(playerped, 0.0, 100.0, 0.0)
+  local targetVehicle = getVehicleInDirection(coordA, coordB)
+  return targetVehicle
+end
+
+function getVehicleInDirection(coordFrom, coordTo)
+  local offset = 0
+  local rayHandle
+  local vehicle
+  for i = 0, 100 do
+      rayHandle = CastRayPointToPoint(coordFrom.x, coordFrom.y, coordFrom.z, coordTo.x, coordTo.y, coordTo.z + offset, 2, PlayerPedId(), 0)
+      a, b, c, d, vehicle = GetRaycastResult(rayHandle)
+      offset = offset - 1
+      if vehicle ~= 0 then break end
+  end
+  local distance = Vdist2(coordFrom, GetEntityCoords(vehicle))
+  if distance > 25 then vehicle = nil end
+  return vehicle ~= nil and vehicle or 0
+end
+
 activeTasks = {
   --[1] = { ["Gang"] = 2, ["TaskType"] = 1, ["TaskState"] = 2, ["TaskOwner"] = 12(cid), ["TaskInfo"] = , ["location"] = { ['x'] = -1248.52,['y'] = -1141.12,['z'] = 7.74,['h'] = 284.71, ['info'] = 'Down at Smokies on the Beach' }, }
 }
