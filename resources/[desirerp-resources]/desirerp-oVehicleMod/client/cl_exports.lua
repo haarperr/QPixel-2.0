@@ -13,6 +13,8 @@ AddEventHandler('baseevents:leftVehicle', function(pVehicle, pSeat, pName, pClas
     CurrentVehicle = nil
     CurrentNetworkId = nil
     IsDriving = false
+    TriggerEvent("desirep-hud:pursuit_mode_off")
+    TriggerEvent("desirerp-hud:pursuit_values", 0)
 end)
 
 AddEventHandler('baseevents:vehicleChangedSeat', function(pVehicle, pCurrentSeat, pPreviousSeat)
