@@ -24,3 +24,7 @@ client_scripts {
 shared_scripts {
 	'shared/sh_*.lua'
 }
+
+exports{
+	'atShared'
+}

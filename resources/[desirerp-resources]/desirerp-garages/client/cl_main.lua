@@ -1,4 +1,5 @@
 pPlate = nil
+atSharedParking = false
 
 RegisterNetEvent("desirerp-garages:open")
 AddEventHandler("desirerp-garages:open", function()
@@ -248,13 +249,20 @@ AddEventHandler("desirerp-polyzone:enter", function(zone, data)
     if plyPed then
         if job == "police" or job == "doc" or job == "judge" or job == "ems" then
             exports["desirerp-interface"]:showInteraction("Parking")
+            atSharedParking = true
+            print("hiiii") 
         end
     end
 end)
 
+function atShared()
+    return atSharedParking
+end
+
 AddEventHandler("desirerp-polyzone:exit", function(zone)
     if zone ~= "Police Shared" then return end
     exports["desirerp-interface"]:hideInteraction()
+    atSharedParking = false
 end)
 
 RegisterNetEvent('desirerp-garages:fitmentSet')

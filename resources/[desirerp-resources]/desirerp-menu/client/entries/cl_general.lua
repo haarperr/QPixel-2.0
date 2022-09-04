@@ -114,7 +114,20 @@ GeneralEntries[#GeneralEntries+1] = {
 isEnabled = function()
   return isAtGarage and exports["desirerp-garages"]:NearVehicle("Distance") and not IsPedInAnyVehicle(PlayerPedId(), false) and not isDead
 end
-}
+} 
+
+GeneralEntries[#GeneralEntries+1] = {
+  data = {
+    id = "vehicle-parkvehicle",
+    title = "Park Vehicle",
+    icon = "#vehicle-parkvehicle",
+    event = "desirerp-garages:store"
+},
+isEnabled = function()
+  return exports["desirerp-garages"]:atShared() and exports["desirerp-garages"]:NearVehicle("Distance") and not IsPedInAnyVehicle(PlayerPedId(), false) and not isDead
+  
+end
+} 
 
 GeneralEntries[#GeneralEntries+1] = {
   data = {

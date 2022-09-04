@@ -228,6 +228,7 @@ local pCurrentGarage = "None"
 function polyZoneEnter(zoneName, zoneData)
     currentZone = zoneName
     for k, v in pairs (approvedGarages) do
+        print("approved")
         if zoneName == v then
             pCurrentGarage = zoneName
             isAtGarage = true
@@ -235,8 +236,9 @@ function polyZoneEnter(zoneName, zoneData)
         end
     end
     for k, v in pairs (sharedGarages) do
+        print("shared")
         if zoneName == v then
-            pCurrentGarage = zoneName
+            pCurrentGarage = zoneName 
             isAtHouseGarage = true
             print("at this garage dawh")
         end
