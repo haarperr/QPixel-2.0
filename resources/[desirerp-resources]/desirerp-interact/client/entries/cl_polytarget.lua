@@ -351,7 +351,7 @@ Entries[#Entries + 1] = {
             id = "officer_sign_in",
             label = _L("interact-duty-action", "Duty Action"),
             icon = "circle",
-            event = "desirerp-duty:PoliceMenu",
+            event = "desirerp-signin:peekAction",
             parameters = { name = "officer" }
         }
     },
@@ -368,7 +368,7 @@ Entries[#Entries + 1] = {
             id = "phone_doj_sign_in",
             label = _L("interact-duty-action", "Duty Action"),
             icon = "circle",
-            event = "desirerp-duty:doj_board",
+            event = "desirerp-signin:peekAction",
             parameters = { name = "phone_doj" }
         }
     },
@@ -386,7 +386,7 @@ Entries[#Entries + 1] = {
             id = "ems_sign_in",
             label = "Duty Action",
             icon = "circle",
-            event = "desirerp-duty:EMSMenu",
+            event = "desirerp-signin:peekAction",
             parameters = { name = "ems" }
         }
     },
