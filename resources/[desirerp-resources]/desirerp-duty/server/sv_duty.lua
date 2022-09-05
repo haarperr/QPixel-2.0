@@ -2,21 +2,64 @@ local currentCops = 0
 local currentEMS = 0
 
 RegisterServerEvent('desirerp-duty:AttemptDuty')
-AddEventHandler('desirerp-duty:AttemptDuty', function(pJobType, pJob)
+AddEventHandler('desirerp-duty:AttemptDuty', function(pJobType)
 	local src = source
+	if src == nil or src == 0 then src = source end
 	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
 	local character = user:getCurrentCharacter()
 	local jobs = exports["desirerp-base"]:getModule("JobManager")
-	local job = pJobType and pJobType or 'police'
-	exports.ghmattimysql:execute('SELECT callsign FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
+	local job = pJobType
+	exports.oxmysql:execute('SELECT callsign FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
 		jobs:SetJob(user, job, false, function()
-			TriggerClientEvent('desirerp-duty:PDSuccess', src)
-			TriggerClientEvent("DoLongHudText", src,"10-41 and Restocked.",17)
-			TriggerClientEvent("startSpeedo",src)
-			currentCops = currentCops + 1
-			TriggerClientEvent("job:policecount", -1, currentCops)
-			TriggerEvent('badBlips:server:registerPlayerBlipGroup', src, 'police')
-			TriggerEvent("badBlips:server:registerSourceName", src, character.first_name .. " " ..character.last_name.. " | " .. result[1].callsign)
+			if result[1].callsign ~= nil then
+				pCallSign = result[1].callsign
+			else
+				pCallSign = "000"
+			end
+			if pJobType == 'police' then
+				TriggerClientEvent('desirerp-duty:PDSuccess', src)
+				TriggerClientEvent("DoLongHudText", src,"10-41 and Restocked.",17)
+				TriggerClientEvent("startSpeedo",src)
+				currentCops = currentCops + 1
+				TriggerClientEvent("job:policecount", -1, currentCops)
+				TriggerEvent('desirerp-eblips:server:registerPlayerBlipGroup', src, job)
+				TriggerEvent('desirerp-eblips:server:registerSourceName', src, pCallSign .." | ".. character.first_name .." ".. character.last_name)
+			elseif pJobType == 'sheriff' then
+				TriggerClientEvent('desirerp-duty:BCSOSuccess', src)
+				TriggerClientEvent("DoLongHudText", src,"10-41 and Restocked.",17)
+				TriggerClientEvent("startSpeedo",src)
+				currentCops = currentCops + 1
+				TriggerClientEvent("job:policecount", -1, currentCops)
+				TriggerEvent('desirerp-eblips:server:registerPlayerBlipGroup', src, job)
+				TriggerEvent('desirerp-eblips:server:registerSourceName', src, pCallSign .." | ".. character.first_name .." ".. character.last_name)
+			elseif pJobType == 'ranger' then
+				TriggerClientEvent('desirerp-duty:SAPRSuccess', src)
+				TriggerClientEvent("DoLongHudText", src,"10-41 and Restocked.",17)
+				TriggerClientEvent("startSpeedo",src)
+				currentCops = currentCops + 1
+				TriggerClientEvent("job:policecount", -1, currentCops)
+				TriggerEvent('desirerp-eblips:server:registerPlayerBlipGroup', src, job)
+				TriggerEvent('desirerp-eblips:server:registerSourceName', src, pCallSign .." | ".. character.first_name .." ".. character.last_name)
+			elseif pJobType == 'state' then
+				TriggerClientEvent('desirerp-duty:SASPSuccess', src)
+				TriggerClientEvent("DoLongHudText", src,"10-41 and Restocked.",17)
+				TriggerClientEvent("startSpeedo",src)
+				currentCops = currentCops + 1
+				TriggerClientEvent("job:policecount", -1, currentCops)
+				TriggerEvent('desirerp-eblips:server:registerPlayerBlipGroup', src, job)
+				TriggerEvent('desirerp-eblips:server:registerSourceName', src, pCallSign .." | ".. character.first_name .." ".. character.last_name)
+			elseif pJobType == 'doc' then
+				TriggerClientEvent('desirerp-duty:DOCSuccess', src)
+				TriggerClientEvent("DoLongHudText", src,"10-41 and Restocked.",17)
+				TriggerClientEvent("startSpeedo",src)
+				currentCops = currentCops + 1
+				TriggerClientEvent("job:policecount", -1, currentCops)
+				TriggerEvent('desirerp-eblips:server:registerPlayerBlipGroup', src, job)
+				TriggerEvent('desirerp-eblips:server:registerSourceName', src, pCallSign .." | ".. character.first_name .." ".. character.last_name)
+			elseif pJobType == 'dispatcher' then
+				TriggerEvent('desirerp-eblips:server:registerPlayerBlipGroup', src, job)
+				TriggerEvent('desirerp-eblips:server:registerSourceName', src, pCallSign .." | ".. character.first_name .." ".. character.last_name)
+			end
 		end)
 	end)
 end)
@@ -28,27 +71,28 @@ AddEventHandler('desirerp-duty:AttemptDutyEMS', function(src, pJobType)
 	local character = user:getCurrentCharacter()
 	local jobs = exports["desirerp-base"]:getModule("JobManager")
 	local job = pJobType and pJobType or 'ems'
-	exports.ghmattimysql:execute('SELECT callsign FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
+	exports.oxmysql:execute('SELECT callsign FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
 		jobs:SetJob(user, job, false, function()
 			TriggerClientEvent('desirerp-duty:EMSSuccess', src)
 			TriggerClientEvent("DoLongHudText", src,"On-Duty.",17)
 			currentEMS = currentEMS + 1
 			TriggerClientEvent("job:emscount", -1, currentEMS)
-			TriggerEvent('badBlips:server:registerPlayerBlipGroup', src, 'ems')
-			TriggerEvent("badBlips:server:registerSourceName", src, character.first_name .. " " ..character.last_name.. " | " .. result[1].callsign)
+			TriggerEvent('desirerp-eblips:server:registerPlayerBlipGroup', src, 'ems')
+			TriggerEvent('desirerp-eblips:server:registerSourceName', src, result[1].callsign .." | ".. character.first_name .." ".. character.last_name)
 		end)
 	end)
 end)
 
 RegisterServerEvent('desirerp-duty:OffDutyComplete')
-AddEventHandler('desirerp-duty:OffDutyComplete', function()
+AddEventHandler('desirerp-duty:OffDutyComplete', function(pJobType)
+	print(pJobType)
 	if currentCops ~= 0 then
 		currentCops = currentCops - 1
 	else
 		currentCops = 0
 	end
 	TriggerClientEvent("job:policecount", -1, currentCops)
-	TriggerEvent('badBlips:server:removePlayerBlipGroup', src, 'police')
+	TriggerEvent('desirerp-eblips:server:removePlayerBlipGroup', source, pJobType)
 end)
 
 RegisterServerEvent('desirerp-duty:OffDutyCompleteEMS')
@@ -59,7 +103,7 @@ AddEventHandler('desirerp-duty:OffDutyCompleteEMS', function()
 		currentEMS = 0
 	end
 	TriggerClientEvent("job:emscount", -1, currentEMS)
-	TriggerEvent('badBlips:server:removePlayerBlipGroup', src, 'ems')
+	TriggerEvent('desirerp-eblips:server:removePlayerBlipGroup', source, 'ems')
 end)
 
 RegisterServerEvent('desirerp-duty:AttemptDutyJudge')
@@ -68,7 +112,7 @@ AddEventHandler('desirerp-duty:AttemptDutyJudge', function(src, pJobType)
 	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
 	local character = user:getCurrentCharacter()
 	local jobs = exports["desirerp-base"]:getModule("JobManager")
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'judge'}, function(result)
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'judge'}, function(result)
 		if result[1] ~= nil then
 			jobs:SetJob(user, 'judge', false, function()
 				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
@@ -86,7 +130,7 @@ AddEventHandler('desirerp-duty:AttemptDutyDA', function(src, pJobType)
 	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
 	local character = user:getCurrentCharacter()
 	local jobs = exports["desirerp-base"]:getModule("JobManager")
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'da'}, function(result)
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'da'}, function(result)
 		if result[1] ~= nil then
 			jobs:SetJob(user, 'da', false, function()
 				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
@@ -104,7 +148,7 @@ AddEventHandler('desirerp-duty:AttemptDutyPublic', function(src, pJobType)
 	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
 	local character = user:getCurrentCharacter()
 	local jobs = exports["desirerp-base"]:getModule("JobManager")
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'defender'}, function(result)
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'defender'}, function(result)
 		if result[1] ~= nil then
 			jobs:SetJob(user, 'defender', false, function()
 				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
@@ -115,68 +159,14 @@ AddEventHandler('desirerp-duty:AttemptDutyPublic', function(src, pJobType)
 		end
 	end)
 end)
-
-RegisterServerEvent('desirerp-duty:AttemptDutyADA')
-AddEventHandler('desirerp-duty:AttemptDutyADA', function(src, pJobType)
-	if src == nil or src == 0 then src = source end
-	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
-	local character = user:getCurrentCharacter()
-	local jobs = exports["desirerp-base"]:getModule("JobManager")
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'ada'}, function(result)
-		if result[1] ~= nil then
-			jobs:SetJob(user, 'ada', false, function()
-				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
-				TriggerClientEvent('desirerp-duty:ADASuccess', src)
-			end)
-		else
-			TriggerClientEvent("DoLongHudText", src,"You are not whitelisted for this job!", 2)
-		end
-	end)
-end)
-
-RegisterServerEvent('desirerp-duty:AttemptDutyPDM')
-AddEventHandler('desirerp-duty:AttemptDutyPDM', function(src, pJobType)
-	if src == nil or src == 0 then src = source end
-	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
-	local character = user:getCurrentCharacter()
-	local jobs = exports["desirerp-base"]:getModule("JobManager")
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'pdm'}, function(result)
-		if result[1] ~= nil then
-			jobs:SetJob(user, 'pdm', false, function()
-				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
-				TriggerClientEvent('desirerp-duty:PDMSuccess', src)
-			end)
-		else
-			TriggerClientEvent("DoLongHudText", src,"You are not whitelisted for this job!", 2)
-		end
-	end)
-end)
-
-RegisterServerEvent('desirerp-duty:AttemptDutySanders')
-AddEventHandler('desirerp-duty:AttemptDutySanders', function(src, pJobType)
-	if src == nil or src == 0 then src = source end
-	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
-	local character = user:getCurrentCharacter()
-	local jobs = exports["desirerp-base"]:getModule("JobManager")
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'sanders'}, function(result)
-		if result[1] ~= nil then
-			jobs:SetJob(user, 'sanders', false, function()
-				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
-				TriggerClientEvent('desirerp-duty:SandersSuccess', src)
-			end)
-		else
-			TriggerClientEvent("DoLongHudText", src,"You are not whitelisted for this job!", 2)
-		end
-	end)
-end)
-
+		-- Start Tow
 RegisterServerEvent('desirerp-duty:AttemptDutyTow')
 AddEventHandler('desirerp-duty:AttemptDutyTow', function(src, pJobType)
 	if src == nil or src == 0 then src = source end
 	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
 	local character = user:getCurrentCharacter()
 	local jobs = exports["desirerp-base"]:getModule("JobManager")
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'towunion'}, function(result)
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'towunion'}, function(result)
 		if result[1] ~= nil then
 			jobs:SetJob(user, 'towunion', false, function()
 				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
@@ -187,22 +177,103 @@ AddEventHandler('desirerp-duty:AttemptDutyTow', function(src, pJobType)
 		end
 	end)
 end)
+		-- End Tow
+
+		-- Start Burgershot
+RegisterServerEvent('desirerp-duty:AttemptDutyBurger')
+AddEventHandler('desirerp-duty:AttemptDutyBurger', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'burger_shot'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'burger_shot', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
+				TriggerClientEvent('desirerp-duty:BurgerSuccess', src)
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src,"You are not whitelisted for this job!", 2)
+		end
+	end)
+end)
+		-- End Burgershot
+
+		-- Start ArtGallery
+RegisterServerEvent('desirerp-duty:AttemptDutyArt')
+AddEventHandler('desirerp-duty:AttemptDutyArt', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'art_gallery'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'art_gallery', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
+				TriggerClientEvent('desirerp-duty:ArtSuccess', src)
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src,"You are not whitelisted for this job!", 2)
+		end
+	end)
+end)
+		-- End ArtGallery
+
+		--Start PDM
+RegisterServerEvent('desirerp-duty:AttemptDutyPDM')
+AddEventHandler('desirerp-duty:AttemptDutyPDM', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'pdm'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'pdm', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
+				TriggerClientEvent('desirerp-duty:PDMSuccess', src)
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src,"You are not whitelisted for this job!", 2)
+		end
+	end)
+end)
+		-- End PDM
+
+		--Start Cosmic Cannabis
+RegisterServerEvent('desirerp-duty:AttemptDutyCosmic')
+AddEventHandler('desirerp-duty:AttemptDutyCosmic', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'cosmic_cannabis'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'cosmic_cannabis', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Clock On!", 1)
+				TriggerClientEvent('desirerp-duty:CosmicSuccess', src)
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src,"You are not whitelisted for this job!", 2)
+		end
+	end)
+end)
+		-- End Cosmic Cannabis
 
 AddEventHandler('playerDropped', function()
 	local src = source
 	if src ~= nil then
 		local steamIdentifier = GetPlayerIdentifiers(src)[1]
-		exports.ghmattimysql:execute('SELECT * FROM characters WHERE owner = ?', {steamIdentifier}, function(result)
-			if result[1].job == 'police' then
+		exports.oxmysql:execute('SELECT * FROM characters WHERE owner = ?', {steamIdentifier}, function(result)
+			if result[1].job == 'police' or result[1].job == 'sheriff' or result[1].job == 'state' then
 				if currentCops ~= 0 then
 					currentCops = currentCops - 1
 				else
 					currentCops = 0
 				end
                 print('Active PD:', currentCops)
-                exports.ghmattimysql:execute("UPDATE characters SET `job` = @job WHERE `owner` = @owner", {['@owner'] = steamIdentifier, ['@job'] = 'unemployed'})
+                exports.oxmysql:execute("UPDATE characters SET `job` = @job WHERE `owner` = @owner", {['@owner'] = steamIdentifier, ['@job'] = 'unemployed'})
 				TriggerClientEvent("job:policecount", -1, currentCops)
-				TriggerEvent('badBlips:server:removePlayerBlipGroup', src, 'police')
+				TriggerEvent('desirerp-eblips:server:removePlayerBlipGroup', src, 'police')
 				TriggerClientEvent('desirerp-duty:OffDuty' ,src)
             elseif result[1].job == 'ems' then
                 if currentEMS ~= 0 then
@@ -212,9 +283,19 @@ AddEventHandler('playerDropped', function()
 				end
                 print('Active EMS:', currentEMS)
 				TriggerClientEvent('desirerp-duty:OffDutyEMS' ,src)
-                exports.ghmattimysql:execute("UPDATE characters SET `job` = @job WHERE `owner` = @owner", {['@owner'] = steamIdentifier, ['@job'] = 'unemployed'})
+                exports.oxmysql:execute("UPDATE characters SET `job` = @job WHERE `owner` = @owner", {['@owner'] = steamIdentifier, ['@job'] = 'unemployed'})
 				TriggerClientEvent("job:emscount", -1, currentEMS)
-				TriggerEvent('badBlips:server:removePlayerBlipGroup', src, 'ems')
+				TriggerEvent('desirerp-eblips:server:removePlayerBlipGroup', src, 'ems')
+			elseif result[1].job == 'judge' then
+				local remove = Await(SQL.execute("DELETE FROM doj_duty WHERE src = @src AND job = @job", {
+					["src"] = src,
+					["job"] = "judge"
+				}))
+			elseif result[1].job == 'lawyer' then
+				local remove = Await(SQL.execute("DELETE FROM doj_duty WHERE src = @src AND job = @job", {
+					["src"] = src,
+					["job"] = "lawyer"
+				}))
 			end
 		end)
 	end
@@ -229,7 +310,7 @@ function SignOnRadio(src)
 	local q = [[SELECT id, cid, job, callsign, rank FROM jobs_whitelist WHERE cid = @cid AND (job = 'police' or job = 'doc')]]
 	local v = {["cid"] = char.id}
 
-	exports.ghmattimysql:execute(q, v, function(results)
+	exports.oxmysql:execute(q, v, function(results)
 		if not results then return end
 		local callsign = ""
 		if results[1].callsign ~= nil and results[1].callsign == "" then callsign = results[1].callsign else callsign = "TBD" end
@@ -241,21 +322,6 @@ function SignOnRadio(src)
 	end)
 end
 
---[[ RegisterCommand('callsign', function(source, args)
-    local src = source
-	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
-	local character = user:getCurrentCharacter()
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
-		if result[1].job == 'police' or result[1].job == 'ems' then
-			exports.ghmattimysql:execute("UPDATE jobs_whitelist SET `callsign` = @callsign WHERE cid = @cid", {['callsign'] = args[1], ['cid'] = character.id})
-			TriggerClientEvent('police:setCallSign',src, args[1])
-		else
-			TriggerClientEvent('DoLongHudText', src, 'You are not Police or EMS!', 2)
-		end
-	end)
-end) ]]
-
-
 RegisterServerEvent('desirerp-duty:AttemptDutySuits')
 AddEventHandler('desirerp-duty:AttemptDutySuits', function(src, pJobType)
 	if src == nil or src == 0 then src = source end
@@ -263,9 +329,9 @@ AddEventHandler('desirerp-duty:AttemptDutySuits', function(src, pJobType)
 	local character = user:getCurrentCharacter()
 	local jobs = exports["desirerp-base"]:getModule("JobManager")
 	local job = pJobType and pJobType or 'suits'
-	exports.ghmattimysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result)
 		if result[1].job == "suits" then
-			exports.ghmattimysql:execute('SELECT callsign FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result2)
+			exports.oxmysql:execute('SELECT callsign FROM jobs_whitelist WHERE cid = ?', {character.id}, function(result2)
 				jobs:SetJob(user, job, false, function()
 					TriggerClientEvent('desirerp-duty:SuitsSuccess', src)
 					TriggerClientEvent("DoLongHudText", src,"On-Duty.",17)
@@ -278,6 +344,213 @@ AddEventHandler('desirerp-duty:AttemptDutySuits', function(src, pJobType)
 	end)
 end)
 
+--// In N Out
 
+RegisterServerEvent('desirerp-duty:attempt-in-n-out:duty')
+AddEventHandler('desirerp-duty:attempt-in-n-out:duty', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'in-n-out'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'in-n-out', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Clocked In As In N Out", 1)
+				TriggerClientEvent('desirerp-duty:in-n-out:successful', src)
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src, "You are not whitelisted for this job!", 2)
+		end
+	end)
+end)
 
+--// DOJ
 
+-- Judge
+
+RegisterServerEvent('desirerp-duty:attempt_duty:judge')
+AddEventHandler('desirerp-duty:attempt_duty:judge', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'judge'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'judge', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Successfully Clocked In As Judge", 1)
+				TriggerClientEvent('desirerp-duty:clocked_in:judge_successful', src)
+				local insert = Await(SQL.execute("INSERT INTO doj_duty (src, cid, name, status, job, phone) VALUES (@src, @cid, @name, @status, @job, @phone)", {
+					["src"] = src,
+					["cid"] = character.id,
+					["name"] = character.first_name .. " " .. character.last_name,
+					["status"] = "Available",
+					["job"] = "judge",
+					["phone"] = character.phone_number
+				}))
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src, "You are not whitelisted for this job!", 2)
+		end
+	end)
+end)
+
+RegisterServerEvent('desirerp-duty:offDutyJudge')
+AddEventHandler('desirerp-duty:offDutyJudge', function()
+	local src = source
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local remove = Await(SQL.execute("DELETE FROM doj_duty WHERE cid = @cid AND job = @job", {
+		["cid"] = character.id,
+		["job"] = "judge"
+	}))
+end)
+
+-- Public Defender
+
+RegisterServerEvent('desirerp-duty:attempt_duty:public_defender')
+AddEventHandler('desirerp-duty:attempt_duty:public_defender', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'public_defender'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'public_defender', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Successfully Clocked In As Public Defender", 1)
+				TriggerClientEvent('desirerp-duty:clocked_in:public_defender_successful', src)
+				local insert = Await(SQL.execute("INSERT INTO doj_duty (src, cid, name, status, job, phone) VALUES (@src, @cid, @name, @status, @job, @phone)", {
+					["src"] = src,
+					["cid"] = character.id,
+					["name"] = character.first_name .. " " .. character.last_name,
+					["status"] = "Available",
+					["job"] = "public_defender",
+					["phone"] = character.phone_number
+				}))
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src, "You are not whitelisted for this job!", 2)
+		end
+	end)
+end)
+
+RegisterServerEvent('desirerp-duty:offDutyDefender')
+AddEventHandler('desirerp-duty:offDutyDefender', function()
+	local src = source
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local remove = Await(SQL.execute("DELETE FROM doj_duty WHERE cid = @cid AND job = @job", {
+		["cid"] = character.id,
+		["job"] = "public_defender"
+	}))
+end)
+
+-- District Attorney
+
+RegisterServerEvent('desirerp-duty:attempt_duty:district_attorney')
+AddEventHandler('desirerp-duty:attempt_duty:district_attorney', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'district_attorney'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'district_attorney', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Successfully Clocked In As District Attorney", 1)
+				TriggerClientEvent('desirerp-duty:clocked_in:district_attorney_successful', src)
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src, "You are not whitelisted for this job!", 2)
+		end
+	end)
+end)
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+-- Burger Shot
+
+RegisterServerEvent('desirerp-duty:attempt_duty:burger_shot')
+AddEventHandler('desirerp-duty:attempt_duty:burger_shot', function(src, pJobType)
+	if src == nil or src == 0 then src = source end
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+	exports.oxmysql:execute('SELECT job FROM jobs_whitelist WHERE cid = ? AND job = ?', {character.id, 'burger_shot'}, function(result)
+		if result[1] ~= nil then
+			jobs:SetJob(user, 'burger_shot', false, function()
+				TriggerClientEvent("DoLongHudText", src,"Successfully clocked into a 9 to 5", 1)
+				TriggerClientEvent('desirerp-duty:clocked_in:burger_shot_successful', src)
+			end)
+		else
+			TriggerClientEvent("DoLongHudText", src, "You don't work at Burgershot dumbass!", 2)
+		end
+	end)
+end)
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+-- PD
+
+RegisterCommand('hirepd', function(source, args)
+	local src = source
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local cid = user:getCurrentCharacter().id
+		exports.oxmysql:execute('SELECT * FROM jobs_whitelist WHERE cid = ?', {cid}, function(result)
+			if result[1].job == 'police' or result[1].job == 'state' or result[1].job == 'doc' and result[1].rank >= 7 then
+				TriggerClientEvent('desirerp-duty:HireLaw:Menu', src)
+			end
+		end)
+end)
+
+RegisterCommand('firepd', function(source, args)
+	local src = source
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local cid = user:getCurrentCharacter().id
+		exports.oxmysql:execute('SELECT * FROM jobs_whitelist WHERE cid = ?', {cid}, function(result)
+			if result[1].job == 'police' or result[1].job == 'state' or result[1].job == 'doc' and result[1].rank >= 7 then
+				TriggerClientEvent('desirerp-duty:FireLaw:Menu', src)
+			end
+		end)
+end)
+
+-- EMS
+
+RegisterCommand('hireems', function(source, args)
+	local src = source
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local cid = user:getCurrentCharacter().id
+	exports.oxmysql:execute('SELECT * FROM jobs_whitelist WHERE cid = ? AND job = "ems"', {cid}, function(result)
+		if result[1].job == 'ems' and result[1].rank >= 3 then
+				TriggerClientEvent('desirerp-duty:HireEMS:Menu', src)
+			end
+		end)
+end)
+
+RegisterCommand('fireems', function(source, args)
+	local src = source
+	local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+	local cid = user:getCurrentCharacter().id
+	exports.oxmysql:execute('SELECT * FROM jobs_whitelist WHERE cid = ? AND job = "ems"', {cid}, function(result)
+		if result[1].job == 'ems' and result[1].rank >= 3 then
+				TriggerClientEvent('desirerp-duty:FireEMS:Menu', src)
+			end
+		end)
+end)
+
+RegisterServerEvent('desirerp-duty:tow_trucker')
+AddEventHandler('desirerp-duty:tow_trucker', function()
+	local src = source
+	local user = exports['desirerp-base']:getModule("Player"):GetUser(src)
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+
+	jobs:SetJob(user, 'tow_trucker')
+end)
+
+RegisterServerEvent('desirerp-duty:tow_trucker_off')
+AddEventHandler('desirerp-duty:tow_trucker_off', function()
+	local src = source
+	local user = exports['desirerp-base']:getModule("Player"):GetUser(src)
+	local jobs = exports["desirerp-base"]:getModule("JobManager")
+
+	jobs:SetJob(user, 'unemployed')
+	TriggerClientEvent('DoLongHudText', src, 'You\'re now unemployed.')
+end)

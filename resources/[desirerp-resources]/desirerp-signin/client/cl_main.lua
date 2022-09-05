@@ -89,7 +89,7 @@ CreateThread(function()
   exports["desirerp-polytarget"]:AddBoxZone("phone_doj_sign_in", vector3(-553.4664306640625, -193.484375, 38.31857299804687), 0.2, 0.35, {
     minZ=38.31857299804687,
     maxZ=38.91857299804687,
-    debugPoly = true,
+    debugPoly = false,
     heading = 12,
   })
 
