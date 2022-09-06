@@ -4,13 +4,21 @@ game 'gta5'
 
 client_script {
     '@desirerp-lib/client/cl_interface.lua',
+    '@desirerp-lib/client/cl_rpc.lua',
     'config.lua',
-	'client/*.lua'
+	'client/*.lua',
+    'client/cl_rpc.lua'
 }
 
 server_script {
-    'server/*.lua'
+    'server/*.lua',
+    'server/sv_rpc.lua',
+    '@desirerp-lib/server/sv_rpc.lua'
 }
+
+shared_script {
+    '@desirerp-lib/shared/sh_util.lua'
+  }
 
 ui_page 'html/index.html'
 

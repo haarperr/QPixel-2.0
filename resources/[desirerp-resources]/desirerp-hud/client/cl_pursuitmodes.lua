@@ -1,165 +1,126 @@
-local defaultHash, defaultHash2, defaultHash3, defaultHash4, defaultHash5, defaultHash6, defaultHash7 = "npolvette","npolstang", "npolchal","npolmm", "npolchar", "npolexp", "npolvic"
 
-local pursuitEnabled = false
-local InPursuitModeAPlus = false
-local InPursuitModeB = false
 
-RegisterNetEvent("desirep-hud:pursuit_mode_b") 
-AddEventHandler("desirep-hud:pursuit_mode_b",function()
-	local ped = PlayerPedId()
-	if (IsPedInAnyVehicle(PlayerPedId(), true)) then
-		local veh = GetVehiclePedIsIn(PlayerPedId(),false)  
-		local Driver = GetPedInVehicleSeat(veh, -1)
-		local fInitialDriveForce = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce')
-		local mode1 = 'B'
-		
-		if IsPedSittingInAnyVehicle(ped) and IsVehicleModel(veh,defaultHash) or IsVehicleModel(veh,defaultHash2) or IsVehicleModel(veh,defaultHash3)  -- Vehicle Checks
-		or IsVehicleModel(veh,defaultHash4) or IsVehicleModel(veh,defaultHash5) then
-				 SetVehicleModKit(veh, 0)
-				 SetVehicleMod(veh, 46, 4, true)
-				 SetVehicleMod(veh, 11, 4, true)
-				 --SetVehicleMod(veh, 12, 4, true)-- Disable if interceptors too fast lol 
-			 --SetVehicleMod(veh, 13, 4, true)  -- Disable if interceptors too fast lol 
-				 ToggleVehicleMod(veh,  18, true)          
-				 TriggerEvent('PursuitModeIcon:Enable:B+') -- Turns on pursuit mode icon on HUD 
-				 TriggerEvent('DoLongHudText', 'New Mode : ' ..mode1)
-				 PursuitEnabled = true
-				 SetVehicleHandlingField(veh, 'CHandlingData', 'fInitialDriveForce', 0.4270000)
-				 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 1.000000)
- 
-				 SelectedPursuitMode = 33
-				 TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
-				 SendNUIMessage({action = "pursuitmode", pursuitmode = SelectedPursuitMode})
-			 else
-				 TriggerEvent('DoLongHudText', 'You are not in a HEAT vehicle',2)
-			 end
-		 end
-	 end)
+local vehicleModes = {}
+Citizen.CreateThread(function()
+    Wait(150)
+    vehicleModes = RPC.execute("pursuit:getJSON")
+    DecorRegister('pursuitLevel', 1)
+    DecorRegister('hasVehicleEditedByPursuit', false)
+end)
 
-RegisterNetEvent("desirep-hud:pursuit_mode_a")
-AddEventHandler("desirep-hud:pursuit_mode_a",function()
-	local ped = PlayerPedId()
-	if (IsPedInAnyVehicle(PlayerPedId(), true)) then
-		local veh = GetVehiclePedIsIn(PlayerPedId(),false)  
-		local Driver = GetPedInVehicleSeat(veh, -1)
-		local fInitialDriveForce = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce')
-		local First = 'A +'
-		if IsPedSittingInAnyVehicle(ped) and IsVehicleModel(veh,defaultHash) or IsVehicleModel(veh,defaultHash2) or IsVehicleModel(veh,defaultHash3)
-		or IsVehicleModel(veh,defaultHash4) or IsVehicleModel(veh,defaultHash5) then
-				 SetVehicleModKit(veh, 0)
-				 SetVehicleMod(veh, 46, 4, true)
-				 SetVehicleMod(veh, 11, 4, true)
-			 --	SetVehicleMod(veh, 12, 4, false) -- Disable if interceptors too fast lol 
-			 --	SetVehicleMod(veh, 13, 4, false)  -- Disable if interceptors too fast lol 
-				 ToggleVehicleMod(veh,  18, false)          
-				 TriggerEvent('PursuitModeIcon:Enable:A+') -- Turns on pursuit mode icon on HUD
-				 TriggerEvent('DoLongHudText', 'New Mode : ' ..First)
-				 PursuitEnabled = true
-				 SetVehicleHandlingField(veh, 'CHandlingData', 'fInitialDriveForce', 0.3970000)
-				 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 1.000000) 
+local currentLevel = 1 
 
-				 SelectedPursuitMode = 66
-				 TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
-				 SendNUIMessage({action = "pursuitmodecheck", pursuitmode = SelectedPursuitMode}) 
-			 else
-				 TriggerEvent('DoLongHudText', 'You are not in a HEAT vehicle',2)
-			 end
-	 end
-	 end)
-	
-RegisterNetEvent("desirep-hud:pursuit_mode_s")  -- Final Pursuit Mode for now anyways 0_o
-AddEventHandler("desirep-hud:pursuit_mode_s",function()
-    local ped = PlayerPedId()
-	if (IsPedInAnyVehicle(PlayerPedId(), true)) then
-		local veh = GetVehiclePedIsIn(PlayerPedId(),false)  
-		local Driver = GetPedInVehicleSeat(veh, -1)
-        local fInitialDriveForce = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce')
-		local mode2 = 'S +'
-        
-		if IsPedSittingInAnyVehicle(ped) and IsVehicleModel(veh,defaultHash) or IsVehicleModel(veh,defaultHash2) or IsVehicleModel(veh,defaultHash3)  -- Vehicle Checks
-		or IsVehicleModel(veh,defaultHash4) or IsVehicleModel(veh,defaultHash5) then
-				 SetVehicleModKit(veh, 0)
-				 SetVehicleMod(veh, 46, 4, true)
-				 SetVehicleMod(veh, 11, 4, true)
-			 --	SetVehicleMod(veh, 12, 4, true)-- Disable if interceptors too fast lol 
-			 --	SetVehicleMod(veh, 13, 4, true)  -- Disable if interceptors too fast lol 
-				 ToggleVehicleMod(veh,  18, true)          
-				 TriggerEvent('PursuitModeIcon:Enable:S+') -- Turns on pursuit mode icon on HUD
-				 TriggerEvent('DoLongHudText', 'New Mode : ' ..mode2)
-				 PursuitEnabled = true
-				 SetVehicleHandlingField(veh, 'CHandlingData', 'fInitialDriveForce', 0.4970000)
-				 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 1.100000)
- 
-				 SelectedPursuitMode = 100
-				 TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
-				 SendNUIMessage({action = "pursuitmode", pursuitmode = SelectedPursuitMode})
-			 else
-				 TriggerEvent('DoLongHudText', 'You are not in a HEAT vehicle',2)
-			 end
-		 end
-	 end)
- 
-
-RegisterNetEvent("desirep-hud:pursuit_mode_off")
-AddEventHandler("desirep-hud:pursuit_mode_off",function()
-local ped = PlayerPedId()
-if (IsPedInAnyVehicle(PlayerPedId(), true)) then
-	local veh = GetVehiclePedIsIn(PlayerPedId(),false)  
-	local Driver = GetPedInVehicleSeat(veh, -1)
-	local fInitialDriveForce = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce')
-
-	if IsPedSittingInAnyVehicle(ped) and IsVehicleModel(veh,defaultHash) or IsVehicleModel(veh,defaultHash2) or IsVehicleModel(veh,defaultHash3) or IsVehicleModel(veh,defaultHash4) or IsVehicleModel(veh,defaultHash5) then
-		TriggerEvent('PursuitModeIcon:Disable')
-		SetVehicleModKit(veh, 0)
-		SetVehicleMod(veh, 46, 4, false)
-		SetVehicleMod(veh, 13, 4, false)
-		SetVehicleMod(veh, 12, 4, false)
-		SetVehicleMod(veh, 11, 4, false)
-		ToggleVehicleMod(veh,  18, false)
-
-		 TriggerEvent("DoLongHudText","Pursuit Mode Disabled",2 )                
-		 InPursuitModeAPlus = false
-		 pursuitEnabled = false
-		 InPursuitModeB = false
-		 SetVehicleHandlingField(veh, 'CHandlingData', 'fInitialDriveForce', 0.305000)
-		 SetVehicleHandlingField(veh, 'CHandlingData', 'fDriveInertia', 0.850000)
-		 SelectedPursuitMode = 0
-		 TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
-		 SendNUIMessage({action = "pursuitmode", pursuitmode = SelectedPursuitMode})
-	 else
-		 TriggerEvent('DoLongHudText', 'You are not in a HEAT vehicle',2)
-	 end
+function dump(o)
+	if type(o) == 'table' then
+	   local s = '{ '
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ','
+	   end
+	   return s .. '} '
+	else
+	   return tostring(o)
+	end
  end
- end)
 
-RegisterCommand('+evan_shift_pursuit_mode', function()
-	local ped = PlayerPedId()
-	local veh = GetVehiclePedIsIn(PlayerPedId(),false)  
-	if IsPedSittingInAnyVehicle(ped) and IsVehicleModel(veh,defaultHash) or IsVehicleModel(veh,defaultHash2) or IsVehicleModel(veh,defaultHash3) or IsVehicleModel(veh,defaultHash4) or IsVehicleModel(veh,defaultHash5) or IsVehicleModel(veh,defaultHash6) or IsVehicleModel(veh,defaultHash7) or IsVehicleModel(veh,defaultHash8) then
-		if not pursuitEnabled and not passedFirstMode then
-			passedFirstMode = true
-			pursuitEnabled = true
-			TriggerEvent('desirep-hud:pursuit_mode_b')
-		elseif pursuitEnabled and not passedSecondMode then
-			passedSecondMode = true
-			InPursuitModeAPlus = true
-			pursuitEnabled = false
-			TriggerEvent('desirep-hud:pursuit_mode_a') 
-		elseif InPursuitModeAPlus and not passedThirdMode then
-			passedThirdMode = true
-			InPursuitModeB = true
-			InPursuitModeAPlus = false
-			TriggerEvent('desirep-hud:pursuit_mode_s')
-		elseif InPursuitModeB then
-			passedFirstMode = false
-			passedSecondMode = false 
-			passedThirdMode = false
-			InPursuitModeAPlus = false
-			TriggerEvent('desirep-hud:pursuit_mode_off')
+RegisterCommand("pursuit", function(source, args)
+    local ped = PlayerPedId()
+    local vehicle = GetVehiclePedIsIn(ped, false)
+    local vehicleName = string.lower(GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)))
+    local vehiclePresetName = nil
+    local vehiclePresetMods = {}
+    for k, v in pairs(vehicleModes["client"]["global"]["vehicles"]) do
+        if v.model == vehicleName then
+            vehiclePresetName = v.preset
+            for x, y in pairs(vehicleModes["client"]["global"]["presets"]) do
+                if y.id == vehiclePresetName then
+                    vehiclePresetMods = y.modes
+                    
+                    break
+                end
+            end
+            break
+        end
+    end
+	if not vehiclePresetName then 
+		return 
+	end
+
+	if vehiclePresetName == "generic" and currentLevel == 5 then 
+		currentLevel = 0 
+	end
+
+	if vehiclePresetName == "motorbike" and currentLevel == 3 then 
+		currentLevel = 0 
+	end
+
+	if vehiclePresetName == "cruiser" and currentLevel == 2 then 
+		currentLevel = 0 
+	end
+
+	currentLevel = currentLevel + 1
+
+	local modLevel = vehiclePresetMods[currentLevel]
+	SetVehicleXenonLightsColour(vehicle, modLevel.appearance.colors.xenon)
+	ToggleVehicleMod(vehicle, modLevel.mods.Turbo)
+	ToggleVehicleMod(vehicle, 18, modLevel.mods.Turbo)
+	
+	SetVehicleMod(vehicle, 11, modLevel.mods.Engine, false)
+	SetVehicleMod(vehicle, 12, modLevel.mods.Brakes, false)
+	SetVehicleMod(vehicle, 13, modLevel.mods.Transmission, false)
+	SetVehicleMod(vehicle, 22, modLevel.mods.XenonHeadlights, false)
+	for i = 1, #modLevel.handling do
+		if not DecorIsRegisteredAsType(modLevel.handling[i].field, 3) then 
+			DecorRegister(modLevel.handling[i].field, 3)
 		end
+		Citizen.Wait(100)
+		local defaultValue = DecorGetFloat(vehicle, modLevel.handling[i].field)
+		if defaultValue == 0 then
+			defaultValue = GetVehicleHandlingFloat(vehicle, 'CHandlingData', modLevel.handling[i].field)
+			DecorSetFloat(vehicle, modLevel.handling[i].field, defaultValue)
+		end
+	end
+	for i = 1, #modLevel.handling do 
+		print('Before',GetVehicleHandlingFloat(vehicle, 'CHandlingData', modLevel.handling[i].field))
+		SetVehicleHandlingFloat(vehicle, 'CHandlingData', modLevel.handling[i].field, DecorGetFloat(vehicle, modLevel.handling[i].field)*modLevel.handling[i].multiplier)
+		print('After',GetVehicleHandlingFloat(vehicle, 'CHandlingData', modLevel.handling[i].field))
+	end
+	if source then
+		if modLevel.name == "Default" then 
+			TriggerEvent("desirerp-hud:pursuit_values", 0)
+			SendNUIMessage({action = "pursuitmode", pursuitmode = 0})
+		end 
+		if modLevel.name == "A" then 
+			TriggerEvent("desirerp-hud:pursuit_values", 25)
+			SendNUIMessage({action = "pursuitmode", pursuitmode = 25})
+		end
+		if modLevel.name == "A+" then 
+			TriggerEvent("desirerp-hud:pursuit_values", 50)
+			SendNUIMessage({action = "pursuitmode", pursuitmode = 50})
+		end
+		if modLevel.name == "S" then 
+			TriggerEvent("desirerp-hud:pursuit_values", 75)
+			SendNUIMessage({action = "pursuitmode", pursuitmode = 75})
+		end
+		if modLevel.name == "S+" then 
+			TriggerEvent("desirerp-hud:pursuit_values", 100)
+			SendNUIMessage({action = "pursuitmode", pursuitmode = 100})
+		end
+		if modLevel.name ~= "Default" then 
+			TriggerEvent("DoLongHudText","Pursuit Mode: " ..modLevel.name ,1 )
+		else
+			TriggerEvent("DoLongHudText","Pursuit Mode: Disabled" ,2 )
+		end
+		
 	end
 end)
 
+--[[ SelectedPursuitMode = 0
+
+TriggerEvent("desirerp-hud:pursuit_values", SelectedPursuitMode)
+SendNUIMessage({action = "pursuitmode", pursuitmode = SelectedPursuitMode})
+
+ ]]
 Citizen.CreateThread(function()
-    exports["desirerp-keybinds"]:registerKeyMapping("", "Pursuit Modes", "Change Mode", "+evan_shift_pursuit_mode", "")
+    exports["desirerp-keybinds"]:registerKeyMapping("", "Pursuit Modes", "Change Mode", "pursuit", "")
 end)

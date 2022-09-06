@@ -127,3 +127,4 @@ RegisterNetEvent("dwb_res:Bye")
 AddEventHandler("dwb_res:Bye", function()
 	DropPlayer(source, "Change your aspect ratio!")
 end)
+

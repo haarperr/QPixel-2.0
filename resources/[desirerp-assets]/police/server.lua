@@ -1496,5 +1496,11 @@ AddEventHandler('police:openSwatArmory', function()
 		else
 			TriggerClientEvent("DoLongHudText", src,"You are not a high enough rank to use this!", 2)
 		end
-	end)
+	end) 
 end) 
+
+local JSON = json.decode(LoadResourceFile("desirerp-hud", "/config/pursuitModes.json"))
+
+RPC.register("pursuit:getJSON",function()
+    return JSON
+end)
