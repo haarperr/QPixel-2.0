@@ -267,6 +267,13 @@ RegisterNetEvent('desirerp-fuel:RefillVehicle', function()
 			action = 'desirerp-fuel:pay_bank',
 			disabled = canPayBill
 		},
+		{
+			title = "Self Serve",
+			icon = 'address-card',
+			key = "EVENTS.CARD",
+			action = 'desirerp-fuel:send_billSelf',
+			disabled = canPayBill
+		},
 	}
 	exports["desirerp-interface"]:showContextMenu(menuData)
 end)
@@ -294,6 +301,17 @@ RegisterInterfaceCallback('desirerp-fuel:send_bill', function(data, cb)
 	local endFuel = (100 - vehicleCurrentFuel)
 	local FuelCost = endFuel * GallonPrice
 	TriggerServerEvent("desirerp-phone:send_gas_bill", data.values.pPaypalID, FuelCost)
+end) 
+
+RegisterInterfaceCallback('desirerp-fuel:send_billSelf', function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+	local veh = getVehicleClosestToMe()
+	local vehicleCurrentFuel = math.ceil(exports['desirerp-fuel']:GetFuel(veh)) 
+	local endFuel = (100 - vehicleCurrentFuel)
+	local FuelCost = endFuel * GallonPrice
+	local src = source
+    local playerId = GetPlayerFromServerId(src)
+	TriggerServerEvent("desirerp-phone:send_gas_bill", playerId, FuelCost)
 end) 
 
 RegisterNetEvent('desirerp-fuel:SendBillToBank', function(fCost)
