@@ -2606,7 +2606,7 @@ Entries[#Entries + 1] = {
         {
             id = "cash_in",
             label = "Cash in Receipts",
-            icon = "circle",
+            icon = "circle", 
             event = "desirerp-foodchain:cash:in",
             parameters = {}
         },
@@ -2979,6 +2979,13 @@ Entries[#Entries + 1] = {
             icon = "circle",
             event = "desirerp-interact:pickupPaycheck",
             parameters = {}
+        },
+        { 
+            event = "receipts:cash:in",
+            id = "paycheck_recipt",
+            icon = "circle",
+            label = "Cash In Work Receipt\'s",
+            parameters = {}, 
         }
     },
     options = {
@@ -3035,6 +3042,12 @@ Citizen.CreateThread(function()
 end)
 
 exports["desirerp-polytarget"]:AddBoxZone("paycheck_collect", vector3(241.65, 226.2, 106.29), 1, 1, {
+    heading=340,
+    minZ=102.49,
+    maxZ=106.49
+})
+
+exports["desirerp-polytarget"]:AddBoxZone("paycheck_recipt", vector3(241.65, 226.2, 106.29), 1, 1, {
     heading=340,
     minZ=102.49,
     maxZ=106.49

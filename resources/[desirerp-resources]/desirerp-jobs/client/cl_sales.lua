@@ -60,3 +60,9 @@ AddEventHandler("timeheader", function(pHour, pMinutes)
         nightTime = false
     end
 end)
+
+RegisterNetEvent('receipts:cash:in')
+AddEventHandler('receipts:cash:in', function()
+    local cid = exports["isPed"]:isPed("cid")
+    TriggerServerEvent("receipts:update:pay", cid)
+end)
