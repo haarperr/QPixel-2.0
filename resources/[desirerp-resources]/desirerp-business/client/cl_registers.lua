@@ -101,6 +101,16 @@ local activeRegisters = {
     },
     {
         polytarget = {
+            vector3(380.24, -827.29, 29.3), 1, 0.6, {
+                heading=0,
+                minZ=24.3,
+                maxZ=29.7
+            }
+        },
+        business="best_buds",
+    },
+    {
+        polytarget = {
             vector3(-584.03, -1061.47, 22.34), 1, 0.4, {
                 heading=270,
                 minZ=18.54,

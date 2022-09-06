@@ -153,20 +153,6 @@ local businessSpawn = {
             ["z"] = 46.231391,
         },
     },
-    ["saints"] = {
-        ["coords"] = {
-            ["x"] = -1818.524,
-            ["y"] = 446.15213,
-            ["z"] = 132.25659,
-        },
-    },
-    ["white_widow"] = {
-        ["coords"] = {
-            ["x"] = 185.71923,
-            ["y"] = -236.3512,
-            ["z"] = 54.075134,
-        },
-    },
 }
 
 function createLog(pName, pType, pInfo, pBusinessID)
@@ -182,19 +168,14 @@ end
 exports('createLog',createLog)
 
 RPC.register("IsEmployedAt", function(pSource, pBusinessId)
-    
     local user = exports["desirerp-base"]:getModule("Player"):GetUser(pSource)
     local char = user:getCurrentCharacter()
-
     local data = Await(SQL.execute("SELECT * FROM businesses WHERE business_id = @business_id", {
         ["business_id"] = pBusinessId
     }))
-
     if not data then return false end
 
     local employees = json.decode(data[1].employees) or {}
-
-    
     for i,u in pairs(employees) do
         if tonumber(u.cid) == tonumber(char.id) then
             return true
