@@ -1,7 +1,5 @@
 fx_version "cerulean"
 
-description "VoidRP - Banking"
-author "cool"
 version '0.0.1'
 
 lua54 'yes'
