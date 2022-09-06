@@ -117,6 +117,41 @@ AddEventHandler('desirerp-garages:openBuyMenu', function()
             }
         },
         {
+            title = "Challenger",
+            description = "Purchase Challenger $30,000",
+            children ={
+                {
+                    title = "Are you sure ?",
+                },
+                {
+                    title = "Yes",
+                    action = "desirerp-garages:PurchaseChallenger",
+                },
+                {
+                    title = "No",
+                    action = "desirerp-garages:PD_Nope",
+                },
+            }
+        },
+
+        {
+            title = "Mustang",
+            description = "Purchase Stang $30,000",
+            children ={
+                {
+                    title = "Are you sure ?",
+                },
+                {
+                    title = "Yes",
+                    action = "desirerp-garages:PurchaseStang",
+                },
+                {
+                    title = "No",
+                    action = "desirerp-garages:PD_Nope",
+                },
+            }
+        },
+        {
             title = "Bike",
             description = "Purchase Bike $15,000",
             children ={
@@ -191,6 +226,28 @@ RegisterInterfaceCallback('desirerp-garages:PurchaseCharger', function(data, cb)
         --TriggerServerEvent('banking:removeMoney', 30000)
         TriggerServerEvent('yorktax:char')
         TriggerEvent('desirerp-garages:PurchasedVeh', 'Police Charger', 'npolchar', '0')
+    else
+        TriggerEvent('DoLongHudText', "You do not have enough money!", 2)
+    end
+end)
+
+RegisterInterfaceCallback('desirerp-garages:PurchaseChallenger', function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+    if exports["isPed"]:isPed("mycash") >= 30000 then
+        --TriggerServerEvent('banking:removeMoney', 30000)
+        TriggerServerEvent('yorktax:char')
+        TriggerEvent('desirerp-garages:PurchasedVeh', 'Police Chal', 'npolchal', '0')
+    else
+        TriggerEvent('DoLongHudText', "You do not have enough money!", 2)
+    end
+end)
+
+RegisterInterfaceCallback('desirerp-garages:PurchaseStang', function(data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+    if exports["isPed"]:isPed("mycash") >= 30000 then
+        --TriggerServerEvent('banking:removeMoney', 30000)
+        TriggerServerEvent('yorktax:char')
+        TriggerEvent('desirerp-garages:PurchasedVeh', 'Police Stang', 'npolstang', '0')
     else
         TriggerEvent('DoLongHudText', "You do not have enough money!", 2)
     end
