@@ -476,7 +476,7 @@ local function runningTick()
     if (IsControlPressed(2, 75) or bypass) and IsVehicleDriveable(playerVehicle) then
       if enforce < 10 and hasKey(plate) then
         bypass = true
-        SetVehicleEngineOn(playerVehicle, true, true)
+        --SetVehicleEngineOn(playerVehicle, true, true)
         enforce = enforce + 1
         return 0
       end 
