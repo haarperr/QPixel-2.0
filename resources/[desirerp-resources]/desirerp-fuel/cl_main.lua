@@ -79,6 +79,118 @@ local GasStations = {
 	vector3(1784.324, 3330.55, 41.253)
 }
 
+exports["desirerp-polyzone"]:AddBoxZone("gas_station", vector3(49.4187, 2778.793, 58.043), 30.0, 30.0, {
+    name="gas_station",
+    heading=0,
+})
+ 
+exports["desirerp-polyzone"]:AddBoxZone("gas_station1", vector3(263.894, 2606.463, 44.983), 30.0, 30.0, {
+    name="gas_station1",
+    heading=0,
+})
+
+exports["desirerp-polyzone"]:AddBoxZone("gas_station2", vector3(1039.958, 2671.134, 39.550), 30.0, 30.0, {
+    name="gas_station2",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station3", vector3(1207.260, 2660.175, 37.899), 30.0, 30.0, {
+    name="gas_station3",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station4", vector3(2539.685, 2594.192, 37.944), 30.0, 30.0, {
+    name="gas_station4",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station5", vector3(2679.858, 3263.946, 55.240), 30.0, 30.0, {
+    name="gas_station5",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station6", vector3(2005.055, 3773.887, 32.403), 30.0, 30.0, {
+    name="gas_station6",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station7", vector3(1687.156, 4929.392, 42.078), 30.0, 30.0, {
+    name="gas_station7",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station8", vector3(1701.314, 6416.028, 32.763), 30.0, 30.0, {
+    name="gas_station8",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station9", vector3(179.857, 6602.839, 31.868), 30.0, 30.0, {
+    name="gas_station9",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station10", vector3(-94.4619, 6419.594, 31.489), 30.0, 30.0, {
+    name="gas_station10",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station11", vector3(-2554.996, 2334.40, 33.078), 30.0, 30.0, {
+    name="gas_station11",
+    heading=0,
+})
+
+exports["desirerp-polyzone"]:AddBoxZone("gas_station12", vector3(-1800.375, 803.661, 138.651), 30.0, 30.0, {
+    name="gas_station12",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station13", vector3(-1437.622, -276.747, 46.207), 30.0, 30.0, {
+    name="gas_station13",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station14", vector3(-2096.243, -320.286, 13.168), 30.0, 30.0, {
+    name="gas_station14",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station15", vector3(-724.619, -935.1631, 19.213), 30.0, 30.0, {
+    name="gas_station15",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station16", vector3(-526.019, -1211.003, 18.184), 30.0, 30.0, {
+    name="gas_station16",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station17", vector3(-70.2148, -1761.792, 29.534), 30.0, 30.0, {
+    name="gas_station17",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station18", vector3(265.648, -1261.309, 29.292), 30.0, 30.0, {
+    name="gas_station18",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station19", vector3(819.653, -1028.846, 26.403), 30.0, 30.0, {
+    name="gas_station19",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station20", vector3(1208.951, -1402.567,35.224), 30.0, 30.0, {
+    name="gas_station20",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station21", vector3(1181.381, -330.847, 69.316), 30.0, 30.0, {
+    name="gas_station21",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station22", vector3(620.843, 269.100, 103.089), 30.0, 30.0, {
+    name="gas_station22",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station23", vector3(2581.321, 362.039, 108.468), 30.0, 30.0, {
+    name="gas_station23",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station24", vector3(176.631, -1562.025, 29.263), 30.0, 30.0, {
+    name="gas_station24",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station25", vector3(-319.292, -1471.715, 30.549), 30.0, 30.0, {
+    name="gas_station25",
+    heading=0,
+})
+exports["desirerp-polyzone"]:AddBoxZone("gas_station26", vector3(1784.324, 3330.55, 41.253), 30.0, 30.0, {
+    name="gas_station26",
+    heading=0,
+})
+
 function getVehicleClosestToMe()
     playerped = PlayerPedId()
     coordA = GetEntityCoords(playerped, 1)
@@ -179,26 +291,34 @@ CreateThread(function()
 	end
 end)
 
+--[[ Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+		print(isNearGasStation)
+	end
+end) ]]
+
 RegisterNetEvent('desirerp-polyzone:enter')
 AddEventHandler('desirerp-polyzone:enter', function(name, data)
-    if name == "gas_station" then
+    if name == "gas_station" or name == "gas_station1" or name == "gas_station2" or name == "gas_station3" or name == "gas_station4" or name == "gas_station5" or name == "gas_station6" or name == "gas_station7" or name == "gas_station8" or name == "gas_station9" or name == "gas_station10" or name == "gas_station11" or name == "gas_station12" or name == "gas_station13" or name == "gas_station14" or name == "gas_station15" or name == "gas_station16" or name == "gas_station17" or name == "gas_station18" or name == "gas_station19" or name == "gas_station20" or name == "gas_station21" or name == "gas_station22" or name == "gas_station23" or name == "gas_station24" or name == "gas_station25" or name == "gas_station26"  then
         isNearGasStation = true
-		zoneData = data
+		zoneData = data 
     end
 end)
 
 RegisterNetEvent('desirerp-polyzone:exit')
 AddEventHandler('desirerp-polyzone:exit', function(name)
-    if name == "gas_station" then
+	if name == "gas_station" or name == "gas_station1" or name == "gas_station2" or name == "gas_station3" or name == "gas_station4" or name == "gas_station5" or name == "gas_station6" or name == "gas_station7" or name == "gas_station8" or name == "gas_station9" or name == "gas_station10" or name == "gas_station11" or name == "gas_station12" or name == "gas_station13" or name == "gas_station14" or name == "gas_station15" or name == "gas_station16" or name == "gas_station17" or name == "gas_station18" or name == "gas_station19" or name == "gas_station20" or name == "gas_station21" or name == "gas_station22" or name == "gas_station23" or name == "gas_station24" or name == "gas_station25" or name == "gas_station26"  then
         isNearGasStation = false
 		zoneData = nil
 		local playerPed = PlayerPedId()
 		local playerVeh = GetVehiclePedIsIn(playerPed, false)
-		print(playerVeh)
 		if playerVeh ~= 0 and hasNozle then
+			Citizen.Wait(500)
+			TriggerEvent("desirerp-fuel:ReturnNozel")
 			NetworkExplodeVehicle(playerVeh, true, false, 0)
 			hasNozle = false
-		end
+		end 
     end
 end)
 
@@ -340,6 +460,7 @@ RegisterInterfaceCallback('desirerp-fuel:RefuelVehicle', function(data, cb)
 	local veh = getVehicleClosestToMe()
 	local vehicleCurrentFuel = math.ceil(exports['desirerp-fuel']:GetFuel(veh))
 	local timer = (100 - vehicleCurrentFuel) * 400
+	local math = math.random(1, 100)
 
 	loadAnimDict("anim@heists@keycard@")
     TaskPlayAnim(PlayerPedId(), "anim@heists@keycard@","idle_a",1.0, 1.0, -1, 9, 1.0, 0, 0, 0)
@@ -356,6 +477,12 @@ RegisterInterfaceCallback('desirerp-fuel:RefuelVehicle', function(data, cb)
 		canRefillVehicle = true
 		canPayBill = false
 		ClearPedTasks(PlayerPedId())
+		if GetIsVehicleEngineRunning(veh) then
+			if math <= 26 then
+				NetworkExplodeVehicle(veh, true, false, 0)
+				TriggerEvent("destroyPropRadio")
+			end
+		end
 	else
 		canRefillVehicle = true
 		canPayBill = false
