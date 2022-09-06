@@ -305,19 +305,24 @@ end)
 
 RegisterInterfaceCallback('desirerp-fuel:send_billSelf', function(data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })
+	TriggerServerEvent("desirerp-fuel:testing", FuelCost)
+end) 
+
+
+RegisterNetEvent('desirerp-fuel:send_billSelf2', function(data)
 	local veh = getVehicleClosestToMe()
 	local vehicleCurrentFuel = math.ceil(exports['desirerp-fuel']:GetFuel(veh)) 
 	local endFuel = (100 - vehicleCurrentFuel)
 	local FuelCost = endFuel * GallonPrice
-	local src = source
-    local playerId = GetPlayerFromServerId(src)
-	TriggerServerEvent("desirerp-phone:send_gas_bill", playerId, FuelCost)
-end) 
 
+	TriggerServerEvent("desirerp-phone:send_gas_bill", data, FuelCost)
+end)
+	 
+ 
 RegisterNetEvent('desirerp-fuel:SendBillToBank', function(fCost)
 	TriggerEvent('desirerp-phone:client:gasOffer', 'Fuel Cost: $' .. fCost)
 end)
-
+ 
 RegisterNetEvent('desirerp-fuel:OfferAccepted', function()
 	local veh = getVehicleClosestToMe()
 	local vehicleCurrentFuel = math.ceil(exports['desirerp-fuel']:GetFuel(veh))

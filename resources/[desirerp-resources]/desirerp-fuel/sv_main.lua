@@ -50,3 +50,9 @@ RegisterNetEvent('desirerp-fuel:Refund', function(gprice)
 	local pSrc = source
 	exports['desirerp-fw']:GetModule('AddBank')(pSrc, tonumber(gprice))
 end)
+
+RegisterNetEvent('desirerp-fuel:testing', function()
+	local src = source
+	local data = src
+	TriggerClientEvent("desirerp-fuel:send_billSelf2",src ,data)
+end)
