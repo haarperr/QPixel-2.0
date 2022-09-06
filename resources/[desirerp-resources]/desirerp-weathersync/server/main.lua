@@ -67,6 +67,11 @@ AddEventHandler('desirerp-weathersync:server:setTime', function(hour, minute)
     end
 end)
 
+RegisterCommand('time', function(source,args,rawCommand)
+    
+    SetExactTime(9, 0)
+end, true)
+
 function SetWeather(type)
     CurrentWeather = string.upper(type)
     TriggerEvent('desirerp-weathersync:server:RequestStateSync')
