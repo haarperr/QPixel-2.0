@@ -167,7 +167,20 @@ end
 
 pStalled = false
 
+
+function carCrash2()
+    print("TRIGGERED")
+    if not pStalled then
+        if GetVehicleEngineHealth(currentVehicle) <= 0.0 then
+            SetVehicleEngineHealth(currentVehicle, 0.0)
+            SetVehicleEngineOn(currentVehicle, false, true, true)
+            SetVehicleUndriveable(veh, true)
+        end
+    end
+end
+
 function carCrash()
+    print("TRIGGERED")
     if not pStalled then
         if GetVehicleEngineHealth(currentVehicle) <= 100.0 then
             SetVehicleEngineHealth(currentVehicle, 0.0)
@@ -188,7 +201,7 @@ function carCrash()
                 TriggerEvent('desirerp-hud:harness_values', harnessDurability)
             end
             Citizen.Wait(10000)
-            pStalled = true
+            pStalled = false
         end
     end
 end
@@ -725,7 +738,7 @@ Citizen.CreateThread(function()
             SetPedHelmet(playerPed, false)
             if driverPed == playerPed then
                 local currentEngineHealth = GetVehicleEngineHealth(currentVehicle)
-                if currentEngineHealth < 0.0 then
+                if currentEngineHealth < 0.1 then
                     -- Dont blow up
                     SetVehicleEngineHealth(currentVehicle,0.0)
                 end
@@ -735,18 +748,24 @@ Citizen.CreateThread(function()
                     lastCurrentVehicleSpeed = GetEntitySpeed(currentVehicle)
                     lastCurrentVehicleBodyHealth = GetVehicleBodyHealth(currentVehicle)
                     veloc = GetEntityVelocity(currentVehicle)
-                    if currentEngineHealth > 5.0 and (currentEngineHealth < 100.0 or lastCurrentVehicleBodyHealth < 50.0) then
-                        carCrash()
+                    if currentEngineHealth == 0.0 and (currentEngineHealth < 100.0 or lastCurrentVehicleBodyHealth < 50.0) then
+                        print("1")
+                        carCrash2()
                         stalled = true
-                        Citizen.Wait(1000)
+                        Citizen.Wait(500)
                     end
                 else
                     Citizen.Wait(100)
                     local currentVehicleBodyHealth = GetVehicleBodyHealth(currentVehicle)
                     local currentVehicleSpeed = GetEntitySpeed(currentVehicle)
+
+
                     if currentEngineHealth > 0.0 and lastCurrentVehicleBodyHealth - currentVehicleBodyHealth > 15 then
-                        if lastCurrentVehicleSpeed > 30.5 and currentVehicleSpeed < (lastCurrentVehicleSpeed * 0.75) then
+                        --22.5 = 50MPH
+                        if lastCurrentVehicleSpeed > 25.5 and currentVehicleSpeed < (lastCurrentVehicleSpeed * 0.75) then
+                            print("FASTASF")
                             if not IsThisModelABike(GetEntityModel(currentVehicle)) then
+                                print("2")
                                 carCrash()
                                 stalled = true
                                 sendServerEventForPassengers("carhud:ejection:server", veloc)
@@ -775,6 +794,7 @@ Citizen.CreateThread(function()
                             else
                                 -- IsBike
                                 carCrash()
+                                print("3")
                                 stalled = true
                                 Citizen.Wait(1000)
                                 lastCurrentVehicleSpeed = 0.0
@@ -784,6 +804,7 @@ Citizen.CreateThread(function()
                     else
                         if currentEngineHealth > 10.0 and (currentEngineHealth < 195.0 or currentVehicleBodyHealth < 50.0) then
                             carCrash()
+                            print("4")
                             stalled = true
                             Citizen.Wait(1000)
                         end

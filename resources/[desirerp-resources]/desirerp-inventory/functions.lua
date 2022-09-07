@@ -3827,11 +3827,11 @@ AddEventHandler('veh:repairing', function(inventoryName,slot,itemid)
                     if advanced then
                         TriggerEvent("inventory:removeItem","advrepairkit", 1)
                         TriggerEvent('veh.randomDegredation',30,targetVehicle,3)
-                        if GetVehicleEngineHealth(targetVehicle) < 2000.0 then
-                            SetVehicleEngineHealth(targetVehicle, 2000.0)
+                        if GetVehicleEngineHealth(targetVehicle) < 200.0 then
+                            SetVehicleEngineHealth(targetVehicle, 200.0)
                         end
-                        if GetVehicleBodyHealth(targetVehicle) < 2000.0 then
-                            SetVehicleBodyHealth(targetVehicle, 2000.0)
+                        if GetVehicleBodyHealth(targetVehicle) < 945.0 then
+                            SetVehicleBodyHealth(targetVehicle, 945.0)
                         end
 
                         if fueltankhealth < 3800.0 then
