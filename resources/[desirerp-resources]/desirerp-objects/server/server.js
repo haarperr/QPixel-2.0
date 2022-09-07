@@ -1,43 +1,43 @@
 !(function () {
     'use strict'
     onNet('desirerp-objects:requestObjects', async () => {
-      let _0x3f784e = source,
-        _0x5793b5 = await SQL.execute('SELECT * FROM __objects', {}),
-        _0x2e66af = []
-      for (let _0x423993 = 0; _0x423993 < _0x5793b5.length; _0x423993++) {
-        let _0x245ce4 = JSON.parse(_0x5793b5[Number(_0x423993)].coordinates),
-          _0x3164bd = {
-            x: _0x245ce4.x,
-            y: _0x245ce4.y,
-            z: _0x245ce4.z,
-            h: _0x245ce4.h,
+      let pSource = source,
+        pObjects = await SQL.execute('SELECT * FROM __objects', {}),
+        pObjectTable = []
+      for (let pObjectNumber = 0; pObjectNumber < pObjects.length; pObjectNumber++) {
+        let pCoords = JSON.parse(pObjects[Number(pObjectNumber)].coordinates),
+          pObjectCoords = {
+            x: pCoords.x,
+            y: pCoords.y,
+            z: pCoords.z,
+            h: pCoords.h,
           }
-        _0x2e66af.push({
-          id: _0x5793b5[Number(_0x423993)].id,
-          model: _0x5793b5[Number(_0x423993)].model,
-          coordinates: _0x3164bd,
-          metaData: JSON.parse(_0x5793b5[Number(_0x423993)].metaData),
+        pObjectTable.push({
+          id: pObjects[Number(pObjectNumber)].id,
+          model: pObjects[Number(pObjectNumber)].model,
+          coordinates: pObjectCoords,
+          metaData: JSON.parse(pObjects[Number(pObjectNumber)].metaData),
         })
       }
-      emitNet('desirerp-objects:loadObjects', _0x3f784e, _0x2e66af)
+      emitNet('desirerp-objects:loadObjects', pSource, pObjectTable)
     })
     onNet(
       'desirerp-objects:prepareObject',
       async (
-        _0x5a1c03,
-        _0xec222f,
-        _0x4e2296,
-        _0xbc1a44,
-        _0x3c3d9a,
-        _0x567a76
+        pObjectModel,
+        pObjectCoordsX,
+        pObjectCoordsY,
+        pObjectCoordsZ,
+        pObjectCoordsH,
+        pObjectMetaData
       ) => {
-        let _0x40235e = {
-            x: _0xec222f,
-            y: _0x4e2296,
-            z: _0xbc1a44,
-            h: _0x3c3d9a,
+        let pCoords = {
+            x: pObjectCoordsX,
+            y: pObjectCoordsY,
+            z: pObjectCoordsZ,
+            h: pObjectCoordsH,
           },
-          _0x17e7da =
+          pRandomID =
             Math.floor(10 * Math.random()).toString() +
             Math.floor(10 * Math.random()).toString() +
             Math.floor(10 * Math.random()).toString() +
@@ -46,48 +46,48 @@
           !(await SQL.execute(
             'INSERT INTO __objects (model, coordinates, metaData, randomId) VALUES (@model, @coordinates, @metaData, @randomId)',
             {
-              model: _0x5a1c03,
-              coordinates: JSON.stringify(_0x40235e),
-              metaData: JSON.stringify(_0x567a76),
-              randomId: _0x17e7da,
+              model: pObjectModel,
+              coordinates: JSON.stringify(pCoords),
+              metaData: JSON.stringify(pObjectMetaData),
+              randomId: pRandomID,
             }
           ))
         ) {
           return
         }
-        let _0x5a6cdc = await SQL.execute(
+        let pRandomObject = await SQL.execute(
           'SELECT * FROM __objects WHERE randomId = @randomId',
-          { randomId: _0x17e7da }
+          { randomId: pRandomID }
         )
-        if (!_0x5a6cdc[0]) {
+        if (!pRandomObject[0]) {
           return
         }
-        let _0x5aa71c = {
-          id: _0x5a6cdc[0].id,
-          model: _0x5a1c03,
-          coordinates: _0x40235e,
-          metaData: _0x567a76,
+        let pObjectData = {
+          id: pRandomObject[0].id,
+          model: pObjectModel,
+          coordinates: pCoords,
+          metaData: pObjectMetaData,
         }
-        emitNet('arp:objects:prepareNewObject', -1, _0x5aa71c)
+        emitNet('desirerp:objects:prepareNewObject', -1, pObjectData)
       }
     )
     RPC.register(
       'desirerp-objects:SaveObject',
       async (
-        _0x635b18,
-        _0x268562,
-        _0x263027,
-        _0xb95bd7,
-        _0x5912b0,
-        _0x44daa9
+        pSource,
+        pType,
+        pObjectModel,
+        pObjCoords,
+        pObjHeading,
+        pObjMetadata
       ) => {
-        let _0x235619 = {
-            x: _0xb95bd7.x,
-            y: _0xb95bd7.y,
-            z: _0xb95bd7.z,
-            h: _0x5912b0,
+        let pObjFinalCoords = {
+            x: pObjCoords.x,
+            y: pObjCoords.y,
+            z: pObjCoords.z,
+            h: pObjHeading,
           },
-          _0x40e0d2 =
+          pGenRandomID =
             Math.floor(10 * Math.random()).toString() +
             Math.floor(10 * Math.random()).toString() +
             Math.floor(10 * Math.random()).toString() +
@@ -96,81 +96,81 @@
           !(await SQL.execute(
             'INSERT INTO __objects (model, coordinates, metaData, randomId) VALUES (@model, @coordinates, @metaData, @randomId)',
             {
-              model: _0x263027,
-              coordinates: JSON.stringify(_0x235619),
-              metaData: JSON.stringify(_0x44daa9),
-              randomId: _0x40e0d2,
+              model: pObjectModel,
+              coordinates: JSON.stringify(pObjFinalCoords),
+              metaData: JSON.stringify(pObjMetadata),
+              randomId: pGenRandomID,
             }
           ))
         ) {
           return false
         }
-        let _0x20083f = await SQL.execute(
+        let pObjRandomID = await SQL.execute(
           'SELECT * FROM __objects WHERE randomId = @randomId',
-          { randomId: _0x40e0d2 }
+          { randomId: pGenRandomID }
         )
-        if (!_0x20083f[0]) {
+        if (!pObjRandomID[0]) {
           return false
         }
-        let _0x588249 = {
-          id: _0x20083f[0].id,
-          model: _0x263027,
-          coordinates: _0x235619,
-          metaData: _0x44daa9,
+        let pObjects = {
+          id: pObjRandomID[0].id,
+          model: pObjectModel,
+          coordinates: pObjFinalCoords,
+          metaData: pObjMetadata,
         }
-        return emitNet('arp:objects:prepareNewObject', -1, _0x588249), true
+        return emitNet('desirerp:objects:prepareNewObject', -1, pObjects), true
       }
     )
-    RPC.register('desirerp-objects:DeleteObject', async (_0x1d3045, _0x2078ee) => {
-      let _0x5581c6 = await SQL.execute(
+    RPC.register('desirerp-objects:DeleteObject', async (pSource, pObjectID) => {
+      let pObject = await SQL.execute(
         'SELECT * FROM __objects WHERE id = @id',
-        { id: _0x2078ee }
+        { id: pObjectID }
       )
-      if (!_0x5581c6[0]) {
+      if (!pObject[0]) {
         return false
       }
-      let _0x1edca6 = {
-        id: _0x5581c6[0].id,
-        model: _0x5581c6[0].model,
-        coordinates: JSON.parse(_0x5581c6[0].coordinates),
-        metaData: JSON.parse(_0x5581c6[0].metaData),
-        randomId: _0x5581c6[0].randomId,
+      let pObjects = {
+        id: pObject[0].id,
+        model: pObject[0].model,
+        coordinates: JSON.parse(pObject[0].coordinates),
+        metaData: JSON.parse(pObject[0].metaData),
+        randomId: pObject[0].randomId,
       }
       return (
         !!(await SQL.execute('DELETE FROM __objects WHERE id = @id', {
-          id: _0x2078ee,
-        })) && (emitNet('desirerp-objects:clearObjects', -1, _0x1edca6), true)
+          id: pObjectID,
+        })) && (emitNet('desirerp-objects:clearObjects', -1, pObjects), true)
       )
     })
     RPC.register(
       'desirerp-objects:UpdateObject',
-      async (_0x2f99f7, _0x49819b, _0x25e634) => {
+      async (pSource, pObjectID, pObjectModel) => {
         if (
           !(await SQL.execute(
             'UPDATE __objects SET model = @model WHERE id = @id',
             {
-              model: _0x25e634,
-              id: _0x49819b,
+              model: pObjectModel,
+              id: pObjectID,
             }
           ))
         ) {
           return false
         }
-        let _0x366af8 = await SQL.execute(
+        let pObject = await SQL.execute(
           'SELECT * FROM __objects WHERE id = @id',
-          { id: _0x49819b }
+          { id: pObjectID }
         )
-        if (!_0x366af8[0]) {
+        if (!pObject[0]) {
           return false
         }
-        let _0x201f32 = {
-          id: _0x366af8[0].id,
-          model: _0x366af8[0].model,
-          coordinates: JSON.parse(_0x366af8[0].coordinates),
-          metaData: JSON.parse(_0x366af8[0].metaData),
-          randomId: _0x366af8[0].randomId,
+        let pObjects = {
+          id: pObject[0].id,
+          model: pObject[0].model,
+          coordinates: JSON.parse(pObject[0].coordinates),
+          metaData: JSON.parse(pObject[0].metaData),
+          randomId: pObject[0].randomId,
         }
-        return emitNet('desirerp-objects:updateObjects', -1, _0x201f32), true
+        return emitNet('desirerp-objects:updateObjects', -1, pObjects), true
       }
     )
   })()
