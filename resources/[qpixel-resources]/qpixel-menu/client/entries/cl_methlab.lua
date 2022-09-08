@@ -1,0 +1,153 @@
+-- local GeneralEntries, SubMenu = MenuEntries['general'], {}
+
+-- local canStartCornering = false
+-- local showSellMethOption = false
+-- local hasCarTarget = false
+
+-- AddEventHandler("cn:target:changed", function(pEntity, pEntityType)
+--   if not pEntity or pEntityType ~= 2 then
+--     hasCarTarget = false
+--     return
+--   end
+--   hasCarTarget = true
+-- end)
+
+-- AddEventHandler("qpixel-meth:showSellDrugsMenuItem", function(type, b)
+--     if type == "cancorner" then
+--         canStartCornering = b
+--     end
+-- end)
+
+-- AddEventHandler("qpixel-polyzone:enter", function(name)
+--     if name == "meth_corner" then
+--         showSellMethOption = true
+--     end
+-- end)
+-- AddEventHandler("qpixel-polyzone:exit", function(name)
+--     if name == "meth_corner" then
+--         showSellMethOption = false
+--     end
+-- end)
+
+-- Citizen.CreateThread(function()
+--     GeneralEntries[#GeneralEntries+1] = {
+--         data = {
+--             id = "sellmeth",
+--             icon = "#walking",
+--             title = "Sell",
+--             event = "qpixel-meth:cornerSellProduct",
+--         },
+--         isEnabled = function()
+--             return not isDead and showSellMethOption and not canStartCornering and hasCarTarget
+--         end,
+--     }
+--     GeneralEntries[#GeneralEntries+1] = {
+--         data = {
+--             id = "sellmethfromcorner",
+--             icon = "#walking",
+--             title = "Corner",
+--             event = "qpixel-meth:cornerStartSelling",
+--         },
+--         isEnabled = function()
+--             return not isDead and canStartCornering
+--         end,
+--     }
+--     -- for index, data in ipairs(Options) do
+--     --     SubMenu[index] = data.data.id
+--     --     MenuItems[data.data.id] = {data = data.data, isEnabled = data.isEnabled}
+--     -- end
+--     -- GeneralEntries[#GeneralEntries+1] = {
+--     --     data = {
+--     --         id = "methlab",
+--     --         icon = "#walking",
+--     --         title = "Lab",
+--     --     },
+--     --     subMenus = SubMenu,
+--     --     isEnabled = function()
+--     --         return not isDead and inLab
+--     --     end,
+--     -- }
+-- end)
+
+-- -- local function checkObject(obj)
+-- --     return function()
+-- --         return not isDead and inLab and targetObject == obj
+-- --     end
+-- -- end
+
+-- -- local Options = {
+-- --     {
+-- --         data = {
+-- --             id = 'qpixel-meth:startCooking',
+-- --             title = "Start Cooking",
+-- --             icon = "#police-check",
+-- --             event = "qpixel-meth:startCooking",
+-- --         },
+-- --         isEnabled = checkObject("computer"),
+-- --     },
+-- --     {
+-- --         data = {
+-- --             id = 'qpixel-meth:adjustFridgeTemp',
+-- --             title = "Adjust Temperature",
+-- --             icon = "#police-check",
+-- --             event = "qpixel-meth:adjustFridgeTemp",
+-- --         },
+-- --         isEnabled = checkObject("fridge"),
+-- --     },
+-- --     {
+-- --         data = {
+-- --             id = 'qpixel-meth:adjustSteamLevel',
+-- --             title = "Adjust Levels",
+-- --             icon = "#police-check",
+-- --             event = "qpixel-meth:adjustSteamLevel",
+-- --         },
+-- --         isEnabled = checkObject("distil"),
+-- --     },
+-- --     {
+-- --         data = {
+-- --             id = 'qpixel-meth:adjustDistilSettings',
+-- --             title = "Adjust Settings",
+-- --             icon = "#police-check",
+-- --             event = "qpixel-meth:adjustDistilSettings",
+-- --         },
+-- --         isEnabled = checkObject("distil"),
+-- --     },
+-- --     {
+-- --         data = {
+-- --             id = 'qpixel-meth:adjustMixerTemp',
+-- --             title = "Adjust Temperature",
+-- --             icon = "#police-check",
+-- --             event = "qpixel-meth:adjustMixerTemp",
+-- --         },
+-- --         isEnabled = checkObject("mixer_temperature"),
+-- --     },
+-- --     {
+-- --         data = {
+-- --             id = 'qpixel-meth:addIngredient',
+-- --             title = "Add Ingredient",
+-- --             icon = "#police-check",
+-- --             event = "qpixel-meth:addIngredient",
+-- --         },
+-- --         isEnabled = checkObject("mixer_drop"),
+-- --     },
+-- --     {
+-- --         data = {
+-- --             id = 'qpixel-meth:adjustMixerSettings',
+-- --             title = "Adjust Settings",
+-- --             icon = "#police-check",
+-- --             event = "qpixel-meth:adjustMixerSettings",
+-- --         },
+-- --         isEnabled = checkObject("mixer_settings"),
+-- --     },
+-- --     {
+-- --         data = {
+-- --             id = 'qpixel-meth:pickupIngredient',
+-- --             title = "Pickup",
+-- --             icon = "#police-check",
+-- --             event = "qpixel-meth:pickupIngredient",
+-- --         },
+-- --         isEnabled = checkObject("ingredient"),
+-- --     },
+-- -- }
+
+
