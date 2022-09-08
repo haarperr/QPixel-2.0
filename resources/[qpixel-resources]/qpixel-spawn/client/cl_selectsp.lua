@@ -368,6 +368,8 @@ function Spawn.selectedSpawn(spawnInfo)
 		end
 		FreezeEntityPosition(PlayerPedId(), false)
 
+		TriggerEvent("kazumi:raid_clothes_pedfix") --fix characters breaking
+
 		DoScreenFadeIn(2500)
 		Login.characterSpawned()
 		local spawnInApart = false
