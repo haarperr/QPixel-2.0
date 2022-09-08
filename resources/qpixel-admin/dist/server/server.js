@@ -16,7 +16,7 @@
     }
     RPC.register('qpixel:admin:getCommandUI', async (pSource) => {
       let [pAdminNotGetCommandUI, pAdminGetCommandUI] =
-          exports['lol-admin'].isAdministrator(pSource),
+          exports['qpixel-admin'].isAdministrator(pSource),
         pObjectModuleTable = []
       return (
         Object.entries([
@@ -114,7 +114,7 @@
                 title: 'Spawn Selector',
                 cat: 'Utility',
                 child: false,
-                action: 'lol-admin/client/select-spawn',
+                action: 'qpixel-admin/client/select-spawn',
               },
               options: { bindKey: void 0 },
             },
@@ -526,10 +526,10 @@
     })
     onNet('qpixel:admin:sendAnnoucement', (pText) => {
       let pAdmin = GetPlayerName(source.toString())
-      exports['lol-admin'].sendLog(
+      exports['qpixel-admin'].sendLog(
         'https://discord.com/api/webhooks/993005972828201052/2XxjiIk75QDgYe6hDJcCtP2pgIhI7JVKYruJKQsLqDgKZ6P12nABS7fWwJ4VokJMI-x2', // changed
         '255',
-        '[lol-admin] cSay Log',
+        '[qpixel-admin] cSay Log',
         'cSay message: ' + pText + '\nAdmin: ' + pAdmin,
         '',
         ''
@@ -558,7 +558,7 @@
     let disconnectedTable = [];
     onNet('playerDropped', async () => {
       let pSource = source
-      let [cid, fullname] = exports['lol-admin'].getEverything(pSource)
+      let [cid, fullname] = exports['qpixel-admin'].getEverything(pSource)
      // const fullname = char.first_name + ' ' + char.last_name || 'No Character Name'
       disconnectedTable.push({
         name: GetPlayerName(pSource),
@@ -576,11 +576,11 @@
     // decrypted from nopixel ui
     RPC.register('qpixel:admin:getPlayerData', (pSource) => {
       return (
-        exports['lol-admin'].getEverything()
+        exports['qpixel-admin'].getEverything()
       )
     })
     RPC.register('qpixel:admin:getBanHistory', (pSource) => {
-      let banHistoryPacked = exports['lol-admin'].getBanList()
+      let banHistoryPacked = exports['qpixel-admin'].getBanList()
       return (banHistoryPacked)
     })
     const addPlayerLog = async (
@@ -642,7 +642,7 @@
     )
     RPC.register('qpixel:admin:isAdmin', async (pSource) => {
       let [isAdmin, isValid] =
-        exports['lol-admin'].isAdministrator(pSource)
+        exports['qpixel-admin'].isAdministrator(pSource)
       return !!isAdmin
     })
     onNet('qpixel:admin:teleportPlayer', (pSource, _0x31e23e) => {
@@ -690,10 +690,10 @@
         ('' !== pTarget && void 0 !== pTarget && pTarget) || source
       let pAdmin = GetPlayerName(source.toString()),
         pTargetData = GetPlayerName(pUser.toString())
-      exports['lol-admin'].sendLog(
+      exports['qpixel-admin'].sendLog(
         'https://discord.com/api/webhooks/993006081330659438/XjUkloEviLua2p6FuJ8moD0SnoRM5UbGFN1b9afyXJ4qAkdv5KAXVm9Ly1SgX5zBBK2g', // changed
         '255',
-        '[lol-admin] Max Stats Log',
+        '[qpixel-admin] Max Stats Log',
         'Admin: ' + pAdmin + '\nTarget: ' + pTargetData,
         ''
       )
@@ -739,10 +739,10 @@
       let pAdmin = GetPlayerName(source.toString()),
         pTargetData = GetPlayerName(pTarget.toString())
       return (
-        exports['lol-admin'].sendLog(
+        exports['qpixel-admin'].sendLog(
           'https://discord.com/api/webhooks/993006234707972136/PGDIxqtgeoxxtDeslFXD6HnWd7-Y4CMKkbXSaHg1oiMzZWREAiA6w-W6uBKoT2lNTMV1', // changed
           '255',
-          '[lol-admin] Give License Log',
+          '[qpixel-admin] Give License Log',
           'License Given: ' +
             pType +
             ' License\nAdmin: ' +
@@ -751,7 +751,7 @@
             pTargetData,
           ''
         ),
-        exports['lol-admin'].giveLicense(Number(pTarget), pType)
+        exports['qpixel-admin'].giveLicense(Number(pTarget), pType)
           ? emitNet('DoLongHudText', source, 'Successfully gave license!', 1)
           : emitNet(
               'DoLongHudText',
@@ -770,10 +770,10 @@
         let pAdmin = GetPlayerName(source.toString()),
           pTargetData = GetPlayerName(pTarget.toString())
         return (
-          exports['lol-admin'].sendLog(
+          exports['qpixel-admin'].sendLog(
             'https://discord.com/api/webhooks/993006418787565670/iq97Wzmg_ic8Ic5ZuG9C1a_YLntK23FMEt_eih6gQNavKFeYOkKp4j5xVIfBj3NTtwmS', // changed
             '255',
-            '[lol-admin] Job Whitelist Log',
+            '[qpixel-admin] Job Whitelist Log',
             'Whitelisted Job Given: ' +
               pJob +
               '\nRank: ' +
@@ -784,7 +784,7 @@
               pTargetData,
             ''
           ),
-          exports['lol-admin'].giveJobWhitelist(
+          exports['qpixel-admin'].giveJobWhitelist(
             Number(pTarget),
             pJob,
             pRank
@@ -811,10 +811,10 @@
       let pAdmin = GetPlayerName(source.toString()),
         pTargetData = GetPlayerName(pTarget.toString())
       return (
-        exports['lol-admin'].sendLog(
+        exports['qpixel-admin'].sendLog(
           'https://discord.com/api/webhooks/993006528812564591/_QbJH10BOiouKFfOA-BsHHqz0D7wyrSIKPr9_40T3_BTn7eYcILIP1L6qeNPaYCVquHo', // changed
           '255',
-          '[lol-admin] Give Cash Log',
+          '[qpixel-admin] Give Cash Log',
           'Cash Given: $' +
             pAmount.toLocaleString() +
             '\nAdmin: ' +
@@ -823,7 +823,7 @@
             pTargetData,
           ''
         ),
-        exports['lol-admin'].giveCash(Number(pTarget), pAmount)
+        exports['qpixel-admin'].giveCash(Number(pTarget), pAmount)
           ? emitNet('DoLongHudText', source, 'Successfully gave cash!', 1)
           : emitNet(
               'DoLongHudText',
@@ -840,10 +840,10 @@
       DropPlayer(pTarget, pReason)
       let pAdmin = GetPlayerName(source.toString()),
         pTargetData = GetPlayerName(pTarget.toString())
-      exports['lol-admin'].sendLog(
+      exports['qpixel-admin'].sendLog(
         'https://discord.com/api/webhooks/993006656579444826/0gEQxx-I1wx5iBegO3x2OwXu6GHpOS84SPMMB_6uHVSwWfU2qRTJzW7WYqqiEwcsf2VF', // changed
         '255',
-        '[lol-admin] Kick Player Log',
+        '[qpixel-admin] Kick Player Log',
         'Reason: ' +
           pReason +
           '\nAdmin: ' +
@@ -855,10 +855,10 @@
     })
     onNet('qpixel:admin:createBusiness', async (pBID, pBusinessName, pBusinessOwner) => {
       let _0x1fb2d5 = GetPlayerName(source.toString())
-      exports['lol-admin'].sendLog(
+      exports['qpixel-admin'].sendLog(
         'https://discord.com/api/webhooks/993006771901833218/OowPrRKBT_Y70zIrlaqjmY0Jjx_s7g9mxek193XcaM423t0WGtUvJ4ke9x6EiEGwry4O', // changed
         '255',
-        '[lol-admin] Business Creation Log',
+        '[qpixel-admin] Business Creation Log',
         'Business ID: ' +
           pBID +
           '\nBusiness Name: ' +
@@ -947,10 +947,10 @@
         pAdminName = GetPlayerName(source.toString())
       if ('' !== pTarget || null !== pTarget) {
         let pUserName = GetPlayerName(pUser.toString())
-        exports['lol-admin'].sendLog(
+        exports['qpixel-admin'].sendLog(
           pWebhook,
           '255',
-          '[lol-admin] Spawn Item Log',
+          '[qpixel-admin] Spawn Item Log',
           'Item Spawned: ' +
             pItem +
             '\nItem Amount: 1\nAdmin: ' +
@@ -978,10 +978,10 @@
           pMetaLogData
         )
       } else {
-        exports['lol-admin'].sendLog(
+        exports['qpixel-admin'].sendLog(
           pWebhook,
           '255',
-          '[lol-admin] Spawn Item Log',
+          '[qpixel-admin] Spawn Item Log',
           'Item Spawned: ' + pItem + '\nItem Amount: 1\nAdmin: ' + pAdminName,
           'Item Name: ' + pItem + ' | Item Amount: 1',
           ''
@@ -999,7 +999,7 @@
       }
     })
     onNet('qpixel:admin:flingPlayer', async (pTarget) => {
-      emitNet('lol-admin/client/fling-player', pTarget)
+      emitNet('qpixel-admin/client/fling-player', pTarget)
     })
     onNet('qpixel:admin:sendLog', async (logReasons, bool, pAdmin) => {
       let pAdminName = GetPlayerName(source.toString())
@@ -1007,10 +1007,10 @@
         case 'godmode':
           let pWebhook2 =
             'https://discord.com/api/webhooks/993006981822566431/yYMyVFQjqTinUgx4xS7qJXbiM-2inEfM3RC9DYVHaTg6c7qDKiY6MShdWZCZbxShG0jW' // changed
-          exports['lol-admin'].sendLog(
+          exports['qpixel-admin'].sendLog(
             pWebhook2,
             '255',
-            '[lol-admin] Godmode Log',
+            '[qpixel-admin] Godmode Log',
             'Godmode Toggled: ' + bool + '\nAdmin: ' + pAdminName,
             '',
             ''
@@ -1019,10 +1019,10 @@
         case 'reviveDistance':
           let pWebhook3 =
             'https://discord.com/api/webhooks/993007072583106611/dJ2eVo3c0DzyLRQhUEyHypnH9B_55UYtWOhYV0fffc3fSasbA8Xw4HP_F-0teGBEErPg' // changed
-          exports['lol-admin'].sendLog(
+          exports['qpixel-admin'].sendLog(
             pWebhook3,
             '255',
-            '[lol-admin] Revive Distance Log',
+            '[qpixel-admin] Revive Distance Log',
             'Revived in Distance\nAdmin: ' + pAdminName,
             '',
             ''
@@ -1031,10 +1031,10 @@
         case 'reviveTarget':
           let pWebhook =
             'https://discord.com/api/webhooks/993007229970169856/PsZrD_Qee44DnkPhvkenOv5udVFSQyowbfhJszX204c8erRQF0oj4HZ59VrnX4vk0489'
-          exports['lol-admin'].sendLog(
+          exports['qpixel-admin'].sendLog(
             pWebhook,
             '255',
-            '[lol-admin] Revive Target Log',
+            '[qpixel-admin] Revive Target Log',
             'Revived a Target\nAdmin: ' +
               pAdminName +
               '\nTarget: ' +

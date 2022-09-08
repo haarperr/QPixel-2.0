@@ -20,20 +20,20 @@ RegisterNetEvent('qpixel:admin/client/fling-player', function()
 end)
 
 RegisterNetEvent("qpixel:admin/client/select-spawn", function()
-  exports['lol-adminUI']:hideMenu()
-  exports['lol-adminUI']:exitNUI()
+  exports['qpixel-adminUI']:hideMenu()
+  exports['qpixel-adminUI']:exitNUI()
   TransitionToBlurred(500)
   DoScreenFadeOut(500)
   Citizen.Wait(1000)
   TriggerServerEvent("jobssystem:jobs", "unemployed")
-  exports["lol-build"]:getModule("func").CleanUpArea()
+  exports["qpixel-build"]:getModule("func").CleanUpArea()
   local cid = exports["isPed"]:isPed("cid")
-  TriggerServerEvent("lol-jobmanager:onCharSwap", cid)
+  TriggerServerEvent("qpixel-jobmanager:onCharSwap", cid)
   Citizen.Wait(1000)   
-  TriggerEvent("lol-base:clearStates")
-  exports["lol-ui"]:sendAppEvent("hud", { display = false })
+  TriggerEvent("qpixel-base:clearStates")
+  exports["qpixel-ui"]:sendAppEvent("hud", { display = false })
   TriggerServerEvent("apartments:cleanUpRoom")
-  exports["lol-base"]:getModule("SpawnManager"):Initialize()
+  exports["qpixel-base"]:getModule("SpawnManager"):Initialize()
   TriggerEvent("hud:saveCurrentMeta")
   Citizen.Wait(1000)
 end)
@@ -60,7 +60,7 @@ AddEventHandler("qpixel:admin:ReviveInDistance", function()
     if playerList ~= {} and playerList ~= nil then
 
         for k,v in pairs(playerList) do
-            TriggerServerEvent("lol-death:reviveSV", v)
+            TriggerServerEvent("qpixel-death:reviveSV", v)
             TriggerServerEvent("reviveGranted", v)
              TriggerEvent("Hospital:HealInjuries",true) 
              TriggerServerEvent("ems:healplayer", v)
@@ -670,8 +670,8 @@ Citizen.CreateThread( function()
 
   function getVehiclesCombined() 
     local designatedVehicleTable = {}
-    local vehicleTable = exports['lol-admin']:getVehicles()
-    local addonVehicleTable = exports['lol-admin']:getAddonVehicles()
+    local vehicleTable = exports['qpixel-admin']:getVehicles()
+    local addonVehicleTable = exports['qpixel-admin']:getAddonVehicles()
     for k,v in pairs(vehicleTable) do
       designatedVehicleTable[#designatedVehicleTable+1] = {
         model = v.model,
@@ -689,7 +689,7 @@ Citizen.CreateThread( function()
 
   exports('getVehiclesCombined',getVehiclesCombined)
 
-  RegisterNetEvent('lol-admin:InsertPrioCL')
-  AddEventHandler('lol-admin:InsertPrioCL', function()
-    TriggerServerEvent('lol-admin:insertPrio')
+  RegisterNetEvent('qpixel-admin:InsertPrioCL')
+  AddEventHandler('qpixel-admin:InsertPrioCL', function()
+    TriggerServerEvent('qpixel-admin:insertPrio')
   end)

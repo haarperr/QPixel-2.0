@@ -410,28 +410,28 @@
           onNet('qpixel:admin:requestedJob', (jobTitle) => {
             switch (jobTitle) {
               case 'police':
-                emitNet('lol-duty:AttemptDuty', 'police')
+                emitNet('qpixel-duty:AttemptDuty', 'police')
                 break
               case 'sheriff':
-                emitNet('lol-duty:AttemptDuty', 'sheriff')
+                emitNet('qpixel-duty:AttemptDuty', 'sheriff')
                 break
               case 'state':
-                emitNet('lol-duty:AttemptDuty', 'state')
+                emitNet('qpixel-duty:AttemptDuty', 'state')
                 break
               case 'doc':
-                emitNet('lol-duty:AttemptDuty', 'doc')
+                emitNet('qpixel-duty:AttemptDuty', 'doc')
                 break
               case 'dispatcher':
-                emitNet('lol-duty:AttemptDuty', 'dispatcher')
+                emitNet('qpixel-duty:AttemptDuty', 'dispatcher')
                 break
               case 'ems':
-                emitNet('lol-duty:AttemptDutyEMS')
+                emitNet('qpixel-duty:AttemptDutyEMS')
                 break
               case 'judge':
-                emitNet('lol-duty:attempt_duty:judge')
+                emitNet('qpixel-duty:attempt_duty:judge')
                 break
               case 'lawyer':
-                emitNet('lol-duty:attempt_duty:public_defender')
+                emitNet('qpixel-duty:attempt_duty:public_defender')
                 break
               default:
                 emitNet('jobssystem:jobs', jobTitle)
@@ -448,21 +448,21 @@
             emitNet('qpixel:admin:requestBennys', bool)
           })
           onNet("qpixel:admin:enableDebug", () => {
-            exports['lol-admin'].devDebugToggle();
+            exports['qpixel-admin'].devDebugToggle();
           })
           onNet('qpixel:admin:openBarber', () => {
-            exports['lol-adminUI'].hideMenu()
-            exports['lol-adminUI'].exitNUI()
+            exports['qpixel-adminUI'].hideMenu()
+            exports['qpixel-adminUI'].exitNUI()
             emitNet('raid_clothes:admin:open', 'barber_shop')
           })
           onNet('qpixel:admin:openClothing', () => {
-            exports['lol-adminUI'].hideMenu()
-            exports['lol-adminUI'].exitNUI(),
+            exports['qpixel-adminUI'].hideMenu()
+            exports['qpixel-adminUI'].exitNUI(),
             emitNet('raid_clothes:admin:open', 'clothing_shop')
           })
           onNet('qpixel:admin:openBennys', () => {
-            exports['lol-adminUI'].hideMenu()
-            exports['lol-adminUI'].exitNUI()
+            exports['qpixel-adminUI'].hideMenu()
+            exports['qpixel-adminUI'].exitNUI()
           })
           onNet('qpixel:admin:updateGarage', (pPlate, pGarage) => {
             emitNet('qpixel:admin:updateGarage', pPlate, pGarage)
@@ -508,7 +508,7 @@
           function adminMenuFavKVP(parsedAdminMenuFavData) {
             let adminMenuFavData = parsedAdminMenuFavData
             SetResourceKvp('Json_adminMenuFavCommands', JSON.stringify(adminMenuFavData))
-            exports['lol-adminUI'].updateMenuData(adminMenuData)
+            exports['qpixel-adminUI'].updateMenuData(adminMenuData)
           }
           function adminMenuOptionsKVP(commandTable) {
             commandOptions = commandTable
@@ -638,7 +638,7 @@
               const getCommandUIKeyData = getCommandUI[fountCommandUIDatah]
               sentUpdateMenuData.push(getCommandUIKeyData.adminMenu)
             }
-            exports['lol-adminUI'].updateMenuData(sentUpdateMenuData)
+            exports['qpixel-adminUI'].updateMenuData(sentUpdateMenuData)
             return
           }
           function pushDefaultKeybinds() {
@@ -655,7 +655,7 @@
                   false
                 )
                 RegisterCommand('-' + pAdminModeBind.key, () => {}, false)
-                exports['lol-keybinds'].registerKeyMapping(
+                exports['qpixel-keybinds'].registerKeyMapping(
                   '',
                   'zzAdmin',
                   pAdminModeBind.key,
@@ -716,25 +716,25 @@
                 queueType: 'Regular',
               },
             ]
-            exports['lol-adminUI'].updateDefinedNames(nameTable)
+            exports['qpixel-adminUI'].updateDefinedNames(nameTable)
           }
           async function pUpdateSearchParam(pSearchListing) {
             const pGetPlayerLogs = await RPC.execute(
               'qpixel:admin:getPlayerLogs',
               pSearchListing
             )
-            exports['lol-adminUI'].updatePlayerLogs(pGetPlayerLogs)
+            exports['qpixel-adminUI'].updatePlayerLogs(pGetPlayerLogs)
           }
           on("qpixel:admin:updateUI", () => {
             closeMenu();
           });
           onNet("qpixel:admin:closeMenu", async _0x3e5a10 => {
-            global.exports["lol-adminUI"].enableMenu(false, false);
-            global.exports["lol-adminUI"].exitNUI();
+            global.exports["qpixel-adminUI"].enableMenu(false, false);
+            global.exports["qpixel-adminUI"].exitNUI();
           });;
           function closeMenu() {
-            global.exports["lol-adminUI"].exitNUI();
-            global.exports["lol-selector"].deselect();
+            global.exports["qpixel-adminUI"].exitNUI();
+            global.exports["qpixel-selector"].deselect();
           }
   
           RegisterNuiCallbackType('adminMenu')
@@ -769,7 +769,7 @@
               case 'toggleAdminMode':
                 ;(toggleAdminMode = !toggleAdminMode),
                   emit('qpixel:admin:currentDevmode', toggleAdminMode),
-                  exports['lol-adminUI'].updateAdminMode(toggleAdminMode)
+                  exports['qpixel-adminUI'].updateAdminMode(toggleAdminMode)
                 break
               case 'runEvent':
                 emit(adminMenuData.event)
@@ -785,7 +785,7 @@
               case 'qpixel:admin:becomeModel':
                 emit(knownModuleData.action, knownModuleData.data.Model)
                 break
-              case 'lol-admin/client/select-spawn':
+              case 'qpixel-admin/client/select-spawn':
                 emit(knownModuleData.action)
                 break
               case 'qpixel:admin:requestBarber':
@@ -823,7 +823,7 @@
                 !knownModuleData.data.Target
                   ? (emit('qpixel:admin:ReviveInDistance'),
                     emitNet('qpixel:admin:sendLog', 'reviveDistance'))
-                  : (emitNet('lol-death:reviveSV', Number(knownModuleData.data.Target)),
+                  : (emitNet('qpixel-death:reviveSV', Number(knownModuleData.data.Target)),
                     emitNet('reviveGranted', Number(knownModuleData.data.Target)),
                     emitNet('ems:healplayer', Number(knownModuleData.data.Target)),
                     emitNet(
@@ -917,7 +917,7 @@
             if (!toggleAdminMode) {
               return
             }
-            exports['lol-selector'].startSelecting(
+            exports['qpixel-selector'].startSelecting(
               -1,
               PlayerPedId(),
               (_0x5c1090, _0x502269, _0xcb922c) =>
@@ -928,11 +928,11 @@
             if (!toggleAdminMode) {
               return
             }
-            selectordata = exports['lol-selector'].stopSelecting()
+            selectordata = exports['qpixel-selector'].stopSelecting()
             if (selectordata.selectedEntity) {
               await pSeletedEntity(selectordata.selectedEntity)
             } else {
-              exports['lol-selector'].deselect()
+              exports['qpixel-selector'].deselect()
             }
           }
           async function pDeleteAdminEntity() {
@@ -1038,9 +1038,9 @@
           async function initAdminMenu(pVal) {
             getAdminKey2Options()
             let pItemList =
-              exports['lol-inventory'].getItemListNames()
+              exports['qpixel-inventory'].getItemListNames()
             const pValidJobs =
-              exports['lol-base'].getModule('JobManager').ValidJobs
+              exports['qpixel-base'].getModule('JobManager').ValidJobs
             let getJobListFuck = []
             for (const pValidJob in pValidJobs) {
               if (pValidJobs) {
@@ -1091,7 +1091,7 @@
               playerLogs: null,
               adminMode: toggleAdminMode,
               itemList: pItemList,
-              vehicleList: exports["lol-admin"].getVehiclesCombined(),
+              vehicleList: exports["qpixel-admin"].getVehiclesCombined(),
               garageList: [
                 {
                   garage_id: 'A',
@@ -1243,7 +1243,7 @@
               disconnectedPlayers: getDisconnectedHistoryFuck,
               bannedList: getBanHistoryFuck,
             }
-            exports['lol-adminUI'].setCommandUI(commandKey, null, 2)
+            exports['qpixel-adminUI'].setCommandUI(commandKey, null, 2)
           }
           setImmediate(() => {
             RegisterCommand('+adminSelect', async () => await adminMenuStartSelecting(), false)
@@ -1260,7 +1260,7 @@
               false
             )
             RegisterCommand('-openAdminMenu', () => {}, false)
-            exports['lol-keybinds'].registerKeyMapping(
+            exports['qpixel-keybinds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Delete Target',
@@ -1268,7 +1268,7 @@
               '-adminDeleteEntity',
               ''
             )
-            exports['lol-keybinds'].registerKeyMapping(
+            exports['qpixel-keybinds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Select Target',
@@ -1276,7 +1276,7 @@
               '-adminSelect',
               ''
             )
-            exports['lol-keybinds'].registerKeyMapping(
+            exports['qpixel-keybinds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Open Menu',

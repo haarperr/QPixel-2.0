@@ -6,19 +6,19 @@ game "gta5"
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
-    '@lol-lib/server/sv_sqlother.lua',
-    '@lol-lib/server/sv_rpc.lua',
-    '@lol-lib/server/sv_rpc.js',
-    '@lol-lib/server/sv_sql.lua',
-    '@lol-lib/server/sv_sql.js',
+    '@qpixel-lib/server/sv_sqlother.lua',
+    '@qpixel-lib/server/sv_rpc.lua',
+    '@qpixel-lib/server/sv_rpc.js',
+    '@qpixel-lib/server/sv_sql.lua',
+    '@qpixel-lib/server/sv_sql.js',
     'dist/server/*.js',
     'server/sv_*.lua'
 }
 
 client_scripts {
-    '@lol-lib/client/cl_rpc.js',
-    '@lol-lib/client/cl_rpc.lua',
-    '@lol-lib/client/cl_poly.js',
+    '@qpixel-lib/client/cl_rpc.js',
+    '@qpixel-lib/client/cl_rpc.lua',
+    '@qpixel-lib/client/cl_poly.js',
     'dist/client/*.js',
     'client/cl_*.lua',
 }

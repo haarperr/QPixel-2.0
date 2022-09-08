@@ -103,8 +103,8 @@ function toggleNUI(){
     SetCursorLocation(0.5, 0.5);
     SendNuiMessage(JSON.stringify({
         action: 'setKeyBinds',
-        selectionMenu: global.exports["lol-keybinds"].getKeyMapping("+enableSelectionMenu"),
-        selectionKey: global.exports["lol-keybinds"].getKeyMapping("+adminSelect")
+        selectionMenu: global.exports["qpixel-keybinds"].getKeyMapping("+enableSelectionMenu"),
+        selectionKey: global.exports["qpixel-keybinds"].getKeyMapping("+adminSelect")
     }))
 }
 function exitNUI()
@@ -125,14 +125,14 @@ on('__cfx_nui:closeMenu', (data, cb) => {
 
 
     if(data.toSelect){
-        global.exports["lol-admin"].enterSelection();
+        global.exports["qpixel-admin"].enterSelection();
     }
 
     cb();
 });
 
 on("onResourceStart", (resourceName) => {
-    if(GetCurrentResourceName() != 'lol-admin') {
+    if(GetCurrentResourceName() != 'qpixel-admin') {
       return;
     }
   
@@ -163,7 +163,7 @@ on('__cfx_nui:insideCommand', (data, cb) => {
             return
         }
 
-        emit('lol-binds:should-execute',false)
+        emit('qpixel-binds:should-execute',false)
         blockingActions = setTick(() => {
             DisableControlAction(0, 24, true)
 			DisableControlAction(0, 142, true)
@@ -178,7 +178,7 @@ on('__cfx_nui:insideCommand', (data, cb) => {
         });
 
     } else {
-        emit('lol-binds:should-execute',true)
+        emit('qpixel-binds:should-execute',true)
         if(blockingActions){
             clearTick(blockingActions);
             blockingActions = null
@@ -190,7 +190,7 @@ on('__cfx_nui:insideCommand', (data, cb) => {
 
 RegisterCommand("+enableSelectionMenu", () => toggleNUI(), false);
 RegisterCommand("-enableSelectionMenu", () => {} , false);
-global.exports["lol-keybinds"].registerKeyMapping("", "zzAdmin", "Selection Menu", "+enableSelectionMenu", "-enableSelectionMenu", "")
+global.exports["qpixel-keybinds"].registerKeyMapping("", "zzAdmin", "Selection Menu", "+enableSelectionMenu", "-enableSelectionMenu", "")
 
 
 

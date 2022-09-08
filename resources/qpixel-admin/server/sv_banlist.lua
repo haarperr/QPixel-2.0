@@ -28,7 +28,7 @@ end)
 
 function getPrioType(pSource)
 	local pSrc = pSource
-	local user = exports['lol-base']:getModule("Player"):GetUser(pSource)
+	local user = exports['qpixel-base']:getModule("Player"):GetUser(pSource)
 	return "Prio Broke:) ~ loleris"
 end
 
@@ -36,7 +36,7 @@ function getEverything()
 	local everything = {}
 	for k,v in pairs(GetPlayers()) do
 		local char
-		local user = exports['lol-base']:getModule("Player"):GetUser(tonumber(v))
+		local user = exports['qpixel-base']:getModule("Player"):GetUser(tonumber(v))
 		local cash
 		local steamid 
 		if user then 

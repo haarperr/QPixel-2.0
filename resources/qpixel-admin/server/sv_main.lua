@@ -1,5 +1,5 @@
 function isAdministrator(src)
-    local user = exports["lol-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
 	local rank = user:getRank()
 	if rank == "admin" or rank == "dev" or rank == "owner" then
         return true, rank
@@ -11,7 +11,7 @@ end
 exports("isAdministrator", isAdministrator)
 
 function giveLicense(src, license)
-    local user = exports["lol-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     if not user then return false end
     local char = user:getCurrentCharacter()
 
@@ -43,7 +43,7 @@ end
 exports("updateGarage", updateGarage)
 
 function giveJobWhitelist(src, job, rank)
-    local user = exports["lol-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     if not user then return false end
     local char = user:getCurrentCharacter()
 
@@ -61,7 +61,7 @@ end
 exports("giveJobWhitelist", giveJobWhitelist)
 
 function giveCash(src, amount)
-    local user = exports["lol-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     if not user then return false end
     user:addMoney(tonumber(amount))
 
@@ -88,13 +88,13 @@ exports("sendLog", sendLog)
 
 RegisterNetEvent("qpixel:admin:searchPlayerInventory")
 AddEventHandler("qpixel:admin:searchPlayerInventory", function(pTarget)
-    local user = exports["lol-base"]:getModule("Player"):GetUser(tonumber(pTarget))
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(tonumber(pTarget))
     local cid = user:getCurrentCharacter().id
     TriggerClientEvent("server-inventory-open", source, "1", 'ply-'..cid)
 end)
 
-RegisterServerEvent('lol-admin:insertPrio')
-AddEventHandler('lol-admin:insertPrio', function()
+RegisterServerEvent('qpixel-admin:insertPrio')
+AddEventHandler('qpixel-admin:insertPrio', function()
     local src = source
     local sid = GetPlayerIdentifiers(src)[1]
 

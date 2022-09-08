@@ -134,7 +134,7 @@ local function getDate2(sec)
 end
 
 function isVerifiedAdmin(src)
-    local user = exports["lol-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
 	local rank = user:getRank()
     if rank ~= 'user' then 
         return true 
