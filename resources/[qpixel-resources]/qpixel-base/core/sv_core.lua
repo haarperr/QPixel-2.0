@@ -1,9 +1,9 @@
 
-function QPX.Core.ConsoleLog(self, msg, mod, ply)
+function DPX.Core.ConsoleLog(self, msg, mod, ply)
 	if not tostring(msg) then return end
 	if not tostring(mod) then mod = "No Module" end
 
-	local pMsg = string.format("^3[QPX LOG - %s]^7 %s", mod, msg)
+	local pMsg = string.format("^3[DPX LOG - %s]^7 %s", mod, msg)
 	if not pMsg then return end
 	
 	print(pMsg)
@@ -16,12 +16,12 @@ end
 AddEventHandler("onResourceStart", function(resource)
 	TriggerClientEvent("qpixel-base:waitForExports", -1)
 
-	if not QPX.Core.ExportsReady then return end
+	if not DPX.Core.ExportsReady then return end
 
 	Citizen.CreateThread(function()
 		while true do 
 			Citizen.Wait(0)
-			if QPX.Core.ExportsReady then
+			if DPX.Core.ExportsReady then
 				TriggerEvent("qpixel-base:exportsReady")
 				return
 			else
@@ -35,9 +35,9 @@ AddEventHandler("qpixel-base:playerSessionStarted", function()
 
 	local src = source
 	local name = GetPlayerName(src)
-	local user = QPX.Player:GetUser(src)
-	-- local hexId = QPX.Util.GetHexId(src)
-	-- local steamId = QPX.Util:HexIdToSteamId(hexId) 
+	local user = DPX.Player:GetUser(src)
+	-- local hexId = DPX.Util.GetHexId(src)
+	-- local steamId = DPX.Util:HexIdToSteamId(hexId) 
 	if user then 
 		print("^0" .. name .. "^7 spawned into the server")
 	end
@@ -48,7 +48,7 @@ AddEventHandler("qpixel-base:characterLoaded", function(user, char)
 	local hexId = user:getVar("hexid")
 
 	if char.phone_number == 0 then
-		QPX.Core:CreatePhoneNumber(source, function(phonenumber, err)	
+		DPX.Core:CreatePhoneNumber(source, function(phonenumber, err)	
 			local q = [[UPDATE characters SET phone_number = @phone WHERE owner = @owner and id = @cid]]
 			local v = {
 				["phone"] = phoneNumber,

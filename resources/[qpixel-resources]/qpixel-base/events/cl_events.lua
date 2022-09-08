@@ -1,27 +1,27 @@
-QPX.Events = QPX.Events or {}
-QPX.Events.Total = 0
-QPX.Events.Active = {}
+DPX.Events = DPX.Events or {}
+DPX.Events.Total = 0
+DPX.Events.Active = {}
 
-function QPX.Events.Trigger(self, event, args, callback)
-    local id = QPX.Events.Total + 1
-    QPX.Events.Total = id
+function DPX.Events.Trigger(self, event, args, callback)
+    local id = DPX.Events.Total + 1
+    DPX.Events.Total = id
 
     id = event .. ":" .. id
 
-    if QPX.Events.Active[id] then return end
+    if DPX.Events.Active[id] then return end
 
-    QPX.Events.Active[id] = {cb = callback}
+    DPX.Events.Active[id] = {cb = callback}
     
     TriggerServerEvent("qpixel-events:listenEvent", id, event, args)
 end
 
 RegisterNetEvent("qpixel-events:listenEvent")
 AddEventHandler("qpixel-events:listenEvent", function(id, data)
-    local ev = QPX.Events.Active[id]
+    local ev = DPX.Events.Active[id]
     
     if ev then
         ev.cb(data)
-        QPX.Events.Active[id] = nil
+        DPX.Events.Active[id] = nil
     end
 end)
 

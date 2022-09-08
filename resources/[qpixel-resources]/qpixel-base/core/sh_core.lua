@@ -1,10 +1,10 @@
-QPX.Core = QPX.Core or {}
+DPX.Core = DPX.Core or {}
 
-function QPX.Core.ConsoleLog(self, msg, mod)
+function DPX.Core.ConsoleLog(self, msg, mod)
     if not tostring(msg) then return end
     if not tostring(mod) then mod = "No Module" end
     
-    local pMsg = string.format("[QPX LOG - %s] %s", mod, msg)
+    local pMsg = string.format("[DPX LOG - %s] %s", mod, msg)
     if not pMsg then return end
 
     print(pMsg)
@@ -12,28 +12,28 @@ end
 
 RegisterNetEvent("qpixel-base:consoleLog")
 AddEventHandler("qpixel-base:consoleLog", function(msg, mod)
-    QPX.Core:ConsoleLog(msg, mod)
+    DPX.Core:ConsoleLog(msg, mod)
 end)
 
 function getModule(module)
-    if not QPX[module] then print("Warning: '" .. tostring(module) .. "' module doesn't exist") return false end
-    return QPX[module]
+    if not DPX[module] then print("Warning: '" .. tostring(module) .. "' module doesn't exist") return false end
+    return DPX[module]
 end
 
 function addModule(module, tbl)
-    if QPX[module] then print("Warning: '" .. tostring(module) .. "' module is being overridden") end
-    QPX[module] = tbl
+    if DPX[module] then print("Warning: '" .. tostring(module) .. "' module is being overridden") end
+    DPX[module] = tbl
 end
 
-QPX.Core.ExportsReady = false
+DPX.Core.ExportsReady = false
 
-function QPX.Core.WaitForExports(self)
+function DPX.Core.WaitForExports(self)
     Citizen.CreateThread(function()
         while true do
             Citizen.Wait(0)
             if exports and exports["qpixel-base"] then
                 TriggerEvent("qpixel-base:exportsReady")
-                QPX.Core.ExportsReady = true
+                DPX.Core.ExportsReady = true
                 return
             end
         end
@@ -42,4 +42,4 @@ end
 
 exports("getModule", getModule)
 exports("addModule", addModule)
-QPX.Core:WaitForExports()
+DPX.Core:WaitForExports()

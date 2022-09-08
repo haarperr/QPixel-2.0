@@ -508,12 +508,12 @@ RegisterNUICallback('selectTarget', function(data)
     local context = data.context or {}
 
     local event = option.event
-    local QPXEvent = option.QPXEvent
+    local DPXEvent = option.DPXEvent
     local target = data.context.entity or 0
     local parameters = option.parameters or {}
 
-    if event == nil and QPXEvent ~= nil then
-        return QPX.Events.emit(QPXEvent, parameters, target, context)
+    if event == nil and DPXEvent ~= nil then
+        return DPX.Events.emit(DPXEvent, parameters, target, context)
     end
 
     parameters["polyZoneCoordinates"] = CurrentTargetOffset
