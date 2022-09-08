@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "packr": "^1.0.1",
-    "tinymce": "^5.10.5"
-  }
-}
