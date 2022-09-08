@@ -5139,6 +5139,7 @@ DOOR_CONFIG = {
     },
     forceUnlocked = true,
   },
+  
   {
     info = "gov building east of highway",
     active = true,
@@ -9043,6 +9044,54 @@ DOOR_CONFIG = {
       },
     }
   },
+
+
+  {
+    info = "",
+    active = true,
+    id = 554,
+    keyFob = true,
+    coords = vector3(410.02580, -1024.22000, 29.22020),
+    model = -1635161509,
+    lock = true,
+    automatic = {
+      distance = 100.0,
+      rate = 1.0
+    },
+    desc = "MRPDBollard01",
+    access = {
+      job = {
+        ["PD"] = true,
+        ["pd_impound"] = true,
+      },
+      business = {},
+    },
+    forceUnlocked = false,
+  },
+  {
+    info = "",
+    active = true,
+    id = 555,
+    keyFob = true,
+    coords = vector3(410.02580, -1024.22600, 29.22022),
+    model = -1868050792,
+    lock = true,
+    automatic = {
+      distance = 100.0,
+      rate = 1.0
+    },
+    desc = "MRPDBollard02",
+    access = {
+      job = {
+        ["PD"] = true,
+        ["pd_impound"] = true,
+      },
+      business = {},
+    },
+    forceUnlocked = false,
+  },
+
+
   {
     desc = "lean manor left front gate",
     model = -1249591818,
@@ -16829,4 +16878,5 @@ DOOR_CONFIG = {
     forceUnlocked = false,
     hidden = true,
   }, 
+  
 }

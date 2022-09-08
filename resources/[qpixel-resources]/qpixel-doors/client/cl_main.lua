@@ -3,11 +3,11 @@ local currentDoorCoords, currentDoorId, currentDoorLockState, currentZone = vect
 local listening = false
 local bollards = {
     mrpd_bollards_01 = {
-        doorId = 314,
+        doorId = 552,
         inside = false
     },
     mrpd_bollards_02 = {
-        doorId = 315,
+        doorId = 553,
         inside = false
     },
 }
@@ -157,6 +157,7 @@ AddEventHandler("qpixel-doors:doorKeyFob", function()
     if currentZone ~= nil and bollards[currentZone].inside then
         doorId = bollards[currentZone].doorId
         isBollard = true
+        print("bollard")
     else
         local entity = exports['qpixel-target']:GetEntityPlayerIsLookingAt(10.0, 2.0, 16)
 
