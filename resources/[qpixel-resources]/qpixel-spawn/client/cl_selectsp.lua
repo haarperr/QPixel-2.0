@@ -46,7 +46,7 @@ AddEventHandler('spawn:clientSpawnData', function(spawnData, heheData)
 				Spawn.isNew = true 
 				Spawn.selectedSpawn(' Apartments 1')
 				-- Spawn.selectedSpawn(' Vinewood Blvd Taxi Stand')
-				-- TriggerEvent("qpixel-spawn:firstspawnyo")
+				TriggerEvent("qpixel-spawn:firstspawnyo")
 			end
 			return
 		end
@@ -149,103 +149,66 @@ function Spawn.getCrash(exitData)
 	return spawn
 end
 
+local triggered = true
 
 RegisterNetEvent("qpixel-spawn:firstspawnyo")
 AddEventHandler("qpixel-spawn:firstspawnyo", function()
-    if GetEntityModel(PlayerPedId()) == GetHashKey("mp_f_freemode_01") then
-        TriggerEvent("qpixel-spawn:finishedClothingstuffbish")
-    else
-        TriggerEvent("qpixel-spawn:finishedClothingstuff")
-    end
+	if triggered then
+		triggered = false
+		if not exports["qpixel-inventory"]:hasEnoughOfItem("idcard",1,false) then
+			TriggerEvent("player:receiveItem","idcard",1,true)
+		end
+		Citizen.Wait(500)
+		if not exports["qpixel-inventory"]:hasEnoughOfItem("mobilephone",1,false)then
+			TriggerEvent("player:receiveItem","mobilephone",1)
+		end
+		Citizen.Wait(500)
+		if not exports["qpixel-inventory"]:hasEnoughOfItem("lockpick",3,false)then
+			TriggerEvent("player:receiveItem","lockpick",3)
+		end
+		Citizen.Wait(500)
+		if not exports["qpixel-inventory"]:hasEnoughOfItem("sandwich",3,false)then
+			TriggerEvent("player:receiveItem","sandwich",3)
+		end
+		Citizen.Wait(500)
+		if not exports["qpixel-inventory"]:hasEnoughOfItem("water",3,false)then
+			TriggerEvent("player:receiveItem","water",3)
+		end
+		Citizen.Wait(500)
+		if not exports["qpixel-inventory"]:hasEnoughOfItem("repairkit",1,false)then
+			TriggerEvent("player:receiveItem","repairkit",1)
+		end
+	end
 end)
 
 RegisterNetEvent('qpixel-spawn:finishedClothingstuff')
 AddEventHandler('qpixel-spawn:finishedClothingstuff', function()
-	RequestCutsceneWithPlaybackList('mp_intro_concat',31,8)
-
-	SetEntityCoords(GetPlayerPed(-1), -1146.89, -1655.06, 4.38)
-	FreezeEntityPosition(GetPlayerPed(-1), false)
-	while not HasCutsceneLoaded() do
-		Citizen.Wait(1)
-		print('not loaded')
-	end
-	SetCutsceneEntityStreamingFlags('MP_Male_Character', 0, 1)
-    local female = RegisterEntityForCutscene(0,"MP_Female_Character",3,0,64)
-    
-    RegisterEntityForCutscene(GetPlayerPed(-1), 'MP_Male_Character', 0, GetEntityModel(GetPlayerPed(-1)), 64)
-    GetEntityIndexOfCutsceneEntity('MP_Female_Character', GetHashKey(GetEntityModel('MP_Female_Character')))
-    NetworkSetEntityInvisibleToNetwork(female, true)
-	StartCutscene(
-		0 
-	)
-	DoScreenFadeIn(0)  
-	Citizen.CreateThread(function()
-        while true do
-            Wait(0)    
-			if IsCutsceneActive() then 
-				Wait(100)
-			else
-				SetEntityCoords(GetPlayerPed(-1), 199.40014648438,-929.05792236328,30.691421508789)
-				FreezeEntityPosition(GetPlayerPed(-1), true)
-				Wait(3000)
-				FreezeEntityPosition(GetPlayerPed(-1), false)
-				if not exports["qpixel-inventory"]:hasEnoughOfItem("idcard",1,false) then
-					TriggerEvent("player:receiveItem","idcard",1,true)
-				end
-				if not exports["qpixel-inventory"]:hasEnoughOfItem("mobilephone",1,false)then
-					TriggerEvent("player:receiveItem","mobilephone",1)
-				end
-				break
-			end
-        end
-    end)
---	Wait(142000)
---	StopCutsceneImmediately()
---	RemoveCutscene()
+	
 end)
 
 RegisterNetEvent('qpixel-spawn:finishedClothingstuffbish')
 AddEventHandler('qpixel-spawn:finishedClothingstuffbish', function()
-	RequestCutsceneWithPlaybackList('mp_intro_concat',103,8)
-
-	SetEntityCoords(GetPlayerPed(-1), -1146.89, -1655.06, 4.38)
-	FreezeEntityPosition(GetPlayerPed(-1), false)
-	while not HasCutsceneLoaded() do
-		Citizen.Wait(1)
-		print('not loaded')
+	
+	if not exports["qpixel-inventory"]:hasEnoughOfItem("idcard",1,false) then
+		TriggerEvent("player:receiveItem","idcard",1,true)
 	end
-	SetCutsceneEntityStreamingFlags('MP_Female_Character', 0, 1)
-    local male = RegisterEntityForCutscene(0,"MP_Male_Character",3,0,64)
-    
-    RegisterEntityForCutscene(GetPlayerPed(-1), 'MP_Female_Character', 0, GetEntityModel(GetPlayerPed(-1)), 64)
-    GetEntityIndexOfCutsceneEntity('MP_Male_Character', GetHashKey(GetEntityModel('MP_Male_Character')))
-    NetworkSetEntityInvisibleToNetwork(male, true)
-	StartCutscene(
-		0 
-	)
-	DoScreenFadeIn(0)
-	Citizen.CreateThread(function()
-        while true do
-            Wait(0)    
-			if IsCutsceneActive() then 
-				Wait(100)
-			else
-				SetEntityCoords(GetPlayerPed(-1), 199.40014648438,-929.05792236328,30.691421508789)
-				FreezeEntityPosition(GetPlayerPed(-1), true)
-				Wait(5000)
-				FreezeEntityPosition(GetPlayerPed(-1), false)
-				if not exports["qpixel-inventory"]:hasEnoughOfItem("idcard",1,false) then
-					TriggerEvent("player:receiveItem","idcard",1,true)
-				end
-				if not exports["qpixel-inventory"]:hasEnoughOfItem("mobilephone",1,false)then
-					TriggerEvent("player:receiveItem","mobilephone",1)
-				end
-				break
-			end
-        end
-    end)
-end)
+	if not exports["qpixel-inventory"]:hasEnoughOfItem("mobilephone",1,false)then
+		TriggerEvent("player:receiveItem","mobilephone",1)
+	end
+	if not exports["qpixel-inventory"]:hasEnoughOfItem("lockpick",1,false)then
+		TriggerEvent("player:receiveItem","lockpick",3)
+	end
+	if not exports["qpixel-inventory"]:hasEnoughOfItem("sandwich",3,false)then
+		TriggerEvent("player:receiveItem","sandwich",1)
+	end
+	if not exports["qpixel-inventory"]:hasEnoughOfItem("water",1,false)then
+		TriggerEvent("player:receiveItem","water",3)
+	end
+	if not exports["qpixel-inventory"]:hasEnoughOfItem("repairkit",1,false)then
+		TriggerEvent("player:receiveItem","repairkit",1)
+	end
 
+end)
 
 
 function round(number, decimals)

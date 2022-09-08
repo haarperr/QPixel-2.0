@@ -68,13 +68,6 @@ AddEventHandler('qpixel-spawn:spawnCharacter', function()
 
     if Spawn.isNew then
         Wait(1000)
-        TriggerEvent("player:receiveItem", "mobilephone", 1)
-        TriggerEvent("player:receiveItem", "idcard", 1)
-        TriggerEvent("player:receiveItem", "lockpick", 2)
-        TriggerEvent("player:receiveItem", "sandwich", 3)
-        TriggerEvent("player:receiveItem", "water", 3)
-        TriggerEvent("player:receiveItem", "repairkit", 1)
-        TriggerEvent("player:receiveItem", "skateboard", 1)
 
         TriggerEvent('qpixel-hud:ChangeThirst', 95)
         TriggerEvent('qpixel-hud:ChangeHunger', 95)
