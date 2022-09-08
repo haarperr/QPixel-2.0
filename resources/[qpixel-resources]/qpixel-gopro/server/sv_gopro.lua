@@ -6,7 +6,8 @@ RPC.register("qpixel-gopros:addSecCamera", function(pSource, pName, pCoords, pRo
     }
     local result = MySQL.query.await([[
         INSERT INTO _cameras (name, coords, rotation, cid, ownerCid) VALUES (?,?,?,?,?)
-    ]], {pName, json.encode(pCoords), json.encode(pRotation), json.encode(cidTable), cid})
+    ]], {pName, json.encode(pCoords), json.encode(pRotation), "["..json.encode(cidTable).."]", cid})
+    --json.encode(print("["..json.encode(cidTable).."]"))
     if result then 
         return true, "Placed Camera!" 
     end
