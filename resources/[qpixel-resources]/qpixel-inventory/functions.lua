@@ -1498,7 +1498,7 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
         local finished = exports["qpixel-taskbar"]:taskBar(5000,"Opening present",false,false,playerVeh)
         if (finished == 100) then
             remove = true
-            TriggerServerEvent("newaccountbox:give:items")
+            TriggerServerEvent('loot:useItem', itemid)
         end
     end
 

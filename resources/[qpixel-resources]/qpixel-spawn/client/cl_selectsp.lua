@@ -155,28 +155,8 @@ RegisterNetEvent("qpixel-spawn:firstspawnyo")
 AddEventHandler("qpixel-spawn:firstspawnyo", function()
 	if triggered then
 		triggered = false
-		if not exports["qpixel-inventory"]:hasEnoughOfItem("idcard",1,false) then
-			TriggerEvent("player:receiveItem","idcard",1,true)
-		end
-		Citizen.Wait(500)
-		if not exports["qpixel-inventory"]:hasEnoughOfItem("mobilephone",1,false)then
-			TriggerEvent("player:receiveItem","mobilephone",1)
-		end
-		Citizen.Wait(500)
-		if not exports["qpixel-inventory"]:hasEnoughOfItem("lockpick",3,false)then
-			TriggerEvent("player:receiveItem","lockpick",3)
-		end
-		Citizen.Wait(500)
-		if not exports["qpixel-inventory"]:hasEnoughOfItem("sandwich",3,false)then
-			TriggerEvent("player:receiveItem","sandwich",3)
-		end
-		Citizen.Wait(500)
-		if not exports["qpixel-inventory"]:hasEnoughOfItem("water",3,false)then
-			TriggerEvent("player:receiveItem","water",3)
-		end
-		Citizen.Wait(500)
-		if not exports["qpixel-inventory"]:hasEnoughOfItem("repairkit",1,false)then
-			TriggerEvent("player:receiveItem","repairkit",1)
+		if not exports["qpixel-inventory"]:hasEnoughOfItem("newaccountbox",1,false) then
+			TriggerEvent("player:receiveItem","newaccountbox",1,true)
 		end
 	end
 end)

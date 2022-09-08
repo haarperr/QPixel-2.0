@@ -104,6 +104,20 @@ LootData['event_bodytrashbag'] = {
 }
 
 LootData['event_newaccountbox'] = {
-    [1] = {itemid = "water", weight = 100, quantity = math.huge, min = 1, max = 10},
-    [2] = {itemid = "donut", weight = 100, quantity = math.huge, min = 1, max = 10},
+    [1] = {itemid = "mobilephone", weight = 100, quantity = math.huge, min = 1, max = 1},
+}
+LootData['event_newaccountbox2'] = {
+    [1] = {itemid = "idcard", weight = 100, quantity = math.huge, min = 1, max = 1}, 
+}
+LootData['event_newaccountbox3'] = {
+    [1] = {itemid = "lockpick", weight = 100, quantity = math.huge, min = 2, max = 4},
+}
+LootData['event_newaccountbox4'] = {
+    [1] = {itemid = "sandwich", weight = 100, quantity = math.huge, min = 2, max = 4}, 
+}
+LootData['event_newaccountbox5'] = {
+    [1] = {itemid = "water", weight = 100, quantity = math.huge, min = 2, max = 4},
+}
+LootData['event_newaccountbox6'] = {
+    [1] = {itemid = "repairkit", weight = 100, quantity = math.huge, min = 2, max = 4}, 
 }
