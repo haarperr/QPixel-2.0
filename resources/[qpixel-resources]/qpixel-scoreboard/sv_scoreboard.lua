@@ -1,8 +1,8 @@
-local DPX = DPX or {}
-DPX.Scoreboard = {}
-DPX._Scoreboard = {}
-DPX._Scoreboard.PlayersS = {}
-DPX._Scoreboard.RecentS = {}
+local QPX = QPX or {}
+QPX.Scoreboard = {}
+QPX._Scoreboard = {}
+QPX._Scoreboard.PlayersS = {}
+QPX._Scoreboard.RecentS = {}
 
 RegisterServerEvent('qpixel-scoreboard:AddPlayer')
 AddEventHandler("qpixel-scoreboard:AddPlayer", function()
@@ -21,10 +21,10 @@ AddEventHandler("qpixel-scoreboard:AddPlayer", function()
     local data = { src = source, steamid = stid, comid = scomid, name = ply }
 
     TriggerClientEvent("qpixel-scoreboard:AddPlayer", -1, data )
-    DPX.Scoreboard.AddAllPlayers()
+    QPX.Scoreboard.AddAllPlayers()
 end)
 
-function DPX.Scoreboard.AddAllPlayers(self)
+function QPX.Scoreboard.AddAllPlayers(self)
     --local players = GetActivePlayers()
 
     for i, _PlayerId in pairs(GetPlayers()) do
@@ -47,8 +47,8 @@ function DPX.Scoreboard.AddAllPlayers(self)
     end
 end
 
-function DPX.Scoreboard.AddPlayerS(self, data)
-    DPX._Scoreboard.PlayersS[data.src] = data
+function QPX.Scoreboard.AddPlayerS(self, data)
+    QPX._Scoreboard.PlayersS[data.src] = data
 end
 
 AddEventHandler("playerDropped", function()

@@ -1,29 +1,29 @@
-DPX.Commands = DPX.Commands or {}
-DPX.Commands.Registered = DPX.Commands.Registered or {}
+QPX.Commands = QPX.Commands or {}
+QPX.Commands.Registered = QPX.Commands.Registered or {}
 
 AddEventHandler("qpixel-base:exportsReady", function()
-    addModule("Commands", DPX.Commands)
+    addModule("Commands", QPX.Commands)
 end)
 
-function DPX.Commands.AddCommand(self, command, suggestion, source, cb, args)
+function QPX.Commands.AddCommand(self, command, suggestion, source, cb, args)
     --print('hi from commands')
     print("adding command "..command)
-    if DPX.Commands.Registered[command] then return end
-      table.insert(DPX.Commands.Registered, { ['command'] = command, ['suggestion'] = suggestion, ['args'] = args })
-      DPX.Commands.Registered[command] = true
+    if QPX.Commands.Registered[command] then return end
+      table.insert(QPX.Commands.Registered, { ['command'] = command, ['suggestion'] = suggestion, ['args'] = args })
+      QPX.Commands.Registered[command] = true
     cb(ok)
 end
 
-function DPX.Commands.RemoveCommand(self, command, suggestion, source, cb, args)
+function QPX.Commands.RemoveCommand(self, command, suggestion, source, cb, args)
     print('command removed')
-    if not DPX.Commands.Registered[command] or nil then return end
-      -- table.remove(DPX.Commands.Registered, { ['command'] = command, ['suggestion'] = suggestion, ['args'] = args })
-    DPX.Commands.Registered[command] = false
+    if not QPX.Commands.Registered[command] or nil then return end
+      -- table.remove(QPX.Commands.Registered, { ['command'] = command, ['suggestion'] = suggestion, ['args'] = args })
+    QPX.Commands.Registered[command] = false
     cb(ok)
 end
 
 RegisterCommand('commands', function()
-  print(json.encode(DPX.Commands.Registered))
+  print(json.encode(QPX.Commands.Registered))
 end)
 
 --[[

@@ -1,7 +1,7 @@
-DPX.Core.hasLoaded = false
+QPX.Core.hasLoaded = false
 
 
-function DPX.Core.Initialize(self)
+function QPX.Core.Initialize(self)
     Citizen.CreateThread(function()
         while true do
             if NetworkIsSessionStarted() then
@@ -12,20 +12,20 @@ function DPX.Core.Initialize(self)
         end
     end)
 end
-DPX.Core:Initialize()
+QPX.Core:Initialize()
 
 AddEventHandler("qpixel-base:playerSessionStarted", function()
-    while not DPX.Core.hasLoaded do
+    while not QPX.Core.hasLoaded do
         --print("waiting in loop")
         Wait(100)
     end
     ShutdownLoadingScreen()
-    DPX.SpawnManager:Initialize()
+    QPX.SpawnManager:Initialize()
 end)
 
 RegisterNetEvent("qpixel-base:waitForExports")
 AddEventHandler("qpixel-base:waitForExports", function()
-    if not DPX.Core.ExportsReady then return end
+    if not QPX.Core.ExportsReady then return end
 
     while true do
         Citizen.Wait(0)
@@ -45,8 +45,8 @@ end)
 RegisterNetEvent("base:disableLoading")
 AddEventHandler("base:disableLoading", function()
     print("player has spawned ")
-    if not DPX.Core.hasLoaded then
-         DPX.Core.hasLoaded = true
+    if not QPX.Core.hasLoaded then
+         QPX.Core.hasLoaded = true
     end
 end)
 

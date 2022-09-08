@@ -1,53 +1,53 @@
 ;(function () {
     'use strict'
     var pLoad = {
-        678: function (rando, DPX) {
-          Object.defineProperty(DPX, '__esModule', { value: true })
-          DPX.Hud =
-            DPX.Interface =
-            DPX.Utils =
-            DPX.Streaming =
-            DPX.Zones =
-            DPX.Procedures =
-            DPX.Events =
+        678: function (rando, QPX) {
+          Object.defineProperty(QPX, '__esModule', { value: true })
+          QPX.Hud =
+            QPX.Interface =
+            QPX.Utils =
+            QPX.Streaming =
+            QPX.Zones =
+            QPX.Procedures =
+            QPX.Events =
               void 0
-          DPX.Events = {
+          QPX.Events = {
             on: (pName, pData) => {
-              return DPX.Events.on(pName, pData)
+              return QPX.Events.on(pName, pData)
             },
             onNet: (pName, pData) => {
-              return DPX.Events.onNet(pName, pData)
+              return QPX.Events.onNet(pName, pData)
             },
             emit: (pName, ...pData) => {
-              return DPX.Events.emit(pName, ...pData)
+              return QPX.Events.emit(pName, ...pData)
             },
             emitNet: (pName, ...pData) => {
-              return DPX.Events.emitNet(pName, ...pData)
+              return QPX.Events.emitNet(pName, ...pData)
             },
             remove: (pName, pData) => {
-              return DPX.Events.remove(pName, pData)
+              return QPX.Events.remove(pName, pData)
             },
           }
-          DPX.Procedures = {
+          QPX.Procedures = {
             register: (pName, pData) => {
-              return DPX.Procedures.register(pName, pData)
+              return QPX.Procedures.register(pName, pData)
             },
             execute: (pName, ...pData) => {
               return (
                 console.log('execute', pName, pData),
-                DPX.Procedures.execute(pName, ...pData)
+                QPX.Procedures.execute(pName, ...pData)
               )
             },
           }
-          DPX.Zones = {
+          QPX.Zones = {
             isActive: (pZone, pData) => {
-              return DPX.Zones.isActive(pZone, pData)
+              return QPX.Zones.isActive(pZone, pData)
             },
             onEnter: (pZone, pData) => {
-              return DPX.Zones.onEnter(pZone, pData)
+              return QPX.Zones.onEnter(pZone, pData)
             },
             onExit: (pZone, pData) => {
-              return DPX.Zones.onExit(pZone, pData)
+              return QPX.Zones.onExit(pZone, pData)
             },
             addBoxZone: (
               pOptionsID,
@@ -58,7 +58,7 @@
               pOptionAssign,
               pData = {}
             ) => {
-              return DPX.Zones.addBoxZone(
+              return QPX.Zones.addBoxZone(
                 pOptionsID,
                 pName,
                 pVectors,
@@ -77,7 +77,7 @@
               pOptionAssign,
               pData = {}
             ) => {
-              return DPX.Zones.addBoxTarget(
+              return QPX.Zones.addBoxTarget(
                 pOptionsID,
                 pName,
                 pVectors,
@@ -88,66 +88,66 @@
               )
             },
           }
-          DPX.Streaming = {
+          QPX.Streaming = {
             loadTexture: (pTexture) => {
-              return DPX.Streaming.loadTexture(pTexture)
+              return QPX.Streaming.loadTexture(pTexture)
             },
             loadAnim: (pAnim) => {
-              return DPX.Streaming.loadAnim(pAnim)
+              return QPX.Streaming.loadAnim(pAnim)
             },
             loadClipSet: (pClip) => {
-              return DPX.Streaming.loadClipSet(pClip)
+              return QPX.Streaming.loadClipSet(pClip)
             },
             loadWeaponAsset: (pWeapon, pWeapon2, pWeapon3) => {
-              return DPX.Streaming.loadWeaponAsset(pWeapon)
+              return QPX.Streaming.loadWeaponAsset(pWeapon)
             },
             loadNamedPtfxAsset: (pPtfxAsset) => {
-              return DPX.Streaming.loadNamedPtfxAsset(pPtfxAsset)
+              return QPX.Streaming.loadNamedPtfxAsset(pPtfxAsset)
             },
           }
-          DPX.Utils = {
+          QPX.Utils = {
             cache: (pCache, pData) => {
-              return DPX.Utils.cache(pCache, pData)
+              return QPX.Utils.cache(pCache, pData)
             },
             cacheableMap: (pCacheableMap, pData) => {
-              return DPX.Utils.cacheableMap(pCacheableMap, pData)
+              return QPX.Utils.cacheableMap(pCacheableMap, pData)
             },
             waitForCondition: (pNameee, pDatahhh) => {
-              return DPX.Utils.waitForCondition(pNameee, pDatahhh)
+              return QPX.Utils.waitForCondition(pNameee, pDatahhh)
             },
             getMapRange: (pMap, pRange, pData) => {
-              return DPX.Utils.getMapRange(pMap, pRange, pData)
+              return QPX.Utils.getMapRange(pMap, pRange, pData)
             },
             getDistance: (
               [pCoordsX, pCoordsY, pCoordsZ],
               [vCoordsX, vCoordsY, vCoordsZ]
             ) => {
-              return DPX.Utils.getDistance(
+              return QPX.Utils.getDistance(
                 [pCoordsX, pCoordsY, pCoordsZ],
                 [vCoordsX, vCoordsY, vCoordsZ]
               )
             },
             getRandomNumber: (pNumMin, pNumMax) => {
-              return DPX.Utils.getRandomNumber(pNumMin, pNumMax)
+              return QPX.Utils.getRandomNumber(pNumMin, pNumMax)
             },
           }
-          DPX.Interface = {
+          QPX.Interface = {
             addPeekEntryByModel: (pModel, pData, pOptions) => {
-              return DPX.Interface.addPeekEntryByModel(
+              return QPX.Interface.addPeekEntryByModel(
                 pModel,
                 pData,
                 pOptions
               )
             },
             addPeekEntryByTarget: (pEvent, pData, pOptions) => {
-              return DPX.Interface.addPeekEntryByTarget(
+              return QPX.Interface.addPeekEntryByTarget(
                 pEvent,
                 pData,
                 pOptions
               )
             },
             addPeekEntryByFlag: (pFlag, pData, pOptions) => {
-              return DPX.Interface.addPeekEntryByFlag(
+              return QPX.Interface.addPeekEntryByFlag(
                 pFlag,
                 pData,
                 pOptions
@@ -159,7 +159,7 @@
               pRunCheck = false,
               pCb = null
             ) => {
-              return DPX.Interface.taskbar(
+              return QPX.Interface.taskbar(
                 pLength,
                 pName,
                 pRunCheck,
@@ -167,9 +167,9 @@
               )
             },
           }
-          DPX.Hud = {
+          QPX.Hud = {
             createBlip: (pName, ...pData) => {
-              return DPX.Hud.createBlip(pName, ...pData)
+              return QPX.Hud.createBlip(pName, ...pData)
             },
             applyBlipSettings: (
               blip,
@@ -181,7 +181,7 @@
               spriteRoute,
               spriteShortRange
             ) => {
-              return DPX.Hud.applyBlipSettings(
+              return QPX.Hud.applyBlipSettings(
                 blip,
                 spriteText,
                 spriteID,
@@ -568,7 +568,7 @@
         pObjCoordsZ,
         pGivenCoords
       ) {
-        await DPX.Streaming.loadModel(pModelH)
+        await QPX.Streaming.loadModel(pModelH)
         const pObjHash = GetHashKey(pModelH)
         let pCurrentObject = CreateObjectNoOffset(
           pObjHash,

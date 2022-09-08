@@ -1,4 +1,4 @@
-DPX = nil
+QPX = nil
 
 Await = Citizen.Await
 
@@ -10,7 +10,7 @@ local function getProxy(pK)
             local p = promise:new()
 
             Citizen.CreateThread(function()
-                local lib = DPX
+                local lib = QPX
 
                 for k in string.gmatch(pK, "([^|]+)") do
                     if lib['__cfx_functionReference'] then return error("Invalid Element: " .. k) end
@@ -32,15 +32,15 @@ local function getProxy(pK)
     })
 end
 
-DPX = getProxy()
+QPX = getProxy()
 
 Citizen.CreateThread(function()
     Citizen.Wait(5)
     if(IsDuplicityVersion()) then
         print("GetLibrary: SERVER")
-        DPX = exports["dpx"]:GetLibrary()
+        QPX = exports["qpx"]:GetLibrary()
     else
         print("GetLibrary: CLIENT")
-        DPX = exports["dpx"]:GetLibrary()
+        QPX = exports["qpx"]:GetLibrary()
     end
 end)

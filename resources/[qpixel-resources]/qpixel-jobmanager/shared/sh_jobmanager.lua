@@ -1,6 +1,6 @@
-DPX = {}
-DPX.Jobs = {}
-DPX.Jobs.ValidJobs = {
+QPX = {}
+QPX.Jobs = {}
+QPX.Jobs.ValidJobs = {
     ["unemployed"] = {
         name = "Unemployed",
         paycheck = 100

@@ -30,13 +30,13 @@ local blips = {
 AddEventHandler("qpixel-base:playerSessionStarted", function()
     Citizen.CreateThread(function()
         for k,v in ipairs(blips) do
-            DPX.BlipManager:CreateBlip(v.id, v)
+            QPX.BlipManager:CreateBlip(v.id, v)
         end
     end)
 end)
 
 AddEventHandler('qpixel-island:hideBlips', function(pState)
     for k,v in ipairs(blips) do
-        DPX.BlipManager:HideBlip(v.id, pState)
+        QPX.BlipManager:HideBlip(v.id, pState)
     end
 end)
