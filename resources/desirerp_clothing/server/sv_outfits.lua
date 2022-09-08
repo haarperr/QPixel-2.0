@@ -1,7 +1,7 @@
 RegisterServerEvent("desirerp_clothing:list_outfits")
 AddEventHandler("desirerp_clothing:list_outfits",function()
     local src = source
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     local cid = user:getCurrentCharacter().id
     local slot = slot
     local name = name
@@ -17,7 +17,7 @@ RegisterServerEvent("desirerp_clothing:remove_outfit")
 AddEventHandler("desirerp_clothing:remove_outfit",function(slot)
 
     local src = source
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     local cid = user:getCurrentCharacter().id
     local slot = slot
 
@@ -32,7 +32,7 @@ AddEventHandler("desirerp_clothing:get_outfit",function(slot)
     if not slot then return end
     local src = source
 
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     local characterId = user:getCurrentCharacter().id
 
     if not characterId then return end
@@ -79,7 +79,7 @@ end)
 RegisterServerEvent("desirerp_clothing:get_character_face")
 AddEventHandler("desirerp_clothing:get_character_face",function(pSrc)
     local src = (not pSrc and source or pSrc)
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     local characterId = user:getCurrentCharacter().id
 
     if not characterId then return end
@@ -106,7 +106,7 @@ RegisterServerEvent("desirerp_clothing:set_outfit")
 AddEventHandler("desirerp_clothing:set_outfit",function(slot, name, data)
     if not slot then return end
     local src = source
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     local characterId = user:getCurrentCharacter().id
 
     if not characterId then return end

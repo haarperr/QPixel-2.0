@@ -10,8 +10,8 @@ function GetPlayers()
     return players
 end
 
-RegisterNetEvent("desirerp-admin:ReviveInDistance")
-AddEventHandler("desirerp-admin:ReviveInDistance", function()
+RegisterNetEvent("qpixel-admin:ReviveInDistance")
+AddEventHandler("qpixel-admin:ReviveInDistance", function()
     local playerList = {}
 
     local players = GetPlayers()
@@ -24,7 +24,7 @@ AddEventHandler("desirerp-admin:ReviveInDistance", function()
         local targetCoords = GetEntityCoords(GetPlayerPed(value), 0)
         local distance = #(vector3(targetCoords["x"], targetCoords["y"], targetCoords["z"]) - vector3(plyCoords["x"], plyCoords["y"], plyCoords["z"]))
         if(distance < 50) then
-            TriggerServerEvent('desirerp-admin:revive_in_distance')
+            TriggerServerEvent('qpixel-admin:revive_in_distance')
             playerList[index] = GetPlayerServerId(value)
         end
     end
@@ -32,7 +32,7 @@ AddEventHandler("desirerp-admin:ReviveInDistance", function()
     if playerList ~= {} and playerList ~= nil then
 
         for k,v in pairs(playerList) do
-            TriggerServerEvent("desirerp-death:reviveSV", v)
+            TriggerServerEvent("qpixel-death:reviveSV", v)
             TriggerServerEvent("reviveGranted", v)
              TriggerEvent("Hospital:HealInjuries",true) 
              TriggerServerEvent("ems:healplayer", v)
@@ -224,7 +224,7 @@ function checkInputRotation()
   end)
 end
 
-AddEventHandler("desirerp-admin:noClipToggle", function(pIsEnabled)
+AddEventHandler("qpixel-admin:noClipToggle", function(pIsEnabled)
   noClipEnabled = pIsEnabled
   inputRotEnabled = pIsEnabled
 

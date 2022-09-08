@@ -25,12 +25,12 @@ RegisterNUICallback("shareDocumentLocal", function(data)
     local players, distances, coords = GetClosestPlayers(
         GetOffsetFromEntityInWorldCoords(GetPlayerPed(PlayerId()), 0.0, 2.0, 0.0), 3.0)
     for k, v in pairs(players) do
-        RPC.execute("desirerp-phone:sendDocumentEvent", v, data.documentID)
+        RPC.execute("qpixel-phone:sendDocumentEvent", v, data.documentID)
     end
 end)
 
 
-RegisterNetEvent("desirerp-phone:sendDocumentEvent", function(documentID)
+RegisterNetEvent("qpixel-phone:sendDocumentEvent", function(documentID)
     sendDocumentEvent(documentID)
 end)
 

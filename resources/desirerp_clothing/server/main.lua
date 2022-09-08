@@ -5,7 +5,7 @@ RegisterNetEvent("desirerp_clothing:insert_character_current")
 AddEventHandler("desirerp_clothing:insert_character_current",function(data)
 	if not data then return end
 	local src = source
-	local user = exports['desirerp-base']:getModule("Player"):GetUser(source)
+	local user = exports['qpixel-base']:getModule("Player"):GetUser(source)
     local char = user:getCurrentCharacter()
     local cid = char.id
 	if not cid then return end
@@ -36,7 +36,7 @@ RegisterNetEvent("desirerp_clothing:insert_character_face")
 AddEventHandler("desirerp_clothing:insert_character_face",function(data)
 	if not data then return end
 	local src = source
-	    local user = exports['desirerp-base']:getModule("Player"):GetUser(source)
+	    local user = exports['qpixel-base']:getModule("Player"):GetUser(source)
     local char = user:getCurrentCharacter()
     local cid = char.id
 
@@ -72,7 +72,7 @@ end)
 RegisterNetEvent("desirerp_clothing:fromclient:get_character_face")
 AddEventHandler("desirerp_clothing:fromclient:get_character_face",function(model)
 	local source = source
-	local user = exports['desirerp-base']:getModule("Player"):GetUser(source)
+	local user = exports['qpixel-base']:getModule("Player"):GetUser(source)
     local char = user:getCurrentCharacter()
     local cid = char.id
 	exports.oxmysql:fetch("SELECT hairColor, headBlend, headOverlay, headStructure FROM character_face WHERE cid = :cid LIMIT 1", { cid = cid}, function(data)
@@ -87,7 +87,7 @@ end)
 
 RegisterNetEvent("desirerp_clothing:get_character_face")
 AddEventHandler("desirerp_clothing:get_character_face",function(pSrc, cid)
-	local user = exports['desirerp-base']:getModule("Player"):GetUser(source)
+	local user = exports['qpixel-base']:getModule("Player"):GetUser(source)
     local char = user:getCurrentCharacter()
 	local src = (not pSrc and source or pSrc)
 	if cid == nil then cid = char.id end
@@ -116,7 +116,7 @@ RegisterNetEvent("desirerp_clothing:get_character_current")
 AddEventHandler("desirerp_clothing:get_character_current",function(pSrc, cid, firstSpawn, kvpArmour, kvpStress, kvpThirst, kvpHunger)
 	local src = (not pSrc and source or pSrc)
 
-	local user = exports['desirerp-base']:getModule("Player"):GetUser(source)
+	local user = exports['qpixel-base']:getModule("Player"):GetUser(source)
     local char = user:getCurrentCharacter()
 
 	if cid == nil then cid = char.id end
@@ -139,7 +139,7 @@ end)
 RegisterNetEvent("desirerp_clothing:retrieve_tats")
 AddEventHandler("desirerp_clothing:retrieve_tats",function(pSrc, cid)
 	local src = (not pSrc and source or pSrc)
-	local user = exports['desirerp-base']:getModule("Player"):GetUser(source)
+	local user = exports['qpixel-base']:getModule("Player"):GetUser(source)
     local char = user:getCurrentCharacter()
 
 	if cid == nil then cid = char.id end
@@ -159,7 +159,7 @@ end)
 RegisterNetEvent("desirerp_clothing:set_tats")
 AddEventHandler("desirerp_clothing:set_tats", function(tattoosList)
 	local src = source
-	    local user = exports['desirerp-base']:getModule("Player"):GetUser(source)
+	    local user = exports['qpixel-base']:getModule("Player"):GetUser(source)
     local char = user:getCurrentCharacter()
     local cid = char.id
 	if not cid then return end
@@ -169,7 +169,7 @@ end)
 RegisterNetEvent("clothing:checkIfNew")
 AddEventHandler("clothing:checkIfNew", function(kvpArmour, kvpStress, kvpThirst, kvpHunger)
 	local src = source
-	local user = exports['desirerp-base']:getModule("Player"):GetUser(src)
+	local user = exports['qpixel-base']:getModule("Player"):GetUser(src)
     local char = user:getCurrentCharacter()
 
 	TriggerEvent('impartialrp:getplayerfromid', src, function(player)

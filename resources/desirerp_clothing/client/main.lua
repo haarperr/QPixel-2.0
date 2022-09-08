@@ -1364,22 +1364,22 @@ local CLOTHES = {
 			info = {}
 		  }
   
-		  exports['desirerp-interface']:showInteraction('[M] Open Menu')
+		  exports['qpixel-interface']:showInteraction('[M] Open Menu')
 		  
 		  Citizen.CreateThread(function()
 			while self.Inside do
 				Citizen.Wait(5)
 				if IsControlJustReleased(0, 244) then
-					TriggerEvent('desirerp-hud:EnableHud', false)
+					TriggerEvent('qpixel-hud:EnableHud', false)
 					TriggerEvent('desirerp_clothing:openMenu')
-					exports['desirerp-interface']:hideInteraction()
+					exports['qpixel-interface']:hideInteraction()
 				end
 			end
 		end)
 		    
 		elseif self.Inside then
 		  
-			exports['desirerp-interface']:hideInteraction()
+			exports['qpixel-interface']:hideInteraction()
 			self.Inside = false
   
 		end
@@ -1429,23 +1429,23 @@ local CLOTHES = {
 				info = shop
 			  }
   
-			exports['desirerp-interface']:showInteraction('[M] To buy clothes')
+			exports['qpixel-interface']:showInteraction('[M] To buy clothes')
 			pIsInClothingZone = 1
 
 			Citizen.CreateThread(function()
 				while self.Inside do
 					Citizen.Wait(5)
 					if IsControlJustReleased(0, 244) then
-						TriggerEvent('desirerp-hud:EnableHud', false)
+						TriggerEvent('qpixel-hud:EnableHud', false)
 						TriggerEvent('desirerp_clothing:openMenu')
-						exports['desirerp-interface']:hideInteraction()
+						exports['qpixel-interface']:hideInteraction()
 					end
 				end
 			end)
 
 			elseif self.Inside then
 			  
-			exports['desirerp-interface']:hideInteraction()
+			exports['qpixel-interface']:hideInteraction()
 			pIsInClothingZone = 0
 			self.Inside = false
   
@@ -1494,22 +1494,22 @@ local CLOTHES = {
 				info = shop
 			  }
   
-			exports['desirerp-interface']:showInteraction('[M] To actually get some bitches')
+			exports['qpixel-interface']:showInteraction('[M] To actually get some bitches')
   
 			Citizen.CreateThread(function()
 				while self.Inside do
 					Citizen.Wait(5)
 					if IsControlJustReleased(0, 244) then
-						TriggerEvent('desirerp-hud:EnableHud', false)
+						TriggerEvent('qpixel-hud:EnableHud', false)
 						TriggerEvent('desirerp_clothing:openMenu')
-						exports['desirerp-interface']:hideInteraction()
+						exports['qpixel-interface']:hideInteraction()
 					end
 				end
 			end)
 
 			elseif self.Inside then
 			  
-				exports['desirerp-interface']:hideInteraction()
+				exports['qpixel-interface']:hideInteraction()
 				self.Inside = false
   
 			end
@@ -1557,22 +1557,22 @@ local CLOTHES = {
 				info = shop
 			  }
   
-			exports['desirerp-interface']:showInteraction('[M] Get tattoos')
+			exports['qpixel-interface']:showInteraction('[M] Get tattoos')
 
 			Citizen.CreateThread(function()
 				while self.Inside do
 					Citizen.Wait(5)
 					if IsControlJustReleased(0, 244) then
-						TriggerEvent('desirerp-hud:EnableHud', false)
+						TriggerEvent('qpixel-hud:EnableHud', false)
 						TriggerEvent('desirerp_clothing:openMenu')
-						exports['desirerp-interface']:hideInteraction()
+						exports['qpixel-interface']:hideInteraction()
 					end
 				end
 			end)
 
 			elseif self.Inside then
 			  
-				exports['desirerp-interface']:hideInteraction()
+				exports['qpixel-interface']:hideInteraction()
 				self.Inside = false
   
 			end
@@ -2559,7 +2559,7 @@ local CLOTHES = {
 	end,
   
 	Save = function(self, save)
-	  TriggerEvent('desirerp-hud:EnableHud', true)
+	  TriggerEvent('qpixel-hud:EnableHud', true)
 	  
 	  if save then
     
@@ -2630,7 +2630,7 @@ local CLOTHES = {
   
 		self.oldPed = self:GetCurrentPed()
   
-		exports['desirerp-interface']:hideInteraction()
+		exports['qpixel-interface']:hideInteraction()
 
 		self.Callback = true;
   
@@ -2657,7 +2657,7 @@ local CLOTHES = {
 	  end
   
 	  if canHandleNewPlayer then
-		TriggerEvent('desirerp-spawn:justCreated')
+		TriggerEvent('qpixel-spawn:justCreated')
   	  end
   
   
@@ -2686,7 +2686,7 @@ local CLOTHES = {
   
 	  DoScreenFadeOut(500)
   
-	  local LocalPlayer = exports["desirerp-base"]:getModule("LocalPlayer")
+	  local LocalPlayer = exports["qpixel-base"]:getModule("LocalPlayer")
 	  local gender = LocalPlayer:getCurrentCharacter().gender
 	  
 	  if gender ~= 0 then

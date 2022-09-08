@@ -52,8 +52,8 @@ RPC.register('qpixel-phone:getDocuments', function(pSource, pType)
     return documents
 end)
 
-RPC.register("desirerp-phone:sendDocumentEvent", function(pSource, pTarget, pDocumentID)
-    TriggerClientEvent("desirerp-phone:sendDocumentEvent", pTarget, pDocumentID)
+RPC.register("qpixel-phone:sendDocumentEvent", function(pSource, pTarget, pDocumentID)
+    TriggerClientEvent("qpixel-phone:sendDocumentEvent", pTarget, pDocumentID)
 end)
 
 RegisterNetEvent("qpixel-phone:checkForNonDocumentedLicenses", function(pCid)

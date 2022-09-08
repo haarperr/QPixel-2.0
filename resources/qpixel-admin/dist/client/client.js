@@ -87,14 +87,14 @@
           function _0x2277c5(_0x1067dd) {
             _0xaf6e3d = _0x1067dd
           }
-          onNet('desirerp-admin:becomeModel', (_0x4220d2) => {
+          onNet('qpixel-admin:becomeModel', (_0x4220d2) => {
             emit('raid_clothes:AdminSetModel', _0x4220d2)
-            emit('desirerp-admin:raid_clothes:model', _0x4220d2)
+            emit('qpixel-admin:raid_clothes:model', _0x4220d2)
           })
-          onNet('desirerp-admin:giveItem', (_0x15cddb, _0x5878ca, _0x15174a) => {
-            emitNet('desirerp-admin:giveItem', _0x15cddb, _0x5878ca, _0x15174a)
+          onNet('qpixel-admin:giveItem', (_0x15cddb, _0x5878ca, _0x15174a) => {
+            emitNet('qpixel-admin:giveItem', _0x15cddb, _0x5878ca, _0x15174a)
           })
-          onNet('desirerp-admin:teleportMarker', async () => {
+          onNet('qpixel-admin:teleportMarker', async () => {
             const _0x4abb45 = GetFirstBlipInfoId(8)
             if (!DoesBlipExist(_0x4abb45)) {
               return (
@@ -135,7 +135,7 @@
             }
           })
           onNet(
-            'desirerp-admin:spawnVehicle',
+            'qpixel-admin:spawnVehicle',
             (_0x36e19b, _0x53184d, _0x39d26e, _0x25cd55) => {
               console.log(
                 '[DEBUG] spawnVehicle',
@@ -196,7 +196,7 @@
                 SetVehicleWindowTint(_0x1e7ce6, 0)
 
                 _0x25cd55 &&
-                  _0x462300.g.exports['desirerp-vehicles'].SetVehicleMods(_0x1e7ce6, { 
+                  _0x462300.g.exports['qpixel-vehicles'].SetVehicleMods(_0x1e7ce6, { 
                     Spoilers: 1,
                     FrontBumper: 1,
                     RearBumper: 1,
@@ -251,7 +251,7 @@
             }
           )
           let _0x5b3749 = undefined
-          onNet('desirerp-admin:runSpawnCommand', (_0x7cbe51, _0x78b010) => {
+          onNet('qpixel-admin:runSpawnCommand', (_0x7cbe51, _0x78b010) => {
             setImmediate(async () => {
               let _0x382007 = GetHashKey(_0x7cbe51)
               if (!IsModelAVehicle(_0x382007)) {
@@ -312,7 +312,7 @@
               _0x5b3749 = _0x5126ef
             })
           })
-          onNet('desirerp-admin:fixVehicle', () => {
+          onNet('qpixel-admin:fixVehicle', () => {
             const _0x4ae7c0 = PlayerPedId(),
               _0x1d0d39 = GetVehiclePedIsIn(_0x4ae7c0, false)
             if (!_0x1d0d39) {
@@ -323,21 +323,21 @@
             SetVehicleDeformationFixed(_0x1d0d39)
             SetVehicleFixed(_0x1d0d39)
           })
-          onNet('desirerp-admin:cSay', (_0x202e99) => {
-            emitNet('desirerp-admin:sendAnnoucement', _0x202e99)
+          onNet('qpixel-admin:cSay', (_0x202e99) => {
+            emitNet('qpixel-admin:sendAnnoucement', _0x202e99)
           })
-          onNet('desirerp-admin:tSay', (_0x417c0f) => {
-            emitNet('desirerp-admin:sendTsay', _0x417c0f)
+          onNet('qpixel-admin:tSay', (_0x417c0f) => {
+            emitNet('qpixel-admin:sendTsay', _0x417c0f)
           })
-          onNet('desirerp-admin:teleportPlayer', (_0x34de69) => {
+          onNet('qpixel-admin:teleportPlayer', (_0x34de69) => {
             if (_0x34de69 === undefined || _0x34de69 === 0) {
               return emit('DoLongHudText', 'Invalid target.', 2)
             }
             let _0x47dff2 = PlayerId(),
               _0x47f680 = GetPlayerServerId(_0x47dff2)
-            emitNet('desirerp-admin:teleportPlayer', _0x47f680, _0x34de69)
+            emitNet('qpixel-admin:teleportPlayer', _0x47f680, _0x34de69)
           })
-          onNet('desirerp-admin:teleportCoords', (_0x3ae703) => {
+          onNet('qpixel-admin:teleportCoords', (_0x3ae703) => {
             if (_0x3ae703 === '' || _0x3ae703 === undefined) {
               return emit('DoLongHudText', 'Invalid coordinates.', 2)
             }
@@ -353,16 +353,16 @@
               false
             )
           })
-          onNet('desirerp-admin:bringPlayer', (_0x2bde99) => {
+          onNet('qpixel-admin:bringPlayer', (_0x2bde99) => {
             if (_0x2bde99 === undefined || _0x2bde99 === 0) {
               return emit('DoLongHudText', 'Invalid target.', 2)
             }
             let _0x253b00 = PlayerId(),
               _0x6854f1 = GetPlayerServerId(_0x253b00)
-            emitNet('desirerp-admin:bringPlayer', _0x6854f1, _0x2bde99)
+            emitNet('qpixel-admin:bringPlayer', _0x6854f1, _0x2bde99)
           })
-          onNet('desirerp-admin:toggleGodmode', async (_0x5372a5) => {
-            emitNet('desirerp-admin:sendLog', 'godmode', _0x5372a5)
+          onNet('qpixel-admin:toggleGodmode', async (_0x5372a5) => {
+            emitNet('qpixel-admin:sendLog', 'godmode', _0x5372a5)
             let _0x27f05d = _0x5372a5
             emit('carandplayerhud:godCheck', _0x5372a5)
             while (_0x27f05d) {
@@ -408,19 +408,19 @@
               await (0, _0x1776f9.Delay)(0)
             }
           })
-          onNet('desirerp-admin:maxMyStats', (_0xa28202) => {
-            emitNet('desirerp-admin:maxMyStats', _0xa28202)
+          onNet('qpixel-admin:maxMyStats', (_0xa28202) => {
+            emitNet('qpixel-admin:maxMyStats', _0xa28202)
           })
-          onNet('desirerp-admin:removeStress', async (_0x1b650f, _0xc143e4) => {
-            emitNet('desirerp-admin:removeStress', _0x1b650f, _0xc143e4)
+          onNet('qpixel-admin:removeStress', async (_0x1b650f, _0xc143e4) => {
+            emitNet('qpixel-admin:removeStress', _0x1b650f, _0xc143e4)
           })
-          onNet('desirerp-admin:clearStress', async (_0x746708) => {
+          onNet('qpixel-admin:clearStress', async (_0x746708) => {
             emit("client:newStress", false, 150)
 
             //emitNet('server:alterStress', false, _0x746708)
 
           })
-          onNet('desirerp-admin:devSpawn', () => {
+          onNet('qpixel-admin:devSpawn', () => {
             let _0x22bdee = {}
             _0x22bdee = { vars: {} }
             _0x22bdee.vars.pos = GetOffsetFromEntityInWorldCoords(
@@ -443,7 +443,7 @@
               1
             )
           })
-          onNet('desirerp-admin:toggleCloak', async (_0x567347) => {
+          onNet('qpixel-admin:toggleCloak', async (_0x567347) => {
             let _0x33228b = _0x567347
             while (_0x33228b) {
               SetLocalPlayerVisibleLocally(true)
@@ -457,90 +457,90 @@
               await (0, _0x1776f9.Delay)(0)
             }
           })
-          onNet('desirerp-admin:requestJob', (_0x2bb3c2, _0x2bacd1) => {
-            emitNet('desirerp-admin:requestJob', _0x2bb3c2, _0x2bacd1)
+          onNet('qpixel-admin:requestJob', (_0x2bb3c2, _0x2bacd1) => {
+            emitNet('qpixel-admin:requestJob', _0x2bb3c2, _0x2bacd1)
           })
-          onNet('desirerp-admin:requestedJob', (_0x210e8e) => {
+          onNet('qpixel-admin:requestedJob', (_0x210e8e) => {
             switch (_0x210e8e) {
               case 'police':
-                emitNet('desirerp-duty:AttemptDuty', 'police')
+                emitNet('qpixel-duty:AttemptDuty', 'police')
                 break
               case 'sheriff':
-                emitNet('desirerp-duty:AttemptDuty', 'sheriff')
+                emitNet('qpixel-duty:AttemptDuty', 'sheriff')
                 break
               case 'state':
-                emitNet('desirerp-duty:AttemptDuty', 'state')
+                emitNet('qpixel-duty:AttemptDuty', 'state')
                 break
               case 'doc':
-                emitNet('desirerp-duty:AttemptDuty', 'doc')
+                emitNet('qpixel-duty:AttemptDuty', 'doc')
                 break
               case 'dispatcher':
-                emitNet('desirerp-duty:AttemptDuty', 'dispatcher')
+                emitNet('qpixel-duty:AttemptDuty', 'dispatcher')
                 break
               case 'ems':
-                emitNet('desirerp-duty:AttemptDutyEMS')
+                emitNet('qpixel-duty:AttemptDutyEMS')
                 break
               case 'judge':
-                emitNet('desirerp-duty:attempt_duty:judge')
+                emitNet('qpixel-duty:attempt_duty:judge')
                 break
               case 'lawyer':
-                emitNet('desirerp-duty:attempt_duty:public_defender')
+                emitNet('qpixel-duty:attempt_duty:public_defender')
                 break
               default:
                 emitNet('jobssystem:jobs', _0x210e8e)
                 break
             }
           })
-          onNet('desirerp-admin:requestBarber', (_0x546309) => {
-            emitNet('desirerp-admin:requestBarber', _0x546309)
+          onNet('qpixel-admin:requestBarber', (_0x546309) => {
+            emitNet('qpixel-admin:requestBarber', _0x546309)
           })
-          onNet('desirerp-admin:requestClothing', (_0x5e83df) => {
-            emitNet('desirerp-admin:requestClothing', _0x5e83df)
+          onNet('qpixel-admin:requestClothing', (_0x5e83df) => {
+            emitNet('qpixel-admin:requestClothing', _0x5e83df)
           })
-          onNet('desirerp-admin:requestBennys', (_0x2a4ffb) => {
-            emitNet('desirerp-admin:requestBennys', _0x2a4ffb)
+          onNet('qpixel-admin:requestBennys', (_0x2a4ffb) => {
+            emitNet('qpixel-admin:requestBennys', _0x2a4ffb)
           })
-          onNet('desirerp-admin:openBarber', () => {
-            _0x462300.g.exports['desirerp-adminUI'].hideMenu()
+          onNet('qpixel-admin:openBarber', () => {
+            _0x462300.g.exports['qpixel-adminUI'].hideMenu()
             emit('raid_clothes:admin:open', 'barber_shop')
           })
-          onNet('desirerp-admin:openClothing', () => {
-            _0x462300.g.exports['desirerp-adminUI'].hideMenu(), 
+          onNet('qpixel-admin:openClothing', () => {
+            _0x462300.g.exports['qpixel-adminUI'].hideMenu(), 
 
               emit('raid_clothes:admin:open', 'clothing_shop')
           })
-          onNet('desirerp-admin:openBennys', () => {
-            _0x462300.g.exports['desirerp-adminUI'].hideMenu()
-            _0x462300.g.exports['desirerp-adminUI'].exitNUI()
+          onNet('qpixel-admin:openBennys', () => {
+            _0x462300.g.exports['qpixel-adminUI'].hideMenu()
+            _0x462300.g.exports['qpixel-adminUI'].exitNUI()
           })
-          onNet('desirerp-admin:updateGarage', (_0x341318, _0x9fbb96) => {
-            emitNet('desirerp-admin:updateGarage', _0x341318, _0x9fbb96)
+          onNet('qpixel-admin:updateGarage', (_0x341318, _0x9fbb96) => {
+            emitNet('qpixel-admin:updateGarage', _0x341318, _0x9fbb96)
           })
-          onNet('desirerp-admin:giveLicense', (_0x316c4b, _0x87715f) => {
-            emitNet('desirerp-admin:giveLicense', _0x316c4b, _0x87715f)
+          onNet('qpixel-admin:giveLicense', (_0x316c4b, _0x87715f) => {
+            emitNet('qpixel-admin:giveLicense', _0x316c4b, _0x87715f)
           })
           onNet(
-            'desirerp-admin:giveJobWhitelist',
+            'qpixel-admin:giveJobWhitelist',
             (_0x3dd32e, _0x10412a, _0x41406c) => {
               emitNet(
-                'desirerp-admin:giveJobWhitelist',
+                'qpixel-admin:giveJobWhitelist',
                 _0x3dd32e,
                 _0x10412a,
                 _0x41406c
               )
             }
           )
-          onNet('desirerp-admin:giveCash', (_0x47a5a4, _0x29d203) => {
-            emitNet('desirerp-admin:giveCash', _0x47a5a4, _0x29d203)
+          onNet('qpixel-admin:giveCash', (_0x47a5a4, _0x29d203) => {
+            emitNet('qpixel-admin:giveCash', _0x47a5a4, _0x29d203)
           })
-          onNet('desirerp-admin:kickPlayer', (_0x1c6c3a, _0x35d395) => {
-            emitNet('desirerp-admin:kickPlayer', _0x1c6c3a, _0x35d395)
+          onNet('qpixel-admin:kickPlayer', (_0x1c6c3a, _0x35d395) => {
+            emitNet('qpixel-admin:kickPlayer', _0x1c6c3a, _0x35d395)
           })
-          onNet('desirerp-admin:createBusiness', (_0x2ad078, _0x266838, _0x1cee3f) => {
-            emitNet('desirerp-admin:createBusiness', _0x2ad078, _0x266838, _0x1cee3f)
+          onNet('qpixel-admin:createBusiness', (_0x2ad078, _0x266838, _0x1cee3f) => {
+            emitNet('qpixel-admin:createBusiness', _0x2ad078, _0x266838, _0x1cee3f)
           })
-          onNet('desirerp-admin:searchPlayerInventory', (_0x4df8b3) => {
-            emitNet('desirerp-admin:searchPlayerInventory', _0x4df8b3)
+          onNet('qpixel-admin:searchPlayerInventory', (_0x4df8b3) => {
+            emitNet('qpixel-admin:searchPlayerInventory', _0x4df8b3)
           })
           function _0x2cbe78() {
             const _0x4c6288 = JSON.parse(
@@ -554,7 +554,7 @@
           function _0x129d1e(_0x2a26c0) {
             let _0x520cdb = _0x2a26c0
             SetResourceKvp('Json_adminMenuFavCommands', JSON.stringify(_0x520cdb))
-            _0x462300.g.exports['desirerp-adminUI'].updateMenuData(_0x15df07)
+            _0x462300.g.exports['qpixel-adminUI'].updateMenuData(_0x15df07)
           }
           function _0x1d24b0(_0x380921) {
             _0x597ea5 = _0x380921
@@ -684,7 +684,7 @@
               const _0x537c0d = _0xaf6e3d[_0x304f80]
               _0x362237.push(_0x537c0d.adminMenu)
             }
-            _0x462300.g.exports['desirerp-adminUI'].updateMenuData(_0x362237)
+            _0x462300.g.exports['qpixel-adminUI'].updateMenuData(_0x362237)
             return
           }
           function _0xe8d458() {
@@ -701,7 +701,7 @@
                   false
                 )
                 RegisterCommand('-' + _0x12130a.key, () => {}, false)
-                _0x462300.g.exports['desirerp-binds'].registerKeyMapping(
+                _0x462300.g.exports['qpixel-binds'].registerKeyMapping(
                   '',
                   'zzAdmin',
                   _0x12130a.key,
@@ -766,14 +766,14 @@
                 queueType: 'Regular',
               },
             ]
-            _0x462300.g.exports['desirerp-adminUI'].updateDefinedNames(_0x5dcfd9)
+            _0x462300.g.exports['qpixel-adminUI'].updateDefinedNames(_0x5dcfd9)
           }
           async function _0x356804(_0x286b4b) {
             const _0x3c9d87 = await RPC.execute(
               'desirerp:admin:getPlayerLogs',
               _0x286b4b
             )
-            _0x462300.g.exports['desirerp-adminUI'].updatePlayerLogs(_0x3c9d87)
+            _0x462300.g.exports['qpixel-adminUI'].updatePlayerLogs(_0x3c9d87)
           }
           RegisterNuiCallbackType('adminMenu')
           on('__cfx_nui:adminMenu', (_0xeaa81b, _0x5430b8) => {
@@ -806,8 +806,8 @@
                 break
               case 'toggleAdminMode':
                 ;(_0x3d0faf = !_0x3d0faf),
-                  emit('desirerp-admin:currentDevmode', _0x3d0faf),
-                  _0x462300.g.exports['desirerp-adminUI'].updateAdminMode(_0x3d0faf)
+                  emit('qpixel-admin:currentDevmode', _0x3d0faf),
+                  _0x462300.g.exports['qpixel-adminUI'].updateAdminMode(_0x3d0faf)
                 break
               case 'runEvent':
                 emit(_0xeaa81b.event)
@@ -821,10 +821,10 @@
           on('__cfx_nui:runCommandMenu', (_0x417e58, _0x2bb5f2) => {
             console.log('runCommandMenu', _0x417e58)
             switch (_0x417e58.action) {
-              case 'desirerp-admin:becomeModel':
+              case 'qpixel-admin:becomeModel':
                 emit(_0x417e58.action, _0x417e58.data.Model)
                 break
-              case 'desirerp-admin:spawnVehicle':
+              case 'qpixel-admin:spawnVehicle':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data?.Target,
@@ -833,7 +833,7 @@
                   _0x417e58.data.Mods
                 )
                 break
-              case 'desirerp-admin:giveItem':
+              case 'qpixel-admin:giveItem':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data.Target,
@@ -841,67 +841,67 @@
                   _0x417e58.data.Amount
                 )
                 break
-              case 'desirerp-admin:revive':
+              case 'qpixel-admin:revive':
                 _0x417e58.data.Target === '' ||
                 _0x417e58.data.Target === undefined ||
                 !_0x417e58.data.Target
-                  ? (emit('desirerp-admin:ReviveInDistance'),
-                    emitNet('desirerp-admin:sendLog', 'reviveDistance'))
-                  : (emitNet('desirerp-death:reviveSV', Number(_0x417e58.data.Target)),
+                  ? (emit('qpixel-admin:ReviveInDistance'),
+                    emitNet('qpixel-admin:sendLog', 'reviveDistance'))
+                  : (emitNet('qpixel-death:reviveSV', Number(_0x417e58.data.Target)),
                     emitNet('reviveGranted', Number(_0x417e58.data.Target)),
                     emitNet('ems:healplayer', Number(_0x417e58.data.Target)),
-                    emit('desirerp-hud:ChangeHunger', 100),
-                    emit('desirerp-hud:ChangeThirst', 100),
+                    emit('qpixel-hud:ChangeHunger', 100),
+                    emit('qpixel-hud:ChangeThirst', 100),
                     emit("client:newStress", false, 150),
                     emitNet(
-                      'desirerp-admin:sendLog',
+                      'qpixel-admin:sendLog',
                       'reviveTarget',
                       false,
                       _0x417e58.data.Target
                     ))
                 break
-              case 'desirerp-admin:cSay':
+              case 'qpixel-admin:cSay':
                 emit(_0x417e58.action, _0x417e58.data.Text)
                 break
-              case 'desirerp-admin:tSay':
+              case 'qpixel-admin:tSay':
                 emit(_0x417e58.action, _0x417e58.data.Text)
                 break
-              case 'desirerp-admin:teleportCoords':
+              case 'qpixel-admin:teleportCoords':
                 emit(_0x417e58.action, _0x417e58.data.Coords)
                 break
-              case 'desirerp-admin:teleportPlayer':
+              case 'qpixel-admin:teleportPlayer':
                 emit(_0x417e58.action, _0x417e58.data.Target)
                 break
-              case 'desirerp-admin:bringPlayer':
+              case 'qpixel-admin:bringPlayer':
                 emit(_0x417e58.action, _0x417e58.data.Target)
-              case 'desirerp-admin:maxMyStats':
+              case 'qpixel-admin:maxMyStats':
                 emit(_0x417e58.action, _0x417e58.data.Target)
                 break
-              case 'desirerp-admin:removeStress':
+              case 'qpixel-admin:removeStress':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data.Target,
                   _0x417e58.data.Amount
                 )
                 break
-              case 'desirerp-admin:requestJob':
+              case 'qpixel-admin:requestJob':
                 emit(_0x417e58.action, _0x417e58.data.Target, _0x417e58.data.Job)
                 break
-              case 'desirerp-admin:updateGarage':
+              case 'qpixel-admin:updateGarage':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data.Plate,
                   _0x417e58.data.Garage
                 )
                 break
-              case 'desirerp-admin:giveLicense':
+              case 'qpixel-admin:giveLicense':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data.Target,
                   _0x417e58.data.License
                 )
                 break
-              case 'desirerp-admin:giveJobWhitelist':
+              case 'qpixel-admin:giveJobWhitelist':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data.Target,
@@ -909,21 +909,21 @@
                   _0x417e58.data.Rank
                 )
                 break
-              case 'desirerp-admin:giveCash':
+              case 'qpixel-admin:giveCash':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data.Target,
                   _0x417e58.data.Amount
                 )
                 break
-              case 'desirerp-admin:kickPlayer':
+              case 'qpixel-admin:kickPlayer':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data.Target,
                   _0x417e58.data.Reason
                 )
                 break
-              case 'desirerp-admin:createBusiness':
+              case 'qpixel-admin:createBusiness':
                 emit(
                   _0x417e58.action,
                   _0x417e58.data.ID,
@@ -941,7 +941,7 @@
             if (!_0x3d0faf) {
               return
             }
-            _0x462300.g.exports['desirerp-selector'].startSelecting(
+            _0x462300.g.exports['qpixel-selector'].startSelecting(
               -1,
               PlayerPedId(),
               (_0x5c1090, _0x502269, _0xcb922c) =>
@@ -952,11 +952,11 @@
             if (!_0x3d0faf) {
               return
             }
-            _0x572abd = _0x462300.g.exports['desirerp-selector'].stopSelecting()
+            _0x572abd = _0x462300.g.exports['qpixel-selector'].stopSelecting()
             if (_0x572abd.selectedEntity) {
               await _0x158d9a(_0x572abd.selectedEntity)
             } else {
-              _0x462300.g.exports['desirerp-selector'].deselect()
+              _0x462300.g.exports['qpixel-selector'].deselect()
             }
           }
           async function _0x569289() {
@@ -1013,7 +1013,7 @@
                     ),
                   })
                 const _0x252ff8 =
-                  _0x15548c['desirerp-vehicles'].GetVehicleIdentifier(_0x4c0c01)
+                  _0x15548c['qpixel-vehicles'].GetVehicleIdentifier(_0x4c0c01)
                 let _0x5e15da = null
                 if (_0x252ff8) {
                   _0x5e15da = []
@@ -1064,9 +1064,9 @@
           async function _0x3577a7(_0x209c0f) {
             _0x297ac7()
             let _0x1ab346 =
-              _0x462300.g.exports['desirerp-inventory'].getItemListNames()
+              _0x462300.g.exports['qpixel-inventory'].getItemListNames()
             const _0x3cc667 =
-              _0x462300.g.exports['desirerp-base'].getModule('JobManager').ValidJobs
+              _0x462300.g.exports['qpixel-base'].getModule('JobManager').ValidJobs
             let _0x12919f = []
             for (const _0x1dc989 in _0x3cc667) {
               if (_0x3cc667) {
@@ -1078,7 +1078,7 @@
                   })
               }
             }
-            let _0x76700c = _0x462300.g.exports['desirerp-vehicles'].GetGarageList()
+            let _0x76700c = _0x462300.g.exports['qpixel-vehicles'].GetGarageList()
             const _0x3e883a = {
               playerData: await _0x41f612(),
               options: await _0x3848a6(),
@@ -1123,7 +1123,7 @@
               disconnectedPlayers: [],
               bannedList: [],
             }
-            _0x462300.g.exports['desirerp-adminUI'].setCommandUI(_0x3e883a, null, 2)
+            _0x462300.g.exports['qpixel-adminUI'].setCommandUI(_0x3e883a, null, 2)
           }
           setImmediate(() => {
             RegisterCommand('+adminSelect', async () => await _0x25de81(), false)
@@ -1140,7 +1140,7 @@
               false
             )
             RegisterCommand('-openAdminMenu', () => {}, false)
-            _0x462300.g.exports['desirerp-binds'].registerKeyMapping(
+            _0x462300.g.exports['qpixel-binds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Delete Target',
@@ -1148,7 +1148,7 @@
               '-adminDeleteEntity',
               ''
             )
-            _0x462300.g.exports['desirerp-binds'].registerKeyMapping(
+            _0x462300.g.exports['qpixel-binds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Select Target',
@@ -1156,7 +1156,7 @@
               '-adminSelect',
               ''
             )
-            _0x462300.g.exports['desirerp-binds'].registerKeyMapping(
+            _0x462300.g.exports['qpixel-binds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Open Menu',

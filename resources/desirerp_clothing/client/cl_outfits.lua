@@ -40,8 +40,8 @@ AddEventHandler('desirerp_clothing:ListOutfits', function(skincheck)
             description = '',
             key = slot,
             children = {
-                { title = "Change Outfit", action = "desirerp-ui:clothing:changeOutfit", key = slot},
-                { title = "Delete Outfit", action = "desirerp-ui:clothing:deleteOutfit", key = slot},
+                { title = "Change Outfit", action = "qpixel-ui:clothing:changeOutfit", key = slot},
+                { title = "Delete Outfit", action = "qpixel-ui:clothing:deleteOutfit", key = slot},
             }
         }
     end
@@ -58,21 +58,21 @@ AddEventHandler('desirerp_clothing:ListOutfits', function(skincheck)
                 title = "Save Current Outfit",
                 description = '',
                 key = emptySlot,
-                action = "desirerp-ui:clothes:addOutfitPrompt"
+                action = "qpixel-ui:clothes:addOutfitPrompt"
             }
         end
-        exports['desirerp-interface']:showContextMenu(menuData)
+        exports['qpixel-interface']:showContextMenu(menuData)
     else
         TriggerEvent("DoLongHudText", "No saved outfits", 2)
     end
 end)
 
-RegisterInterfaceCallback("desirerp-ui:clothing:changeOutfit", function(data, cb)
+RegisterInterfaceCallback("qpixel-ui:clothing:changeOutfit", function(data, cb)
     cb({ data = {}, meta = { ok = true, message = 'done' } })
     TriggerEvent('hotel:outfit', { true, data.key }, 3)
 end)
 
-RegisterInterfaceCallback("desirerp-ui:clothing:deleteOutfit", function(data, cb)
+RegisterInterfaceCallback("qpixel-ui:clothing:deleteOutfit", function(data, cb)
     cb({ data = {}, meta = { ok = true, message = 'done' } })
     TriggerEvent('hotel:outfit', { true, data.key }, 2)
 end)
@@ -334,11 +334,11 @@ function SetClothing(drawables, props, drawTextures, propTextures)
     end
 end
 
-RegisterInterfaceCallback("desirerp-ui:clothes:addOutfitPrompt", function(data, cb)
+RegisterInterfaceCallback("qpixel-ui:clothes:addOutfitPrompt", function(data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })
     Wait(1)
-    exports['desirerp-interface']:openApplication('textbox', {
-        callbackUrl = 'desirerp-ui:clothes:addOutfit',
+    exports['qpixel-interface']:openApplication('textbox', {
+        callbackUrl = 'qpixel-ui:clothes:addOutfit',
         key = 1,
         items = {
             {
@@ -356,7 +356,7 @@ RegisterInterfaceCallback("desirerp-ui:clothes:addOutfitPrompt", function(data, 
     })
 end)
 
-RegisterInterfaceCallback("desirerp-ui:clothes:addOutfit", function(data, cb)
+RegisterInterfaceCallback("qpixel-ui:clothes:addOutfit", function(data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })
     local outfitSlot = data.values.outfitSlot
     local outfitName = data.values.outfitName

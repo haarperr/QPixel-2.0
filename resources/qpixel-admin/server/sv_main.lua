@@ -1,5 +1,5 @@
 function isAdministrator(src)
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
 	local rank = user:getRank()
 	if rank == "admin" or rank == "dev" or rank == "owner" then
         return true, rank
@@ -11,7 +11,7 @@ end
 exports("isAdministrator", isAdministrator)
 
 function giveLicense(src, license)
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     if not user then return false end
     local char = user:getCurrentCharacter()
 
@@ -29,7 +29,7 @@ end
 exports("giveLicense", giveLicense)
 
 function giveJobWhitelist(src, job, rank)
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     if not user then return false end
     local char = user:getCurrentCharacter()
 
@@ -47,7 +47,7 @@ end
 exports("giveJobWhitelist", giveJobWhitelist)
 
 function giveCash(src, amount)
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     if not user then return false end
     user:addMoney(tonumber(amount))
 
@@ -72,16 +72,16 @@ end
 
 exports("sendLog", sendLog)
 
-RegisterNetEvent("desirerp-admin:searchPlayerInventory")
-AddEventHandler("desirerp-admin:searchPlayerInventory", function(pTarget)
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(tonumber(pTarget))
+RegisterNetEvent("qpixel-admin:searchPlayerInventory")
+AddEventHandler("qpixel-admin:searchPlayerInventory", function(pTarget)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(tonumber(pTarget))
     local cid = user:getCurrentCharacter().id
     TriggerClientEvent("server-inventory-open", source, "1", 'ply-'..cid)
 end)
 
 RegisterCommand('dv', function(source, args)
     local src = source
-    local user = exports["desirerp-base"]:getModule("Player"):GetUser(src)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
 	local char = user:getCurrentCharacter()
 
     if isAdministrator(src) then

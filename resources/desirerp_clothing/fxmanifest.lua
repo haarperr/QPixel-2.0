@@ -7,7 +7,7 @@ ui_page 'web/build/index.html'
 
 client_script '@PolyZone/client.lua'
 client_script '@PolyZone/BoxZone.lua'
-client_script '@desirerp-lib/client/cl_interface.lua'
+client_script '@qpixel-lib/client/cl_interface.lua'
 
 
 server_script "server/*.lua"

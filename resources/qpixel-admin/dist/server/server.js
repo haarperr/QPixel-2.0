@@ -16,7 +16,7 @@
     }
     RPC.register('desirerp:admin:getCommandUI', async (_0x425df9) => {
       let [_0x514e27, _0x11544c] =
-          _0x443cf2.g.exports['desirerp-admin'].isAdministrator(_0x425df9),
+          _0x443cf2.g.exports['qpixel-admin'].isAdministrator(_0x425df9),
         _0x4e9eec = []
       return (
         Object.entries([
@@ -27,7 +27,7 @@
                 title: 'Become Model',
                 cat: 'Player',
                 child: { inputs: ['Model'] },
-                action: 'desirerp-admin:becomeModel',
+                action: 'qpixel-admin:becomeModel',
               },
               options: { bindKey: void 0 },
             },
@@ -39,7 +39,7 @@
                 title: 'Teleport',
                 cat: 'Player',
                 child: { inputs: ['Target'] },
-                action: 'desirerp-admin:teleportPlayer',
+                action: 'qpixel-admin:teleportPlayer',
               },
               options: { bindKey: void 0 },
             },
@@ -51,7 +51,7 @@
                 title: 'Teleport Coords',
                 cat: 'Player',
                 child: { inputs: ['Coords'] },
-                action: 'desirerp-admin:teleportCoords',
+                action: 'qpixel-admin:teleportCoords',
               },
               options: { bindKey: void 0 },
             },
@@ -63,7 +63,7 @@
                 title: 'Fix Vehicle',
                 cat: 'Player',
                 child: void 0,
-                action: 'desirerp-admin:fixVehicle',
+                action: 'qpixel-admin:fixVehicle',
               },
               options: {
                 bindKey: {
@@ -80,7 +80,7 @@
                 title: 'God',
                 cat: 'Player',
                 child: false,
-                action: 'desirerp-admin:toggleGodmode',
+                action: 'qpixel-admin:toggleGodmode',
               },
               options: {
                 bindKey: {
@@ -97,7 +97,7 @@
                 title: 'Dev Spawn',
                 cat: 'Utility',
                 child: void 0,
-                action: 'desirerp-admin:devSpawn',
+                action: 'qpixel-admin:devSpawn',
               },
               options: { bindKey: void 0 },
             },
@@ -109,7 +109,7 @@
                 title: 'Noclip',
                 cat: 'Player',
                 child: false,
-                action: 'desirerp-admin:noClipToggle',
+                action: 'qpixel-admin:noClipToggle',
               },
               options: {
                 bindKey: {
@@ -126,7 +126,7 @@
                 title: 'Cloak',
                 cat: 'Player',
                 child: false,
-                action: 'desirerp-admin:toggleCloak',
+                action: 'qpixel-admin:toggleCloak',
               },
               options: {
                 bindKey: {
@@ -143,7 +143,7 @@
                 title: 'Barber',
                 cat: 'User',
                 child: { inputs: ['Target'] },
-                action: 'desirerp-admin:requestBarber',
+                action: 'qpixel-admin:requestBarber',
               },
               options: { bindKey: void 0 },
             },
@@ -155,7 +155,7 @@
                 title: 'Clothing',
                 cat: 'User',
                 child: { inputs: ['Target'] },
-                action: 'desirerp-admin:requestClothing',
+                action: 'qpixel-admin:requestClothing',
               },
               options: { bindKey: void 0 },
             },
@@ -167,7 +167,7 @@
                 title: 'Bring',
                 cat: 'User',
                 child: { inputs: ['Target'] },
-                action: 'desirerp-admin:bringPlayer',
+                action: 'qpixel-admin:bringPlayer',
               },
               options: { bindKey: void 0 },
             },
@@ -179,7 +179,7 @@
                 title: 'Revive',
                 cat: 'Player',
                 child: { inputs: ['TargetNot'] },
-                action: 'desirerp-admin:revive',
+                action: 'qpixel-admin:revive',
               },
               options: { bindKey: void 0 },
             },
@@ -191,7 +191,7 @@
                 title: 'cSay',
                 cat: 'Utility',
                 child: { inputs: ['Text'] },
-                action: 'desirerp-admin:cSay',
+                action: 'qpixel-admin:cSay',
               },
               options: { bindKey: void 0 },
             },
@@ -205,7 +205,7 @@
                 child: {
                   inputs: ['Target', 'License'],
                 },
-                action: 'desirerp-admin:giveLicense',
+                action: 'qpixel-admin:giveLicense',
               },
               options: { bindKey: void 0 },
             },
@@ -219,7 +219,7 @@
                 child: {
                   inputs: ['Target', 'Amount'],
                 },
-                action: 'desirerp-admin:giveCash',
+                action: 'qpixel-admin:giveCash',
               },
               options: { bindKey: void 0 },
             },
@@ -233,7 +233,7 @@
                 child: {
                   inputs: ['Target', 'Reason'],
                 },
-                action: 'desirerp-admin:kickPlayer',
+                action: 'qpixel-admin:kickPlayer',
               },
               options: { bindKey: void 0 },
             },
@@ -247,7 +247,7 @@
                 child: {
                   inputs: ['Target', 'Job'],
                 },
-                action: 'desirerp-admin:requestJob',
+                action: 'qpixel-admin:requestJob',
               },
               options: { bindKey: void 0 },
             },
@@ -259,7 +259,7 @@
                 title: 'Teleport Marker',
                 cat: 'Player',
                 child: void 0,
-                action: 'desirerp-admin:teleportMarker',
+                action: 'qpixel-admin:teleportMarker',
               },
               options: {
                 bindKey: {
@@ -278,7 +278,7 @@
                 child: {
                   inputs: ['TargetNot', 'Item', 'Amount'],
                 },
-                action: 'desirerp-admin:giveItem',
+                action: 'qpixel-admin:giveItem',
               },
               options: {
                 bindKey: {
@@ -297,7 +297,7 @@
                 child: {
                   inputs: ['Target', 'Job', 'Rank'],
                 },
-                action: 'desirerp-admin:giveJobWhitelist',
+                action: 'qpixel-admin:giveJobWhitelist',
               },
               options: {
                 bindKey: {
@@ -317,7 +317,7 @@
                   inputs: ['TargetNot', 'Vehicle', 'Vehicle Overwrite'],
                   checkBox: ['Mods'],
                 },
-                action: 'desirerp-admin:spawnVehicle',
+                action: 'qpixel-admin:spawnVehicle',
               },
               options: {
                 bindKey: {
@@ -334,7 +334,7 @@
                 title: 'Max Stats',
                 cat: 'Player',
                 child: { inputs: ['TargetNot'] },
-                action: 'desirerp-admin:maxMyStats',
+                action: 'qpixel-admin:maxMyStats',
               },
               options: {
                 bindKey: {
@@ -353,7 +353,7 @@
                 child: {
                   inputs: ['TargetNot', 'Amount'],
                 },
-                action: 'desirerp-admin:removeStress',
+                action: 'qpixel-admin:removeStress',
               },
               options: {
                 bindKey: {
@@ -372,7 +372,7 @@
                 child: {
                   inputs: ['Plate', 'Garage'],
                 },
-                action: 'desirerp-admin:updateGarage',
+                action: 'qpixel-admin:updateGarage',
               },
               options: {
                 bindKey: {
@@ -391,7 +391,7 @@
                 child: {
                   inputs: ['ID', 'Name', 'Owner'],
                 },
-                action: 'desirerp-admin:createBusiness',
+                action: 'qpixel-admin:createBusiness',
               },
               options: {
                 bindKey: {
@@ -408,7 +408,7 @@
                 title: 'Search Player Inventory',
                 cat: 'Player',
                 child: { inputs: ['Target'] },
-                action: 'desirerp-admin:searchPlayerInventory',
+                action: 'qpixel-admin:searchPlayerInventory',
               },
               options: {
                 bindKey: {
@@ -426,19 +426,19 @@
         _0x4e9eec
       )
     })
-    onNet('desirerp-admin:sendAnnoucement', (_0x5f95b8) => {
+    onNet('qpixel-admin:sendAnnoucement', (_0x5f95b8) => {
       let _0x19aa42 = GetPlayerName(source.toString())
-      _0x443cf2.g.exports['desirerp-admin'].sendLog(
+      _0x443cf2.g.exports['qpixel-admin'].sendLog(
         'https://discord.com/api/webhooks/1012086150640435250/N0LlR3HM23CxUJztdyfMoHgUMJ5Clxi1-8LHOcMj8uWrpUdCM-9Vcw9Njxe1h6sy5Ch4',
         '255',
-        '[desirerp-admin] cSay Log',
+        '[qpixel-admin] cSay Log',
         'cSay message: ' + _0x5f95b8 + '\nAdmin: ' + _0x19aa42,
         '',
         ''
       )
       emitNet('chatMessage', -1, 'Admin', 1, _0x5f95b8)
     })
-    onNet('desirerp-admin:sendTsay', (_0x38b145) => {
+    onNet('qpixel-admin:sendTsay', (_0x38b145) => {
       emitNet('pNotify:SendNotification', -1, {
         text:
           '<center><span style="font-size:28px;color:red;">' +
@@ -540,10 +540,10 @@
     )
     RPC.register('desirerp:admin:isAdmin', async (_0xf14756) => {
       let [_0x22130d, _0x2f0c14] =
-        _0x443cf2.g.exports['desirerp-admin'].isAdministrator(_0xf14756)
+        _0x443cf2.g.exports['qpixel-admin'].isAdministrator(_0xf14756)
       return !!_0x22130d
     })
-    onNet('desirerp-admin:teleportPlayer', (_0x284120, _0x31e23e) => {
+    onNet('qpixel-admin:teleportPlayer', (_0x284120, _0x31e23e) => {
       let _0x4ec066 = _0x31e23e
       if (0 !== _0x4ec066) {
         let _0x591f36 = GetPlayerPed(_0x284120),
@@ -563,7 +563,7 @@
         }
       }
     })
-    onNet('desirerp-admin:bringPlayer', (_0x3c9006, _0x37277f) => {
+    onNet('qpixel-admin:bringPlayer', (_0x3c9006, _0x37277f) => {
       let _0x3d35e5 = _0x37277f
       if (0 !== _0x3d35e5) {
         let _0x1bf2f6 = GetPlayerPed(_0x3c9006),
@@ -583,42 +583,42 @@
         }
       }
     })
-    onNet('desirerp-admin:maxMyStats', (_0x2fe8d5) => {
+    onNet('qpixel-admin:maxMyStats', (_0x2fe8d5) => {
       let _0x2d8cb0 =
         ('' !== _0x2fe8d5 && void 0 !== _0x2fe8d5 && _0x2fe8d5) || source
       console.log('[DEBUG] Target', _0x2d8cb0)
       let _0x5ac947 = GetPlayerName(source.toString()),
         _0x3c01bd = GetPlayerName(_0x2d8cb0.toString())
-      _0x443cf2.g.exports['desirerp-admin'].sendLog(
+      _0x443cf2.g.exports['qpixel-admin'].sendLog(
         'https://discord.com/api/webhooks/1012086119946539068/DSvrwvAgICAX0YMa55XvqzcGfB_t9kWmPyobqDMaILylmhxZRri3D2EzGebxMv_dr8KX',
         '255',
-        '[desirerp-admin] Max Stats Log',
+        '[qpixel-admin] Max Stats Log',
         'Admin: ' + _0x5ac947 + '\nTarget: ' + _0x3c01bd,
         ''
       )
-      emitNet('desirerp-admin:maxstats', _0x2d8cb0)
+      emitNet('qpixel-admin:maxstats', _0x2d8cb0)
     })
-    onNet('desirerp-admin:removeStress', (_0x20fb61, _0x74e673) => {
+    onNet('qpixel-admin:removeStress', (_0x20fb61, _0x74e673) => {
       let _0x419c77 = ('' !== _0x20fb61 && _0x20fb61) || source
-      emitNet('desirerp-admin:clearStress', _0x419c77, _0x74e673)
+      emitNet('qpixel-admin:clearStress', _0x419c77, _0x74e673)
     })
-    onNet('desirerp-admin:requestJob', (_0x42c8ca, _0x2d9f5f) => {
+    onNet('qpixel-admin:requestJob', (_0x42c8ca, _0x2d9f5f) => {
       let _0x280909 = ('' !== _0x42c8ca && _0x42c8ca) || source
-      emitNet('desirerp-admin:requestedJob', _0x280909, _0x2d9f5f)
+      emitNet('qpixel-admin:requestedJob', _0x280909, _0x2d9f5f)
     })
-    onNet('desirerp-admin:requestBarber', (_0x4e1941) => {
+    onNet('qpixel-admin:requestBarber', (_0x4e1941) => {
       let _0x4e53df = ('' !== _0x4e1941 && _0x4e1941) || source
-      emitNet('desirerp-admin:openBarber', _0x4e53df)
+      emitNet('qpixel-admin:openBarber', _0x4e53df)
     })
-    onNet('desirerp-admin:requestClothing', (_0x10890c) => {
+    onNet('qpixel-admin:requestClothing', (_0x10890c) => {
       let _0x398c3f = ('' !== _0x10890c && _0x10890c) || source
-      emitNet('desirerp-admin:openClothing', _0x398c3f)
+      emitNet('qpixel-admin:openClothing', _0x398c3f)
     })
-    onNet('desirerp-admin:requestBennys', (_0x3dad0c) => {
+    onNet('qpixel-admin:requestBennys', (_0x3dad0c) => {
       let _0x179658 = ('' !== _0x3dad0c && _0x3dad0c) || source
-      emitNet('desirerp-admin:bennys', _0x179658)
+      emitNet('qpixel-admin:bennys', _0x179658)
     })
-    onNet('desirerp-admin:updateGarage', async (_0x368002, _0x9b6bbd) => {
+    onNet('qpixel-admin:updateGarage', async (_0x368002, _0x9b6bbd) => {
       let _0xa025c8 = source,
         _0x4cab0d = ('' !== _0x9b6bbd && _0x9b6bbd) || 'garage_alta'
       await SQL.execute(
@@ -631,17 +631,17 @@
       )
       emitNet('DoLongHudText', _0xa025c8, 'Successfully updated garage state', 1)
     })
-    onNet('desirerp-admin:giveLicense', async (_0x390c55, _0x3b5b09) => {
+    onNet('qpixel-admin:giveLicense', async (_0x390c55, _0x3b5b09) => {
       if ('' === _0x390c55 || void 0 === _0x390c55) {
         return emitNet('DoLongHudText', source, 'You must select a target', 2)
       }
       let _0x2dd0b7 = GetPlayerName(source.toString()),
         _0xefbb3a = GetPlayerName(_0x390c55.toString())
       return (
-        _0x443cf2.g.exports['desirerp-admin'].sendLog(
+        _0x443cf2.g.exports['qpixel-admin'].sendLog(
           'https://discord.com/api/webhooks/1012086049465450567/sizSvurpDV2KZ8ooSwXUKltsyMGeFFFGt5j5IE3n794jqdYOy_v5rdoFwYI98M8-_BxV',
           '255',
-          '[desirerp-admin] Give License Log',
+          '[qpixel-admin] Give License Log',
           'License Given: ' +
             _0x3b5b09 +
             ' License\nAdmin: ' +
@@ -650,7 +650,7 @@
             _0xefbb3a,
           ''
         ),
-        _0x443cf2.g.exports['desirerp-admin'].giveLicense(Number(_0x390c55), _0x3b5b09)
+        _0x443cf2.g.exports['qpixel-admin'].giveLicense(Number(_0x390c55), _0x3b5b09)
           ? emitNet('DoLongHudText', source, 'Successfully gave license!', 1)
           : emitNet(
               'DoLongHudText',
@@ -661,7 +661,7 @@
       )
     })
     onNet(
-      'desirerp-admin:giveJobWhitelist',
+      'qpixel-admin:giveJobWhitelist',
       async (_0x13524d, _0x4876d4, _0x3e0395) => {
         if ('' === _0x13524d || void 0 === _0x13524d) {
           return emitNet('DoLongHudText', source, 'You must select a target', 2)
@@ -669,10 +669,10 @@
         let _0x1aff4b = GetPlayerName(source.toString()),
           _0x8a8a2f = GetPlayerName(_0x13524d.toString())
         return (
-          _0x443cf2.g.exports['desirerp-admin'].sendLog(
+          _0x443cf2.g.exports['qpixel-admin'].sendLog(
             'https://discord.com/api/webhooks/1012086013864198164/YtzXWIUZ52I8Wze-p827KdKRY7a8sBwQI2Y95-Dxv0BXoCc_ecjAgH0KnsGXsB2mN7Ow',
             '255',
-            '[desirerp-admin] Job Whitelist Log',
+            '[qpixel-admin] Job Whitelist Log',
             'Whitelisted Job Given: ' +
               _0x4876d4 +
               '\nRank: ' +
@@ -683,7 +683,7 @@
               _0x8a8a2f,
             ''
           ),
-          _0x443cf2.g.exports['desirerp-admin'].giveJobWhitelist(
+          _0x443cf2.g.exports['qpixel-admin'].giveJobWhitelist(
             Number(_0x13524d),
             _0x4876d4,
             _0x3e0395
@@ -703,17 +703,17 @@
         )
       }
     )
-    onNet('desirerp-admin:giveCash', async (_0x1ae7bd, _0x5e1bd2) => {
+    onNet('qpixel-admin:giveCash', async (_0x1ae7bd, _0x5e1bd2) => {
       if ('' === _0x1ae7bd || void 0 === _0x1ae7bd) {
         return emitNet('DoLongHudText', source, 'You must select a target', 2)
       }
       let _0x1ff7e4 = GetPlayerName(source.toString()),
         _0x48e165 = GetPlayerName(_0x1ae7bd.toString())
       return (
-        _0x443cf2.g.exports['desirerp-admin'].sendLog(
+        _0x443cf2.g.exports['qpixel-admin'].sendLog(
           'https://discord.com/api/webhooks/1012085976564256769/1Yc8Ejg05M2bprMDm4MHLPbZWica8irXl1o74xUsLX8oWSan2YzDwW2IiQRJSrl7Po4_',
           '255',
-          '[desirerp-admin] Give Cash Log',
+          '[qpixel-admin] Give Cash Log',
           'Cash Given: $' +
             _0x5e1bd2.toLocaleString() +
             '\nAdmin: ' +
@@ -722,7 +722,7 @@
             _0x48e165,
           ''
         ),
-        _0x443cf2.g.exports['desirerp-admin'].giveCash(Number(_0x1ae7bd), _0x5e1bd2)
+        _0x443cf2.g.exports['qpixel-admin'].giveCash(Number(_0x1ae7bd), _0x5e1bd2)
           ? emitNet('DoLongHudText', source, 'Successfully gave cash!', 1)
           : emitNet(
               'DoLongHudText',
@@ -732,17 +732,17 @@
             )
       )
     })
-    onNet('desirerp-admin:kickPlayer', async (_0x385b59, _0x128c93) => {
+    onNet('qpixel-admin:kickPlayer', async (_0x385b59, _0x128c93) => {
       if ('' === _0x385b59 || void 0 === _0x385b59) {
         return emitNet('DoLongHudText', source, 'You must select a target', 2)
       }
       DropPlayer(_0x385b59, _0x128c93)
       let _0x5521ae = GetPlayerName(source.toString()),
         _0x42583a = GetPlayerName(_0x385b59.toString())
-      _0x443cf2.g.exports['desirerp-admin'].sendLog(
+      _0x443cf2.g.exports['qpixel-admin'].sendLog(
         'https://discord.com/api/webhooks/1012085946914721862/3NKldUypurDhSTTV_KdsqPvliWqrEFu8rj41ooz0VS3ht-pnqhVGKpYm5qJii8wd18LD',
         '255',
-        '[desirerp-admin] Kick Player Log',
+        '[qpixel-admin] Kick Player Log',
         'Reason: ' +
           _0x128c93 +
           '\nAdmin: ' +
@@ -752,13 +752,13 @@
         ''
       )
     })
-    onNet('desirerp-admin:createBusiness', async (_0x125447, _0x2b8f0d, _0x5b4abf) => {
-      console.log('desirerp-admin:createBusiness', _0x125447, _0x2b8f0d, _0x5b4abf)
+    onNet('qpixel-admin:createBusiness', async (_0x125447, _0x2b8f0d, _0x5b4abf) => {
+      console.log('qpixel-admin:createBusiness', _0x125447, _0x2b8f0d, _0x5b4abf)
       let _0x1fb2d5 = GetPlayerName(source.toString())
-      _0x443cf2.g.exports['desirerp-admin'].sendLog(
+      _0x443cf2.g.exports['qpixel-admin'].sendLog(
         'https://discord.com/api/webhooks/1012085912815009812/SfJvvqL0rAyzCsMzZAsmkArqt0oJkmoF9IpjiNebrgJaQ_pJ_DcfgmBqAR2BnIHwNoKV',
         '255',
-        '[desirerp-admin] Business Creation Log',
+        '[qpixel-admin] Business Creation Log',
         'Business ID: ' +
           _0x125447 +
           '\nBusiness Name: ' +
@@ -837,7 +837,7 @@
       },
       false
     )
-    onNet('desirerp-admin:giveItem', async (_0x5e74bd, _0x495027, _0x520d07) => {
+    onNet('qpixel-admin:giveItem', async (_0x5e74bd, _0x495027, _0x520d07) => {
       let _0x34b98b = ('' !== _0x5e74bd && _0x5e74bd) || source,
         _0x2fc452 = ('' !== _0x520d07 && _0x520d07) || 1
       isNaN(_0x495027) || (_0x495027 = Number(_0x495027))
@@ -848,10 +848,10 @@
         _0x4a04df = GetPlayerName(source.toString())
       if ('' !== _0x5e74bd || null !== _0x5e74bd) {
         let _0xb34ec5 = GetPlayerName(_0x34b98b.toString())
-        _0x443cf2.g.exports['desirerp-admin'].sendLog(
+        _0x443cf2.g.exports['qpixel-admin'].sendLog(
           _0xfb09a8,
           '255',
-          '[desirerp-admin] Spawn Item Log',
+          '[qpixel-admin] Spawn Item Log',
           'Item Spawned: ' +
             _0x495027 +
             '\nItem Amount: 1\nAdmin: ' +
@@ -860,11 +860,11 @@
             _0xb34ec5,
           ''
         )
-        const _0x1f4549 = _0x443cf2.g.exports['desirerp-lib'].getCharacter(_0x568991)
+        const _0x1f4549 = _0x443cf2.g.exports['qpixel-lib'].getCharacter(_0x568991)
         if (!_0x1f4549) {
           return
         }
-        const _0x41e5e2 = _0x443cf2.g.exports['desirerp-lib'].getCharacter(_0x34b98b)
+        const _0x41e5e2 = _0x443cf2.g.exports['qpixel-lib'].getCharacter(_0x34b98b)
         if (!_0x41e5e2) {
           return
         }
@@ -887,15 +887,15 @@
           _0x28bde3
         )
       } else {
-        _0x443cf2.g.exports['desirerp-admin'].sendLog(
+        _0x443cf2.g.exports['qpixel-admin'].sendLog(
           _0xfb09a8,
           '255',
-          '[desirerp-admin] Spawn Item Log',
+          '[qpixel-admin] Spawn Item Log',
           'Item Spawned: ' + _0x495027 + '\nItem Amount: 1\nAdmin: ' + _0x4a04df,
           'Item Name: ' + _0x495027 + ' | Item Amount: 1',
           ''
         )
-        const _0x1a76b8 = _0x443cf2.g.exports['desirerp-lib'].getCharacter(_0x568991)
+        const _0x1a76b8 = _0x443cf2.g.exports['qpixel-lib'].getCharacter(_0x568991)
         if (!_0x1a76b8) {
           return
         }
@@ -911,17 +911,17 @@
         )
       }
     })
-    onNet('desirerp-admin:sendLog', async (_0x38146f, _0x187835, _0x21a109) => {
-      console.log('desirerp-admin:sendLog', _0x38146f, _0x187835, _0x21a109)
+    onNet('qpixel-admin:sendLog', async (_0x38146f, _0x187835, _0x21a109) => {
+      console.log('qpixel-admin:sendLog', _0x38146f, _0x187835, _0x21a109)
       let _0x2d3366 = GetPlayerName(source.toString())
       switch (_0x38146f) {
         case 'godmode':
           let _0x44e720 =
             'https://discord.com/api/webhooks/1012085847241277470/5un7D2kdN-4BmTm9uB8McXz1skYDQecoKCY1-P3jtG2UQBCvB4zfAqP30nv6TKuXk9iJ'
-          _0x443cf2.g.exports['desirerp-admin'].sendLog(
+          _0x443cf2.g.exports['qpixel-admin'].sendLog(
             _0x44e720,
             '255',
-            '[desirerp-admin] Godmode Log',
+            '[qpixel-admin] Godmode Log',
             'Godmode Toggled: ' + _0x187835 + '\nAdmin: ' + _0x2d3366,
             '',
             ''
@@ -930,10 +930,10 @@
         case 'reviveDistance':
           let _0x45b285 =
             'https://discord.com/api/webhooks/1012085816677388488/LYwPbJ-UlPSmaBu8dU_vOXw90pnCpc4fUf8DZ97uXCEruP07ktZhEIGjRxIQXT3pm8Hk'
-          _0x443cf2.g.exports['desirerp-admin'].sendLog(
+          _0x443cf2.g.exports['qpixel-admin'].sendLog(
             _0x45b285,
             '255',
-            '[desirerp-admin] Revive Distance Log',
+            '[qpixel-admin] Revive Distance Log',
             'Revived in Distance\nAdmin: ' + _0x2d3366,
             '',
             ''
@@ -942,10 +942,10 @@
         case 'reviveTarget':
           let _0x492fdd =
             'https://discord.com/api/webhooks/1012085784964255755/N1T3BEY2G_mEH0CaEkokpclsuzPp9y27KsxkrlBWr4T7yAxkI3bLww1vhvgG9KSIYJpe'
-          _0x443cf2.g.exports['desirerp-admin'].sendLog(
+          _0x443cf2.g.exports['qpixel-admin'].sendLog(
             _0x492fdd,
             '255',
-            '[desirerp-admin] Revive Target Log',
+            '[qpixel-admin] Revive Target Log',
             'Revived a Target\nAdmin: ' +
               _0x2d3366 +
               '\nTarget: ' +
