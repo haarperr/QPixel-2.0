@@ -573,7 +573,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("burgershot_assemble", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("burgershot_stash", vector3(-1203.65, -895.86, 13.98), 1, 1.6, {
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=11.38,
     maxZ=15.38
 })
@@ -653,7 +653,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("burgershot_fryer", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("burgershot_stash", vector3(-1203.65, -895.86, 13.98), 1, 1.6, {
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=11.38,
     maxZ=15.38
 })
@@ -702,7 +702,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("gettoybs", {
 
 exports["qpixel-polytarget"]:AddBoxZone("icecreamspot",  vector3(-1193.03, -895.87, 13.98), 1, 2.0, {
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=10.58,
     maxZ=14.58
 })

@@ -121,7 +121,7 @@ end)
 exports["qpixel-polyzone"]:AddBoxZone("vault_lower_entrance", vector3(266.01, 231.64, 97.68), 5.2, 13.4, {
     name="vault_lower_entrance",
     heading=340,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=96.48,
     maxZ=99.88
 })

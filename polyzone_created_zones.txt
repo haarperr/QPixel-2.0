@@ -2,7 +2,7 @@
 BoxZone:Create(vector3(-74.49, -1758.81, 29.57), 24.8, 17.2, {
   name="5",
   heading=79,
-  --debugPoly=true
+  --debugPoly=false
 })
 
 --Name: ert | 2022-09-06T20:50:04Z
@@ -30,6 +30,6 @@ PolyZone:Create({
 BoxZone:Create(vector3(262.02, -1262.65, 29.14), 5, 5, {
   name="fdfg",
   heading=0,
-  --debugPoly=true
+  --debugPoly=false
 })
 

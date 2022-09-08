@@ -266,7 +266,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("tuner_shop_craft", vector3(143.96, -3051.26, 7.04), 1, 5, {
         name="tuner_shop_craft",
         heading=0,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=5.44,
         maxZ=9.44
     })
@@ -276,7 +276,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("harmony_repairs_stash", vector3(1187.12, 2635.81, 38.4), 1, 1.4, {
         name="harmony_repairs_stash",
         heading=0,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=35.0,
         maxZ=39.0
     })
@@ -284,7 +284,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("harmony_repairs_craft", vector3(1176.23, 2635.29, 37.75), 3, 2, {
         name="harmony_repairs_craft",
         heading=270,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=35.75,
         maxZ=39.75
     })
@@ -294,7 +294,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("hayes_autos_stash", vector3(-1418.49, -454.77, 35.91), 1, 3.0, {
         name="hayes_autos_stash",
         heading=30,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=34.51,
         maxZ=38.51
     })
@@ -302,7 +302,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("hayes_autos_craft", vector3(-1408.17, -447.34, 35.91), 1, 5.0, {
         name="hayes_autos_craft",
         heading=35,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=33.11,
         maxZ=37.11
     })
@@ -312,7 +312,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("ottos_autos_stash", vector3(837.15, -814.76, 26.33), 2, 3.0, {
         name="ottos_autos_stash",
         heading=270,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=23.33,
         maxZ=27.33
     })
@@ -320,7 +320,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("ottos_autos_craft", vector3(840.33, -827.5, 26.33), 2, 3.6, {
         name="ottos_autos_craft",
         heading=0,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=24.33,
         maxZ=28.33
     })

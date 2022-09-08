@@ -15,7 +15,7 @@ local StartedChopping = false
 Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("chop_zone", vector3(1359.1, -2097.81, 52.0), 15, 15, {
     heading=40,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=51.0,
     maxZ=55.0
     })

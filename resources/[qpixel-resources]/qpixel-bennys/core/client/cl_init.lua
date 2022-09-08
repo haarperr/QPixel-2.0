@@ -91,7 +91,7 @@ Citizen.CreateThread(function()
     -- Harmony
     exports["qpixel-polyzone"]:AddBoxZone("bennys", vector3(1174.64, 2640.37, 37.75), 5.8, 7.8, {
       heading=30,
-      --debugPoly=true,
+      --debugPoly=false,
       minZ=33.35-1,
       maxZ=39.75+1
     })
@@ -99,21 +99,21 @@ Citizen.CreateThread(function()
     -- Ottos
     exports["qpixel-polyzone"]:AddBoxZone("bennys", vector3(830.16, -820.14, 26.33), 5, 6.4, {
       heading=0,
-      --debugPoly=true,
+      --debugPoly=false,
       minZ=25.33-1,
       maxZ=29.33+1
     })
 
     exports["qpixel-polyzone"]:AddBoxZone("bennys", vector3(829.85, -812.87, 26.33), 5, 7.6, {
       heading=0,
-      --debugPoly=true,
+      --debugPoly=false,
       minZ=25.33-1,
       maxZ=29.33+1
     })
 
     exports["qpixel-polyzone"]:AddBoxZone("bennys", vector3(830.98, -805.42, 26.33), 5, 7.8, {
       heading=0,
-      --debugPoly=true,
+      --debugPoly=false,
       minZ=25.33-1,
       maxZ=29.33+1
     })

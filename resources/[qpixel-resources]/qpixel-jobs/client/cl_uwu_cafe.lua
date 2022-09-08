@@ -91,7 +91,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("uwu_cafe_food_warmer", vector3(-587.08, -1059.68, 22.34), 1, 2.8, {
     heading=270,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=19.94,
     maxZ=23.94
 })
@@ -130,7 +130,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("qpixel_uwu_make_food", vector3(-588.25, -1059.68, 22.36), 1, 2.4, {
     heading=270,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=18.76,
     maxZ=22.76
 })
@@ -328,7 +328,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("qpixel_uwu_fridge", vector3(-590.96, -1058.51, 22.34), 1, 1, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=19.54,
     maxZ=23.54
 })

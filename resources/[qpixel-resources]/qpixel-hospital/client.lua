@@ -330,7 +330,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("pillbox_ems_equipment", vector3(306.72, -602.02, 43.28), 1, 2.4, {
         name="pillbox_ems_equipment",
 		heading=340,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=40.68,
 		maxZ=44.68
     })

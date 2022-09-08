@@ -5,7 +5,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("tray_whitewidow_1", vector3(188.62, -242.18, 54.07), 1, 0.6, {
     heading=340,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=50.47,
     maxZ=54.47
 })
@@ -27,7 +27,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("white_widow_pick", vector3(164.42, -238.47, 50.06), 5, 4.0, {
         name="white_widow_pick",
         heading=250,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=48.06,
         maxZ=52.06
     })
@@ -35,7 +35,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("white_widow_pick", vector3(170.68, -240.92, 50.06), 5, 4.2, {
         name="white_widow_pick",
         heading=250,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=48.46,
         maxZ=52.46
     })
@@ -105,7 +105,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("craftWhiteWidow", vector3(164.48, -233.49, 50.06), 1, 2.4, {
     heading=250,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=46.26,
     maxZ=50.26
 })
@@ -123,7 +123,7 @@ exports["qpixel-polytarget"]:AddBoxZone("craftWhiteWidow", vector3(164.48, -233.
 
 exports["qpixel-polytarget"]:AddBoxZone("white_widow_stash", vector3(185.49, -242.18, 54.06), 1, 2.8, {
     heading=250,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=50.66,
     maxZ=54.66
 })

@@ -4,7 +4,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("police_buy", vector3(442.92, -973.83, 25.7), 3, 3, {
         name="police_buy",
         heading=310,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=22.5,
         maxZ=26.5
     }) 

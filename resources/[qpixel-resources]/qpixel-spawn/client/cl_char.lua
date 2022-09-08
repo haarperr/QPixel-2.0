@@ -364,7 +364,7 @@ end)
 
 exports["qpixel-polyzone"]:AddBoxZone("scuff_shit", vector3(-3.17, 1.97, 1.47), 15, 15, {
     heading=0,
-    debugPoly=true,
+    debugPoly=false,
     minZ=0.07,
     maxZ=4.07
 })

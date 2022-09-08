@@ -185,61 +185,61 @@ Citizen.CreateThread(function()
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(1853.6, 3688.39, 29.82), 2, 2.4, {
 		heading=300,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=27.02,
 		maxZ=31.02
   	})
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(-720.57, 269.61, 84.65), 2, 1.6, {
 		heading=25,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=82.85,
 		maxZ=86.85
   	})
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(178.62, -251.4, 54.07), 1.5, 2.5, {
 		heading=340,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=52.07,
 		maxZ=56.07
   	})
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(-467.8, 48.31, 52.41), 1.5, 2.3, {
 		heading=355,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=50.61,
 		maxZ=54.61
   	})
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(1835.14, 2572.9, 46.01), 5, 5, {
 		heading=0,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=43.01,
 		maxZ=47.01
   	})
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(390.39, -11.59, 86.68), 5, 5, {
 		heading=0,
-		--debugPoly=true
+		--debugPoly=false
   	})
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(-1184.49, -902.06, 13.98), 2, 2.4, {
 		heading=40,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=12.58,
 		maxZ=16.58
   	})
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(-1425.05, -457.24, 35.91), 1, 2.0, {
 		heading=300,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=32.91,
 		maxZ=36.91
   	})
 
 	exports["qpixel-polyzone"]:AddBoxZone("clothing_shop", vector3(-172.48, 289.78, 93.76), 2, 2, {
 		heading=0,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=91.76,
 		maxZ=95.76
   	})

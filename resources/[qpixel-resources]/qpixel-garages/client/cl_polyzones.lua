@@ -173,7 +173,7 @@ exports["qpixel-polyzone"]:AddPolyZone("casino",{
 exports["qpixel-polyzone"]:AddBoxZone("Impound Lot", vector3(-143.32, -1171.19, 23.77), 24.0, 30, {
     name="Impound Lot",
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.77,
     maxZ=25.37
 })
@@ -186,21 +186,21 @@ exports["qpixel-polyzone"]:AddBoxZone("Repo", vector3(-192.83, -1173.6, 23.04), 
 exports["qpixel-polyzone"]:AddBoxZone("Perro", vector3(-1479.69, -504.41, 32.83), 22.0, 30, {
     name="Perro",
     heading=35,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=31.63,
     maxZ=33.83
 })
 exports["qpixel-polyzone"]:AddBoxZone("Pillbox", vector3(326.29, -588.71, 28.8), 14.6, 5, {
     name="Pillbox",
     heading=250,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=27.8,
     maxZ=31.8
 })
 exports["qpixel-polyzone"]:AddBoxZone("Harmony", vector3(571.98, 2729.23, 42.06), 25, 25, {
     name="Harmony",
     heading=185,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=41.06,
     maxZ=45.06
 })
@@ -208,7 +208,7 @@ exports["qpixel-polyzone"]:AddBoxZone("Harmony", vector3(571.98, 2729.23, 42.06)
 exports["qpixel-polyzone"]:AddBoxZone("impoundlot", vector3(-191.89, -1162.24, 23.67), 2.9, 5, {
     name="impoundlot",
     heading=89,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=23.67,
     maxZ=23.74
 })
@@ -216,7 +216,7 @@ exports["qpixel-polyzone"]:AddBoxZone("impoundlot", vector3(-191.89, -1162.24, 2
 exports["qpixel-polyzone"]:AddBoxZone("Police Shared", vector3(445.54, -991.93, 25.7), 15.0, 4.4, {
     name="policeshare",
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.9,
     maxZ=26.9
 })
@@ -224,7 +224,7 @@ exports["qpixel-polyzone"]:AddBoxZone("Police Shared", vector3(445.54, -991.93, 
 exports["qpixel-polyzone"]:AddBoxZone("Police Personal", vector3(437.31, -991.8, 25.7), 13.2, 5, {
     name="policepersonal",
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.9,
     maxZ=26.9
 })
@@ -232,7 +232,7 @@ exports["qpixel-polyzone"]:AddBoxZone("Police Personal", vector3(437.31, -991.8,
 exports["qpixel-polyzone"]:AddBoxZone("GarageUpperPower", vector3(98.22, -633.19, 44.27), 4.2, 2, {
     name="GarageUpperPower",
     heading=340,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=41.07,
     maxZ=45.07
 })
@@ -240,7 +240,7 @@ exports["qpixel-polyzone"]:AddBoxZone("GarageUpperPower", vector3(98.22, -633.19
 exports["qpixel-polyzone"]:AddBoxZone("Garage Saints", vector3(-1782.49, 464.44, 128.29), 3, 5.2, {
     name="Garage Saints",
     heading=15,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=127.09,
     maxZ=128.89
 })

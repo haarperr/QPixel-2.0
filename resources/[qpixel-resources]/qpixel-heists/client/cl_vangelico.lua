@@ -129,7 +129,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("void_jewelry_hit_thermite",
 
 exports["qpixel-polytarget"]:AddBoxZone("voidrp_hit_case_1",  vector3(-627.07, -233.93, 38.06), 2, 0.7, {
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=34.46,
     maxZ=38.46
 })
@@ -184,7 +184,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("voidrp_hit_case_2",  vector3(-626.64, -234.62, 38.06), 2, 0.7, {
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=34.46,
     maxZ=38.46
 })
@@ -239,7 +239,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("voidrp_hit_case_3",  vector3(-625.87, -238.54, 38.06), 2, 0.7, {
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=34.46,
     maxZ=38.46
 })
@@ -294,7 +294,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("voidrp_hit_case_4",  vector3(-619.35, -234.4, 38.06), 2, 0.9, {
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=34.46,
     maxZ=38.46
 })
@@ -349,7 +349,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("voidrp_hit_case_5",  vector3(-617.49, -229.66, 38.06), 2, 0.7, {
     heading=35,
-    -- debugPoly=true,
+    -- debugPoly=false,
     minZ=34.46,
     maxZ=38.46
 })
@@ -404,7 +404,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("voidrp_hit_case_6",  vector3(-619.67, -226.71, 38.06), 2, 0.7, {
     heading=35,
-    -- debugPoly=true,
+    -- debugPoly=false,
     minZ=34.46,
     maxZ=38.46
 })
@@ -459,7 +459,7 @@ end)
 
 exports["qpixel-polytarget"]:AddBoxZone("voidrp_hit_case_7",  vector3(-624.82, -227.06, 38.06), 2, 0.7, {
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=34.46,
     maxZ=38.46
 })

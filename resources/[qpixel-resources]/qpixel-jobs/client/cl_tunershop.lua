@@ -160,7 +160,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("tuner_shop_docs_craft", vector3(144.39, -3050.88, 7.04), 4, 1.4, {
         name="tuner_shop_docs_craft",
         heading=270,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=5.44,
         maxZ=9.44
     })

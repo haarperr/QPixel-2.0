@@ -3129,7 +3129,7 @@ exports["qpixel-polytarget"]:AddBoxZone("strokers_stash", vector3(578.49, -1870.
 
 exports["qpixel-polytarget"]:AddBoxZone("strokers_craft", vector3(2463.16, 3452.02, 50.11), 0.6, 1.2, {-- Guerro Stash
     heading=5,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=47.31,
     maxZ=51.31
 })
@@ -3137,26 +3137,26 @@ exports["qpixel-polytarget"]:AddBoxZone("strokers_craft", vector3(2463.16, 3452.
 
 exports["qpixel-polytarget"]:AddBoxZone("gang_stash", vector3(1599.06, -1669.06, 88.22), 1.6, 1, { -- Guerro Stash
     heading=20,
-    --debugPoly=true
+    --debugPoly=false
 })
 
 exports["qpixel-polytarget"]:AddBoxZone("gang_craft", vector3(1598.36, -1667.14, 88.22), 0.6, 1, {-- Guerro Stash
     heading=20,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=85.42,
     maxZ=89.42
 })
 
 exports["qpixel-polytarget"]:AddBoxZone("gang2_stash", vector3(873.02, -1368.5, 26.32), 1.4, 1, { -- Guerro Stash
     heading=330,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=23.52,
     maxZ=27.52
 })
 
 exports["qpixel-polytarget"]:AddBoxZone("gang2_craft", vector3(873.91, -1366.78, 26.32), 0.6, 1.4, { -- Guerro Stash
     heading=330,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=23.32,
     maxZ=27.32
 })
@@ -3165,26 +3165,26 @@ exports["qpixel-polytarget"]:AddBoxZone("gang3_stash", vector3(1609.23, 3774.43,
     heading=305,
     minZ=34.87-1,
     maxZ=34.87+1
-    --debugPoly=true
+    --debugPoly=false
 })
 
 exports["qpixel-polytarget"]:AddBoxZone("gang3_craft", vector3(1607.63, 3776.36, 34.69), 1, 1, { -- Guerro Stash
     heading=305,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=34.87-1,
     maxZ=34.87+1
 })
 
 exports["qpixel-polytarget"]:AddBoxZone("boosting_prepscratch", vector3(471.6, -1311.0, 29.22), 0.5, 0.5, {-- Guerro Stash
     heading=25,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=25.62,
     maxZ=29.62
 })
 
 exports["qpixel-polytarget"]:AddBoxZone("maldinis_fridge", vector3(805.79, -761.75, 26.78), 1, 1, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=24.18,
     maxZ=28.18
 })

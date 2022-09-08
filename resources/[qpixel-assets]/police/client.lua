@@ -1626,7 +1626,7 @@ inEvidenceZone = false
 
 exports["qpixel-polyzone"]:AddBoxZone("evidence_zone", vector3(474.26, -1005.19, 26.27), 1, 3.0, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=23.27,
     maxZ=27.27
 })
@@ -4369,7 +4369,7 @@ pInSwatArmory = false
 
 exports["qpixel-polyzone"]:AddBoxZone("qpixel_police_swat_armory", vector3(487.51, -997.09, 30.69), 1, 1.8, {
     heading=270,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=27.09,
     maxZ=31.09
 })

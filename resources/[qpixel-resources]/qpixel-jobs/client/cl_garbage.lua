@@ -59,7 +59,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("garbage_start", vector3(-352.89, -1545.53, 27.72), 5, 5, {
         name="garbage_start",
         heading=0,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=25.52,
         maxZ=29.52
     })

@@ -7,19 +7,19 @@ Config.Zones = {
 		BoxZone:Create(vector3(466.49, -71.76, 77.49), 8.4, 13.8, {
 			name="garagea",
 			heading=337,
-			--debugPoly=true
+			--debugPoly=false
 		}),
 
 		BoxZone:Create(vector3(472.67, -61.76, 77.46), 8.4, 13.8, {
 			name="garagea",
 			heading=330,
-			--debugPoly=true
+			--debugPoly=false
 		}),
 
 		BoxZone:Create(vector3(487.94, -32.5, 77.72), 10.0, 24.4, {
 			name="garagea",
 			heading=60,
-			--debugPoly=true
+			--debugPoly=false
 		}),
 		
 		BoxZone:Create(vector3(-356.31, -753.56, 33.97), 53.25, 10.4, {
@@ -44,7 +44,7 @@ Config.Zones = {
 		BoxZone:Create(vector3(-321.95, -980.58, 31.08), 59.0, 9.0, {
 			name="garagec",
 			heading=70,
-			--debugPoly=true
+			--debugPoly=false
 		}),
   
   		BoxZone:Create(vector3(-321.51, -941.79, 31.08), 37.6, 7.6, {
@@ -55,7 +55,7 @@ Config.Zones = {
   		BoxZone:Create(vector3(-307.8, -949.2, 31.08), 40.8, 7.8, {
 			name="garagec",
 			heading=340,
-			--debugPoly=truew
+			--debugPoly=falsew
 		}),
 
 		-- Garage D --
@@ -254,7 +254,7 @@ Config.Zones = {
 		BoxZone:Create(vector3(-153.13, -1168.22, 23.77), 7.4, 6.2, {
 			name="nomalimpound",
 			heading=0,
-			--debugPoly=true
+			--debugPoly=false
 		}),
   
 
@@ -262,77 +262,77 @@ Config.Zones = {
 		BoxZone:Create(vector3(445.52, -991.54, 25.7), 13.2, 4.6, {
 			name="garage_PD1_state",
 			heading=0,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=24.3,
 			maxZ=28.7
 		}),
 		BoxZone:Create(vector3(437.36, -991.19, 25.7), 13.2, 4.6, {
 			name="garage_PD2_state",
 			heading=0,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=24.3,
 			maxZ=28.7
 		}),
 		BoxZone:Create(vector3(1866.73, 3698.52, 33.62), 9.4, 5.6, {
 			name="garage_sandy_state",
 			heading=31,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=32.62,
 			maxZ=36.62
 		}),
 		BoxZone:Create(vector3(-455.44, 6003.06, 31.34), 25.0, 5.4, {
 			name="garage_paleto_state",
 			heading=45,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=30.34,
 			maxZ=34.34
 		}),
 		BoxZone:Create(vector3(-475.33, 5988.43, 31.28), 12.8, 13.0, {
 			name="garage_paletohelicopter_state",
 			heading=315,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=30.28,
 			maxZ=35.28
 		}),
 		BoxZone:Create(vector3(1867.57, 3646.96, 35.82), 9.0, 7.4, {
 			name="garage_sandyhelicopter_state",
 			heading=300,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=34.42,
 			maxZ=38.42
 		}),
 		BoxZone:Create(vector3(449.33, -981.27, 43.69), 8.4, 6.4, {
 		  name="garage_mrpdhelicopter_state",
 		  heading=0,
-		  --debugPoly=true,
+		  --debugPoly=false,
 		  minZ=42.69,
 		  maxZ=46.89
 		}),
 		BoxZone:Create(vector3(351.88, -588.13, 74.16), 10, 10, {
 			name="garage_pbmchelicopter_state",
 			heading=70,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=73.16,
 			maxZ=77.16
 		}),
 		BoxZone:Create(vector3(1843.11, 3666.55, 33.68), 5.0, 8.6, {
 		  name="garage_sandyemt_state",
 		  heading=30,
-		  --debugPoly=true,
+		  --debugPoly=false,
 		  minZ=32.68,
 		  maxZ=36.88
 		}),
 		BoxZone:Create(vector3(-256.26, 6343.38, 32.43), 5, 10.6, {
 			name="garage_paletoEMT_state",
 			heading=45,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=31.23,
 			maxZ=35.23
 		}),
 		BoxZone:Create(vector3(326.18, -588.42, 28.8), 17.4, 5.2, {
 			name="garage_pbmc_state",
 			heading=70,
-			--debugPoly=true,
+			--debugPoly=false,
 			minZ=27.8,
 			maxZ=31.8
 		})

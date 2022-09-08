@@ -284,7 +284,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("qpixel_maldini_pizza", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_1_maldinis",  vector3(807.0, -751.52, 26.78), 1, 1.0, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.98,
     maxZ=26.98
 })
@@ -301,7 +301,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_1_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_2_maldinis",  vector3(803.11, -751.53, 26.78), 1, 1, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -318,7 +318,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_2_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_3_maldinis",  vector3(799.14, -751.56, 26.78), 1, 1, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -335,7 +335,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_3_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_4_maldinis",  vector3(798.04, -748.87, 26.78), 1, 1, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -352,7 +352,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_4_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_5_maldinis",  vector3(795.25, -751.52, 26.78), 1, 1, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -369,7 +369,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_5_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_6_maldinis",  vector3(799.34, -754.97, 26.78), 1, 1, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -386,7 +386,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_6_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_7_maldinis",  vector3(807.71, -754.79, 26.78), 2, 0.7, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.98,
     maxZ=26.98
 })
@@ -403,7 +403,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_7_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_8_maldinis",  vector3(805.58, -754.92, 26.78), 2, 0.7, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.98,
     maxZ=26.98
 })
@@ -420,7 +420,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_8_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_9_maldinis",  vector3(803.54, -754.9, 26.78), 2, 0.7, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -437,7 +437,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_9_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_10_maldinis",  vector3(801.42, -754.83, 26.78), 2, 0.7, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -454,7 +454,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_10_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_11_maldinis",  vector3(799.32, -757.63, 26.78), 0.7, 1.5, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -471,7 +471,7 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("table_11_maldinis", {{
 
 exports["qpixel-polytarget"]:AddBoxZone("table_12_maldinis",  vector3(799.34, -759.74, 26.78), 0.7, 1.5, {
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=22.78,
     maxZ=26.78
 })
@@ -653,7 +653,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("Maldinis_Stash", vector3(813.65, -749.38, 26.78), 1, 2.6, {
         name="Maldinis_Stash",
         heading=270,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=23.98,
         maxZ=27.98
     })

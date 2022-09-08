@@ -3,7 +3,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("saint_stash_1", vector3(-1796.87, 439.61, 128.39), 1, 1, {
         name="saint_stash_1",
         heading=0,
-        --debugPoly=true,
+        --debugPoly=false,
         minZ=124.59,
         maxZ=128.59
     })

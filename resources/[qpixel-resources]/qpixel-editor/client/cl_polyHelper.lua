@@ -8,7 +8,7 @@ function createZone(boxCenter,length,width,minZ,maxZ,heading)
 
     options.minZ = boxCenter.z-minZ
     options.maxZ = boxCenter.z+maxZ
-    options.debugPoly=true
+    options.debugPoly=false
 
     local zone = BoxZone:Create(boxCenter, length, width, options)
 

@@ -260,7 +260,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("qpixel_impound_location", vector3(-236.51, -1172.86, 37.6), 20, 27.6, {
         name="qpixel_impound_location",
         heading=270,
-		-- debugPoly=true,
+		-- debugPoly=false,
 		minZ=22.2,
 		maxZ=26.2
     })
@@ -401,7 +401,7 @@ end
 exports["qpixel-polyzone"]:AddBoxZone("towing_shit", vector3(-191.63, -1166.46, 23.67), 2, 2, {
 	name="towing_shit",
 	heading=0,
-	--debugPoly=true,
+	--debugPoly=false,
 	minZ=21.27,
 	maxZ=25.27
 })

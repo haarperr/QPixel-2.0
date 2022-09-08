@@ -141,7 +141,7 @@ Citizen.CreateThread(function()
     exports["qpixel-polyzone"]:AddBoxZone("qpixel-wheelfitment:zone1", vector3(136.0, -3030.36, 6.52), 7.8, 4.2, {
         name="qpixel-wheelfitment:zone1",
         heading=1,
-        --debugPoly=true
+        --debugPoly=false
       })
 end)
 

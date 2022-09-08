@@ -1,7 +1,7 @@
 exports["qpixel-polytarget"]:AddBoxZone("wash_money_bags",  vector3(-1869.77, 2065.76, 135.55), 2, 2, {
     name="wash_money_bags",
     heading=0,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=132.75,
     maxZ=136.75
 })

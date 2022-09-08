@@ -149,14 +149,14 @@ Citizen.CreateThread(function()
 	exports["qpixel-polyzone"]:AddBoxZone("recyle_enter", vector3(892.37, -2171.84, 32.29), 1.4, 1, {
 		name="recyle_enter",
 		heading=85,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=29.49,
 		maxZ=33.49
 	  })
 	exports["qpixel-polyzone"]:AddBoxZone("recycle_exit", vector3(997.49, -3091.93, -38.75), 1.2, 1, {
 		name="recycle_exit",
 		heading=0,
-		--debugPoly=true,
+		--debugPoly=false,
 		minZ=-41.75,
 		maxZ=-37.75
 	  })

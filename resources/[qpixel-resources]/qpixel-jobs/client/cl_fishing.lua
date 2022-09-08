@@ -300,7 +300,7 @@ end)
 exports["qpixel-polyzone"]:AddBoxZone("fishing",  vector3(-335.89, 6106.1, 31.45), 2, 2, {
     name = "fishing",
     heading=50,
-    --debugPoly=true,
+    --debugPoly=false,
     minZ=28.45,
     maxZ=32.45
 })
