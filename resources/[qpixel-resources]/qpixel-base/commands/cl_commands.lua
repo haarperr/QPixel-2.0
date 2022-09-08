@@ -1,4 +1,4 @@
-QPX.Commands = QPX.Commands or {}
+DPX.Commands = DPX.Commands or {}
 
 RegisterNetEvent("qpixel-commands:meCommand")
 AddEventHandler("qpixel-commands:meCommand", function(user, msg)

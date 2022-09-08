@@ -1,6 +1,6 @@
-QPX.SpawnManager = {}
+DPX.SpawnManager = {}
 
-function QPX.SpawnManager.Initialize(self)
+function DPX.SpawnManager.Initialize(self)
     Citizen.CreateThread(function()
 
         FreezeEntityPosition(PlayerPedId(), true)
@@ -35,7 +35,7 @@ function QPX.SpawnManager.Initialize(self)
     end)
 end
 
-function QPX.SpawnManager.InitialSpawn(self)
+function DPX.SpawnManager.InitialSpawn(self)
     Citizen.CreateThread(function()
         DisableAllControlActions(0)
       
@@ -45,7 +45,7 @@ function QPX.SpawnManager.InitialSpawn(self)
             Citizen.Wait(0)
         end
 
-        local character = QPX.LocalPlayer:getCurrentCharacter()
+        local character = DPX.LocalPlayer:getCurrentCharacter()
 
 
         --Tells raid clothes to set ped to correct skin
@@ -67,7 +67,7 @@ function QPX.SpawnManager.InitialSpawn(self)
 end
 
 AddEventHandler("qpixel-base:firstSpawn", function()
-    QPX.SpawnManager:InitialSpawn()
+    DPX.SpawnManager:InitialSpawn()
 
     Citizen.CreateThread(function()
         Citizen.Wait(600)
@@ -90,12 +90,12 @@ end)
 
 
 
-QPX.SettingsData = QPX.SettingsData or {}
-QPX.Settings = QPX.Settings or {}
+DPX.SettingsData = DPX.SettingsData or {}
+DPX.Settings = DPX.Settings or {}
 
-QPX.Settings.Current = {}
+DPX.Settings.Current = {}
 -- Current bind name and keys
-QPX.Settings.Default = {
+DPX.Settings.Default = {
   ["tokovoip"] = {
     ["stereoAudio"] = true,
     ["localClickOn"] = true,
@@ -114,54 +114,54 @@ QPX.Settings.Default = {
 }
 
 
-function QPX.SettingsData.setSettingsTable(settingsTable, shouldSend)
+function DPX.SettingsData.setSettingsTable(settingsTable, shouldSend)
   if settingsTable == nil then
-    QPX.Settings.Current = QPX.Settings.Default
-    TriggerServerEvent('qpixel-base:sv:player_settings_set',QPX.Settings.Current)
-    QPX.SettingsData.checkForMissing()
+    DPX.Settings.Current = DPX.Settings.Default
+    TriggerServerEvent('qpixel-base:sv:player_settings_set',DPX.Settings.Current)
+    DPX.SettingsData.checkForMissing()
   else
     if shouldSend then
-      QPX.Settings.Current = settingsTable
-      TriggerServerEvent('qpixel-base:sv:player_settings_set',QPX.Settings.Current)
-      QPX.SettingsData.checkForMissing()
+      DPX.Settings.Current = settingsTable
+      TriggerServerEvent('qpixel-base:sv:player_settings_set',DPX.Settings.Current)
+      DPX.SettingsData.checkForMissing()
     else
-       QPX.Settings.Current = settingsTable
-       QPX.SettingsData.checkForMissing()
+       DPX.Settings.Current = settingsTable
+       DPX.SettingsData.checkForMissing()
     end
   end
 
-  TriggerEvent("event:settings:update",QPX.Settings.Current)
+  TriggerEvent("event:settings:update",DPX.Settings.Current)
 
 end
 
-function QPX.SettingsData.setSettingsTableGlobal(self, settingsTable)
-  QPX.SettingsData.setSettingsTable(settingsTable,true);
+function DPX.SettingsData.setSettingsTableGlobal(self, settingsTable)
+  DPX.SettingsData.setSettingsTable(settingsTable,true);
 end
 
-function QPX.SettingsData.getSettingsTable()
-    return QPX.Settings.Current
+function DPX.SettingsData.getSettingsTable()
+    return DPX.Settings.Current
 end
 
-function QPX.SettingsData.setVarible(self,tablename,atrr,val)
-  QPX.Settings.Current[tablename][atrr] = val
-  TriggerServerEvent('qpixel-base:sv:player_settings_set',QPX.Settings.Current)
+function DPX.SettingsData.setVarible(self,tablename,atrr,val)
+  DPX.Settings.Current[tablename][atrr] = val
+  TriggerServerEvent('qpixel-base:sv:player_settings_set',DPX.Settings.Current)
 end
 
-function QPX.SettingsData.getVarible(self,tablename,atrr)
-  return QPX.Settings.Current[tablename][atrr]
+function DPX.SettingsData.getVarible(self,tablename,atrr)
+  return DPX.Settings.Current[tablename][atrr]
 end
 
-function QPX.SettingsData.checkForMissing()
+function DPX.SettingsData.checkForMissing()
   local isMissing = false
 
-  for j,h in pairs(QPX.Settings.Default) do
-    if QPX.Settings.Current[j] == nil then
+  for j,h in pairs(DPX.Settings.Default) do
+    if DPX.Settings.Current[j] == nil then
       isMissing = true
-      QPX.Settings.Current[j] = h
+      DPX.Settings.Current[j] = h
     else
       for k,v in pairs(h) do
-        if  QPX.Settings.Current[j][k] == nil then
-           QPX.Settings.Current[j][k] = v
+        if  DPX.Settings.Current[j][k] == nil then
+           DPX.Settings.Current[j][k] = v
            isMissing = true
         end
       end
@@ -170,7 +170,7 @@ function QPX.SettingsData.checkForMissing()
   
 
   if isMissing then
-    TriggerServerEvent('qpixel-base:sv:player_settings_set',QPX.Settings.Current)
+    TriggerServerEvent('qpixel-base:sv:player_settings_set',DPX.Settings.Current)
   end
 
 
@@ -178,16 +178,16 @@ end
 
 RegisterNetEvent("qpixel-base:cl:player_settings")
 AddEventHandler("qpixel-base:cl:player_settings", function(settingsTable)
-  QPX.SettingsData.setSettingsTable(settingsTable,false)
+  DPX.SettingsData.setSettingsTable(settingsTable,false)
 end)
 
 
 RegisterNetEvent("qpixel-base:cl:player_reset")
 AddEventHandler("qpixel-base:cl:player_reset", function(tableName)
-  if QPX.Settings.Default[tableName] then
-      if QPX.Settings.Current[tableName] then
-        QPX.Settings.Current[tableName] = QPX.Settings.Default[tableName]
-        QPX.SettingsData.setSettingsTable(QPX.Settings.Current,true)
+  if DPX.Settings.Default[tableName] then
+      if DPX.Settings.Current[tableName] then
+        DPX.Settings.Current[tableName] = DPX.Settings.Default[tableName]
+        DPX.SettingsData.setSettingsTable(DPX.Settings.Current,true)
       end
   end
 end)

@@ -1,30 +1,30 @@
-QPX.Player = QPX.Player or {}
-QPX.LocalPlayer = QPX.LocalPlayer or {}
+DPX.Player = DPX.Player or {}
+DPX.LocalPlayer = DPX.LocalPlayer or {}
 
 local function GetUser()
-    return QPX.LocalPlayer
+    return DPX.LocalPlayer
 end
 
-function QPX.LocalPlayer.setVar(self, var, data)
+function DPX.LocalPlayer.setVar(self, var, data)
     GetUser()[var] = data
 end
 
-function QPX.LocalPlayer.getVar(self, var)
+function DPX.LocalPlayer.getVar(self, var)
     return GetUser()[var]
 end
 
-function QPX.LocalPlayer.setCurrentCharacter(self, data)
+function DPX.LocalPlayer.setCurrentCharacter(self, data)
     if not data then return end
     GetUser():setVar("character", data)
 end
 
-function QPX.LocalPlayer.getCurrentCharacter(self)
+function DPX.LocalPlayer.getCurrentCharacter(self)
     return GetUser():getVar("character")
 end
 
 RegisterNetEvent("qpixel-base:networkVar")
 AddEventHandler("qpixel-base:networkVar", function(var, val)
-    QPX.LocalPlayer:setVar(var, val)
+    DPX.LocalPlayer:setVar(var, val)
 end)
 
 RegisterNetEvent('returnOldRouting')

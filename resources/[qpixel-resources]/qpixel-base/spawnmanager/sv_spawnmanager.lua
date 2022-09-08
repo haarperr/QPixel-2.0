@@ -1,4 +1,4 @@
-QPX.SpawnManager = {}
+DPX.SpawnManager = {}
 
 RegisterServerEvent('qpixel-base:spawnInitialized')
 AddEventHandler('qpixel-base:spawnInitialized', function()

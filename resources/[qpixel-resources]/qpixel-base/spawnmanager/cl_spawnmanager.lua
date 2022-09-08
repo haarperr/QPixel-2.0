@@ -1,6 +1,6 @@
-QPX.SpawnManager = {}
+DPX.SpawnManager = {}
 
-function QPX.SpawnManager.Initialize(self)
+function DPX.SpawnManager.Initialize(self)
     Citizen.CreateThread(function()
         FreezeEntityPosition(PlayerPedId(), true)
 
@@ -33,7 +33,7 @@ function QPX.SpawnManager.Initialize(self)
     end)
 end
 
-function QPX.SpawnManager.InitialSpawn(self)
+function DPX.SpawnManager.InitialSpawn(self)
     Citizen.CreateThread(function()
         DisableAllControlActions(0)
 
@@ -44,11 +44,11 @@ function QPX.SpawnManager.InitialSpawn(self)
             Citizen.Wait(0)
         end
 
-        local character = QPX.LocalPlayer:getCurrentCharacter()
+        local character = DPX.LocalPlayer:getCurrentCharacter()
         local new = character.new == 1
 
 
-        local spawn = QPX.Enums.SpawnLocations.Initial[1]
+        local spawn = DPX.Enums.SpawnLocations.Initial[1]
 
         spawn = {
             model = "mp_m_freemode_01",
@@ -111,7 +111,7 @@ function QPX.SpawnManager.InitialSpawn(self)
     end)
 end
 
-function QPX.SpawnManager.InitialSpawn(self)
+function DPX.SpawnManager.InitialSpawn(self)
     Citizen.CreateThread(function()
         DisableAllControlActions(0)
         DoScreenFadeOut(10)
@@ -150,7 +150,7 @@ end
 
 RegisterNetEvent("qpixel-base:firstSpawn")
 AddEventHandler("qpixel-base:firstSpawn", function()
-    QPX.SpawnManager:InitialSpawn()
+    DPX.SpawnManager:InitialSpawn()
 
     Citizen.CreateThread(function()
         Citizen.Wait(600)

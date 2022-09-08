@@ -15749,7 +15749,7 @@ itemList["crabcage"] = {
 itemList['metaldetector1'] = {
   fullyDegrades: true,
   decayrate: 1.0,
-  displayname: 'QPX 200',
+  displayname: 'DPX 200',
   craft: [
     [
       { itemid: 'refinedaluminium', amount: 10 },
@@ -15765,7 +15765,7 @@ itemList['metaldetector1'] = {
 itemList['metaldetector2'] = {
   fullyDegrades: true,
   decayrate: 0.6,
-  displayname: 'QPX 500',
+  displayname: 'DPX 500',
   craft: [
     [
       { itemid: 'refinedaluminium', amount: 5 },
@@ -15784,7 +15784,7 @@ itemList['metaldetector2'] = {
 itemList['metaldetector3'] = {
   fullyDegrades: true,
   decayrate: 0.4,
-  displayname: 'QPX 1000 Pro',
+  displayname: 'DPX 1000 Pro',
   craft: [
     [
       { itemid: 'refinedaluminium', amount: 25 },

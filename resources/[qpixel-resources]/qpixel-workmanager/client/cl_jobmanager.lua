@@ -51,5 +51,5 @@ end)
 
 RegisterNetEvent("qpixel-base:exportsReady")
 AddEventHandler("qpixel-base:exportsReady", function()
-    exports["qpixel-base"]:addModule("JobManager", QPX.Jobs)
+    exports["qpixel-base"]:addModule("JobManager", DPX.Jobs)
 end)

@@ -9,41 +9,41 @@
             _0x54e014.Events =
               void 0
           _0x54e014.Events = {
-            on: (_0x4ba7b8, _0x4fc631) => QPX.Events.on(_0x4ba7b8, _0x4fc631),
+            on: (_0x4ba7b8, _0x4fc631) => DPX.Events.on(_0x4ba7b8, _0x4fc631),
             onNet: (_0x361ded, _0x483a86) =>
-              QPX.Events.onNet(_0x361ded, _0x483a86),
+              DPX.Events.onNet(_0x361ded, _0x483a86),
             emit: (_0x3ba514, ..._0x8bea33) =>
-              QPX.Events.emit(_0x3ba514, ..._0x8bea33),
+              DPX.Events.emit(_0x3ba514, ..._0x8bea33),
             emitNet: (_0x1a6a5c, ..._0x2fc510) =>
-              QPX.Events.emitNet(_0x1a6a5c, ..._0x2fc510),
+              DPX.Events.emitNet(_0x1a6a5c, ..._0x2fc510),
             remove: (_0x164812, _0x439151) =>
-              QPX.Events.remove(_0x164812, _0x439151),
+              DPX.Events.remove(_0x164812, _0x439151),
           }
           _0x54e014.Procedures = {
             register: (_0x46594b, _0x515e82) =>
-              QPX.Procedures.register(_0x46594b, _0x515e82),
+              DPX.Procedures.register(_0x46594b, _0x515e82),
             execute: (_0x14c49c, ..._0x2fffa5) =>
-              QPX.Procedures.execute(_0x14c49c, ..._0x2fffa5),
+              DPX.Procedures.execute(_0x14c49c, ..._0x2fffa5),
           }
           _0x54e014.Utils = {
             cache: (_0xeb7519, _0x2cc96d) =>
-              QPX.Utils.cache(_0xeb7519, _0x2cc96d),
+              DPX.Utils.cache(_0xeb7519, _0x2cc96d),
             cacheableMap: (_0x2a5037, _0x5ae2ec) =>
-              QPX.Utils.cacheableMap(_0x2a5037, _0x5ae2ec),
+              DPX.Utils.cacheableMap(_0x2a5037, _0x5ae2ec),
             waitForCondition: (_0x2f32df, _0x38f94c) =>
-              QPX.Utils.waitForCondition(_0x2f32df, _0x38f94c),
+              DPX.Utils.waitForCondition(_0x2f32df, _0x38f94c),
             getMapRange: (_0x5d76fd, _0x393a6f, _0x541b46) =>
-              QPX.Utils.getMapRange(_0x5d76fd, _0x393a6f, _0x541b46),
+              DPX.Utils.getMapRange(_0x5d76fd, _0x393a6f, _0x541b46),
             getDistance: (
               [_0x48dcd6, _0x1fc61f, _0x358ce3],
               [_0x169371, _0x1cdb88, _0x3edec7]
             ) =>
-              QPX.Utils.getDistance(
+              DPX.Utils.getDistance(
                 [_0x48dcd6, _0x1fc61f, _0x358ce3],
                 [_0x169371, _0x1cdb88, _0x3edec7]
               ),
             getRandomNumber: (_0x4443ec, _0x5b1fba) =>
-              QPX.Utils.getRandomNumber(_0x4443ec, _0x5b1fba),
+              DPX.Utils.getRandomNumber(_0x4443ec, _0x5b1fba),
           }
           _0x54e014.Base = {
             getCharacter: async (_0x3c2235) =>

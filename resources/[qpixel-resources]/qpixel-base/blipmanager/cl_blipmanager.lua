@@ -1,7 +1,7 @@
-QPX.BlipManager = QPX.BlipManager or {}
-QPX.Blips = QPX.Blips or {}
+DPX.BlipManager = DPX.BlipManager or {}
+DPX.Blips = DPX.Blips or {}
 
-function QPX.BlipManager.CreateBlip(self, id, data)
+function DPX.BlipManager.CreateBlip(self, id, data)
     local blip = AddBlipForCoord(data.x, data.y, data.z)
 
     if data.sprite then SetBlipSprite(blip, data.sprite) end
@@ -22,17 +22,17 @@ function QPX.BlipManager.CreateBlip(self, id, data)
     AddTextComponentString(data.name)
     EndTextCommandSetBlipName(blip)
 
-    QPX.Blips[id] = {blip = blip, data = data}
+    DPX.Blips[id] = {blip = blip, data = data}
 end
 
-function QPX.BlipManager.RemoveBlip(self, id)
-    local blip = QPX.Blips[id]
+function DPX.BlipManager.RemoveBlip(self, id)
+    local blip = DPX.Blips[id]
     if blip then RemoveBlip(blip.blip) end
-    QPX.Blips[id] = nil
+    DPX.Blips[id] = nil
 end
 
-function QPX.BlipManager.HideBlip(self, id, toggle)
-    local blip = QPX.Blips[id]
+function DPX.BlipManager.HideBlip(self, id, toggle)
+    local blip = DPX.Blips[id]
     if not blip then return end
     if toggle then 
         SetBlipAlpha(blip.blip, 0)
@@ -43,8 +43,8 @@ function QPX.BlipManager.HideBlip(self, id, toggle)
     end
 end
 
-function QPX.BlipManager.GetBlip(self, id)
-    local blip = QPX.Blips[id]
+function DPX.BlipManager.GetBlip(self, id)
+    local blip = DPX.Blips[id]
     if not blip then return false end
     return blip
 end

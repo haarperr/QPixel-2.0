@@ -1,1 +1,1 @@
-QPX = QPX or {}
+DPX = DPX or {}

@@ -1,10 +1,10 @@
-function QPX.Core.LoginPlayer(self, args, src, callback)
+function DPX.Core.LoginPlayer(self, args, src, callback)
     TriggerEvent("qpixel-base:playerAttemptLogin", src)
 
-    local user = QPX.Player:CreatePlayer(src, false)
+    local user = DPX.Player:CreatePlayer(src, false)
 
     if not user then
-        user = QPX.Player:CreatePlayer(src, false)
+        user = DPX.Player:CreatePlayer(src, false)
 
         if not user then DropPlayer(src, "There was an error while creating your player object, if this persists, contact an administrator") return end
 
@@ -23,7 +23,7 @@ function QPX.Core.LoginPlayer(self, args, src, callback)
             return
         end
 
-        QPX.DB:FetchPlayerData(src, function(data, err)
+        DPX.DB:FetchPlayerData(src, function(data, err)
             if err then
                 data = {
                     err = true,
@@ -40,14 +40,14 @@ function QPX.Core.LoginPlayer(self, args, src, callback)
     end
 
 
-	QPX.DB:PlayerExistsDB(src, function(exists, err)
+	DPX.DB:PlayerExistsDB(src, function(exists, err)
 		if err then
 			fetchData("Error checking player existence, there is a problem with the database")
 			return -- my stepsister stuck
 		end -- my mother stuck
 
 		if not exists then
-			QPX.DB:CreateNewPlayer(src, function(created)
+			DPX.DB:CreateNewPlayer(src, function(created)
 				if not created then
 					fetchData("Error creating new user, there is a problem with the database")
 					return
@@ -63,14 +63,14 @@ function QPX.Core.LoginPlayer(self, args, src, callback)
 		fetchData()
 	end)
 end
-QPX.Events:AddEvent(QPX.Core, QPX.Core.LoginPlayer, "qpixel-base:loginPlayer")
+DPX.Events:AddEvent(DPX.Core, DPX.Core.LoginPlayer, "qpixel-base:loginPlayer")
 
-function QPX.Core.FetchPlayerCharacters(self, args, src, callback)
-	local user = QPX.Player:GetUser(src)
+function DPX.Core.FetchPlayerCharacters(self, args, src, callback)
+	local user = DPX.Player:GetUser(src)
 
 	if not user then return end
 
-	QPX.DB:FetchCharacterData(user, function(data, err)
+	DPX.DB:FetchCharacterData(user, function(data, err)
 		if err then
 			data = {
 				err = true,
@@ -87,9 +87,9 @@ function QPX.Core.FetchPlayerCharacters(self, args, src, callback)
 		callback(data)
 	end)
 end
-QPX.Events:AddEvent(QPX.Core, QPX.Core.FetchPlayerCharacters, "qpixel-base:fetchPlayerCharacters")
+DPX.Events:AddEvent(DPX.Core, DPX.Core.FetchPlayerCharacters, "qpixel-base:fetchPlayerCharacters")
 
-function QPX.Core.CreatePhoneNumber(self, src, callback)
+function DPX.Core.CreatePhoneNumber(self, src, callback)
 	Citizen.CreateThread(function()
 		while true do 
 			Citizen.Wait(1000)
@@ -112,7 +112,7 @@ function QPX.Core.CreatePhoneNumber(self, src, callback)
 				--print('we both here')
 				phoneNumber = tostring(phoneNumber)
 				if phoneNumber then
-					QPX.DB:PhoneNumberExists(src, phoneNumber, function(exists, err)
+					DPX.DB:PhoneNumberExists(src, phoneNumber, function(exists, err)
 						if err then callback(false, true) success = true querying = false print('phone number does not exist') return end
 						if not exists then callback(phoneNumber) success = true print('sucess') end
 						querying = false
@@ -127,8 +127,8 @@ function QPX.Core.CreatePhoneNumber(self, src, callback)
 	end)
 end
 
-function QPX.Core.CreateCharacter(self, charData, src, callback)
-	local user = QPX.Player:GetUser(src)
+function DPX.Core.CreateCharacter(self, charData, src, callback)
+	local user = DPX.Player:GetUser(src)
 
 	if not user or not user:getVar("charactersLoaded") then return end
 	if user:getNumCharacters() >= 8 then return end
@@ -165,7 +165,7 @@ function QPX.Core.CreateCharacter(self, charData, src, callback)
 				--print('im cumming')
 				--print(charData.phonenumber)
 
-				QPX.DB:CreateNewCharacter(user, charData, hexId, phoneNumber, function(created, err)
+				DPX.DB:CreateNewCharacter(user, charData, hexId, phoneNumber, function(created, err)
 					if not created or err then
 						created = {
 							err = true,
@@ -179,10 +179,10 @@ function QPX.Core.CreateCharacter(self, charData, src, callback)
 		end
 	end)
 end
-QPX.Events:AddEvent(QPX.Core, QPX.Core.CreateCharacter, "qpixel-base:createCharacter")
+DPX.Events:AddEvent(DPX.Core, DPX.Core.CreateCharacter, "qpixel-base:createCharacter")
 
-function QPX.Core.DeleteCharacter(self, id, src, callback)
-	local user = QPX.Player:GetUser(src)
+function DPX.Core.DeleteCharacter(self, id, src, callback)
+	local user = DPX.Player:GetUser(src)
 
 	if not user or not user:getVar("charactersLoaded") then return end
 
@@ -193,14 +193,14 @@ function QPX.Core.DeleteCharacter(self, id, src, callback)
 
 	if not ownsCharacter then return end
 
-	QPX.DB:DeleteCharacter(user, id, function(deleted)
+	DPX.DB:DeleteCharacter(user, id, function(deleted)
 		callback(deleted)
 	end)
 end
-QPX.Events:AddEvent(QPX.Core, QPX.Core.DeleteCharacter, "qpixel-base:deleteCharacter")
+DPX.Events:AddEvent(DPX.Core, DPX.Core.DeleteCharacter, "qpixel-base:deleteCharacter")
 
-function QPX.Core.SelectCharacter(self, id, src, callback)
-	local user = QPX.Player:GetUser(src)
+function DPX.Core.SelectCharacter(self, id, src, callback)
+	local user = DPX.Player:GetUser(src)
 
 	if not user then callback(false) return end
 	if not user:getCharacters() or user:getNumCharacters() <= 0 then callback(false) return end
@@ -227,4 +227,4 @@ function QPX.Core.SelectCharacter(self, id, src, callback)
 
 	callback({loggedin = true, chardata = selectedCharacter})
 end
-QPX.Events:AddEvent(QPX.Core, QPX.Core.SelectCharacter, "qpixel-base:selectCharacter")
+DPX.Events:AddEvent(DPX.Core, DPX.Core.SelectCharacter, "qpixel-base:selectCharacter")

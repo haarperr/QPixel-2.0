@@ -1,11 +1,11 @@
-QPX.DataControls = QPX.DataControls or {}
-QPX.Controls = QPX.Controls or {}
-QPX.Controls.EventHolder = {}
+DPX.DataControls = DPX.DataControls or {}
+DPX.Controls = DPX.Controls or {}
+DPX.Controls.EventHolder = {}
 
 
-QPX.Controls.Current = {}
+DPX.Controls.Current = {}
 -- Current bind name and keys
-QPX.Controls.Default = {
+DPX.Controls.Default = {
   ["tokoptt"] = "CAPS",
   ["loudSpeaker"] = "-",
   ["distanceChange"] = "G",
@@ -57,7 +57,7 @@ QPX.Controls.Default = {
 }
 
 -- Bindable attributes
-QPX.Controls.events = {
+DPX.Controls.events = {
 	["lowActionItems"] = {
 		[0] = {["event"] = "",["bind"] = "",["id"] = 3},
 	},
@@ -114,10 +114,10 @@ QPX.Controls.events = {
 	},
 }
 
-QPX.Controls.secondaryBinds = {}
+DPX.Controls.secondaryBinds = {}
 
-QPX.Controls.Distcheck = {}
-QPX.Controls.Distcheck.use = {
+DPX.Controls.Distcheck = {}
+DPX.Controls.Distcheck.use = {
 	-- create fake id
 	[0] = {["pos"] = {2063.89,2990.74,-67.7},	["r"] = 1.7,["event"] = "cid",["id"] = 0,["maxwait"] = 200},
 	-- bar Sign on 
@@ -253,7 +253,7 @@ QPX.Controls.Distcheck.use = {
 		[82] = {["pos"] = {110.8, 6626.46, 31.89},	["r"] = 2,["event"] = "bennys",["id"] = 5,["maxwait"] = 200},	
 	}
 
-QPX.Controls.Distcheck.useSecondary = {
+DPX.Controls.Distcheck.useSecondary = {
 	-- boradcaster sign OFF 
 	[0] = {["pos"] = {1989.08,-1753.94,-158.86},["r"] = 2,["event"] = "broadcast",["id"] = 2,["maxwait"] = 300},
 
@@ -266,7 +266,7 @@ QPX.Controls.Distcheck.useSecondary = {
 
 }
 
-QPX.Controls.Distcheck.useThird = {
+DPX.Controls.Distcheck.useThird = {
 	-- hospital garage
 	[0] = {["pos"] = {-475.67,-356.32,34.10},["r"] = 2,["event"] = "hospitalGarage",["id"] = 3,["maxwait"] = 300},
 	[1] = {["pos"] = {364.68, -590.98, 28.69},["r"] = 2,["event"] = "hospitalGarage",["id"] = 3,["maxwait"] = 300},
@@ -287,11 +287,11 @@ QPX.Controls.Distcheck.useThird = {
 
 -- Set / Getting info functions
 
-function QPX.DataControls.getBindTable()
+function DPX.DataControls.getBindTable()
 
 	local i = 1
 	local controlTable = {}
-	for k,v in pairs(QPX.Controls.Current) do
+	for k,v in pairs(DPX.Controls.Current) do
 		controlTable[i] = {k,v}
 		i = i+1
 	end
@@ -299,17 +299,17 @@ function QPX.DataControls.getBindTable()
     return controlTable
 end
 
-function QPX.DataControls.encodeSetBindTable(self, bindTable)
+function DPX.DataControls.encodeSetBindTable(self, bindTable)
 
 	local controlTable = {}
 	for k,v in pairs(bindTable) do
 		controlTable[v[1]] = v[2]
 	end
 
-	QPX.DataControls.setBindTable(controlTable,true)
+	DPX.DataControls.setBindTable(controlTable,true)
 end
 
-function QPX.DataControls.toUpper(table)
+function DPX.DataControls.toUpper(table)
 
 	local controlTable = {}
 	for k,v in pairs(table) do
@@ -319,30 +319,30 @@ function QPX.DataControls.toUpper(table)
     return controlTable
 end
 
-function QPX.DataControls.setBindTable(controlTable,shouldSend)
+function DPX.DataControls.setBindTable(controlTable,shouldSend)
 	if controlTable == nil then
-		QPX.Controls.Current  = QPX.DataControls.toUpper(QPX.Controls.Default) 
-		QPX.DataControls.setSecondaryBindTable(QPX.Controls.Current)
-		TriggerServerEvent('qpixel-base:sv:player_control_set',QPX.Controls.Current)
-		QPX.DataControls.checkForMissing()
+		DPX.Controls.Current  = DPX.DataControls.toUpper(DPX.Controls.Default) 
+		DPX.DataControls.setSecondaryBindTable(DPX.Controls.Current)
+		TriggerServerEvent('qpixel-base:sv:player_control_set',DPX.Controls.Current)
+		DPX.DataControls.checkForMissing()
 	else
 		if shouldSend then 
-			QPX.Controls.Current = QPX.DataControls.toUpper(controlTable)
-			QPX.DataControls.setSecondaryBindTable(QPX.Controls.Current)
-			TriggerServerEvent('qpixel-base:sv:player_control_set',QPX.Controls.Current)
-			QPX.DataControls.checkForMissing()
+			DPX.Controls.Current = DPX.DataControls.toUpper(controlTable)
+			DPX.DataControls.setSecondaryBindTable(DPX.Controls.Current)
+			TriggerServerEvent('qpixel-base:sv:player_control_set',DPX.Controls.Current)
+			DPX.DataControls.checkForMissing()
 		else
-			QPX.Controls.Current = QPX.DataControls.toUpper(controlTable)
-			QPX.DataControls.setSecondaryBindTable(QPX.Controls.Current)
-			QPX.DataControls.checkForMissing()
+			DPX.Controls.Current = DPX.DataControls.toUpper(controlTable)
+			DPX.DataControls.setSecondaryBindTable(DPX.Controls.Current)
+			DPX.DataControls.checkForMissing()
 		end
 	end
-	TriggerEvent("event:control:update",QPX.DataControls.getTableInKeyNumbers())
+	TriggerEvent("event:control:update",DPX.DataControls.getTableInKeyNumbers())
 end
 
-function QPX.DataControls.setSecondaryBindTable(bindtable)
+function DPX.DataControls.setSecondaryBindTable(bindtable)
 
-	QPX.Controls.secondaryBinds = {}
+	DPX.Controls.secondaryBinds = {}
 	local i = 0
 	for k,v in pairs(bindtable) do
 		local keyString = string.upper(v)
@@ -353,14 +353,14 @@ function QPX.DataControls.setSecondaryBindTable(bindtable)
 			local control2 = Keys[result[2]]
 
 			local valid = true
-			for i=1,#QPX.Controls.secondaryBinds  do
-				if QPX.Controls.secondaryBinds[i] and QPX.Controls.secondaryBinds[i][1] == control1 then valid = false end
+			for i=1,#DPX.Controls.secondaryBinds  do
+				if DPX.Controls.secondaryBinds[i] and DPX.Controls.secondaryBinds[i][1] == control1 then valid = false end
 			end
 
 			if valid then 
-				QPX.Controls.secondaryBinds[i] = {}
-				QPX.Controls.secondaryBinds[i][1] = control1
-				QPX.Controls.secondaryBinds[i][2] = control2
+				DPX.Controls.secondaryBinds[i] = {}
+				DPX.Controls.secondaryBinds[i][1] = control1
+				DPX.Controls.secondaryBinds[i][2] = control2
 				i = i + 1
 			end
 				
@@ -368,11 +368,11 @@ function QPX.DataControls.setSecondaryBindTable(bindtable)
 	end
 end
 
-function QPX.DataControls.getTableInKeyNumbers()
+function DPX.DataControls.getTableInKeyNumbers()
 
 	
 	local controlTable = {}
-	for k,v in pairs(QPX.Controls.Current) do
+	for k,v in pairs(DPX.Controls.Current) do
 		controlTable[k] = {}
 		controlTable[k][1] = Keys[string.upper(v)]
 		controlTable[k][2] = string.upper(v)
@@ -382,9 +382,9 @@ function QPX.DataControls.getTableInKeyNumbers()
 end
 
 
-function QPX.DataControls.getBindByID(bindID)
+function DPX.DataControls.getBindByID(bindID)
 	local found = "none"
-	for k,v in pairs(QPX.Controls.Current) do
+	for k,v in pairs(DPX.Controls.Current) do
 		if k == bindID then
 			found = v
 			break
@@ -395,8 +395,8 @@ end
 
 -- Action functions
 
-function QPX.DataControls.distanceCall(distcheckName)
-	local distanceTable = QPX.Controls.Distcheck[distcheckName]
+function DPX.DataControls.distanceCall(distcheckName)
+	local distanceTable = DPX.Controls.Distcheck[distcheckName]
 	local found = -1
 
 	local pedpos = GetEntityCoords(PlayerPedId()) -- to be changed to player data pos at later date
@@ -417,53 +417,53 @@ function QPX.DataControls.distanceCall(distcheckName)
 		local hasTimer = 99999
 
 		local key = distanceTable[found].event.."_"..distanceTable[found].id
-		if QPX.Controls.EventHolder[key] then
-			hasTimer = (GetGameTimer()-QPX.Controls.EventHolder[key])
+		if DPX.Controls.EventHolder[key] then
+			hasTimer = (GetGameTimer()-DPX.Controls.EventHolder[key])
 		end
 		if  hasTimer >= distanceTable[found].maxwait then
-			QPX.Controls.EventHolder[key] = GetGameTimer();
+			DPX.Controls.EventHolder[key] = GetGameTimer();
 			TriggerEvent("event:control:"..distanceTable[found].event,distanceTable[found].id)
 		end
 	end
 end
 
 
-function QPX.DataControls.checkForMissing()
+function DPX.DataControls.checkForMissing()
 	local isMissing = false
 
-	for j,h in pairs(QPX.Controls.Default) do
-		if QPX.Controls.Current[j] == nil then
+	for j,h in pairs(DPX.Controls.Default) do
+		if DPX.Controls.Current[j] == nil then
 			isMissing = true
-			QPX.Controls.Current[j] = h
+			DPX.Controls.Current[j] = h
 		end
 	end
 	
 
 	if isMissing then
-		QPX.DataControls.setSecondaryBindTable(QPX.Controls.Current)
-		TriggerServerEvent('qpixel-base:sv:player_control_set',QPX.Controls.Current)
+		DPX.DataControls.setSecondaryBindTable(DPX.Controls.Current)
+		TriggerServerEvent('qpixel-base:sv:player_control_set',DPX.Controls.Current)
 	end
 
 
 end
 
-function QPX.DataControls.validEvent(event,id,eventID)
-	local v = QPX.Controls.events["general"][eventID]
+function DPX.DataControls.validEvent(event,id,eventID)
+	local v = DPX.Controls.events["general"][eventID]
 	local hasTimer = 999999
 	local eventKey = event.."_"..id
 
-	if QPX.Controls.EventHolder[eventKey] then
-		hasTimer = (GetGameTimer()-QPX.Controls.EventHolder[eventKey])
+	if DPX.Controls.EventHolder[eventKey] then
+		hasTimer = (GetGameTimer()-DPX.Controls.EventHolder[eventKey])
 	end
 
-	if QPX.Controls.EventHolder[eventKey] and hasTimer ~= 999999 then
+	if DPX.Controls.EventHolder[eventKey] and hasTimer ~= 999999 then
 		if hasTimer >= v.maxwait then
-			QPX.Controls.EventHolder[eventKey] = GetGameTimer();
+			DPX.Controls.EventHolder[eventKey] = GetGameTimer();
 			TriggerEvent("event:control:"..event,id)
 		end
 	else
 		if hasTimer >= 1000 then
-			QPX.Controls.EventHolder[eventKey] = GetGameTimer();
+			DPX.Controls.EventHolder[eventKey] = GetGameTimer();
 			TriggerEvent("event:control:"..event,id)
 		end
 
@@ -477,18 +477,18 @@ local eventTimer = {}
 Citizen.CreateThread(function()
 	while true do
 		
-		if QPX.Controls.Current["tokoptt"] then
-			for i=0,#QPX.Controls.events["general"] do
-				local v = QPX.Controls.events["general"][i]
-				local keyString = QPX.Controls.Current[v["bind"]]
+		if DPX.Controls.Current["tokoptt"] then
+			for i=0,#DPX.Controls.events["general"] do
+				local v = DPX.Controls.events["general"][i]
+				local keyString = DPX.Controls.Current[v["bind"]]
 				local key = Keys[keyString]
 
 				if key == 199 then
 					if IsDisabledControlJustReleased(1,key) then
 						local isConflicted = -1
-						for i=0,#QPX.Controls.secondaryBinds do
-							if IsControlPressed(1,QPX.Controls.secondaryBinds[i][1]) or IsDisabledControlPressed(1,QPX.Controls.secondaryBinds[i][1]) then
-								isConflicted = QPX.Controls.secondaryBinds[i][1]
+						for i=0,#DPX.Controls.secondaryBinds do
+							if IsControlPressed(1,DPX.Controls.secondaryBinds[i][1]) or IsDisabledControlPressed(1,DPX.Controls.secondaryBinds[i][1]) then
+								isConflicted = DPX.Controls.secondaryBinds[i][1]
 							end
 						end
 
@@ -496,13 +496,13 @@ Citizen.CreateThread(function()
 							Wait(100)
 							if IsControlPressed(1,isConflicted) or IsDisabledControlPressed(1,isConflicted) then
 								local eventBind, idEvent = findBind(key,isConflicted)
-								QPX.DataControls.validEvent(eventBind,idEvent,i)
+								DPX.DataControls.validEvent(eventBind,idEvent,i)
 							else
-								QPX.DataControls.validEvent(v.event,v.id,i)
+								DPX.DataControls.validEvent(v.event,v.id,i)
 							end
 						else
 							if (GetGameTimer()-timer) > 400 then
-								QPX.DataControls.validEvent(v.event,v.id,i)
+								DPX.DataControls.validEvent(v.event,v.id,i)
 							end
 						end
 					end
@@ -517,9 +517,9 @@ Citizen.CreateThread(function()
 							end
 							if validTrigger then
 								local isConflicted = -1
-								for i=0,#QPX.Controls.secondaryBinds do
-									if IsControlPressed(1,QPX.Controls.secondaryBinds[i][2]) or IsDisabledControlPressed(1,QPX.Controls.secondaryBinds[i][2]) then
-										isConflicted = QPX.Controls.secondaryBinds[i][2]
+								for i=0,#DPX.Controls.secondaryBinds do
+									if IsControlPressed(1,DPX.Controls.secondaryBinds[i][2]) or IsDisabledControlPressed(1,DPX.Controls.secondaryBinds[i][2]) then
+										isConflicted = DPX.Controls.secondaryBinds[i][2]
 									end
 								end
 
@@ -529,12 +529,12 @@ Citizen.CreateThread(function()
 									if IsControlPressed(1,isConflicted) or IsDisabledControlPressed(1,isConflicted) then
 										local eventBind, idEvent = findBind(key,isConflicted)
 										timer = GetGameTimer();
-										QPX.DataControls.validEvent(eventBind,idEvent,i)
+										DPX.DataControls.validEvent(eventBind,idEvent,i)
 									else
-										QPX.DataControls.validEvent(v.event,v.id,i)
+										DPX.DataControls.validEvent(v.event,v.id,i)
 									end
 								else
-									QPX.DataControls.validEvent(v.event,v.id,i)
+									DPX.DataControls.validEvent(v.event,v.id,i)
 								end
 							end
 						end
@@ -554,15 +554,15 @@ function findBind(first,last)
 
 	if first == nil then return end
 
-	for i=0,#QPX.Controls.events["general"] do
+	for i=0,#DPX.Controls.events["general"] do
 		local firstCorrect = false
 		local secondCorrect = false
 
 
 
 
-		local v = QPX.Controls.events["general"][i]
-		local keyString = QPX.Controls.Current[v["bind"]]
+		local v = DPX.Controls.events["general"][i]
+		local keyString = DPX.Controls.Current[v["bind"]]
 
 		if string.match(keyString, "+")  then
 			local result = split(keyString, "+")
@@ -612,10 +612,10 @@ Citizen.CreateThread(function()
 	while true do
 
 		DisableControlAction(1, 199, true)
-		if QPX.Controls.Current["tokoptt"] then
-			for i=0,#QPX.Controls.events["general-dist"] do
-				local v = QPX.Controls.events["general-dist"][i]
-				local key = Keys[QPX.Controls.Current[v["bind"]]]
+		if DPX.Controls.Current["tokoptt"] then
+			for i=0,#DPX.Controls.events["general-dist"] do
+				local v = DPX.Controls.events["general-dist"][i]
+				local key = Keys[DPX.Controls.Current[v["bind"]]]
 				local hasTimer = 99999;
 				if eventTimer[key] then
 					hasTimer = (GetGameTimer()-eventTimer[key])
@@ -623,7 +623,7 @@ Citizen.CreateThread(function()
 
 				if IsControlJustPressed(1,key) and hasTimer > 500 then	
 					eventTimer[key] = GetGameTimer();		
-					QPX.DataControls.distanceCall(v["distanceName"])
+					DPX.DataControls.distanceCall(v["distanceName"])
 				end	
 			end
 		end
@@ -634,7 +634,7 @@ end)
 
 RegisterNetEvent("qpixel-base:cl:player_control")
 AddEventHandler("qpixel-base:cl:player_control", function(controlTable)
-	QPX.DataControls.setBindTable(controlTable,false)
+	DPX.DataControls.setBindTable(controlTable,false)
 end)
 
 Keys = {
