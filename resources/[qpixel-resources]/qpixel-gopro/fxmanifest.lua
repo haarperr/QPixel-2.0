@@ -1,9 +1,9 @@
 fx_version 'cerulean'
 games { 'gta5' }
 
-client_script "@dpx/client/lib.js"
-server_script "@dpx/server/lib.js"
-shared_script "@dpx/shared/lib.lua"
+client_script "@qpx/client/lib.js"
+server_script "@qpx/server/lib.js"
+shared_script "@qpx/shared/lib.lua"
 
 client_script "@qpixel-sync/client/lib.lua"
 client_script "@qpixel-lib/client/cl_ui.lua"
