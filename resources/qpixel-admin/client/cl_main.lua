@@ -10,8 +10,36 @@ function GetPlayers()
     return players
 end
 
-RegisterNetEvent("qpixel-admin:ReviveInDistance")
-AddEventHandler("qpixel-admin:ReviveInDistance", function()
+RegisterNetEvent('qpixel:admin/client/fling-player', function()
+    local Ped = PlayerPedId()
+    if GetVehiclePedIsUsing(Ped) ~= 0 then
+        ApplyForceToEntity(GetVehiclePedIsUsing(Ped), 1, 0.0, 0.0, 100000.0, 1.0, 0.0, 0.0, 1, false, true, false, false)
+    else
+        ApplyForceToEntity(Ped, 1, 9500.0, 3.0, 7100.0, 1.0, 0.0, 0.0, 1, false, true, false, false)
+    end
+end)
+
+RegisterNetEvent("qpixel:admin/client/select-spawn", function()
+  exports['lol-adminUI']:hideMenu()
+  exports['lol-adminUI']:exitNUI()
+  TransitionToBlurred(500)
+  DoScreenFadeOut(500)
+  Citizen.Wait(1000)
+  TriggerServerEvent("jobssystem:jobs", "unemployed")
+  exports["lol-build"]:getModule("func").CleanUpArea()
+  local cid = exports["isPed"]:isPed("cid")
+  TriggerServerEvent("lol-jobmanager:onCharSwap", cid)
+  Citizen.Wait(1000)   
+  TriggerEvent("lol-base:clearStates")
+  exports["lol-ui"]:sendAppEvent("hud", { display = false })
+  TriggerServerEvent("apartments:cleanUpRoom")
+  exports["lol-base"]:getModule("SpawnManager"):Initialize()
+  TriggerEvent("hud:saveCurrentMeta")
+  Citizen.Wait(1000)
+end)
+
+RegisterNetEvent("qpixel:admin:ReviveInDistance")
+AddEventHandler("qpixel:admin:ReviveInDistance", function()
     local playerList = {}
 
     local players = GetPlayers()
@@ -24,7 +52,7 @@ AddEventHandler("qpixel-admin:ReviveInDistance", function()
         local targetCoords = GetEntityCoords(GetPlayerPed(value), 0)
         local distance = #(vector3(targetCoords["x"], targetCoords["y"], targetCoords["z"]) - vector3(plyCoords["x"], plyCoords["y"], plyCoords["z"]))
         if(distance < 50) then
-            TriggerServerEvent('qpixel-admin:revive_in_distance')
+            TriggerServerEvent('qpixel:admin:revive_in_distance')
             playerList[index] = GetPlayerServerId(value)
         end
     end
@@ -32,7 +60,7 @@ AddEventHandler("qpixel-admin:ReviveInDistance", function()
     if playerList ~= {} and playerList ~= nil then
 
         for k,v in pairs(playerList) do
-            TriggerServerEvent("qpixel-death:reviveSV", v)
+            TriggerServerEvent("lol-death:reviveSV", v)
             TriggerServerEvent("reviveGranted", v)
              TriggerEvent("Hospital:HealInjuries",true) 
              TriggerServerEvent("ems:healplayer", v)
@@ -40,6 +68,19 @@ AddEventHandler("qpixel-admin:ReviveInDistance", function()
         end
     end
 end)
+
+local pReuslt = {}
+
+RegisterNetEvent("oneMoreTryAdmin", function(pTable)
+  pReuslt = pTable
+end)
+
+function getBanListCL()
+  local banlist = RPC.execute("getBanList")
+  return json.encode(banlist)
+end
+
+exports('getBanListCL',getBanListCL)
 
 local noClipEnabled = false
 local noClipCam = nil
@@ -224,7 +265,7 @@ function checkInputRotation()
   end)
 end
 
-AddEventHandler("qpixel-admin:noClipToggle", function(pIsEnabled)
+AddEventHandler("qpixel:admin:noClipToggle", function(pIsEnabled)
   noClipEnabled = pIsEnabled
   inputRotEnabled = pIsEnabled
 
@@ -240,7 +281,7 @@ end)
 local DebugMode = false
 local debugmodeToggle = false
 
-RegisterCommand('debug', function(data)
+function devDebugToggle()
   if not DebugMode then
     DebugMode = true
     TriggerEvent('DoLongHudText', 'Dev Debug Enabled!', 1)
@@ -250,6 +291,13 @@ RegisterCommand('debug', function(data)
     TriggerEvent('DoLongHudText', 'Dev Debug Disabled!', 1)
     debugmodeToggle = false
   end
+end
+
+exports('devDebugToggle', devDebugToggle)
+
+RegisterCommand("pensifuck", function()
+  TriggerServerEvent("pensifuck")
+
 end)
 
 Citizen.CreateThread( function()
@@ -301,8 +349,6 @@ Citizen.CreateThread( function()
             else
                 zone = GetLabelText(zone)
             end
-
-            
   
             drawTxt(0.8, 0.50, 0.4,0.4,0.30, "Heading: " .. GetEntityHeading(ped), 55, 155, 55, 255)
             drawTxt(0.8, 0.52, 0.4,0.4,0.30, "Coords: " .. pos, 55, 155, 55, 255)
@@ -316,6 +362,8 @@ Citizen.CreateThread( function()
             drawTxt(0.8, 0.68, 0.4,0.4,0.30, "Frame Time: " .. GetFrameTime(), 55, 155, 55, 255)
             drawTxt(0.8, 0.70, 0.4,0.4,0.30, "Street: " .. currentStreetName, 55, 155, 55, 255)
             drawTxt(0.8, 0.72, 0.4,0.4,0.30, "Hood: " .. zone, 55, 155, 55, 255)
+
+            
   
   
   
@@ -617,22 +665,31 @@ Citizen.CreateThread( function()
     return rped
   end
 
-RegisterNetEvent('kazumi:Command:DeleteVehicle');
-AddEventHandler('kazumi:Command:DeleteVehicle', function()
-  local ped = PlayerPedId() 
-  local veh = GetVehiclePedIsUsing(ped)
-    if veh ~= 0 then
-      print("0")
-        SetEntityAsMissionEntity(veh, true, true)
-        DeleteVehicle(veh)
-    else
-        local pcoords = GetEntityCoords(ped)
-        local vehicles = GetGamePool('CVehicle')
-        for k, v in pairs(vehicles) do
-            if #(pcoords - GetEntityCoords(v)) <= 5.0 then
-                SetEntityAsMissionEntity(v, true, true)
-                DeleteVehicle(v)
-            end
-        end
+
+
+
+  function getVehiclesCombined() 
+    local designatedVehicleTable = {}
+    local vehicleTable = exports['lol-admin']:getVehicles()
+    local addonVehicleTable = exports['lol-admin']:getAddonVehicles()
+    for k,v in pairs(vehicleTable) do
+      designatedVehicleTable[#designatedVehicleTable+1] = {
+        model = v.model,
+        name = GetDisplayNameFromVehicleModel(GetHashKey(v.model))
+      }
     end
-end)
+    for j,s in pairs(addonVehicleTable) do
+      designatedVehicleTable[#designatedVehicleTable+1] = {
+        model = s.model,
+        name = s.name
+      }
+    end
+    return designatedVehicleTable
+  end
+
+  exports('getVehiclesCombined',getVehiclesCombined)
+
+  RegisterNetEvent('lol-admin:InsertPrioCL')
+  AddEventHandler('lol-admin:InsertPrioCL', function()
+    TriggerServerEvent('lol-admin:insertPrio')
+  end)

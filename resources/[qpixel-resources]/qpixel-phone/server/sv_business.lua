@@ -99,7 +99,7 @@ RegisterServerEvent('qpixel-phone:business_edit', function(pRank, pStateID, pPas
     })
 end)
 
-RPC.register("lol:getBusinessLogs", function(pSource, pBusiness)
+RPC.register("qpixel:getBusinessLogs", function(pSource, pBusiness)
     local shitfuckshitfuck = {}
     local businessLogs = MySQL.query.await([[
         SELECT * FROM _business_logs

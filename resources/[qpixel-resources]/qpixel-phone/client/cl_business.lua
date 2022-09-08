@@ -164,7 +164,7 @@ RegisterNUICallback('btnTaskGroups', function()
   end)
 
   RegisterNUICallback('openBusinessLogs', function(data)
-    local businessLogs = RPC.execute("lol:getBusinessLogs", data.business)
+    local businessLogs = RPC.execute("qpixel:getBusinessLogs", data.business)
 
     SendNUIMessage({
       openSection = "addBusinessLogs",

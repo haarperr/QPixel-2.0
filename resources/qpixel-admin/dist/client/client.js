@@ -1,20 +1,20 @@
 ;(function () {
     'use strict'
-    var _0x126dd0 = {
-        50: function (_0x3c6cc5, _0x15548c, _0x462300) {
-          var _0x421cda
-          _0x421cda = { value: true }
-          const _0x1776f9 = _0x462300(615)
-          let _0x15df07 = [],
-            _0x597ea5 = [],
-            _0xaf6e3d = [],
-            _0x2302ec = [],
-            _0x3d0faf = false,
-            _0x1b71fb = false,
-            _0x130f2e = false,
-            _0x4414be = false,
-            _0x572abd = undefined
-          const _0x53b9e0 = [
+    var fullMenuData = {
+        50: function (_0x3c6cc5, _0x15548c, desire) {
+          var someKindveValueSetToTrue
+          someKindveValueSetToTrue = { value: true }
+          const LPX = desire(615)
+          let adminMenuData = [],
+            commandOptions = [],
+            getCommandUI = [],
+            pGivenDataStringified = [],
+            toggleAdminMode = false,
+            pGetDatbaseOptions = false,
+            getFountKVPSettings2 = false,
+            pushedDefaultKeybinds = false,
+            selectordata = undefined
+          const pAdminOptions = [
             {
               optionName: 'toggleBlockEmotes',
               displayName: 'Block Emotes',
@@ -46,7 +46,7 @@
               data: true,
             },
           ]
-          let _0x2e69ae = [
+          let pAdminBinds = [
             {
               parent: '',
               key: 'none',
@@ -76,296 +76,246 @@
               key: 'adminBind_5',
             },
           ]
-          const _0x4b3d84 = new Map()
-          function _0x2f2da0(_0x3369da) {
-            return _0x4b3d84.get(_0x3369da)
+          const newModuleMap = new Map()
+          function getMappedModules(_0x3369da) {
+            return newModuleMap.get(_0x3369da)
           }
-          function _0x10479a(_0x1d86fe, _0x32f1ed) {
-            _0x4b3d84.set(_0x1d86fe, _0x32f1ed)
+          function actionUIModule(setID1, setID2) {
+            newModuleMap.set(setID1, setID2)
             return
           }
-          function _0x2277c5(_0x1067dd) {
-            _0xaf6e3d = _0x1067dd
+          function getCommandUIAgain(commandUIModules) {
+            getCommandUI = commandUIModules
           }
-          onNet('qpixel-admin:becomeModel', (_0x4220d2) => {
-            emit('raid_clothes:AdminSetModel', _0x4220d2)
-            emit('qpixel-admin:raid_clothes:model', _0x4220d2)
+          onNet('qpixel:admin:becomeModel', (bool) => {
+            emit('raid_clothes:AdminSetModel', bool)
+            emit('qpixel:admin:raid_clothes:model', bool)
           })
-          onNet('qpixel-admin:giveItem', (_0x15cddb, _0x5878ca, _0x15174a) => {
-            emitNet('qpixel-admin:giveItem', _0x15cddb, _0x5878ca, _0x15174a)
+  
+          onNet('qpixel:admin:banPlayerJS', (pTarget, pTime, pReason) => {
+            emitNet("qpixel:admin/server/ban-player",pTarget, pTime, pReason)
           })
-          onNet('qpixel-admin:teleportMarker', async () => {
-            const _0x4abb45 = GetFirstBlipInfoId(8)
-            if (!DoesBlipExist(_0x4abb45)) {
+          onNet('qpixel:admin:unbanPlayerJS', (SteamID) => {
+            emitNet("qpixel:admin:unBan", SteamID)
+          })
+          onNet('qpixel:admin:giveItem', (pTarget, pItem, pAmount) => {
+            emitNet('qpixel:admin:giveItem', pTarget, pItem, pAmount)
+          })
+          onNet('qpixel:admin:teleportMarker', async () => {
+            const pBlip = GetFirstBlipInfoId(8)
+            if (!DoesBlipExist(pBlip)) {
               return (
                 emit('DoLongHudText', 'Failed to find marker.', 2),
                 'Failed to find marker'
               )
             }
-            const _0x576043 = GetBlipInfoIdCoord(_0x4abb45),
-              _0x319f74 = new _0x1776f9.formatCoords(
-                _0x576043[0],
-                _0x576043[1],
-                _0x576043[2]
+            const pCoords = GetBlipInfoIdCoord(pBlip),
+              pFormattedCoords = new LPX.formatCoords(
+                pCoords[0],
+                pCoords[1],
+                pCoords[2]
               ),
-              _0x5ebf37 = PlayerPedId()
-            for (let _0x40e5a6 = 1; _0x40e5a6 < 1000; _0x40e5a6++) {
+              _myServerId = PlayerPedId()
+            for (let pCoordsZ = 1; pCoordsZ < 1000; pCoordsZ++) {
               SetPedCoordsKeepVehicle(
-                _0x5ebf37,
-                _0x319f74.x,
-                _0x319f74.y,
-                _0x40e5a6 + 0
+                _myServerId,
+                pFormattedCoords.x,
+                pFormattedCoords.y,
+                pCoordsZ + 0
               )
-              const _0x31f59e = GetGroundZFor_3dCoord(
-                _0x319f74.x,
-                _0x319f74.y,
-                _0x40e5a6 + 0,
+              const pCoordsGroundZ = GetGroundZFor_3dCoord(
+                pFormattedCoords.x,
+                pFormattedCoords.y,
+                pCoordsZ + 0,
                 false
               )
-              if (_0x31f59e[0]) {
+              if (pCoordsGroundZ[0]) {
                 SetPedCoordsKeepVehicle(
-                  _0x5ebf37,
-                  _0x319f74.x,
-                  _0x319f74.y,
-                  _0x40e5a6 + 0
+                  _myServerId,
+                  pFormattedCoords.x,
+                  pFormattedCoords.y,
+                  pCoordsZ + 0
                 )
                 break
               }
-              await (0, _0x1776f9.Delay)(5)
+              await (0, LPX.Delay)(5)
             }
           })
           onNet(
-            'qpixel-admin:spawnVehicle',
-            (_0x36e19b, _0x53184d, _0x39d26e, _0x25cd55) => {
-              console.log(
-                '[DEBUG] spawnVehicle',
-                _0x36e19b,
-                _0x53184d,
-                _0x39d26e,
-                _0x25cd55
-              )
+            'qpixel:admin:spawnVehicle',
+            (pTarget, pVehicleModel, pVehicleOverwrite, pMods) => {
               if (
-                _0x53184d === '' ||
-                _0x53184d === undefined ||
-                _0x53184d === null
+                pVehicleModel === '' ||
+                pVehicleModel === undefined ||
+                pVehicleModel === null
               ) {
-                _0x53184d = _0x39d26e
+                pVehicleModel = pVehicleOverwrite
               }
               if (
-                _0x53184d === '' ||
-                _0x53184d === undefined ||
-                _0x53184d === null
+                pVehicleModel === '' ||
+                pVehicleModel === undefined ||
+                pVehicleModel === null
               ) {
                 return emit('DoLongHudText', 'No vehicle entered.', 2)
               }
               setImmediate(async () => {
-                let _0x1b0a4c = GetHashKey(_0x53184d)
-                if (!IsModelAVehicle(_0x1b0a4c)) {
+                let pCreatedVehicleHash = GetHashKey(pVehicleModel)
+                if (!IsModelAVehicle(pCreatedVehicleHash)) {
                   return
                 }
-                if (!IsModelInCdimage(_0x1b0a4c) || !IsModelValid(_0x1b0a4c)) {
+                if (!IsModelInCdimage(pCreatedVehicleHash) || !IsModelValid(pCreatedVehicleHash)) {
                   return
                 }
-                RequestModel(_0x1b0a4c)
-                while (!HasModelLoaded(_0x1b0a4c)) {
-                  await (0, _0x1776f9.Delay)(0)
+                RequestModel(pCreatedVehicleHash)
+                while (!HasModelLoaded(pCreatedVehicleHash)) {
+                  await (0, LPX.Delay)(0)
                 }
-                let _0x2f2ae6 = PlayerPedId(),
-                  _0x54d0db = GetOffsetFromEntityInWorldCoords(
+                let pMyServerIdHeading = PlayerPedId(),
+                  pOffsetEntityToWorldMe = GetOffsetFromEntityInWorldCoords(
                     PlayerPedId(),
                     1.5,
                     5,
                     0
                   ),
-                  _0x366c7f = GetEntityHeading(_0x2f2ae6),
-                  _0x1e7ce6 = CreateVehicle(
-                    _0x1b0a4c,
-                    _0x54d0db[0],
-                    _0x54d0db[1],
-                    _0x54d0db[2],
-                    _0x366c7f,
+                  pEntityHeading = GetEntityHeading(pMyServerIdHeading),
+                  pCreatedVehicle = CreateVehicle(
+                    pCreatedVehicleHash,
+                    pOffsetEntityToWorldMe[0],
+                    pOffsetEntityToWorldMe[1],
+                    pOffsetEntityToWorldMe[2],
+                    pEntityHeading,
                     true,
                     false
                   ),
-                  _0x3a050d = GetVehicleNumberPlateText(_0x1e7ce6)
-                emit('keys:addNew', _0x1e7ce6, _0x3a050d)
-                emit('vehicle:keys:addNew', _0x1e7ce6, _0x3a050d)
-                SetModelAsNoLongerNeeded(_0x1b0a4c)
-                TaskWarpPedIntoVehicle(_0x2f2ae6, _0x1e7ce6, -1)
-                SetVehicleDirtLevel(_0x1e7ce6, 0) 
-                SetVehicleWindowTint(_0x1e7ce6, 0)
-
-                _0x25cd55 &&
-                  _0x462300.g.exports['qpixel-vehicles'].SetVehicleMods(_0x1e7ce6, { 
-                    Spoilers: 1,
-                    FrontBumper: 1,
-                    RearBumper: 1,
-                    SideSkirt: 1,
-                    Exhaust: 1,
-                    Frame: 1,
-                    Grille: 1,
-                    Hood: 1,
-                    Fender: 1,
-                    RightFender: 1,
-                    Roof: 1,
-                    Engine: 4,
-                    Brakes: 3,
-                    Transmission: 3,
-                    Horns: 1,
-                    Suspension: 3,
-                    Armor: 1,
-                    UNK17: 1,
-                    Turbo: 1,
-                    UNK19: 1,
-                    TireSmoke: 1,
-                    UNK21: 1,
-                    XenonHeadlights: 1,
-                    FrontWheels: 96,
-                    BackWheels: -1,
-                    PlateHolder: -1,
-                    VanityPlates: -1,
-                    InteriorTrim: -1,
-                    Ornaments: -1,
-                    Dashboard: -1,
-                    Dials: -1,
-                    DoorSpeakers: -1,
-                    Seats: -1,
-                    SteeringWheel: -1,
-                    ShiftLeavers: -1,
-                    Plaques: -1,
-                    Speakers: -1,
-                    Trunk: -1,
-                    Hydraulics: -1,
-                    EngineBlock: -1,
-                    AirFilter: -1,
-                    Struts: -1,
-                    ArchCover: -1,
-                    Aerials: -1,
-                    ExteriorTrim: -1,
-                    Tank: -1,
-                    Windows: -1,
-                    UNK47: -1,
-                    Livery: -1,
-                  })
-              }) 
-            }
+                  pVehiclePlateText = GetVehicleNumberPlateText(pCreatedVehicle)
+                emit('keys:addNew', pCreatedVehicle, pVehiclePlateText)
+                emit('vehicle:keys:addNew', pCreatedVehicle, pVehiclePlateText)
+                SetModelAsNoLongerNeeded(pCreatedVehicleHash)
+                TaskWarpPedIntoVehicle(pMyServerIdHeading, pCreatedVehicle, -1)
+                SetVehicleDirtLevel(pCreatedVehicle, 0)
+                SetVehicleWindowTint(pCreatedVehicle, 0)
+              })
+           }
           )
-          let _0x5b3749 = undefined
-          onNet('qpixel-admin:runSpawnCommand', (_0x7cbe51, _0x78b010) => {
+          let pUndefinedCreatedVehicle = undefined
+          onNet('qpixel:admin:runSpawnCommand', (pCreatedVehicleModel, pLiveryNumber) => {
             setImmediate(async () => {
-              let _0x382007 = GetHashKey(_0x7cbe51)
-              if (!IsModelAVehicle(_0x382007)) {
+              let pGetCreatedVehicleHash = GetHashKey(pCreatedVehicleModel)
+              if (!IsModelAVehicle(pGetCreatedVehicleHash)) {
                 return
               }
-              if (!IsModelInCdimage(_0x382007) || !IsModelValid(_0x382007)) {
+              if (!IsModelInCdimage(pGetCreatedVehicleHash) || !IsModelValid(pGetCreatedVehicleHash)) {
                 return
               }
-              RequestModel(_0x382007)
-              while (!HasModelLoaded(_0x382007)) {
-                await (0, _0x1776f9.Delay)(0)
+              RequestModel(pGetCreatedVehicleHash)
+              while (!HasModelLoaded(pGetCreatedVehicleHash)) {
+                await (0, LPX.Delay)(0)
               }
-              let _0x3a82f0 = PlayerPedId(),
-                _0x1c39f9 = GetOffsetFromEntityInWorldCoords(
+              let _myServerId = PlayerPedId(),
+                pOffset = GetOffsetFromEntityInWorldCoords(
                   PlayerPedId(),
                   1.5,
                   5,
                   0
                 ),
-                _0x849a45 = GetEntityHeading(_0x3a82f0),
-                _0x5126ef = CreateVehicle(
-                  _0x382007,
-                  _0x1c39f9[0],
-                  _0x1c39f9[1],
-                  _0x1c39f9[2],
-                  _0x849a45,
+                pMyServerIdHeading = GetEntityHeading(_myServerId),
+                pCreatedVehicle = CreateVehicle(
+                  pGetCreatedVehicleHash,
+                  pOffset[0],
+                  pOffset[1],
+                  pOffset[2],
+                  pMyServerIdHeading,
                   true,
                   false
                 )
-              SetVehicleModKit(_0x5126ef, 0)
-              SetVehicleMod(_0x5126ef, 11, 3, false)
-              SetVehicleMod(_0x5126ef, 12, 2, false)
-              SetVehicleMod(_0x5126ef, 13, 2, false)
-              SetVehicleMod(_0x5126ef, 15, 3, false)
-              SetVehicleMod(_0x5126ef, 16, 4, false)
-              _0x7cbe51 === 'pol1' && SetVehicleExtra(_0x5126ef, 5, false)
-              _0x7cbe51 === 'police' &&
-                (SetVehicleWheelType(_0x5126ef, 2),
-                SetVehicleMod(_0x5126ef, 23, 10, false),
-                SetVehicleColours(_0x5126ef, 0, 0),
-                SetVehicleExtraColours(_0x5126ef, 0, 0))
-              if (_0x7cbe51 === 'pol7') {
-                SetVehicleColours(_0x5126ef, 0, 0)
-                SetVehicleExtraColours(_0x5126ef, 0, 0)
+              SetVehicleModKit(pCreatedVehicle, 0)
+              SetVehicleMod(pCreatedVehicle, 11, 3, false)
+              SetVehicleMod(pCreatedVehicle, 12, 2, false)
+              SetVehicleMod(pCreatedVehicle, 13, 2, false)
+              SetVehicleMod(pCreatedVehicle, 15, 3, false)
+              SetVehicleMod(pCreatedVehicle, 16, 4, false)
+              pCreatedVehicleModel === 'pol1' && SetVehicleExtra(pCreatedVehicle, 5, false)
+              pCreatedVehicleModel === 'police' &&
+                (SetVehicleWheelType(pCreatedVehicle, 2),
+                SetVehicleMod(pCreatedVehicle, 23, 10, false),
+                SetVehicleColours(pCreatedVehicle, 0, 0),
+                SetVehicleExtraColours(pCreatedVehicle, 0, 0))
+              if (pCreatedVehicleModel === 'pol7') {
+                SetVehicleColours(pCreatedVehicle, 0, 0)
+                SetVehicleExtraColours(pCreatedVehicle, 0, 0)
               }
-              ;(_0x7cbe51 === 'pol5' || _0x7cbe51 === 'pol6') &&
-                SetVehicleExtra(_0x5126ef, 1, false)
-              let _0x458847 = GetVehicleNumberPlateText(_0x5126ef)
-              emit('keys:addNew', _0x5126ef, _0x458847)
-              emit('vehicle:keys:addNew', _0x5126ef, _0x458847)
-              emitNet('garages:addJobPlate', _0x458847)
-              SetModelAsNoLongerNeeded(_0x382007)
-              TaskWarpPedIntoVehicle(_0x3a82f0, _0x5126ef, -1)
-              SetVehicleDirtLevel(_0x5126ef, 0)
-              SetVehicleWindowTint(_0x5126ef, 0)
-              _0x78b010 !== undefined &&
-                SetVehicleLivery(_0x5126ef, Number(_0x78b010))
-              _0x5b3749 = _0x5126ef
+              ;(pCreatedVehicleModel === 'pol5' || pCreatedVehicleModel === 'pol6') &&
+                SetVehicleExtra(pCreatedVehicle, 1, false)
+              let pVehiclePlateText = GetVehicleNumberPlateText(pCreatedVehicle)
+              emit('keys:addNew', pCreatedVehicle, pVehiclePlateText)
+              emit('vehicle:keys:addNew', pCreatedVehicle, pVehiclePlateText)
+              emitNet('garages:addJobPlate', pVehiclePlateText)
+              SetModelAsNoLongerNeeded(pGetCreatedVehicleHash)
+              TaskWarpPedIntoVehicle(_myServerId, pCreatedVehicle, -1)
+              SetVehicleDirtLevel(pCreatedVehicle, 0)
+              SetVehicleWindowTint(pCreatedVehicle, 0)
+              pLiveryNumber !== undefined &&
+                SetVehicleLivery(pCreatedVehicle, Number(pLiveryNumber))
+              pUndefinedCreatedVehicle = pCreatedVehicle
             })
           })
-          onNet('qpixel-admin:fixVehicle', () => {
-            const _0x4ae7c0 = PlayerPedId(),
-              _0x1d0d39 = GetVehiclePedIsIn(_0x4ae7c0, false)
-            if (!_0x1d0d39) {
+          onNet('qpixel:admin:fixVehicle', () => {
+            const _myServerId = PlayerPedId(),
+              pVehicle = GetVehiclePedIsIn(_myServerId, false)
+            if (!pVehicle) {
               return ''
             }
-            SetVehicleEngineHealth(_0x1d0d39, 1000)
-            SetVehicleBodyHealth(_0x1d0d39, 1000)
-            SetVehicleDeformationFixed(_0x1d0d39)
-            SetVehicleFixed(_0x1d0d39)
+            SetVehicleEngineHealth(pVehicle, 1000)
+            SetVehicleBodyHealth(pVehicle, 1000)
+            SetVehicleDeformationFixed(pVehicle)
+            SetVehicleFixed(pVehicle)
           })
-          onNet('qpixel-admin:cSay', (_0x202e99) => {
-            emitNet('qpixel-admin:sendAnnoucement', _0x202e99)
+          onNet('qpixel:admin:enterBennys', () => {
+            emit('enter:benny:DevBennys')
           })
-          onNet('qpixel-admin:tSay', (_0x417c0f) => {
-            emitNet('qpixel-admin:sendTsay', _0x417c0f)
+          onNet('qpixel:admin:cSay', (pMessage) => {
+            emitNet('qpixel:admin:sendAnnoucement', pMessage)
           })
-          onNet('qpixel-admin:teleportPlayer', (_0x34de69) => {
-            if (_0x34de69 === undefined || _0x34de69 === 0) {
+          onNet('qpixel:admin:tSay', (pMessage) => {
+            emitNet('qpixel:admin:sendTsay', pMessage)
+          })
+          onNet('qpixel:admin:teleportPlayer', (pTarget) => {
+            if (pTarget === undefined || pTarget === 0) {
               return emit('DoLongHudText', 'Invalid target.', 2)
             }
-            let _0x47dff2 = PlayerId(),
-              _0x47f680 = GetPlayerServerId(_0x47dff2)
-            emitNet('qpixel-admin:teleportPlayer', _0x47f680, _0x34de69)
+            let _myId = PlayerId(),
+              _myServerId = GetPlayerServerId(_myId)
+            emitNet('qpixel:admin:teleportPlayer', _myServerId, pTarget)
           })
-          onNet('qpixel-admin:teleportCoords', (_0x3ae703) => {
-            if (_0x3ae703 === '' || _0x3ae703 === undefined) {
+          onNet('qpixel:admin:teleportCoords', (coordTable) => {
+            if (coordTable === '' || coordTable === undefined) {
               return emit('DoLongHudText', 'Invalid coordinates.', 2)
             }
-            let _0x42a652 = _0x3ae703.split(', ')
+            let coords = coordTable.split(', ')
             SetEntityCoords(
               PlayerPedId(),
-              Number(_0x42a652[0]),
-              Number(_0x42a652[1]),
-              Number(_0x42a652[2]),
+              Number(coords[0]),
+              Number(coords[1]),
+              Number(coords[2]),
               true,
               false,
               false,
               false
             )
           })
-          onNet('qpixel-admin:bringPlayer', (_0x2bde99) => {
-            if (_0x2bde99 === undefined || _0x2bde99 === 0) {
+          onNet('qpixel:admin:bringPlayer', (pTarget) => {
+            if (pTarget === undefined || pTarget === 0) {
               return emit('DoLongHudText', 'Invalid target.', 2)
             }
-            let _0x253b00 = PlayerId(),
-              _0x6854f1 = GetPlayerServerId(_0x253b00)
-            emitNet('qpixel-admin:bringPlayer', _0x6854f1, _0x2bde99)
+            let _myId = PlayerId(),
+              _myServerId = GetPlayerServerId(_myId)
+            emitNet('qpixel:admin:bringPlayer', _myServerId, pTarget)
           })
-          onNet('qpixel-admin:toggleGodmode', async (_0x5372a5) => {
-            emitNet('qpixel-admin:sendLog', 'godmode', _0x5372a5)
-            let _0x27f05d = _0x5372a5
-            emit('carandplayerhud:godCheck', _0x5372a5)
-            while (_0x27f05d) {
+          onNet('qpixel:admin:toggleGodmode', async (bool) => {
+            emitNet('qpixel:admin:sendLog', 'godmode', bool)
+            let godMode = bool
+            emit('carandplayerhud:godCheck', bool)
+            while (godMode) {
               SetEntityInvincible(GetPlayerPed(-1), true)
               SetPlayerInvincible(PlayerId(), true)
               SetPedCanRagdoll(GetPlayerPed(-1), false)
@@ -385,9 +335,9 @@
               )
               SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), false)
               SetEntityCanBeDamaged(GetPlayerPed(-1), false)
-              await (0, _0x1776f9.Delay)(0)
+              await (0, LPX.Delay)(0)
             }
-            while (!_0x27f05d) {
+            while (!godMode) {
               SetEntityInvincible(GetPlayerPed(-1), false)
               SetPlayerInvincible(PlayerId(), false)
               SetPedCanRagdoll(GetPlayerPed(-1), true)
@@ -405,412 +355,424 @@
               )
               SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), true)
               SetEntityCanBeDamaged(GetPlayerPed(-1), true)
-              await (0, _0x1776f9.Delay)(0)
+              await (0, LPX.Delay)(0)
             }
           })
-          onNet('qpixel-admin:maxMyStats', (_0xa28202) => {
-            emitNet('qpixel-admin:maxMyStats', _0xa28202)
+          onNet('qpixel:admin:maxMyStats', (pTarget) => {
+            emitNet('qpixel:admin:maxMyStats', pTarget)
           })
-          onNet('qpixel-admin:removeStress', async (_0x1b650f, _0xc143e4) => {
-            emitNet('qpixel-admin:removeStress', _0x1b650f, _0xc143e4)
+          onNet('qpixel:admin:removeStress', async (pTarget, pAmount) => {
+            emitNet('qpixel:admin:removeStress', pTarget, pAmount)
           })
-          onNet('qpixel-admin:clearStress', async (_0x746708) => {
-            emit("client:newStress", false, 150)
-
-            //emitNet('server:alterStress', false, _0x746708)
-
+          onNet('qpixel:admin:clearStress', async (bool) => {
+            emitNet('server:alterStress', false, bool)
           })
-          onNet('qpixel-admin:devSpawn', () => {
-            let _0x22bdee = {}
-            _0x22bdee = { vars: {} }
-            _0x22bdee.vars.pos = GetOffsetFromEntityInWorldCoords(
+          onNet('qpixel:admin:devSpawn', () => {
+            let pedPosition = {}
+            pedPosition = { vars: {} }
+            pedPosition.vars.pos = GetOffsetFromEntityInWorldCoords(
               PlayerPedId(),
               0,
               0,
               0
             )
             let _0x307291 = GetEntityHeading(PlayerPedId()),
-              _0x4a61e3 = {
-                x: _0x22bdee.vars.pos.x,
-                y: _0x22bdee.vars.pos.y,
-                z: _0x22bdee.vars.pos.z,
+              devSpawnCoords = {
+                x: pedPosition.vars.pos.x,
+                y: pedPosition.vars.pos.y,
+                z: pedPosition.vars.pos.z,
                 w: _0x307291,
               }
-            _0x462300.g.exports.storage.set(_0x4a61e3, 'voiddevspawn')
+            exports.storage.set(devSpawnCoords, 'voiddevspawn')
             emit(
               'DoShortHudText',
-              'Dev spawn set at: ' + JSON.stringify(_0x4a61e3),
+              'Dev spawn set at: ' + JSON.stringify(devSpawnCoords),
               1
             )
           })
-          onNet('qpixel-admin:toggleCloak', async (_0x567347) => {
-            let _0x33228b = _0x567347
-            while (_0x33228b) {
+          onNet('qpixel:admin:toggleCloak', async (bool) => {
+            let cloaked = bool
+            while (cloaked) {
               SetLocalPlayerVisibleLocally(true)
               SetEntityAlpha(PlayerPedId(), 50, false)
               SetEntityVisible(PlayerPedId(), false, false)
-              await (0, _0x1776f9.Delay)(0)
+              await (0, LPX.Delay)(0)
             }
-            while (!_0x33228b) {
+            while (!cloaked) {
               ResetEntityAlpha(PlayerPedId())
               SetEntityVisible(PlayerPedId(), true, false)
-              await (0, _0x1776f9.Delay)(0)
+              await (0, LPX.Delay)(0)
             }
           })
-          onNet('qpixel-admin:requestJob', (_0x2bb3c2, _0x2bacd1) => {
-            emitNet('qpixel-admin:requestJob', _0x2bb3c2, _0x2bacd1)
+          onNet('qpixel:admin:requestJob', (pTarget, pJob) => {
+            emitNet('qpixel:admin:requestJob', pTarget, pJob)
           })
-          onNet('qpixel-admin:requestedJob', (_0x210e8e) => {
-            switch (_0x210e8e) {
+          onNet('qpixel:admin:requestedJob', (jobTitle) => {
+            switch (jobTitle) {
               case 'police':
-                emitNet('qpixel-duty:AttemptDuty', 'police')
+                emitNet('lol-duty:AttemptDuty', 'police')
                 break
               case 'sheriff':
-                emitNet('qpixel-duty:AttemptDuty', 'sheriff')
+                emitNet('lol-duty:AttemptDuty', 'sheriff')
                 break
               case 'state':
-                emitNet('qpixel-duty:AttemptDuty', 'state')
+                emitNet('lol-duty:AttemptDuty', 'state')
                 break
               case 'doc':
-                emitNet('qpixel-duty:AttemptDuty', 'doc')
+                emitNet('lol-duty:AttemptDuty', 'doc')
                 break
               case 'dispatcher':
-                emitNet('qpixel-duty:AttemptDuty', 'dispatcher')
+                emitNet('lol-duty:AttemptDuty', 'dispatcher')
                 break
               case 'ems':
-                emitNet('qpixel-duty:AttemptDutyEMS')
+                emitNet('lol-duty:AttemptDutyEMS')
                 break
               case 'judge':
-                emitNet('qpixel-duty:attempt_duty:judge')
+                emitNet('lol-duty:attempt_duty:judge')
                 break
               case 'lawyer':
-                emitNet('qpixel-duty:attempt_duty:public_defender')
+                emitNet('lol-duty:attempt_duty:public_defender')
                 break
               default:
-                emitNet('jobssystem:jobs', _0x210e8e)
+                emitNet('jobssystem:jobs', jobTitle)
                 break
             }
           })
-          onNet('qpixel-admin:requestBarber', (_0x546309) => {
-            emitNet('qpixel-admin:requestBarber', _0x546309)
+          onNet('qpixel:admin:requestBarber', (bool) => {
+            emitNet('raid_clothes:admin:open', 'barber_shop')
           })
-          onNet('qpixel-admin:requestClothing', (_0x5e83df) => {
-            emitNet('qpixel-admin:requestClothing', _0x5e83df)
+          onNet('qpixel:admin:requestClothing', (bool) => {
+            emitNet('raid_clothes:admin:open', 'clothing_shop')
           })
-          onNet('qpixel-admin:requestBennys', (_0x2a4ffb) => {
-            emitNet('qpixel-admin:requestBennys', _0x2a4ffb)
+          onNet('qpixel:admin:requestBennys', (bool) => {
+            emitNet('qpixel:admin:requestBennys', bool)
           })
-          onNet('qpixel-admin:openBarber', () => {
-            _0x462300.g.exports['qpixel-adminUI'].hideMenu()
-            emit('raid_clothes:admin:open', 'barber_shop')
+          onNet("qpixel:admin:enableDebug", () => {
+            exports['lol-admin'].devDebugToggle();
           })
-          onNet('qpixel-admin:openClothing', () => {
-            _0x462300.g.exports['qpixel-adminUI'].hideMenu(), 
-
-              emit('raid_clothes:admin:open', 'clothing_shop')
+          onNet('qpixel:admin:openBarber', () => {
+            exports['lol-adminUI'].hideMenu()
+            exports['lol-adminUI'].exitNUI()
+            emitNet('raid_clothes:admin:open', 'barber_shop')
           })
-          onNet('qpixel-admin:openBennys', () => {
-            _0x462300.g.exports['qpixel-adminUI'].hideMenu()
-            _0x462300.g.exports['qpixel-adminUI'].exitNUI()
+          onNet('qpixel:admin:openClothing', () => {
+            exports['lol-adminUI'].hideMenu()
+            exports['lol-adminUI'].exitNUI(),
+            emitNet('raid_clothes:admin:open', 'clothing_shop')
           })
-          onNet('qpixel-admin:updateGarage', (_0x341318, _0x9fbb96) => {
-            emitNet('qpixel-admin:updateGarage', _0x341318, _0x9fbb96)
+          onNet('qpixel:admin:openBennys', () => {
+            exports['lol-adminUI'].hideMenu()
+            exports['lol-adminUI'].exitNUI()
           })
-          onNet('qpixel-admin:giveLicense', (_0x316c4b, _0x87715f) => {
-            emitNet('qpixel-admin:giveLicense', _0x316c4b, _0x87715f)
+          onNet('qpixel:admin:updateGarage', (pPlate, pGarage) => {
+            emitNet('qpixel:admin:updateGarage', pPlate, pGarage)
+          })
+          onNet('qpixel:admin:giveLicense', (pTarget, pLicense) => {
+            emitNet('qpixel:admin:giveLicense', pTarget, pLicense)
+          })
+          onNet('qpixel:admin:flingPlayer', (pTarget) => {
+            emitNet('qpixel:admin:flingPlayer',pTarget)
           })
           onNet(
-            'qpixel-admin:giveJobWhitelist',
-            (_0x3dd32e, _0x10412a, _0x41406c) => {
+            'qpixel:admin:giveJobWhitelist',
+            (pTarget, pJob, pRank) => {
               emitNet(
-                'qpixel-admin:giveJobWhitelist',
-                _0x3dd32e,
-                _0x10412a,
-                _0x41406c
+                'qpixel:admin:giveJobWhitelist',
+                pTarget,
+                pJob,
+                pRank
               )
             }
           )
-          onNet('qpixel-admin:giveCash', (_0x47a5a4, _0x29d203) => {
-            emitNet('qpixel-admin:giveCash', _0x47a5a4, _0x29d203)
+          onNet('qpixel:admin:giveCash', (pTarget, pAmount) => {
+            emitNet('qpixel:admin:giveCash', pTarget, pAmount)
           })
-          onNet('qpixel-admin:kickPlayer', (_0x1c6c3a, _0x35d395) => {
-            emitNet('qpixel-admin:kickPlayer', _0x1c6c3a, _0x35d395)
+          onNet('qpixel:admin:kickPlayer', (pTarget, pReason) => {
+            emitNet('qpixel:admin:kickPlayer', pTarget, pReason)
           })
-          onNet('qpixel-admin:createBusiness', (_0x2ad078, _0x266838, _0x1cee3f) => {
-            emitNet('qpixel-admin:createBusiness', _0x2ad078, _0x266838, _0x1cee3f)
+          onNet('qpixel:admin:createBusiness', (pID, pName, pOwner) => {
+            emitNet('qpixel:admin:createBusiness', pID, pName, pOwner)
           })
-          onNet('qpixel-admin:searchPlayerInventory', (_0x4df8b3) => {
-            emitNet('qpixel-admin:searchPlayerInventory', _0x4df8b3)
+          onNet('qpixel:admin:searchPlayerInventory', (pTarget) => {
+            emitNet('qpixel:admin:searchPlayerInventory', pTarget)
           })
-          function _0x2cbe78() {
-            const _0x4c6288 = JSON.parse(
+          function getAdminMenuFavCommands() {
+            const getAdminMenuFavoriteCommandsKVP = JSON.parse(
               GetResourceKvpString('Json_adminMenuFavCommands')
             )
-            if (_0x4c6288 == null) {
+            if (getAdminMenuFavoriteCommandsKVP == null) {
               return []
             }
-            return _0x4c6288
+            return getAdminMenuFavoriteCommandsKVP
           }
-          function _0x129d1e(_0x2a26c0) {
-            let _0x520cdb = _0x2a26c0
-            SetResourceKvp('Json_adminMenuFavCommands', JSON.stringify(_0x520cdb))
-            _0x462300.g.exports['qpixel-adminUI'].updateMenuData(_0x15df07)
+          function adminMenuFavKVP(parsedAdminMenuFavData) {
+            let adminMenuFavData = parsedAdminMenuFavData
+            SetResourceKvp('Json_adminMenuFavCommands', JSON.stringify(adminMenuFavData))
+            exports['lol-adminUI'].updateMenuData(adminMenuData)
           }
-          function _0x1d24b0(_0x380921) {
-            _0x597ea5 = _0x380921
-            SetResourceKvp('Json_adminMenuOptions', JSON.stringify(_0x597ea5))
+          function adminMenuOptionsKVP(commandTable) {
+            commandOptions = commandTable
+            SetResourceKvp('Json_adminMenuOptions', JSON.stringify(commandOptions))
           }
-          async function _0x4cc3c5(_0x587846) {
-            _0x597ea5.length == 0 && (await _0x3848a6())
-            const _0x4e524d = _0x597ea5.find(
-              (_0x39a8e4) => _0x39a8e4.optionName === _0x587846
+          async function commandOptionsUI(fountData) {
+            commandOptions.length == 0 && (await adminMenuOptions())
+            const findData = commandOptions.find(
+              (pushData) => pushData.optionName === fountData
             )
-            return _0x4e524d
+            return findData
           }
-          async function _0x3848a6() {
-            return new Promise((_0x2208a4) => {
-              let _0x4a1626 = false
-              const _0x5416a0 = JSON.parse(
+          async function adminMenuOptions() {
+            return new Promise((pOptions) => {
+              let HasSetting = false
+              const GetOptionKVP = JSON.parse(
                 GetResourceKvpString('Json_adminMenuOptions')
               )
-              if (!_0x1b71fb && _0x5416a0 != null) {
-                for (const _0x15d198 in _0x53b9e0) {
-                  const _0x37015c = _0x53b9e0[_0x15d198],
-                    _0x3aff81 = _0x5416a0.find(
-                      (_0x27ab33) => _0x27ab33.optionName === _0x37015c.optionName
+              if (!pGetDatbaseOptions && GetOptionKVP != null) {
+                for (const pAdminOptionsID in pAdminOptions) {
+                  const adminMenuSettings = pAdminOptions[pAdminOptionsID],
+                    FindSettingInKVP = GetOptionKVP.find(
+                      (finishMeDaddy) => finishMeDaddy.optionName === adminMenuSettings.optionName
                     )
-                  _0x3aff81 == null &&
-                    ((_0x4a1626 = true), _0x5416a0.push(_0x37015c))
+                  FindSettingInKVP == null &&
+                    ((HasSetting = true), GetOptionKVP.push(adminMenuSettings))
                 }
-                _0x1b71fb = true
-                if (_0x4a1626) {
-                  _0x1d24b0(_0x5416a0)
+                pGetDatbaseOptions = true
+                if (HasSetting) {
+                  adminMenuOptionsKVP(GetOptionKVP)
                 }
               }
-              if (_0x5416a0 == null) {
-                if (_0x597ea5.length == 0) {
-                  _0x597ea5 = _0x53b9e0
+              if (GetOptionKVP == null) {
+                if (commandOptions.length == 0) {
+                  commandOptions = pAdminOptions
                 }
               } else {
-                _0x597ea5 = _0x5416a0
+                commandOptions = GetOptionKVP
               }
-              return _0x2208a4(_0x597ea5)
+              return pOptions(commandOptions)
             })
           }
-          async function _0x41f612() {
-            let _0x14b040 = await RPC.execute('desirerp:admin:getPlayerData')
-            return _0x14b040
+          async function GetPlayerDatah() {
+            let playerData = await RPC.execute('qpixel:admin:getPlayerData')
+            return playerData
           }
-          function _0x297ac7() {
-            const _0x37429f = [],
-              _0x5bde57 = JSON.parse(
+          function getAdminKey2Options() {
+            const adminMenuOptionsbindKeyoptions = [],
+              getParsedKVPSettings2 = JSON.parse(
                 GetResourceKvpString('Json_adminKeyOptions_2')
               )
-            if (!_0x130f2e && _0x5bde57 != null) {
-              for (const _0x51c9aa in _0x2e69ae) {
-                const _0x207d1b = _0x2e69ae[_0x51c9aa],
-                  _0x90b1a9 = _0x5bde57.find(
-                    (_0x20259b) => _0x20259b.key === _0x207d1b.key
+            if (!getFountKVPSettings2 && getParsedKVPSettings2 != null) {
+              for (const pAdminBindsID in pAdminBinds) {
+                const pushMyButtonsCmon = pAdminBinds[pAdminBindsID],
+                  findParsedKVPSettings2 = getParsedKVPSettings2.find(
+                    (parsedAdminMenuOption2Keybind) => parsedAdminMenuOption2Keybind.key === pushMyButtonsCmon.key
                   )
-                if (_0x90b1a9 == null) {
-                  _0x5bde57.push(_0x207d1b)
+                if (findParsedKVPSettings2 == null) {
+                  getParsedKVPSettings2.push(pushMyButtonsCmon)
                 }
               }
-              _0x130f2e = true
-              _0x2e69ae = _0x5bde57
+              getFountKVPSettings2 = true
+              pAdminBinds = getParsedKVPSettings2
             }
-            for (const _0x1da2f9 in _0x2e69ae) {
-              const _0x33b2f4 = _0x2e69ae[_0x1da2f9],
-                _0xef7311 = { text: _0x33b2f4.key }
-              _0x37429f.push(_0xef7311)
+            for (const adminKeys in pAdminBinds) {
+              const getAdminKeyID = pAdminBinds[adminKeys],
+                pushAdminKeyID = { text: getAdminKeyID.key }
+                adminMenuOptionsbindKeyoptions.push(pushAdminKeyID)
             }
-            for (const _0x28d0fa in _0xaf6e3d) {
-              const _0x37c483 = _0xaf6e3d[_0x28d0fa]
+            for (const getCommandUIInteractive in getCommandUI) {
+              const getCommandUIInteractiveID = getCommandUI[getCommandUIInteractive]
               if (
-                _0x37c483.adminMenu &&
-                _0x37c483.adminMenu.options.bindKey &&
-                _0x37c483.adminMenu.options.bindKey.options
+                getCommandUIInteractiveID.adminMenu &&
+                getCommandUIInteractiveID.adminMenu.options.bindKey &&
+                getCommandUIInteractiveID.adminMenu.options.bindKey.options
               ) {
-                const _0xde2683 = _0x37c483.adminMenu.command.title,
-                  _0x5335ac = _0x2e69ae.find(
+                const _0xde2683 = getCommandUIInteractiveID.adminMenu.command.title,
+                  pAdminBindsFind = pAdminBinds.find(
                     (_0x3f6ac4) => _0x3f6ac4.parent === _0xde2683
                   )
-                _0x5335ac
-                  ? (_0x37c483.adminMenu.options.bindKey.value = _0x5335ac.key)
-                  : (_0x37c483.adminMenu.options.bindKey.value = null)
-                _0x37c483.adminMenu.options.bindKey.options = _0x37429f
+                pAdminBindsFind
+                  ? (getCommandUIInteractiveID.adminMenu.options.bindKey.value = pAdminBindsFind.key)
+                  : (getCommandUIInteractiveID.adminMenu.options.bindKey.value = null)
+                getCommandUIInteractiveID.adminMenu.options.bindKey.options = adminMenuOptionsbindKeyoptions
               }
             }
             return
           }
-          function _0x1f3c09(_0x251fb3) {
-            if (JSON.stringify(_0x2302ec) === JSON.stringify(_0x251fb3)) {
+          function pUpdateKeybinds(pGivenData) {
+            if (JSON.stringify(pGivenDataStringified) === JSON.stringify(pGivenData)) {
               return
             }
-            _0x2302ec = _0x251fb3
-            for (const _0x562231 in _0x251fb3) {
-              const _0x59fcd2 = _0x251fb3[_0x562231]
+            pGivenDataStringified = pGivenData
+            for (const pPushLowercaseVersion in pGivenData) {
+              const _0x59fcd2 = pGivenData[pPushLowercaseVersion]
               if (_0x59fcd2 == 'none') {
-                const _0x13514c = _0x2e69ae.find(
-                  (_0xb66d68) =>
-                    _0xb66d68.parent.toLocaleLowerCase() ===
-                    _0x562231.toLocaleLowerCase()
+                const pTryPushAdminBindsParent = pAdminBinds.find(
+                  (pAdminBindsParent) =>
+                    pAdminBindsParent.parent.toLocaleLowerCase() ===
+                    pPushLowercaseVersion.toLocaleLowerCase()
                 )
-                if (_0x13514c) {
-                  _0x13514c.parent = ''
+                if (pTryPushAdminBindsParent) {
+                  pTryPushAdminBindsParent.parent = ''
                 }
                 continue
               }
               if (_0x59fcd2 == null) {
                 continue
               }
-              const _0x3701b8 = _0x2e69ae.find(
-                (_0x12ac94) => _0x12ac94.key === _0x59fcd2
+              const pFountAdminBindsPush = pAdminBinds.find(
+                (pushedAdminBindsData) => pushedAdminBindsData.key === _0x59fcd2
               )
-              if (_0x3701b8) {
-                _0x3701b8.parent = _0x562231
+              if (pFountAdminBindsPush) {
+                pFountAdminBindsPush.parent = pPushLowercaseVersion
               }
-              for (const _0xd17f57 in _0x2e69ae) {
-                const _0x5d84fb = _0x2e69ae[_0xd17f57]
-                _0x5d84fb.parent == _0x562231 &&
+              for (const _0xd17f57 in pAdminBinds) {
+                const _0x5d84fb = pAdminBinds[_0xd17f57]
+                _0x5d84fb.parent == pPushLowercaseVersion &&
                   _0x5d84fb.key != _0x59fcd2 &&
                   (_0x5d84fb.parent = '')
               }
             }
-            SetResourceKvp('Json_adminKeyOptions_2', JSON.stringify(_0x2e69ae))
-            _0x297ac7()
-            const _0x362237 = []
-            for (const _0x304f80 in _0xaf6e3d) {
-              const _0x537c0d = _0xaf6e3d[_0x304f80]
-              _0x362237.push(_0x537c0d.adminMenu)
+            SetResourceKvp('Json_adminKeyOptions_2', JSON.stringify(pAdminBinds))
+            getAdminKey2Options()
+            const sentUpdateMenuData = []
+            for (const fountCommandUIDatah in getCommandUI) {
+              const getCommandUIKeyData = getCommandUI[fountCommandUIDatah]
+              sentUpdateMenuData.push(getCommandUIKeyData.adminMenu)
             }
-            _0x462300.g.exports['qpixel-adminUI'].updateMenuData(_0x362237)
+            exports['lol-adminUI'].updateMenuData(sentUpdateMenuData)
             return
           }
-          function _0xe8d458() {
-            if (_0x4414be) {
+          function pushDefaultKeybinds() {
+            if (pushedDefaultKeybinds) {
               return
             }
-            _0x297ac7()
-            for (const _0x11b07f in _0x2e69ae) {
-              const _0x12130a = _0x2e69ae[_0x11b07f]
-              if (_0x12130a.key != 'none') {
+            getAdminKey2Options()
+            for (const pFindAdminMode in pAdminBinds) {
+              const pAdminModeBind = pAdminBinds[pFindAdminMode]
+              if (pAdminModeBind.key != 'none') {
                 RegisterCommand(
-                  '+' + _0x12130a.key,
-                  () => _0x228df3(_0x12130a.key),
+                  '+' + pAdminModeBind.key,
+                  () => hasToggledAdminMode(pAdminModeBind.key),
                   false
                 )
-                RegisterCommand('-' + _0x12130a.key, () => {}, false)
-                _0x462300.g.exports['qpixel-binds'].registerKeyMapping(
+                RegisterCommand('-' + pAdminModeBind.key, () => {}, false)
+                exports['lol-keybinds'].registerKeyMapping(
                   '',
                   'zzAdmin',
-                  _0x12130a.key,
-                  '+' + _0x12130a.key,
-                  '-' + _0x12130a.key,
+                  pAdminModeBind.key,
+                  '+' + pAdminModeBind.key,
+                  '-' + pAdminModeBind.key,
                   ''
                 )
               }
             }
-            _0x4414be = true
+            pushedDefaultKeybinds = true
           }
-          async function _0x228df3(_0x4ff0e7) {
-            if (!_0x3d0faf) {
-              console.log('[Admin Menu] You are not in admin mode!')
+          async function hasToggledAdminMode(bool) {
+            if (!toggleAdminMode) {
               return
             }
-            const _0x10104c = _0x2e69ae.find(
-              (_0x54e291) => _0x54e291.key === _0x4ff0e7
+            const bindID = pAdminBinds.find(
+              (pFountAdminBinds) => pFountAdminBinds.key === bool
             )
-            if (_0x10104c) {
-              console.log('[Admin Menu] Executing bind: ' + _0x10104c.parent)
-              const _0x29ae89 = _0xaf6e3d.find(
-                (_0x30d52e) =>
-                  _0x30d52e.adminMenu != null &&
-                  _0x30d52e.adminMenu.command.title.toLowerCase() ===
-                    _0x10104c.parent.toLowerCase()
+            if (bindID) {
+              const adminMenuCommandActions = getCommandUI.find(
+                (fountCommandUI) =>
+                  fountCommandUI.adminMenu != null &&
+                  fountCommandUI.adminMenu.command.title.toLowerCase() ===
+                    bindID.parent.toLowerCase()
               )
-              if (_0x29ae89 == null) {
+              if (adminMenuCommandActions == null) {
                 return
               }
-              let _0x5a2e62 = _0x15df07.findIndex(
-                (_0x4bd99) =>
-                  _0x4bd99.command.action === _0x29ae89.adminMenu.command.action
+              let adminChildrenIndex = adminMenuData.findIndex(
+                (adminMenuCommandActionsFountIndex) =>
+                  adminMenuCommandActionsFountIndex.command.action === adminMenuCommandActions.adminMenu.command.action
               )
-              _0x5a2e62 !== -1 &&
-                (_0x15df07[_0x5a2e62].command.child =
-                  !_0x15df07[_0x5a2e62].command.child)
-              _0x15df07[_0x5a2e62].command.child !== undefined
-                ? (console.log(
-                    '[Admin Menu] Toggle: ' + _0x15df07[_0x5a2e62].command.child
-                  ),
+              adminChildrenIndex !== -1 &&
+                (adminMenuData[adminChildrenIndex].command.child =
+                  !adminMenuData[adminChildrenIndex].command.child)
+              adminMenuData[adminChildrenIndex].command.child !== undefined
+                ? (
                   emit(
-                    _0x29ae89.adminMenu.command.action,
-                    _0x15df07[_0x5a2e62].command.child
+                    adminMenuCommandActions.adminMenu.command.action,
+                    adminMenuData[adminChildrenIndex].command.child
                   ))
-                : emit(_0x29ae89.adminMenu.command.action)
+                : emit(adminMenuCommandActions.adminMenu.command.action)
             }
           }
-          function _0x25f08b(_0x50aded) {
-            let _0x2310b8 = null
-            if (_0x50aded == 'empty') {
-              _0x2310b8 = null
+          function pGetDefinedNames(beforeNameTable) {
+            let beforeNameTableClassed = null
+            if (beforeNameTable == 'empty') {
+              beforeNameTableClassed = null
               return
             }
-            _0x2310b8 = _0x50aded
-            const _0x5dcfd9 = [
+            beforeNameTableClassed = beforeNameTable
+            const nameTable = [
               {
                 source: 1,
-                charName: 'Kevin Malagnaggi',
+                charName: 'Mali McFarland',
                 charID: 1,
                 disc: false,
                 queueType: 'Regular',
               },
             ]
-            _0x462300.g.exports['qpixel-adminUI'].updateDefinedNames(_0x5dcfd9)
+            exports['lol-adminUI'].updateDefinedNames(nameTable)
           }
-          async function _0x356804(_0x286b4b) {
-            const _0x3c9d87 = await RPC.execute(
-              'desirerp:admin:getPlayerLogs',
-              _0x286b4b
+          async function pUpdateSearchParam(pSearchListing) {
+            const pGetPlayerLogs = await RPC.execute(
+              'qpixel:admin:getPlayerLogs',
+              pSearchListing
             )
-            _0x462300.g.exports['qpixel-adminUI'].updatePlayerLogs(_0x3c9d87)
+            exports['lol-adminUI'].updatePlayerLogs(pGetPlayerLogs)
           }
+          on("qpixel:admin:updateUI", () => {
+            closeMenu();
+          });
+          onNet("qpixel:admin:closeMenu", async _0x3e5a10 => {
+            global.exports["lol-adminUI"].enableMenu(false, false);
+            global.exports["lol-adminUI"].exitNUI();
+          });;
+          function closeMenu() {
+            global.exports["lol-adminUI"].exitNUI();
+            global.exports["lol-selector"].deselect();
+          }
+  
           RegisterNuiCallbackType('adminMenu')
-          on('__cfx_nui:adminMenu', (_0xeaa81b, _0x5430b8) => {
-            switch (_0xeaa81b.action) {
+          on('__cfx_nui:adminMenu', (adminMenuData, _0x5430b8) => {
+            switch (adminMenuData.action) {
               case 'updatePlayerLogs':
-                _0x356804(_0xeaa81b.searchParam)
+                pUpdateSearchParam(adminMenuData.searchParam)
                 break
               case 'updateOptions':
-                _0x1d24b0(_0xeaa81b.options)
+                adminMenuOptionsKVP(adminMenuData.options)
                 break
               case 'updateKeybinds':
-                _0x1f3c09(_0xeaa81b.keyBinds)
+                pUpdateKeybinds(adminMenuData.keyBinds)
                 break
               case 'updateFavCommands':
-                _0x129d1e(_0xeaa81b.favCommands)
+                adminMenuFavKVP(adminMenuData.favCommands)
                 break
               case 'getDefinedNames':
-                _0x25f08b(_0xeaa81b.playerList)
+                pGetDefinedNames(adminMenuData.playerList)
                 break
               case 'updateCommandState':
-                emit(_0xeaa81b.commandAction, _0xeaa81b.commandData.toggle)
-                let _0x253acd = _0x15df07.findIndex(
+                emit(adminMenuData.commandAction, adminMenuData.commandData.toggle)
+                let adminMenuDataFindIndexFunction = adminMenuData.findIndex(
                   (_0x3a6b63) =>
-                    _0x3a6b63.command.action === _0xeaa81b.commandAction
+                    _0x3a6b63.command.action === adminMenuData.commandAction
                 )
-                if (_0x253acd !== -1) {
-                  _0x15df07[_0x253acd].command.child =
-                    _0xeaa81b.commandData.toggle
+                if (adminMenuDataFindIndexFunction !== -1) {
+                  adminMenuData[adminMenuDataFindIndexFunction].command.child =
+                    adminMenuData.commandData.toggle
                 }
                 break
               case 'toggleAdminMode':
-                ;(_0x3d0faf = !_0x3d0faf),
-                  emit('qpixel-admin:currentDevmode', _0x3d0faf),
-                  _0x462300.g.exports['qpixel-adminUI'].updateAdminMode(_0x3d0faf)
+                ;(toggleAdminMode = !toggleAdminMode),
+                  emit('qpixel:admin:currentDevmode', toggleAdminMode),
+                  exports['lol-adminUI'].updateAdminMode(toggleAdminMode)
                 break
               case 'runEvent':
-                emit(_0xeaa81b.event)
+                emit(adminMenuData.event)
                 break
               case 'clearDefinedNames':
                 break
@@ -818,329 +780,487 @@
             _0x5430b8()
           })
           RegisterNuiCallbackType('runCommandMenu')
-          on('__cfx_nui:runCommandMenu', (_0x417e58, _0x2bb5f2) => {
-            console.log('runCommandMenu', _0x417e58)
-            switch (_0x417e58.action) {
-              case 'qpixel-admin:becomeModel':
-                emit(_0x417e58.action, _0x417e58.data.Model)
+          on('__cfx_nui:runCommandMenu', (knownModuleData, _0x2bb5f2) => {
+            switch (knownModuleData.action) {
+              case 'qpixel:admin:becomeModel':
+                emit(knownModuleData.action, knownModuleData.data.Model)
                 break
-              case 'qpixel-admin:spawnVehicle':
+              case 'lol-admin/client/select-spawn':
+                emit(knownModuleData.action)
+                break
+              case 'qpixel:admin:requestBarber':
+                emit(knownModuleData.action, knownModuleData.data.Target)
+                break
+              case 'qpixel:admin:requestClothing':
+                emitNet(knownModuleData.action, knownModuleData.data.Target)
+                break
+              case 'qpixel:admin:unbanPlayerJS':
+                emitNet(knownModuleData.action, knownModuleData.data.SteamID)
+                break
+              case 'qpixel:admin:banPlayerJS':
+                emit(knownModuleData.action, knownModuleData.data.Target, knownModuleData.data.Length, knownModuleData.data.Reason)
+                break
+              case 'qpixel:admin:spawnVehicle':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data?.Target,
-                  _0x417e58.data?.Vehicle,
-                  _0x417e58?.data['Vehicle Overwrite'],
-                  _0x417e58.data.Mods
+                  knownModuleData.action,
+                  knownModuleData.data?.Target,
+                  knownModuleData.data?.Vehicle,
+                  knownModuleData?.data['Vehicle Overwrite'],
+                  knownModuleData.data.Mods
                 )
                 break
-              case 'qpixel-admin:giveItem':
+              case 'qpixel:admin:giveItem':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data.Target,
-                  _0x417e58.data.Item,
-                  _0x417e58.data.Amount
+                  knownModuleData.action,
+                  knownModuleData.data.Target,
+                  knownModuleData.data.Item,
+                  knownModuleData.data.Amount
                 )
                 break
-              case 'qpixel-admin:revive':
-                _0x417e58.data.Target === '' ||
-                _0x417e58.data.Target === undefined ||
-                !_0x417e58.data.Target
-                  ? (emit('qpixel-admin:ReviveInDistance'),
-                    emitNet('qpixel-admin:sendLog', 'reviveDistance'))
-                  : (emitNet('qpixel-death:reviveSV', Number(_0x417e58.data.Target)),
-                    emitNet('reviveGranted', Number(_0x417e58.data.Target)),
-                    emitNet('ems:healplayer', Number(_0x417e58.data.Target)),
-                    emit('qpixel-hud:ChangeHunger', 100),
-                    emit('qpixel-hud:ChangeThirst', 100),
-                    emit("client:newStress", false, 150),
+              case 'qpixel:admin:revive':
+                knownModuleData.data.Target === '' ||
+                knownModuleData.data.Target === undefined ||
+                !knownModuleData.data.Target
+                  ? (emit('qpixel:admin:ReviveInDistance'),
+                    emitNet('qpixel:admin:sendLog', 'reviveDistance'))
+                  : (emitNet('lol-death:reviveSV', Number(knownModuleData.data.Target)),
+                    emitNet('reviveGranted', Number(knownModuleData.data.Target)),
+                    emitNet('ems:healplayer', Number(knownModuleData.data.Target)),
                     emitNet(
-                      'qpixel-admin:sendLog',
+                      'qpixel:admin:sendLog',
                       'reviveTarget',
                       false,
-                      _0x417e58.data.Target
+                      knownModuleData.data.Target
                     ))
                 break
-              case 'qpixel-admin:cSay':
-                emit(_0x417e58.action, _0x417e58.data.Text)
+              case 'qpixel:admin:cSay':
+                emit(knownModuleData.action, knownModuleData.data.Text)
                 break
-              case 'qpixel-admin:tSay':
-                emit(_0x417e58.action, _0x417e58.data.Text)
+              case 'qpixel:admin:tSay':
+                emit(knownModuleData.action, knownModuleData.data.Text)
                 break
-              case 'qpixel-admin:teleportCoords':
-                emit(_0x417e58.action, _0x417e58.data.Coords)
+              case 'qpixel:admin:teleportCoords':
+                emit(knownModuleData.action, knownModuleData.data.Coords)
                 break
-              case 'qpixel-admin:teleportPlayer':
-                emit(_0x417e58.action, _0x417e58.data.Target)
+              case 'qpixel:admin:teleportPlayer':
+                emit(knownModuleData.action, knownModuleData.data.Target)
                 break
-              case 'qpixel-admin:bringPlayer':
-                emit(_0x417e58.action, _0x417e58.data.Target)
-              case 'qpixel-admin:maxMyStats':
-                emit(_0x417e58.action, _0x417e58.data.Target)
+              case 'qpixel:admin:bringPlayer':
+                emit(knownModuleData.action, knownModuleData.data.Target)
+              case 'qpixel:admin:maxMyStats':
+                emit(knownModuleData.action, knownModuleData.data.Target)
                 break
-              case 'qpixel-admin:removeStress':
+              case 'qpixel:admin:removeStress':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data.Target,
-                  _0x417e58.data.Amount
+                  knownModuleData.action,
+                  knownModuleData.data.Target,
+                  knownModuleData.data.Amount
                 )
                 break
-              case 'qpixel-admin:requestJob':
-                emit(_0x417e58.action, _0x417e58.data.Target, _0x417e58.data.Job)
+              case 'qpixel:admin:requestJob':
+                emit(knownModuleData.action, knownModuleData.data.Target, knownModuleData.data.Job)
                 break
-              case 'qpixel-admin:updateGarage':
+              case 'qpixel:admin:updateGarage':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data.Plate,
-                  _0x417e58.data.Garage
+                  knownModuleData.action,
+                  knownModuleData.data.Plate,
+                  knownModuleData.data.Garage
                 )
                 break
-              case 'qpixel-admin:giveLicense':
+              case 'qpixel:admin:giveLicense':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data.Target,
-                  _0x417e58.data.License
+                  knownModuleData.action,
+                  knownModuleData.data.Target,
+                  knownModuleData.data.License
                 )
                 break
-              case 'qpixel-admin:giveJobWhitelist':
+              case 'qpixel:admin:flingPlayer':
+                  emit(knownModuleData.action, knownModuleData.data.Target)
+                break
+              case 'qpixel:admin:giveJobWhitelist':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data.Target,
-                  _0x417e58.data.Job,
-                  _0x417e58.data.Rank
+                  knownModuleData.action,
+                  knownModuleData.data.Target,
+                  knownModuleData.data.Job,
+                  knownModuleData.data.Rank
                 )
                 break
-              case 'qpixel-admin:giveCash':
+              case 'qpixel:admin:giveCash':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data.Target,
-                  _0x417e58.data.Amount
+                  knownModuleData.action,
+                  knownModuleData.data.Target,
+                  knownModuleData.data.Amount
                 )
                 break
-              case 'qpixel-admin:kickPlayer':
+              case 'qpixel:admin:kickPlayer':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data.Target,
-                  _0x417e58.data.Reason
+                  knownModuleData.action,
+                  knownModuleData.data.Target,
+                  knownModuleData.data.Reason
                 )
                 break
-              case 'qpixel-admin:createBusiness':
+              case 'qpixel:admin:createBusiness':
                 emit(
-                  _0x417e58.action,
-                  _0x417e58.data.ID,
-                  _0x417e58.data.Name,
-                  _0x417e58.data.Owner
+                  knownModuleData.action,
+                  knownModuleData.data.ID,
+                  knownModuleData.data.Name,
+                  knownModuleData.data.Owner
                 )
                 break
               default:
-                emit(_0x417e58.action, _0x417e58.data?.Target)
+                emit(knownModuleData.action, knownModuleData.data?.Target)
                 break
             }
             _0x2bb5f2()
           })
-          async function _0x25de81() {
-            if (!_0x3d0faf) {
+          async function adminMenuStartSelecting() {
+            if (!toggleAdminMode) {
               return
             }
-            _0x462300.g.exports['qpixel-selector'].startSelecting(
+            exports['lol-selector'].startSelecting(
               -1,
               PlayerPedId(),
               (_0x5c1090, _0x502269, _0xcb922c) =>
                 _0x502269 === 1 || _0x502269 === 2 || _0x502269 === 3
             )
           }
-          async function _0x4beebb() {
-            if (!_0x3d0faf) {
+          async function adminMenuStopSelecting() {
+            if (!toggleAdminMode) {
               return
             }
-            _0x572abd = _0x462300.g.exports['qpixel-selector'].stopSelecting()
-            if (_0x572abd.selectedEntity) {
-              await _0x158d9a(_0x572abd.selectedEntity)
+            selectordata = exports['lol-selector'].stopSelecting()
+            if (selectordata.selectedEntity) {
+              await pSeletedEntity(selectordata.selectedEntity)
             } else {
-              _0x462300.g.exports['qpixel-selector'].deselect()
+              exports['lol-selector'].deselect()
             }
           }
-          async function _0x569289() {
-            const _0x1f78cb = _0x572abd.selectedEntity
-            if (_0x572abd.selectedEntity) {
-              const _0x470d45 = GetEntityType(_0x1f78cb)
-              _0x470d45 >= 1 &&
-                !IsPedAPlayer(_0x1f78cb) &&
-                DeleteEntity(_0x1f78cb)
+          async function pDeleteAdminEntity() {
+            var selectedEntityType = selectordata.selectedEntity
+            if (selectordata.selectedEntity) {
+              const GetEntityTypePP = GetEntityType(selectedEntityType)
+              GetEntityTypePP >= 1 &&
+                !IsPedAPlayer(selectedEntityType) &&
+                DeleteEntity(selectedEntityType)
             }
           }
-          function _0x2c21d2(_0x27b928, _0x7dc1c2) {
-            const _0x43fdec = []
-            for (const _0x4de38a in _0xaf6e3d) {
-              const _0x3a07ff = _0xaf6e3d[_0x4de38a].selection
-              if (!_0x3a07ff) {
+          function getCommandsUIYes(pSelectedVeh, pGivenEntityType) {
+            const pPushWhatIAmTold = []
+            for (const getSelectionID in getCommandUI) {
+              const VehicleSelectionDatah = getCommandUI[getSelectionID].selection
+              if (!VehicleSelectionDatah) {
                 continue
               }
               if (
-                _0x3a07ff.entityType == _0x27b928 ||
-                (_0x7dc1c2 != null && _0x3a07ff.entityType == _0x7dc1c2)
+                VehicleSelectionDatah.entityType == pSelectedVeh ||
+                (pGivenEntityType != null && VehicleSelectionDatah.entityType == pGivenEntityType)
               ) {
-                _0x43fdec.push(_0x3a07ff)
+                pPushWhatIAmTold.push(VehicleSelectionDatah)
               }
             }
-            return _0x43fdec
+            return pPushWhatIAmTold
           }
-          async function _0x158d9a(_0x4c0c01) {
-            const _0x1c5170 = GetEntityType(_0x4c0c01)
-            let _0x32c39e = [],
-              _0x508d66 = {
-                lastGarage: _0x5e15da.garage,
-                plate: GetVehicleNumberPlateText(_0x4c0c01),
-                cid: _0x5e15da.cid,
-                vin: _0x5e15da.vin,
-                size: _0x5e15da.size,
-                mileage: _0x5e15da.metadata.mileage,
-                fuel: _0x5e15da.metadata.fuel,
+          async function pSeletedEntity(pVehicleModel) {
+            const _0x1c5170 = GetEntityType(pVehicleModel)
+            let pSelectedVehicleTable = [],
+              pVehicleKnownInformation = {
+          //      lastGarage: playerVehicleData.garage,
+          //      plate: GetVehicleNumberPlateText(pVehicleModel),
+          //      cid: playerVehicleData.cid,
+          //      vin: playerVehicleData.vin,
+          //      size: playerVehicleData.size,
+          //      mileage: playerVehicleData.metadata.mileage,
+          //      fuel: playerVehicleData.metadata.fuel,
               }
             switch (_0x1c5170) {
               case 0:
-                _0x32c39e = null
+                pSelectedVehicleTable = null
                 break
               case 1:
-                IsEntityAPed(_0x4c0c01) &&
-                  ((_0x32c39e = _0x2c21d2(-1, null)),
-                  (_0x508d66 = { name: 'Local' }))
+                IsEntityAPed(pVehicleModel) &&
+                  ((pSelectedVehicleTable = getCommandsUIYes(-1, null)),
+                  (pVehicleKnownInformation = { name: 'Local' }))
                 break
               case 2:
-                ;(_0x32c39e = _0x2c21d2(2, -1)),
-                  (_0x508d66 = {
+                ;(pSelectedVehicleTable = getCommandsUIYes(2, -1)),
+                  (pVehicleKnownInformation = {
                     name: GetLabelText(
-                      GetDisplayNameFromVehicleModel(GetEntityModel(_0x4c0c01))
+                      GetDisplayNameFromVehicleModel(GetEntityModel(pVehicleModel))
                     ),
                   })
-                const _0x252ff8 =
-                  _0x15548c['qpixel-vehicles'].GetVehicleIdentifier(_0x4c0c01)
-                let _0x5e15da = null
-                if (_0x252ff8) {
-                  _0x5e15da = []
-                }
-                if (_0x5e15da) {
+                if (playerVehicleData) {
                 } else {
-                  _0x508d66.size = GetVehicleModelNumberOfSeats(
-                    GetEntityModel(_0x4c0c01)
+                  pVehicleKnownInformation.size = GetVehicleModelNumberOfSeats(
+                    GetEntityModel(pVehicleModel)
                   )
                 }
                 break
               case 3:
-                ;(_0x32c39e = _0x2c21d2(3, -1)),
-                  (_0x508d66 = { name: '' + _0x4c0c01 })
+                ;(pSelectedVehicleTable = getCommandsUIYes(3, -1)),
+                  (pVehicleKnownInformation = { name: '' + pVehicleModel })
                 break
             }
           }
-          async function _0x379c5d() {
-            const _0x27b59e = await RPC.execute('desirerp:admin:isAdmin')
-            if (_0x27b59e) {
-              const _0x1df73b = await _0x4cc3c5('openDefaultMenu')
-              if (_0xaf6e3d.length === 0) {
-                _0xaf6e3d = await RPC.execute('desirerp:admin:getCommandUI')
-                _0x2277c5(_0xaf6e3d)
-                for (const _0x4d105b in _0xaf6e3d) {
-                  const _0x26baef = _0xaf6e3d[_0x4d105b]
-                  let _0x515460 = _0x26baef.adminMenu
+          let countCommand = 0;
+          async function openAdminMenu() {
+            const isAdmin = await RPC.execute('qpixel:admin:isAdmin')
+            if (isAdmin) {
+              const openDefaultAdminUI = await commandOptionsUI('openDefaultMenu')
+              if (getCommandUI.length === 0) {
+                countCommand = countCommand+1;
+                if (countCommand == 1) {
+                getCommandUI = await RPC.execute('qpixel:admin:getCommandUI')
+                getCommandUIAgain(getCommandUI)
+                for (const getCommands in getCommandUI) {
+                  const myCommandsAdminUI = getCommandUI[getCommands]
+                  let myAdminUI = myCommandsAdminUI.adminMenu
                   if (
-                    _0x515460 &&
-                    _0x515460.command &&
-                    (_0x515460.command.child == false ||
-                      _0x515460.command.child == true)
+                    myAdminUI &&
+                    myAdminUI.command &&
+                    (myAdminUI.command.child == false ||
+                      myAdminUI.command.child == true)
                   ) {
-                    const _0x4df77d = _0x2f2da0(_0x515460.command.action)
-                    ;(_0x4df77d == null || !_0x4df77d) &&
-                      _0x10479a(_0x515460.command.action, false)
-                    _0xaf6e3d[_0x4d105b].adminMenu.command.child = _0x2f2da0(
-                      _0x515460.command.action
+                    const modulesFount = getMappedModules(myAdminUI.command.action)
+                    ;(modulesFount == null || !modulesFount) &&
+                      actionUIModule(myAdminUI.command.action, false)
+                    getCommandUI[getCommands].adminMenu.command.child = getMappedModules(
+                      myAdminUI.command.action
                     )
                   }
-                  _0x15df07.push(_0x26baef.adminMenu)
+                  adminMenuData.push(myCommandsAdminUI.adminMenu)
                 }
-                _0xe8d458()
+                pushDefaultKeybinds()
+                }
               }
-              _0x1df73b.data ? await _0x3577a7(2) : await _0x3577a7(3)
+              openDefaultAdminUI.data ? await initAdminMenu(2) : await initAdminMenu(3)
             }
           }
-          async function _0x3577a7(_0x209c0f) {
-            _0x297ac7()
-            let _0x1ab346 =
-              _0x462300.g.exports['qpixel-inventory'].getItemListNames()
-            const _0x3cc667 =
-              _0x462300.g.exports['qpixel-base'].getModule('JobManager').ValidJobs
-            let _0x12919f = []
-            for (const _0x1dc989 in _0x3cc667) {
-              if (_0x3cc667) {
-                const _0x1b0950 = _0x3cc667[_0x1dc989]
-                _0x1b0950 &&
-                  _0x12919f.push({
-                    job: _0x1dc989,
-                    name: _0x1b0950.name,
+          async function initAdminMenu(pVal) {
+            getAdminKey2Options()
+            let pItemList =
+              exports['lol-inventory'].getItemListNames()
+            const pValidJobs =
+              exports['lol-base'].getModule('JobManager').ValidJobs
+            let getJobListFuck = []
+            for (const pValidJob in pValidJobs) {
+              if (pValidJobs) {
+                const pValidJobName = pValidJobs[pValidJob]
+                pValidJobName &&
+                  getJobListFuck.push({
+                    job: pValidJob,
+                    name: pValidJobName.name,
                   })
               }
             }
-            let _0x76700c = _0x462300.g.exports['qpixel-vehicles'].GetGarageList()
-            const _0x3e883a = {
-              playerData: await _0x41f612(),
-              options: await _0x3848a6(),
-              menuData: _0x15df07,
+            let banListHistory = await RPC.execute('qpixel:admin:getBanHistory')
+            let getBanHistoryFuck = []
+            for (const pValidList in banListHistory) {
+              if (banListHistory) {
+                const pValidBanHistory = banListHistory[pValidList]
+                pValidBanHistory &&
+                getBanHistoryFuck.push({
+                    from: pValidBanHistory.bannedon2,
+                    until: pValidBanHistory.expire2,
+                    admin: pValidBanHistory.bannedby,
+                    name: pValidBanHistory.name,
+                    SteamID: pValidBanHistory.steamid,
+                    Reason: pValidBanHistory.reason,
+                  })
+              }
+            }
+  
+            let disconnectedPlays = await RPC.execute("qpixel:admin:getRecentDisconnects")
+            let getDisconnectedHistoryFuck = [];
+            for (const pValidDisconnects in disconnectedPlays) {
+              if (disconnectedPlays) {
+                const pValidDisconnecteds = disconnectedPlays[pValidDisconnects]
+                pValidDisconnecteds && getDisconnectedHistoryFuck.push({
+                  name: pValidDisconnecteds.name,
+                  serverID: pValidDisconnecteds.serverID,
+                  SteamID: pValidDisconnecteds.SteamID,
+                  charID: pValidDisconnecteds.charID,
+                  charName: pValidDisconnecteds.charName,
+                  queueType: pValidDisconnecteds.queueType,
+                })
+              }
+            }
+            const commandKey = {
+              playerData: await GetPlayerDatah(),
+              options: await adminMenuOptions(),
+              menuData: adminMenuData,
               playerLogs: null,
-              adminMode: _0x3d0faf,
-              itemList: _0x1ab346,
-              vehicleList: [],
-              garageList: _0x76700c,
-              jobList: _0x12919f,
+              adminMode: toggleAdminMode,
+              itemList: pItemList,
+              vehicleList: exports["lol-admin"].getVehiclesCombined(),
+              garageList: [
+                {
+                  garage_id: 'A',
+                  name: 'Garage A'
+                },
+                {
+                  garage_id: 'B',
+                  name: 'Garage B'
+                },
+                {
+                  garage_id: 'D',
+                  name: 'Garage D'
+                },
+                {
+                  garage_id: 'G',
+                  name: 'Garage G'
+                },
+                {
+                  garage_id: 'M',
+                  name: 'Garage M'
+                },
+                {
+                  garage_id: 'P',
+                  name: 'Garage P'
+                },
+                {
+                  garage_id: 'Q',
+                  name: 'Garage Q'
+                },
+                {
+                  garage_id: 'T',
+                  name: 'Garage T'
+                },
+                {
+                  garage_id: 'Police Shared',
+                  name: 'Police Shared'
+                },
+                {
+                  garage_id: 'Tuner Shared',
+                  name: 'Tuner Shared'
+                },
+                {
+                  garage_id: 'Police Personal',
+                  name: 'Police Personal'
+                },
+                {
+                  garage_id: 'Harmony',
+                  name: 'Harmony Garage'
+                },
+                {
+                  garage_id: 'Pier',
+                  name: 'Pier Garage'
+                },
+                {
+                  garage_id: 'Richman',
+                  name: 'Richman Garage'
+                },
+                {
+                  garage_id: 'Dojo',
+                  name: 'Dojo Garage'
+                },
+                {
+                  garage_id: 'Pillbox',
+                  name: 'Pillbox Garage'
+                },
+                {
+                  garage_id: 'casino',
+                  name: 'Casino Garage'
+                },
+                {
+                  garage_id: 'Repo',
+                  name: 'Repo Garage'
+                },
+                {
+                  garage_id: 'Impound Lot',
+                  name: 'Impound Lot Garage'
+                },
+                {
+                  garage_id: 'Police Impound',
+                  name: 'Police Impound Garage'
+                },
+                {
+                  garage_id: 'Perro',
+                  name: 'Perro Garage'
+                },
+              ],
+              jobList: getJobListFuck,
               licenseList: [
                 {
-                  id: 'Drivers',
+                  licenseID: 'Drivers',
                   name: 'Drivers License',
                 },
                 {
-                  id: 'Weapon',
+                  licenseID: 'Weapon',
                   name: 'Weapon License',
                 },
                 {
-                  id: 'Fishing',
+                  licenseID: 'Fishing',
                   name: 'Fishing License',
                 },
                 {
-                  id: 'Hunting',
+                  licenseID: 'Hunting',
                   name: 'Hunting License',
                 },
                 {
-                  id: 'Pilot',
+                  licenseID: 'Pilot',
                   name: 'Pilot License',
                 },
                 {
-                  id: 'Business',
+                  licenseID: 'Business',
                   name: 'Business License',
                 },
                 {
-                  id: 'Bar',
+                  licenseID: 'Bar',
                   name: 'Bar License',
                 },
               ],
-              favCommands: _0x2cbe78(),
-              disconnectedPlayers: [],
-              bannedList: [],
+              banTimes: [
+                {
+                  ban_id: '1hr',
+                  name: '1 Hour'
+                },
+                {
+                  ban_id: '6hrs',
+                  name: '6 Hours'
+                },
+                {
+                  ban_id: '12hrs',
+                  name: '12 Hours'
+                },
+                {
+                  ban_id: '1day',
+                  name: '1 Day'
+                },
+                {
+                  ban_id: '3days',
+                  name: '3 Days'
+                },
+                {
+                  ban_id: '1week',
+                  name: '1 Week',
+                },
+                {
+                  ban_id: 'perm',
+                  name: 'Permanent'
+                }
+              ],
+              favCommands: getAdminMenuFavCommands(),
+              disconnectedPlayers: getDisconnectedHistoryFuck,
+              bannedList: getBanHistoryFuck,
             }
-            _0x462300.g.exports['qpixel-adminUI'].setCommandUI(_0x3e883a, null, 2)
+            exports['lol-adminUI'].setCommandUI(commandKey, null, 2)
           }
           setImmediate(() => {
-            RegisterCommand('+adminSelect', async () => await _0x25de81(), false)
-            RegisterCommand('-adminSelect', async () => await _0x4beebb(), false)
+            RegisterCommand('+adminSelect', async () => await adminMenuStartSelecting(), false)
+            RegisterCommand('-adminSelect', async () => await adminMenuStopSelecting(), false)
             RegisterCommand(
               '+adminDeleteEntity',
-              async () => await _0x569289(),
+              async () => await pDeleteAdminEntity(),
               false
             )
             RegisterCommand('-adminDeleteEntity', () => {}, false)
             RegisterCommand(
               '+openAdminMenu',
-              async () => await _0x379c5d(),
+              async () => await openAdminMenu(),
               false
             )
             RegisterCommand('-openAdminMenu', () => {}, false)
-            _0x462300.g.exports['qpixel-binds'].registerKeyMapping(
+            exports['lol-keybinds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Delete Target',
@@ -1148,7 +1268,7 @@
               '-adminDeleteEntity',
               ''
             )
-            _0x462300.g.exports['qpixel-binds'].registerKeyMapping(
+            exports['lol-keybinds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Select Target',
@@ -1156,7 +1276,7 @@
               '-adminSelect',
               ''
             )
-            _0x462300.g.exports['qpixel-binds'].registerKeyMapping(
+            exports['lol-keybinds'].registerKeyMapping(
               'general',
               'zzAdmin',
               'Open Menu',
@@ -1165,109 +1285,109 @@
               ''
             )
           })
-          RegisterCommand('menu', async () => await _0x379c5d(), false)
+          RegisterCommand('menu', async () => await openAdminMenu(), false)
         },
-        615: function (_0x309e59, _0x13cff0) {
-          Object.defineProperty(_0x13cff0, '__esModule', { value: true })
-          _0x13cff0.formatCoords =
-            _0x13cff0.loadAnimDict =
-            _0x13cff0.Delay =
+        615: function (notused, lolanim) {
+          Object.defineProperty(lolanim, '__esModule', { value: true })
+          lolanim.formatCoords =
+            lolanim.loadAnimDict =
+            lolanim.Delay =
               void 0
           let _0x285923 = (_0x528995) =>
             new Promise((_0x3e3c27) => setTimeout(_0x3e3c27, _0x528995))
-          _0x13cff0.Delay = _0x285923
+          lolanim.Delay = _0x285923
           async function _0x5acb4d(_0x21a554) {
             while (!HasAnimDictLoaded(_0x21a554)) {
               RequestAnimDict(_0x21a554)
-              await (0, _0x13cff0.Delay)(5)
+              await (0, lolanim.Delay)(5)
             }
           }
-          _0x13cff0.loadAnimDict = _0x5acb4d
-          class _0x1b8868 {
-            constructor(_0x5d5816 = 0, _0x4b5335 = 0, _0x306105 = 0) {
-              this.x = _0x5d5816
-              this.y = _0x4b5335
-              this.z = _0x306105
+          lolanim.loadAnimDict = _0x5acb4d
+          class formArray {
+            constructor(pCoordsX = 0, pCoordsY = 0, pCoordsZ = 0) {
+              this.x = pCoordsX
+              this.y = pCoordsY
+              this.z = pCoordsZ
             }
-            ['setFromArray'](_0x404c32) {
+            ['setFromArray'](pCoordsFromArray) {
               return (
-                (this.x = _0x404c32[0]),
-                (this.y = _0x404c32[1]),
-                (this.z = _0x404c32[2]),
+                (this.x = pCoordsFromArray[0]),
+                (this.y = pCoordsFromArray[1]),
+                (this.z = pCoordsFromArray[2]),
                 this
               )
             }
             ['getArray']() {
               return [this.x, this.y, this.z]
             }
-            ['add'](_0x195e99) {
+            ['add'](pCoordsAdd) {
               return (
-                (this.x += _0x195e99.x),
-                (this.y += _0x195e99.y),
-                (this.z += _0x195e99.z),
+                (this.x += pCoordsAdd.x),
+                (this.y += pCoordsAdd.y),
+                (this.z += pCoordsAdd.z),
                 this
               )
             }
-            ['addScalar'](_0x2bf56b) {
+            ['addScalar'](pCoordsAddScalar) {
               return (
-                (this.x += _0x2bf56b),
-                (this.y += _0x2bf56b),
-                (this.z += _0x2bf56b),
+                (this.x += pCoordsAddScalar),
+                (this.y += pCoordsAddScalar),
+                (this.z += pCoordsAddScalar),
                 this
               )
             }
-            ['sub'](_0x1f9dcd) {
+            ['sub'](pCoordsSub) {
               return (
-                (this.x -= _0x1f9dcd.x),
-                (this.y -= _0x1f9dcd.y),
-                (this.z -= _0x1f9dcd.z),
+                (this.x -= pCoordsSub.x),
+                (this.y -= pCoordsSub.y),
+                (this.z -= pCoordsSub.z),
                 this
               )
             }
-            ['addPlusScaler'](_0x1ffed0, _0x8e6124) {
+            ['addPlusScaler'](pCoordsAdd, pCoordsScalar) {
               return (
-                (this.x += _0x1ffed0.x * _0x8e6124),
-                (this.y += _0x1ffed0.y * _0x8e6124),
-                (this.z += _0x1ffed0.z * _0x8e6124),
+                (this.x += pCoordsAdd.x * pCoordsScalar),
+                (this.y += pCoordsAdd.y * pCoordsScalar),
+                (this.z += pCoordsAdd.z * pCoordsScalar),
                 this
               )
             }
-            ['subPlusScaler'](_0x3451a9, _0x123e2a) {
+            ['subPlusScaler'](pCoordsSub, pCoordsScalar) {
               return (
-                (this.x -= _0x3451a9.x * _0x123e2a),
-                (this.y -= _0x3451a9.y * _0x123e2a),
-                (this.z -= _0x3451a9.z * _0x123e2a),
+                (this.x -= pCoordsSub.x * pCoordsScalar),
+                (this.y -= pCoordsSub.y * pCoordsScalar),
+                (this.z -= pCoordsSub.z * pCoordsScalar),
                 this
               )
             }
-            ['equals'](_0x2f53de) {
+            ['equals'](pCoordsEquals) {
               return (
-                this.x === _0x2f53de.x &&
-                this.y === _0x2f53de.y &&
-                this.z === _0x2f53de.z
+                this.x === pCoordsEquals.x &&
+                this.y === pCoordsEquals.y &&
+                this.z === pCoordsEquals.z
               )
             }
-            ['subScalar'](_0x2e8e84) {
+            ['subScalar'](pCoordsSubScalar) {
               return (
-                (this.x -= _0x2e8e84),
-                (this.y -= _0x2e8e84),
-                (this.z -= _0x2e8e84),
+                (this.x -= pCoordsSubScalar),
+                (this.y -= pCoordsSubScalar),
+                (this.z -= pCoordsSubScalar),
                 this
               )
             }
-            ['multiply'](_0x20ef19) {
+            ['multiply'](pCoordsMultiply) {
               return (
-                (this.x *= _0x20ef19.x),
-                (this.y *= _0x20ef19.y),
-                (this.z *= _0x20ef19.z),
+                (this.x *= pCoordsMultiply.x),
+                (this.y *= pCoordsMultiply.y),
+                (this.z *= pCoordsMultiply.z),
                 this
               )
             }
-            ['multiplyScalar'](_0x253047) {
+            ['multiplyScalar'](pCoordsMultiplyScalar) {
               return (
-                (this.x *= _0x253047),
-                (this.y *= _0x253047),
-                (this.z *= _0x253047),
+                (this.x *= pCoordsMultiplyScalar),
+                (this.y *= pCoordsMultiplyScalar),
+                (this.z *= pCoordsMultiplyScalar),
                 this
               )
             }
@@ -1295,52 +1415,52 @@
                 this
               )
             }
-            ['getDistance'](_0x436a2c) {
-              const [_0x442dba, _0x4886f6, _0xbf44f5] = [
-                this.x - _0x436a2c.x,
-                this.y - _0x436a2c.y,
-                this.z - _0x436a2c.z,
+            ['getDistance'](pCoordsDistance) {
+              const [pCoords1, pCoords2, pCoords3] = [
+                this.x - pCoordsDistance.x,
+                this.y - pCoordsDistance.y,
+                this.z - pCoordsDistance.z,
               ]
               return Math.sqrt(
-                _0x442dba * _0x442dba +
-                  _0x4886f6 * _0x4886f6 +
-                  _0xbf44f5 * _0xbf44f5
+                pCoords1 * pCoords1 +
+                  pCoords2 * pCoords2 +
+                  pCoords3 * pCoords3
               )
             }
-            ['getDistanceFromArray'](_0x3ad5e3) {
-              const [_0x5035df, _0x12aec4, _0x2a2295] = [
-                this.x - _0x3ad5e3[0],
-                this.y - _0x3ad5e3[1],
-                this.z - _0x3ad5e3[2],
+            ['getDistanceFromArray'](pCoordsArray) {
+              const [pCoords1, pCoords2, pCoords3] = [
+                this.x - pCoordsArray[0],
+                this.y - pCoordsArray[1],
+                this.z - pCoordsArray[2],
               ]
               return Math.sqrt(
-                _0x5035df * _0x5035df +
-                  _0x12aec4 * _0x12aec4 +
-                  _0x2a2295 * _0x2a2295
+                pCoords1 * pCoords1 +
+                  pCoords2 * pCoords2 +
+                  pCoords3 * pCoords3
               )
             }
-            ['isCoordinateEqual'](_0x5394e1, _0x3b494f) {
-              return _0x5394e1.equals(_0x3b494f)
+            ['isCoordinateEqual'](pCoords1, pCoords2) {
+              return pCoords1.equals(pCoords2)
             }
-            static ['fromArray'](_0x33c0e4) {
-              return new _0x1b8868(_0x33c0e4[0], _0x33c0e4[1], _0x33c0e4[2])
+            static ['fromArray'](pCoords) {
+              return new formArray(pCoords[0], pCoords[1], pCoords[2])
             }
           }
-          _0x13cff0.formatCoords = _0x1b8868
+          lolanim.formatCoords = formArray
         },
       },
-      _0x3d0e5a = {}
-    function _0x3e99bb(_0x7021ce) {
-      var _0x3ffe78 = _0x3d0e5a[_0x7021ce]
-      if (_0x3ffe78 !== undefined) {
-        return _0x3ffe78.exports
+      exportTable = {}
+    function loadExportsMaybe(exportID) {
+      var fuckingExports = exportTable[exportID]
+      if (fuckingExports !== undefined) {
+        return fuckingExports.exports
       }
-      var _0x74eb50 = (_0x3d0e5a[_0x7021ce] = { exports: {} })
-      _0x126dd0[_0x7021ce](_0x74eb50, _0x74eb50.exports, _0x3e99bb)
-      return _0x74eb50.exports
+      var someMoreExports = (exportTable[exportID] = { exports: {} })
+      fullMenuData[exportID](someMoreExports, someMoreExports.exports, loadExportsMaybe)
+      return someMoreExports.exports
     }
     !(function () {
-      _0x3e99bb.g = (function () {
+      loadExportsMaybe.g = (function () {
         if (typeof globalThis === 'object') {
           return globalThis
         }
@@ -1353,6 +1473,5 @@
         }
       })()
     })()
-    var _0x4f5805 = _0x3e99bb(50)
+    var brothisisirrelivant = loadExportsMaybe(50)
   })()
-  

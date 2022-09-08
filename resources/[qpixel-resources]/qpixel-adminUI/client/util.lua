@@ -1,5 +1,5 @@
 function getJsonDataFromAdminBans()
-    local imDoneNow = RPC.execute("qpixel-adminUI:getRecentBans")
+    local imDoneNow = RPC.execute("lol-adminUI:getRecentBans")
     return imDoneNow
   end
   

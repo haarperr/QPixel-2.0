@@ -1,25 +1,42 @@
 !(function () {
     'use strict'
-    var _0x443cf2 = {
+    var lol = {
       g: (function () {
         if ('object' == typeof globalThis) {
           return globalThis
         }
         try {
           return this || new Function('return this')()
-        } catch (_0x164e06) {
+        } catch (errr) {
           if ('object' == typeof window) {
             return window
           }
         }
       })(),
     }
-    RPC.register('desirerp:admin:getCommandUI', async (_0x425df9) => {
-      let [_0x514e27, _0x11544c] =
-          _0x443cf2.g.exports['qpixel-admin'].isAdministrator(_0x425df9),
-        _0x4e9eec = []
+    RPC.register('qpixel:admin:getCommandUI', async (pSource) => {
+      let [pAdminNotGetCommandUI, pAdminGetCommandUI] =
+          exports['lol-admin'].isAdministrator(pSource),
+        pObjectModuleTable = []
       return (
         Object.entries([
+          {
+            rank: ['owner', 'dev'],
+            adminMenu: {
+              command: {
+                title: 'Bennys',
+                cat: 'Player',
+                child: void 0,
+                action: 'qpixel:admin:enterBennys',
+              },
+              options: {
+                bindKey: {
+                  value: void 0,
+                  options: {},
+                },
+              },
+            },
+          },
           {
             rank: ['owner', 'dev', 'admin'],
             adminMenu: {
@@ -27,7 +44,7 @@
                 title: 'Become Model',
                 cat: 'Player',
                 child: { inputs: ['Model'] },
-                action: 'qpixel-admin:becomeModel',
+                action: 'qpixel:admin:becomeModel',
               },
               options: { bindKey: void 0 },
             },
@@ -39,7 +56,7 @@
                 title: 'Teleport',
                 cat: 'Player',
                 child: { inputs: ['Target'] },
-                action: 'qpixel-admin:teleportPlayer',
+                action: 'qpixel:admin:teleportPlayer',
               },
               options: { bindKey: void 0 },
             },
@@ -51,7 +68,7 @@
                 title: 'Teleport Coords',
                 cat: 'Player',
                 child: { inputs: ['Coords'] },
-                action: 'qpixel-admin:teleportCoords',
+                action: 'qpixel:admin:teleportCoords',
               },
               options: { bindKey: void 0 },
             },
@@ -63,7 +80,7 @@
                 title: 'Fix Vehicle',
                 cat: 'Player',
                 child: void 0,
-                action: 'qpixel-admin:fixVehicle',
+                action: 'qpixel:admin:fixVehicle',
               },
               options: {
                 bindKey: {
@@ -80,7 +97,36 @@
                 title: 'God',
                 cat: 'Player',
                 child: false,
-                action: 'qpixel-admin:toggleGodmode',
+                action: 'qpixel:admin:toggleGodmode',
+              },
+              options: {
+                bindKey: {
+                  value: void 0,
+                  options: {},
+                },
+              },
+            },
+          },
+          {
+            rank: ['owner', 'dev', 'admin'],
+            adminMenu: {
+              command: {
+                title: 'Spawn Selector',
+                cat: 'Utility',
+                child: false,
+                action: 'lol-admin/client/select-spawn',
+              },
+              options: { bindKey: void 0 },
+            },
+          },
+          {
+            rank: ['owner', 'dev'],
+            adminMenu: {
+              command: {
+                title: 'Debug',
+                cat: 'Utility',
+                child: false,
+                action: 'qpixel:admin:enableDebug',
               },
               options: {
                 bindKey: {
@@ -97,7 +143,7 @@
                 title: 'Dev Spawn',
                 cat: 'Utility',
                 child: void 0,
-                action: 'qpixel-admin:devSpawn',
+                action: 'qpixel:admin:devSpawn',
               },
               options: { bindKey: void 0 },
             },
@@ -109,7 +155,7 @@
                 title: 'Noclip',
                 cat: 'Player',
                 child: false,
-                action: 'qpixel-admin:noClipToggle',
+                action: 'qpixel:admin:noClipToggle',
               },
               options: {
                 bindKey: {
@@ -126,7 +172,7 @@
                 title: 'Cloak',
                 cat: 'Player',
                 child: false,
-                action: 'qpixel-admin:toggleCloak',
+                action: 'qpixel:admin:toggleCloak',
               },
               options: {
                 bindKey: {
@@ -143,7 +189,7 @@
                 title: 'Barber',
                 cat: 'User',
                 child: { inputs: ['Target'] },
-                action: 'qpixel-admin:requestBarber',
+                action: 'qpixel:admin:requestBarber',
               },
               options: { bindKey: void 0 },
             },
@@ -155,7 +201,7 @@
                 title: 'Clothing',
                 cat: 'User',
                 child: { inputs: ['Target'] },
-                action: 'qpixel-admin:requestClothing',
+                action: 'qpixel:admin:requestClothing',
               },
               options: { bindKey: void 0 },
             },
@@ -167,7 +213,7 @@
                 title: 'Bring',
                 cat: 'User',
                 child: { inputs: ['Target'] },
-                action: 'qpixel-admin:bringPlayer',
+                action: 'qpixel:admin:bringPlayer',
               },
               options: { bindKey: void 0 },
             },
@@ -179,7 +225,7 @@
                 title: 'Revive',
                 cat: 'Player',
                 child: { inputs: ['TargetNot'] },
-                action: 'qpixel-admin:revive',
+                action: 'qpixel:admin:revive',
               },
               options: { bindKey: void 0 },
             },
@@ -191,7 +237,7 @@
                 title: 'cSay',
                 cat: 'Utility',
                 child: { inputs: ['Text'] },
-                action: 'qpixel-admin:cSay',
+                action: 'qpixel:admin:cSay',
               },
               options: { bindKey: void 0 },
             },
@@ -205,7 +251,21 @@
                 child: {
                   inputs: ['Target', 'License'],
                 },
-                action: 'qpixel-admin:giveLicense',
+                action: 'qpixel:admin:giveLicense',
+              },
+              options: { bindKey: void 0 },
+            },
+          },
+          {
+            rank: ['owner', 'dev'],
+            adminMenu: {
+              command: {
+                title: 'Fling Player',
+                cat: 'Player',
+                child: {
+                  inputs: ['Target'],
+                },
+                action: 'qpixel:admin:flingPlayer',
               },
               options: { bindKey: void 0 },
             },
@@ -219,7 +279,7 @@
                 child: {
                   inputs: ['Target', 'Amount'],
                 },
-                action: 'qpixel-admin:giveCash',
+                action: 'qpixel:admin:giveCash',
               },
               options: { bindKey: void 0 },
             },
@@ -233,7 +293,7 @@
                 child: {
                   inputs: ['Target', 'Reason'],
                 },
-                action: 'qpixel-admin:kickPlayer',
+                action: 'qpixel:admin:kickPlayer',
               },
               options: { bindKey: void 0 },
             },
@@ -247,7 +307,7 @@
                 child: {
                   inputs: ['Target', 'Job'],
                 },
-                action: 'qpixel-admin:requestJob',
+                action: 'qpixel:admin:requestJob',
               },
               options: { bindKey: void 0 },
             },
@@ -259,7 +319,7 @@
                 title: 'Teleport Marker',
                 cat: 'Player',
                 child: void 0,
-                action: 'qpixel-admin:teleportMarker',
+                action: 'qpixel:admin:teleportMarker',
               },
               options: {
                 bindKey: {
@@ -278,7 +338,7 @@
                 child: {
                   inputs: ['TargetNot', 'Item', 'Amount'],
                 },
-                action: 'qpixel-admin:giveItem',
+                action: 'qpixel:admin:giveItem',
               },
               options: {
                 bindKey: {
@@ -289,7 +349,7 @@
             },
           },
           {
-            rank: ['owner', 'dev'],
+            rank: ['owner'],
             adminMenu: {
               command: {
                 title: 'Give Job Whitelist',
@@ -297,7 +357,7 @@
                 child: {
                   inputs: ['Target', 'Job', 'Rank'],
                 },
-                action: 'qpixel-admin:giveJobWhitelist',
+                action: 'qpixel:admin:giveJobWhitelist',
               },
               options: {
                 bindKey: {
@@ -317,7 +377,7 @@
                   inputs: ['TargetNot', 'Vehicle', 'Vehicle Overwrite'],
                   checkBox: ['Mods'],
                 },
-                action: 'qpixel-admin:spawnVehicle',
+                action: 'qpixel:admin:spawnVehicle',
               },
               options: {
                 bindKey: {
@@ -334,7 +394,7 @@
                 title: 'Max Stats',
                 cat: 'Player',
                 child: { inputs: ['TargetNot'] },
-                action: 'qpixel-admin:maxMyStats',
+                action: 'qpixel:admin:maxMyStats',
               },
               options: {
                 bindKey: {
@@ -353,7 +413,7 @@
                 child: {
                   inputs: ['TargetNot', 'Amount'],
                 },
-                action: 'qpixel-admin:removeStress',
+                action: 'qpixel:admin:removeStress',
               },
               options: {
                 bindKey: {
@@ -372,7 +432,7 @@
                 child: {
                   inputs: ['Plate', 'Garage'],
                 },
-                action: 'qpixel-admin:updateGarage',
+                action: 'qpixel:admin:updateGarage',
               },
               options: {
                 bindKey: {
@@ -383,7 +443,7 @@
             },
           },
           {
-            rank: ['owner', 'dev', 'admin'],
+            rank: ['owner'],
             adminMenu: {
               command: {
                 title: 'Create Business',
@@ -391,7 +451,7 @@
                 child: {
                   inputs: ['ID', 'Name', 'Owner'],
                 },
-                action: 'qpixel-admin:createBusiness',
+                action: 'qpixel:admin:createBusiness',
               },
               options: {
                 bindKey: {
@@ -408,7 +468,7 @@
                 title: 'Search Player Inventory',
                 cat: 'Player',
                 child: { inputs: ['Target'] },
-                action: 'qpixel-admin:searchPlayerInventory',
+                action: 'qpixel:admin:searchPlayerInventory',
               },
               options: {
                 bindKey: {
@@ -418,33 +478,71 @@
               },
             },
           },
-        ]).forEach(([_0x134e9a, _0x1c6526]) => {
-          _0x1c6526.rank.forEach((_0x5e77f5) => {
-            _0x5e77f5 === _0x11544c && _0x4e9eec.push(_0x1c6526)
+          {
+            rank: ['owner', 'dev', 'admin'],
+            adminMenu: {
+              command: {
+                title: 'Ban Player',
+                cat: 'Player',
+                child: {
+                  inputs: ['Target', 'Length', 'Reason'],
+                },
+                action: 'qpixel:admin:banPlayerJS',
+              },
+              options: {
+                bindKey: {
+                  value: void 0,
+                  options: {},
+                },
+              },
+            },
+          },
+          {
+            rank: ['owner', 'dev', 'admin'],
+            adminMenu: {
+              command: {
+                title: 'UnBan Player',
+                cat: 'Player',
+                child: {
+                  inputs: ['SteamID'],
+                },
+                action: 'qpixel:admin:unbanPlayerJS',
+              },
+              options: {
+                bindKey: {
+                  value: void 0,
+                  options: {},
+                },
+              },
+            },
+          },
+        ]).forEach(([pAdminCode, pAdminModules]) => {
+          pAdminModules.rank.forEach((pAdminCodeLaidOut) => {
+            pAdminCodeLaidOut === pAdminGetCommandUI && pObjectModuleTable.push(pAdminModules)
           })
         }),
-        _0x4e9eec
+        pObjectModuleTable
       )
     })
-    onNet('qpixel-admin:sendAnnoucement', (_0x5f95b8) => {
-      let _0x19aa42 = GetPlayerName(source.toString())
-      _0x443cf2.g.exports['qpixel-admin'].sendLog(
-        'https://discord.com/api/webhooks/1012086150640435250/N0LlR3HM23CxUJztdyfMoHgUMJ5Clxi1-8LHOcMj8uWrpUdCM-9Vcw9Njxe1h6sy5Ch4',
+    onNet('qpixel:admin:sendAnnoucement', (pText) => {
+      let pAdmin = GetPlayerName(source.toString())
+      exports['lol-admin'].sendLog(
+        'https://discord.com/api/webhooks/993005972828201052/2XxjiIk75QDgYe6hDJcCtP2pgIhI7JVKYruJKQsLqDgKZ6P12nABS7fWwJ4VokJMI-x2', // changed
         '255',
-        '[qpixel-admin] cSay Log',
-        'cSay message: ' + _0x5f95b8 + '\nAdmin: ' + _0x19aa42,
+        '[lol-admin] cSay Log',
+        'cSay message: ' + pText + '\nAdmin: ' + pAdmin,
         '',
         ''
       )
-      emitNet('chatMessage', -1, 'Admin', 1, _0x5f95b8)
+      emitNet('chatMessage', -1, 'Admin', 1, pText)
     })
-    onNet('qpixel-admin:sendTsay', (_0x38b145) => {
+    onNet('qpixel:admin:sendTsay', (pText) => {
       emitNet('pNotify:SendNotification', -1, {
         text:
           '<center><span style="font-size:28px;color:red;">' +
-          _0x38b145 +
+          pText +
           '<br /><hr style="border-color: rgba(255, 0, 0, 0.5);">' +
-          _0x38b145 +
+          pText +
           '</span></center>',
         layout: 'top',
         timeout: 15000,
@@ -457,104 +555,108 @@
         progressBar: false,
       })
     })
-    RPC.register('desirerp:admin:getPlayerData', (_0x24f5cb) => {
-      let _0x564b30 = []
+    let disconnectedTable = [];
+    onNet('playerDropped', async () => {
+      let pSource = source
+      let [cid, fullname] = exports['lol-admin'].getEverything(pSource)
+     // const fullname = char.first_name + ' ' + char.last_name || 'No Character Name'
+      disconnectedTable.push({
+        name: GetPlayerName(pSource),
+        serverID: pSource,
+        SteamID: 'peeeniss',
+        charID: cid,
+        charName: fullname,
+        queueType: 'Regular',
+      })
+    })
+  
+    RPC.register('qpixel:admin:getRecentDisconnects', (pSource) => {
+      return disconnectedTable
+    })
+    // decrypted from nopixel ui
+    RPC.register('qpixel:admin:getPlayerData', (pSource) => {
       return (
-        Object.entries(getPlayers()).forEach(([_0x4920ab, _0x229e88]) => {
-          const _0x1941c8 = GetPlayerIdentifier(_0x229e88, 0)
-          _0x564b30.push({
-            name: GetPlayerName(_0x229e88),
-            SteamID: _0x1941c8,
-            serverID: _0x229e88,
-            queueType: 'Regular',
-          })
-        }),
-        _0x564b30
+        exports['lol-admin'].getEverything()
       )
     })
-    const _0x175724 = async (
-      _0x52afd9,
-      _0x1a6ebf,
-      _0x18da20,
-      _0x19f5e2,
-      _0x36627f
+    RPC.register('qpixel:admin:getBanHistory', (pSource) => {
+      let banHistoryPacked = exports['lol-admin'].getBanList()
+      return (banHistoryPacked)
+    })
+    const addPlayerLog = async (
+      type,
+      steamid,
+      log,
+      cid,
+      data
     ) => {
-      const _0x5b3d3b = new Date()
-      console.log(
-        '[DEBUG] addPlayerLog',
-        _0x52afd9,
-        _0x1a6ebf,
-        _0x18da20,
-        _0x19f5e2,
-        _0x36627f,
-        _0x5b3d3b.toLocaleString()
-      )
+      const newAdminDate = new Date()
       await SQL.execute(
         'INSERT INTO player_logs (type, steamid, log, date, cid, data) VALUES (@type, @steamid, @log, @date, @cid, @data)',
         {
-          type: _0x52afd9,
-          steamid: _0x1a6ebf,
-          log: _0x18da20,
-          date: _0x5b3d3b.toLocaleString(),
-          cid: _0x19f5e2,
-          data: _0x36627f,
+          type: type,
+          steamid: steamid,
+          log: log,
+          date: newAdminDate.toLocaleString(),
+          cid: cid,
+          data: data,
         }
       )
     }
-    _0x443cf2.g.exports('addPlayerLog', _0x175724)
-    RPC.register('desirerp:admin:getPlayerLogs', async (_0x3bdd17, _0x577d4c) =>
-      '' !== _0x577d4c.steamid ||
-      (void 0 !== _0x577d4c.steamid &&
-        '' === _0x577d4c.type &&
-        '' === _0x577d4c.cid)
+    exports('addPlayerLog', addPlayerLog)
+    RPC.register('qpixel:admin:getPlayerLogs', async (pSource, pLogs) =>
+      '' !== pLogs.steamid ||
+      (void 0 !== pLogs.steamid &&
+        '' === pLogs.type &&
+        '' === pLogs.cid)
         ? await SQL.execute(
             'SELECT * FROM player_logs WHERE steamid = @steamid ORDER BY id DESC LIMIT @limit',
             {
-              steamid: _0x577d4c.steamid,
-              limit: _0x577d4c.limit,
+              steamid: pLogs.steamid,
+              limit: pLogs.limit,
             }
           )
-        : '' !== _0x577d4c.cid ||
-          (void 0 !== _0x577d4c.cid &&
-            '' === _0x577d4c.type &&
-            '' === _0x577d4c.steamid)
+        : '' !== pLogs.cid ||
+          (void 0 !== pLogs.cid &&
+            '' === pLogs.type &&
+            '' === pLogs.steamid)
         ? await SQL.execute(
             'SELECT * FROM player_logs WHERE cid = @cid ORDER BY id DESC LIMIT @limit',
             {
-              cid: _0x577d4c.cid,
-              limit: _0x577d4c.limit,
+              cid: pLogs.cid,
+              limit: pLogs.limit,
             }
           )
-        : '' !== _0x577d4c.type ||
-          (void 0 !== _0x577d4c.type &&
-            '' === _0x577d4c.cid &&
-            '' === _0x577d4c.steamid)
+        : '' !== pLogs.type ||
+          (void 0 !== pLogs.type &&
+            '' === pLogs.cid &&
+            '' === pLogs.steamid)
         ? await SQL.execute(
             'SELECT * FROM player_logs WHERE type = @type ORDER BY id DESC LIMIT @limit',
             {
-              type: _0x577d4c.type,
-              limit: _0x577d4c.limit,
+              type: pLogs.type,
+              limit: pLogs.limit,
             }
           )
         : []
     )
-    RPC.register('desirerp:admin:isAdmin', async (_0xf14756) => {
-      let [_0x22130d, _0x2f0c14] =
-        _0x443cf2.g.exports['qpixel-admin'].isAdministrator(_0xf14756)
-      return !!_0x22130d
+    RPC.register('qpixel:admin:isAdmin', async (pSource) => {
+      let [isAdmin, isValid] =
+        exports['lol-admin'].isAdministrator(pSource)
+      return !!isAdmin
     })
-    onNet('qpixel-admin:teleportPlayer', (_0x284120, _0x31e23e) => {
-      let _0x4ec066 = _0x31e23e
-      if (0 !== _0x4ec066) {
-        let _0x591f36 = GetPlayerPed(_0x284120),
-          _0x5b74a8 = GetPlayerPed(_0x4ec066)
-        if (DoesEntityExist(_0x5b74a8)) {
-          let _0x347379 = GetEntityCoords(_0x5b74a8)
+    onNet('qpixel:admin:teleportPlayer', (pSource, _0x31e23e) => {
+      let pTarget = _0x31e23e
+      if (0 !== pTarget) {
+        let pSourcePed = GetPlayerPed(pSource),
+          pTargetPed = GetPlayerPed(pTarget)
+        if (DoesEntityExist(pTargetPed)) {
+          let pTargetCoords = GetEntityCoords(pTargetPed)
           SetEntityCoords(
-            _0x591f36,
-            _0x347379[0],
-            _0x347379[1],
-            _0x347379[2],
+            pSourcePed,
+            pTargetCoords[0],
+            pTargetCoords[1],
+            pTargetCoords[2],
             true,
             false,
             false,
@@ -563,18 +665,18 @@
         }
       }
     })
-    onNet('qpixel-admin:bringPlayer', (_0x3c9006, _0x37277f) => {
-      let _0x3d35e5 = _0x37277f
-      if (0 !== _0x3d35e5) {
-        let _0x1bf2f6 = GetPlayerPed(_0x3c9006),
-          _0x57d11a = GetPlayerPed(_0x3d35e5)
-        if (DoesEntityExist(_0x57d11a)) {
-          let _0x1cff21 = GetEntityCoords(_0x1bf2f6)
+    onNet('qpixel:admin:bringPlayer', (pSource, pTarget) => {
+      let pTargetData = pTarget
+      if (0 !== pTargetData) {
+        let pSourcePed = GetPlayerPed(pSource),
+          pTargetPed = GetPlayerPed(pTargetData)
+        if (DoesEntityExist(pTargetPed)) {
+          let pSourceCoords = GetEntityCoords(pSourcePed)
           SetEntityCoords(
-            _0x57d11a,
-            _0x1cff21[0],
-            _0x1cff21[1],
-            _0x1cff21[2],
+            pTargetPed,
+            pSourceCoords[0],
+            pSourceCoords[1],
+            pSourceCoords[2],
             true,
             false,
             false,
@@ -583,74 +685,73 @@
         }
       }
     })
-    onNet('qpixel-admin:maxMyStats', (_0x2fe8d5) => {
-      let _0x2d8cb0 =
-        ('' !== _0x2fe8d5 && void 0 !== _0x2fe8d5 && _0x2fe8d5) || source
-      console.log('[DEBUG] Target', _0x2d8cb0)
-      let _0x5ac947 = GetPlayerName(source.toString()),
-        _0x3c01bd = GetPlayerName(_0x2d8cb0.toString())
-      _0x443cf2.g.exports['qpixel-admin'].sendLog(
-        'https://discord.com/api/webhooks/1012086119946539068/DSvrwvAgICAX0YMa55XvqzcGfB_t9kWmPyobqDMaILylmhxZRri3D2EzGebxMv_dr8KX',
+    onNet('qpixel:admin:maxMyStats', (pTarget) => {
+      let pUser =
+        ('' !== pTarget && void 0 !== pTarget && pTarget) || source
+      let pAdmin = GetPlayerName(source.toString()),
+        pTargetData = GetPlayerName(pUser.toString())
+      exports['lol-admin'].sendLog(
+        'https://discord.com/api/webhooks/993006081330659438/XjUkloEviLua2p6FuJ8moD0SnoRM5UbGFN1b9afyXJ4qAkdv5KAXVm9Ly1SgX5zBBK2g', // changed
         '255',
-        '[qpixel-admin] Max Stats Log',
-        'Admin: ' + _0x5ac947 + '\nTarget: ' + _0x3c01bd,
+        '[lol-admin] Max Stats Log',
+        'Admin: ' + pAdmin + '\nTarget: ' + pTargetData,
         ''
       )
-      emitNet('qpixel-admin:maxstats', _0x2d8cb0)
+      emitNet('qpixel:admin:maxstats', pUser)
     })
-    onNet('qpixel-admin:removeStress', (_0x20fb61, _0x74e673) => {
-      let _0x419c77 = ('' !== _0x20fb61 && _0x20fb61) || source
-      emitNet('qpixel-admin:clearStress', _0x419c77, _0x74e673)
+    onNet('qpixel:admin:removeStress', (pTarget, pAmount) => {
+      let pUser = ('' !== pTarget && pTarget) || source
+      emitNet('qpixel:admin:clearStress', pUser, pAmount)
     })
-    onNet('qpixel-admin:requestJob', (_0x42c8ca, _0x2d9f5f) => {
-      let _0x280909 = ('' !== _0x42c8ca && _0x42c8ca) || source
-      emitNet('qpixel-admin:requestedJob', _0x280909, _0x2d9f5f)
+    onNet('qpixel:admin:requestJob', (pTarget, pJob) => {
+      let pUser = ('' !== pTarget && pTarget) || source
+      emitNet('qpixel:admin:requestedJob', pUser, pJob)
     })
-    onNet('qpixel-admin:requestBarber', (_0x4e1941) => {
-      let _0x4e53df = ('' !== _0x4e1941 && _0x4e1941) || source
-      emitNet('qpixel-admin:openBarber', _0x4e53df)
+    onNet('qpixel:admin:requestBarber', (pTarget) => {
+      let pUser = ('' !== pTarget && pTarget) || source
+      emitNet('qpixel:admin:openBarber', pUser)
     })
-    onNet('qpixel-admin:requestClothing', (_0x10890c) => {
-      let _0x398c3f = ('' !== _0x10890c && _0x10890c) || source
-      emitNet('qpixel-admin:openClothing', _0x398c3f)
+    onNet('qpixel:admin:requestClothing', (pTarget) => {
+      let pUser = ('' !== pTarget && pTarget) || source
+      emitNet('qpixel:admin:openClothing', pUser)
     })
-    onNet('qpixel-admin:requestBennys', (_0x3dad0c) => {
-      let _0x179658 = ('' !== _0x3dad0c && _0x3dad0c) || source
-      emitNet('qpixel-admin:bennys', _0x179658)
+    onNet('qpixel:admin:requestBennys', (pTarget) => {
+      let pUser = ('' !== pTarget && pTarget) || source
+      emitNet('qpixel:admin:bennys', pUser)
     })
-    onNet('qpixel-admin:updateGarage', async (_0x368002, _0x9b6bbd) => {
-      let _0xa025c8 = source,
-        _0x4cab0d = ('' !== _0x9b6bbd && _0x9b6bbd) || 'garage_alta'
+    onNet('qpixel:admin:updateGarage', async (vehicleLicensePlate, givenGarageData) => {
+      let src = source,
+        selectedGarage = ('' !== givenGarageData && givenGarageData) || 'garage_alta'
       await SQL.execute(
         'UPDATE characters_cars SET current_garage = @current_garage, vehicle_state = @vehicle_state WHERE license_plate = @license_plate',
         {
-          current_garage: _0x4cab0d,
+          current_garage: selectedGarage,
           vehicle_state: 'In',
-          license_plate: _0x368002,
+          license_plate: vehicleLicensePlate,
         }
       )
-      emitNet('DoLongHudText', _0xa025c8, 'Successfully updated garage state', 1)
+      emitNet('DoLongHudText', src, 'Successfully updated garage state', 1)
     })
-    onNet('qpixel-admin:giveLicense', async (_0x390c55, _0x3b5b09) => {
-      if ('' === _0x390c55 || void 0 === _0x390c55) {
+    onNet('qpixel:admin:giveLicense', async (pTarget, pType) => {
+      if ('' === pTarget || void 0 === pTarget) {
         return emitNet('DoLongHudText', source, 'You must select a target', 2)
       }
-      let _0x2dd0b7 = GetPlayerName(source.toString()),
-        _0xefbb3a = GetPlayerName(_0x390c55.toString())
+      let pAdmin = GetPlayerName(source.toString()),
+        pTargetData = GetPlayerName(pTarget.toString())
       return (
-        _0x443cf2.g.exports['qpixel-admin'].sendLog(
-          'https://discord.com/api/webhooks/1012086049465450567/sizSvurpDV2KZ8ooSwXUKltsyMGeFFFGt5j5IE3n794jqdYOy_v5rdoFwYI98M8-_BxV',
+        exports['lol-admin'].sendLog(
+          'https://discord.com/api/webhooks/993006234707972136/PGDIxqtgeoxxtDeslFXD6HnWd7-Y4CMKkbXSaHg1oiMzZWREAiA6w-W6uBKoT2lNTMV1', // changed
           '255',
-          '[qpixel-admin] Give License Log',
+          '[lol-admin] Give License Log',
           'License Given: ' +
-            _0x3b5b09 +
+            pType +
             ' License\nAdmin: ' +
-            _0x2dd0b7 +
+            pAdmin +
             '\nTarget: ' +
-            _0xefbb3a,
+            pTargetData,
           ''
         ),
-        _0x443cf2.g.exports['qpixel-admin'].giveLicense(Number(_0x390c55), _0x3b5b09)
+        exports['lol-admin'].giveLicense(Number(pTarget), pType)
           ? emitNet('DoLongHudText', source, 'Successfully gave license!', 1)
           : emitNet(
               'DoLongHudText',
@@ -661,32 +762,32 @@
       )
     })
     onNet(
-      'qpixel-admin:giveJobWhitelist',
-      async (_0x13524d, _0x4876d4, _0x3e0395) => {
-        if ('' === _0x13524d || void 0 === _0x13524d) {
+      'qpixel:admin:giveJobWhitelist',
+      async (pTarget, pJob, pRank) => {
+        if ('' === pTarget || void 0 === pTarget) {
           return emitNet('DoLongHudText', source, 'You must select a target', 2)
         }
-        let _0x1aff4b = GetPlayerName(source.toString()),
-          _0x8a8a2f = GetPlayerName(_0x13524d.toString())
+        let pAdmin = GetPlayerName(source.toString()),
+          pTargetData = GetPlayerName(pTarget.toString())
         return (
-          _0x443cf2.g.exports['qpixel-admin'].sendLog(
-            'https://discord.com/api/webhooks/1012086013864198164/YtzXWIUZ52I8Wze-p827KdKRY7a8sBwQI2Y95-Dxv0BXoCc_ecjAgH0KnsGXsB2mN7Ow',
+          exports['lol-admin'].sendLog(
+            'https://discord.com/api/webhooks/993006418787565670/iq97Wzmg_ic8Ic5ZuG9C1a_YLntK23FMEt_eih6gQNavKFeYOkKp4j5xVIfBj3NTtwmS', // changed
             '255',
-            '[qpixel-admin] Job Whitelist Log',
+            '[lol-admin] Job Whitelist Log',
             'Whitelisted Job Given: ' +
-              _0x4876d4 +
+              pJob +
               '\nRank: ' +
-              _0x3e0395 +
+              pRank +
               '\nAdmin: ' +
-              _0x1aff4b +
+              pAdmin +
               '\nTarget: ' +
-              _0x8a8a2f,
+              pTargetData,
             ''
           ),
-          _0x443cf2.g.exports['qpixel-admin'].giveJobWhitelist(
-            Number(_0x13524d),
-            _0x4876d4,
-            _0x3e0395
+          exports['lol-admin'].giveJobWhitelist(
+            Number(pTarget),
+            pJob,
+            pRank
           )
             ? emitNet(
                 'DoLongHudText',
@@ -703,26 +804,26 @@
         )
       }
     )
-    onNet('qpixel-admin:giveCash', async (_0x1ae7bd, _0x5e1bd2) => {
-      if ('' === _0x1ae7bd || void 0 === _0x1ae7bd) {
+    onNet('qpixel:admin:giveCash', async (pTarget, pAmount) => {
+      if ('' === pTarget || void 0 === pTarget) {
         return emitNet('DoLongHudText', source, 'You must select a target', 2)
       }
-      let _0x1ff7e4 = GetPlayerName(source.toString()),
-        _0x48e165 = GetPlayerName(_0x1ae7bd.toString())
+      let pAdmin = GetPlayerName(source.toString()),
+        pTargetData = GetPlayerName(pTarget.toString())
       return (
-        _0x443cf2.g.exports['qpixel-admin'].sendLog(
-          'https://discord.com/api/webhooks/1012085976564256769/1Yc8Ejg05M2bprMDm4MHLPbZWica8irXl1o74xUsLX8oWSan2YzDwW2IiQRJSrl7Po4_',
+        exports['lol-admin'].sendLog(
+          'https://discord.com/api/webhooks/993006528812564591/_QbJH10BOiouKFfOA-BsHHqz0D7wyrSIKPr9_40T3_BTn7eYcILIP1L6qeNPaYCVquHo', // changed
           '255',
-          '[qpixel-admin] Give Cash Log',
+          '[lol-admin] Give Cash Log',
           'Cash Given: $' +
-            _0x5e1bd2.toLocaleString() +
+            pAmount.toLocaleString() +
             '\nAdmin: ' +
-            _0x1ff7e4 +
+            pAdmin +
             '\nTarget: ' +
-            _0x48e165,
+            pTargetData,
           ''
         ),
-        _0x443cf2.g.exports['qpixel-admin'].giveCash(Number(_0x1ae7bd), _0x5e1bd2)
+        exports['lol-admin'].giveCash(Number(pTarget), pAmount)
           ? emitNet('DoLongHudText', source, 'Successfully gave cash!', 1)
           : emitNet(
               'DoLongHudText',
@@ -732,45 +833,44 @@
             )
       )
     })
-    onNet('qpixel-admin:kickPlayer', async (_0x385b59, _0x128c93) => {
-      if ('' === _0x385b59 || void 0 === _0x385b59) {
+    onNet('qpixel:admin:kickPlayer', async (pTarget, pReason) => {
+      if ('' === pTarget || void 0 === pTarget) {
         return emitNet('DoLongHudText', source, 'You must select a target', 2)
       }
-      DropPlayer(_0x385b59, _0x128c93)
-      let _0x5521ae = GetPlayerName(source.toString()),
-        _0x42583a = GetPlayerName(_0x385b59.toString())
-      _0x443cf2.g.exports['qpixel-admin'].sendLog(
-        'https://discord.com/api/webhooks/1012085946914721862/3NKldUypurDhSTTV_KdsqPvliWqrEFu8rj41ooz0VS3ht-pnqhVGKpYm5qJii8wd18LD',
+      DropPlayer(pTarget, pReason)
+      let pAdmin = GetPlayerName(source.toString()),
+        pTargetData = GetPlayerName(pTarget.toString())
+      exports['lol-admin'].sendLog(
+        'https://discord.com/api/webhooks/993006656579444826/0gEQxx-I1wx5iBegO3x2OwXu6GHpOS84SPMMB_6uHVSwWfU2qRTJzW7WYqqiEwcsf2VF', // changed
         '255',
-        '[qpixel-admin] Kick Player Log',
+        '[lol-admin] Kick Player Log',
         'Reason: ' +
-          _0x128c93 +
+          pReason +
           '\nAdmin: ' +
-          _0x5521ae +
+          pAdmin +
           '\nTarget: ' +
-          _0x42583a,
+          pTargetData,
         ''
       )
     })
-    onNet('qpixel-admin:createBusiness', async (_0x125447, _0x2b8f0d, _0x5b4abf) => {
-      console.log('qpixel-admin:createBusiness', _0x125447, _0x2b8f0d, _0x5b4abf)
+    onNet('qpixel:admin:createBusiness', async (pBID, pBusinessName, pBusinessOwner) => {
       let _0x1fb2d5 = GetPlayerName(source.toString())
-      _0x443cf2.g.exports['qpixel-admin'].sendLog(
-        'https://discord.com/api/webhooks/1012085912815009812/SfJvvqL0rAyzCsMzZAsmkArqt0oJkmoF9IpjiNebrgJaQ_pJ_DcfgmBqAR2BnIHwNoKV',
+      exports['lol-admin'].sendLog(
+        'https://discord.com/api/webhooks/993006771901833218/OowPrRKBT_Y70zIrlaqjmY0Jjx_s7g9mxek193XcaM423t0WGtUvJ4ke9x6EiEGwry4O', // changed
         '255',
-        '[qpixel-admin] Business Creation Log',
+        '[lol-admin] Business Creation Log',
         'Business ID: ' +
-          _0x125447 +
+          pBID +
           '\nBusiness Name: ' +
-          _0x2b8f0d +
+          pBusinessName +
           '\nBusiness Owner: ' +
-          _0x5b4abf +
+          pBusinessOwner +
           '\nAdmin: ' +
           _0x1fb2d5,
         ''
       )
-      let _0x3817cf = []
-      _0x3817cf.push(
+      let pBusinessOptions = []
+      pBusinessOptions.push(
         {
           name: 'Owner',
           charge_access: true,
@@ -796,13 +896,13 @@
           can_fire: false,
         }
       )
-      let _0x2d0bf0 = []
-      _0x2d0bf0.push({
-        cid: _0x5b4abf,
+      let pBusinessEmployees = []
+      pBusinessEmployees.push({
+        cid: pBusinessOwner,
         role: 'Owner',
         rank: 5,
       })
-      let _0x153956 =
+      let pBusinessBankID =
         Math.floor(10 * Math.random()).toString() +
         Math.floor(10 * Math.random()).toString() +
         Math.floor(10 * Math.random()).toString() +
@@ -814,11 +914,11 @@
       return (await SQL.execute(
         'INSERT INTO businesses (business_id, business_name, employees, roles, bank_id) VALUES (@business_id, @business_name, @employees, @roles, @bank_id)',
         {
-          business_id: _0x125447,
-          business_name: _0x2b8f0d,
-          employees: JSON.stringify(_0x2d0bf0),
-          roles: JSON.stringify(_0x3817cf),
-          bank_id: _0x153956,
+          business_id: pBID,
+          business_name: pBusinessName,
+          employees: JSON.stringify(pBusinessEmployees),
+          roles: JSON.stringify(pBusinessOptions),
+          bank_id: pBusinessBankID,
         }
       ))
         ? emitNet('DoLongHudText', source, 'Successfully created business!', 1)
@@ -831,127 +931,116 @@
     })
     RegisterCommand(
       'testidentifiers',
-      (_0x3e224f, _0x3dbe4b) => {
-        const _0xd33948 = GetPlayerIdentifier(_0x3e224f, Number(_0x3dbe4b[0]))
-        console.log('yo', _0xd33948)
+      (pSource, pArgs) => {
+        const pIdentifier = GetPlayerIdentifier(pSource, Number(pArgs[0]))
       },
       false
     )
-    onNet('qpixel-admin:giveItem', async (_0x5e74bd, _0x495027, _0x520d07) => {
-      let _0x34b98b = ('' !== _0x5e74bd && _0x5e74bd) || source,
-        _0x2fc452 = ('' !== _0x520d07 && _0x520d07) || 1
-      isNaN(_0x495027) || (_0x495027 = Number(_0x495027))
-      const _0x568991 = source
-      emitNet('player:receiveItem', _0x34b98b, _0x495027.toString(), _0x2fc452)
-      let _0xfb09a8 =
-          'https://discord.com/api/webhooks/1012085878396555354/xQzlNcDg_E-oqmsNgD0b5cqda3WmU_i80Z-ZXJn3IZv4VWkiZ0uoBwhElpXo8zegKoNJ',
-        _0x4a04df = GetPlayerName(source.toString())
-      if ('' !== _0x5e74bd || null !== _0x5e74bd) {
-        let _0xb34ec5 = GetPlayerName(_0x34b98b.toString())
-        _0x443cf2.g.exports['qpixel-admin'].sendLog(
-          _0xfb09a8,
+    onNet('qpixel:admin:giveItem', async (pTarget, pItem, pAmount) => {
+      let pUser = ('' !== pTarget && pTarget) || source,
+        pAmountOfitem = ('' !== pAmount && pAmount) || 1
+      isNaN(pItem) || (pItem = Number(pItem))
+      const pSource = source
+      emitNet('player:receiveItem', pUser, pItem.toString(), pAmountOfitem)
+      let pWebhook =
+          'https://discord.com/api/webhooks/993006882451099709/wa3Ai3X4lzyiPKjz-YsZc0sRfy46bjiMvGbHYp37cRFNOVJ8SLXMFT0jXr4O7LH1TGGB',
+        pAdminName = GetPlayerName(source.toString())
+      if ('' !== pTarget || null !== pTarget) {
+        let pUserName = GetPlayerName(pUser.toString())
+        exports['lol-admin'].sendLog(
+          pWebhook,
           '255',
-          '[qpixel-admin] Spawn Item Log',
+          '[lol-admin] Spawn Item Log',
           'Item Spawned: ' +
-            _0x495027 +
+            pItem +
             '\nItem Amount: 1\nAdmin: ' +
-            _0x4a04df +
+            pAdminName +
             '\nTarget: ' +
-            _0xb34ec5,
+            pUserName,
           ''
         )
-        const _0x1f4549 = _0x443cf2.g.exports['qpixel-lib'].getCharacter(_0x568991)
-        if (!_0x1f4549) {
-          return
-        }
-        const _0x41e5e2 = _0x443cf2.g.exports['qpixel-lib'].getCharacter(_0x34b98b)
-        if (!_0x41e5e2) {
-          return
-        }
-        const _0x28bde3 =
-            '{"amount":"' + _0x2fc452 + '","item":"' + _0x495027 + '"}',
-          _0x4ab72d = GetPlayerIdentifier(_0x568991, 0)
-        _0x175724(
+        const pMetaLogData =
+            '{"amount":"' + pAmountOfitem + '","item":"' + pItem + '"}',
+          pIdentifierSource = GetPlayerIdentifier(pSource, 0)
+        addPlayerLog(
           'Admin',
-          null !== _0x4ab72d ? _0x4ab72d : 'None',
+          null !== pIdentifierSource ? pIdentifierSource : 'None',
           'Spawned item for ' +
-            _0xb34ec5 +
+            pUserName +
             ' (' +
-            _0x41e5e2.id +
+            getCharPUser.id +
             ') [' +
-            _0x41e5e2.first_name +
+            getCharPUser.first_name +
             ' ' +
-            _0x41e5e2.last_name +
+            getCharPUser.last_name +
             ']',
-          _0x1f4549.id,
-          _0x28bde3
+          getChar.id,
+          pMetaLogData
         )
       } else {
-        _0x443cf2.g.exports['qpixel-admin'].sendLog(
-          _0xfb09a8,
+        exports['lol-admin'].sendLog(
+          pWebhook,
           '255',
-          '[qpixel-admin] Spawn Item Log',
-          'Item Spawned: ' + _0x495027 + '\nItem Amount: 1\nAdmin: ' + _0x4a04df,
-          'Item Name: ' + _0x495027 + ' | Item Amount: 1',
+          '[lol-admin] Spawn Item Log',
+          'Item Spawned: ' + pItem + '\nItem Amount: 1\nAdmin: ' + pAdminName,
+          'Item Name: ' + pItem + ' | Item Amount: 1',
           ''
         )
-        const _0x1a76b8 = _0x443cf2.g.exports['qpixel-lib'].getCharacter(_0x568991)
-        if (!_0x1a76b8) {
-          return
-        }
-        const _0x408639 =
-            '{"amount":"' + _0x2fc452 + '","item":"' + _0x495027 + '"}',
-          _0x1ab5fb = GetPlayerIdentifier(_0x568991, 0)
-        _0x175724(
+        const pPlayerSourceMetadata =
+            '{"amount":"' + pAmountOfitem + '","item":"' + pItem + '"}',
+          pPlayerSourceIdentifiers = GetPlayerIdentifier(pSource, 0)
+        addPlayerLog(
           'Admin',
-          null !== _0x1ab5fb ? _0x1ab5fb : 'None',
+          null !== pPlayerSourceIdentifiers ? pPlayerSourceIdentifiers : 'None',
           'Spawned item',
-          _0x1a76b8.id,
-          _0x408639
+          pPlayerSourceChar.id,
+          pPlayerSourceMetadata
         )
       }
     })
-    onNet('qpixel-admin:sendLog', async (_0x38146f, _0x187835, _0x21a109) => {
-      console.log('qpixel-admin:sendLog', _0x38146f, _0x187835, _0x21a109)
-      let _0x2d3366 = GetPlayerName(source.toString())
-      switch (_0x38146f) {
+    onNet('qpixel:admin:flingPlayer', async (pTarget) => {
+      emitNet('lol-admin/client/fling-player', pTarget)
+    })
+    onNet('qpixel:admin:sendLog', async (logReasons, bool, pAdmin) => {
+      let pAdminName = GetPlayerName(source.toString())
+      switch (logReasons) {
         case 'godmode':
-          let _0x44e720 =
-            'https://discord.com/api/webhooks/1012085847241277470/5un7D2kdN-4BmTm9uB8McXz1skYDQecoKCY1-P3jtG2UQBCvB4zfAqP30nv6TKuXk9iJ'
-          _0x443cf2.g.exports['qpixel-admin'].sendLog(
-            _0x44e720,
+          let pWebhook2 =
+            'https://discord.com/api/webhooks/993006981822566431/yYMyVFQjqTinUgx4xS7qJXbiM-2inEfM3RC9DYVHaTg6c7qDKiY6MShdWZCZbxShG0jW' // changed
+          exports['lol-admin'].sendLog(
+            pWebhook2,
             '255',
-            '[qpixel-admin] Godmode Log',
-            'Godmode Toggled: ' + _0x187835 + '\nAdmin: ' + _0x2d3366,
+            '[lol-admin] Godmode Log',
+            'Godmode Toggled: ' + bool + '\nAdmin: ' + pAdminName,
             '',
             ''
           )
           break
         case 'reviveDistance':
-          let _0x45b285 =
-            'https://discord.com/api/webhooks/1012085816677388488/LYwPbJ-UlPSmaBu8dU_vOXw90pnCpc4fUf8DZ97uXCEruP07ktZhEIGjRxIQXT3pm8Hk'
-          _0x443cf2.g.exports['qpixel-admin'].sendLog(
-            _0x45b285,
+          let pWebhook3 =
+            'https://discord.com/api/webhooks/993007072583106611/dJ2eVo3c0DzyLRQhUEyHypnH9B_55UYtWOhYV0fffc3fSasbA8Xw4HP_F-0teGBEErPg' // changed
+          exports['lol-admin'].sendLog(
+            pWebhook3,
             '255',
-            '[qpixel-admin] Revive Distance Log',
-            'Revived in Distance\nAdmin: ' + _0x2d3366,
+            '[lol-admin] Revive Distance Log',
+            'Revived in Distance\nAdmin: ' + pAdminName,
             '',
             ''
           )
           break
         case 'reviveTarget':
-          let _0x492fdd =
-            'https://discord.com/api/webhooks/1012085784964255755/N1T3BEY2G_mEH0CaEkokpclsuzPp9y27KsxkrlBWr4T7yAxkI3bLww1vhvgG9KSIYJpe'
-          _0x443cf2.g.exports['qpixel-admin'].sendLog(
-            _0x492fdd,
+          let pWebhook =
+            'https://discord.com/api/webhooks/993007229970169856/PsZrD_Qee44DnkPhvkenOv5udVFSQyowbfhJszX204c8erRQF0oj4HZ59VrnX4vk0489'
+          exports['lol-admin'].sendLog(
+            pWebhook,
             '255',
-            '[qpixel-admin] Revive Target Log',
+            '[lol-admin] Revive Target Log',
             'Revived a Target\nAdmin: ' +
-              _0x2d3366 +
+              pAdminName +
               '\nTarget: ' +
-              GetPlayerName(_0x21a109) +
+              GetPlayerName(pAdmin) +
               ' (' +
-              GetPlayerIdentifier(_0x21a109, 0) +
+              GetPlayerIdentifier(pAdmin, 0) +
               ')',
             '',
             ''
