@@ -1,4 +1,4 @@
-function DPX.Util.MissionText(self, text, time)
+function QPX.Util.MissionText(self, text, time)
   if not text then return end
 
   text = tostring(text)
@@ -22,7 +22,7 @@ function drawTxt(x,y ,width,height,scale, text, r,g,b,a)
 end
 
 
-function DPX.Util.DrawText(self, text, font, centre, x, y, scale, r, g, b, a)
+function QPX.Util.DrawText(self, text, font, centre, x, y, scale, r, g, b, a)
   SetTextFont(font)
   SetTextProportional(0)
   SetTextScale(scale, scale)
@@ -37,7 +37,7 @@ function DPX.Util.DrawText(self, text, font, centre, x, y, scale, r, g, b, a)
   DrawText(x , y)
 end
 
-function DPX.Util.DrawText3D(self, x,y,z, text)
+function QPX.Util.DrawText3D(self, x,y,z, text)
   local onScreen,_x,_y=GetScreenCoordFromWorldCoord(x,y,z)
   SetTextScale(0.35, 0.35)
   SetTextFont(4)
@@ -52,7 +52,7 @@ function DPX.Util.DrawText3D(self, x,y,z, text)
 end
 
 
-function DPX.Util.RotationToDirection(self,rotation)
+function QPX.Util.RotationToDirection(self,rotation)
 
   local z = math.rad(rotation.z);
   local x = math.rad(rotation.x);
@@ -64,17 +64,17 @@ function DPX.Util.RotationToDirection(self,rotation)
   return vector3Direction
 end
 
-function DPX.Util.ScreenRelToWorld(self,camPos,camRot,coord)
+function QPX.Util.ScreenRelToWorld(self,camPos,camRot,coord)
 
   local distance = 1000.0
-  local camForward = DPX.Util.RotationToDirection(self,camRot);
+  local camForward = QPX.Util.RotationToDirection(self,camRot);
   local rotUp = camRot + vector3(distance, 0, 0);
   local rotDown = camRot + vector3(-distance, 0, 0);
   local rotLeft = camRot + vector3(0, 0, -distance);
   local rotRight = camRot + vector3(0, 0, distance);
 
-  local camRight = DPX.Util.RotationToDirection(self,rotRight) - DPX.Util.RotationToDirection(self,rotLeft);
-  local camUp = DPX.Util.RotationToDirection(self,rotUp) - DPX.Util.RotationToDirection(self,rotDown);
+  local camRight = QPX.Util.RotationToDirection(self,rotRight) - QPX.Util.RotationToDirection(self,rotLeft);
+  local camUp = QPX.Util.RotationToDirection(self,rotUp) - QPX.Util.RotationToDirection(self,rotDown);
 
   local rollRad = -math.rad(camRot.y);
 

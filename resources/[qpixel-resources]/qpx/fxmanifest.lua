@@ -4,7 +4,6 @@ games { "gta5" }
 
 description "Atlas Library"
 
-author "loleris#1598"
 
 version "0.1.0"
 

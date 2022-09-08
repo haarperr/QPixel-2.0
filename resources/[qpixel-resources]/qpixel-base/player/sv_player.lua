@@ -1,14 +1,14 @@
-DPX.Users = DPX.Users or {}
-DPX.Player = DPX.Player or {}
+QPX.Users = QPX.Users or {}
+QPX.Player = QPX.Player or {}
 
-function DPX.Player.GetUser(self, id)
-    return DPX.Users[id] and DPX.Users[id] or false
+function QPX.Player.GetUser(self, id)
+    return QPX.Users[id] and QPX.Users[id] or false
 end
 
-function DPX.Player.GetUsers(self)
+function QPX.Player.GetUsers(self)
     local tmp = {}
 
-    for k, v in pairs(DPX.Users) do
+    for k, v in pairs(QPX.Users) do
         tmp[#tmp+1]= k
     end
 
@@ -16,7 +16,7 @@ function DPX.Player.GetUsers(self)
 end
 
 local function GetUser(user)
-    return DPX.Users[user.source]
+    return QPX.Users[user.source]
 end
 
 local function AddMethod(player)
@@ -79,7 +79,7 @@ local function AddMethod(player)
 
         GetUser(self).character.dirty_money = amt
 
-        DPX.DB:UpdateCharacterDirtyMoney(GetUser(self), characterId, amt, function(updatedMoney, err)
+        QPX.DB:UpdateCharacterDirtyMoney(GetUser(self), characterId, amt, function(updatedMoney, err)
             if updatedMoney then
                 --We are good here.
             end
@@ -91,7 +91,7 @@ local function AddMethod(player)
 
         GetUser(self).character.stress_level = amt
 
-        DPX.DB:UpdateCharacterStressLevel(GetUser(self), characterId, amt, function(updatedMoney, err)
+        QPX.DB:UpdateCharacterStressLevel(GetUser(self), characterId, amt, function(updatedMoney, err)
             if updatedMoney then
                 --We are good here.
             end
@@ -103,7 +103,7 @@ local function AddMethod(player)
 
         GetUser(self).character.dirty_money = 0
 
-        DPX.DB:UpdateCharacterDirtyMoney(GetUser(self), characterId, 0, function(updatedMoney, err)
+        QPX.DB:UpdateCharacterDirtyMoney(GetUser(self), characterId, 0, function(updatedMoney, err)
             if updatedMoney then
                 --We are good here.
             end
@@ -122,7 +122,7 @@ local function AddMethod(player)
 
         GetUser(self).character.cash = cash
 
-        DPX.DB:UpdateCharacterMoney(GetUser(self), characterId, cash, function(updatedMoney, err) 
+        QPX.DB:UpdateCharacterMoney(GetUser(self), characterId, cash, function(updatedMoney, err) 
             if updatedMoney then
                 TriggerClientEvent("banking:addCash", GetUser(self).source, amt)
                 TriggerClientEvent("banking:updateCash", GetUser(self).source, GetUser(self):getCash(), amt)
@@ -141,7 +141,7 @@ local function AddMethod(player)
         GetUser(self).character.cash = GetUser(self).character.cash - amt
 
 
-            DPX.DB:UpdateCharacterMoney(GetUser(self), characterId, cash, function(updatedMoney, err) 
+            QPX.DB:UpdateCharacterMoney(GetUser(self), characterId, cash, function(updatedMoney, err) 
                 if updatedMoney then
                     TriggerClientEvent("banking:removeCash", GetUser(self).source, amt)
                     TriggerClientEvent("banking:updateCash", GetUser(self).source, GetUser(self):getCash(), amt * -1)
@@ -160,7 +160,7 @@ local function AddMethod(player)
 
         GetUser(self).character.bank = GetUser(self).character.bank - amt
 
-        DPX.DB:UpdateCharacterBank(GetUser(self), characterId, bank, function(updatedMoney, err) 
+        QPX.DB:UpdateCharacterBank(GetUser(self), characterId, bank, function(updatedMoney, err) 
             if updatedMoney then
                 TriggerClientEvent("banking:removeBalance", GetUser(self).source, amt * -1)
                 TriggerClientEvent("banking:updateBalance", GetUser(self).source, GetUser(self):getBalance(), amt * -1)
@@ -178,7 +178,7 @@ local function AddMethod(player)
 
         GetUser(self).character.bank = bank
 
-        DPX.DB:UpdateCharacterBank(GetUser(self), characterId, bank, function(updatedMoney, err) 
+        QPX.DB:UpdateCharacterBank(GetUser(self), characterId, bank, function(updatedMoney, err) 
             if updatedMoney then
                 TriggerClientEvent("banking:addBalance", GetUser(self).source, amt)
                 TriggerClientEvent("banking:updateBalance", GetUser(self).source, GetUser(self):getBalance(), amt)
@@ -235,16 +235,16 @@ end
 
         self.source = src
         self.name = GetPlayerName(src)
-        self.hexid = DPX.Util:GetHexId(src)
+        self.hexid = QPX.Util:GetHexId(src)
         
         -- if not self.hexid then
         --     DropPlayer(src, "Error fetching steamid")
         --     return
         -- end
 
-        self.comid = DPX.Util:HexIdToComId(self.hexid)
-        self.steamid = DPX.Util:HexIdToSteamId(self.hexid)
-        self.license = DPX.Util:GetLicense(src)
+        self.comid = QPX.Util:HexIdToComId(self.hexid)
+        self.steamid = QPX.Util:HexIdToSteamId(self.hexid)
+        self.license = QPX.Util:GetLicense(src)
         self.ip = GetPlayerEP(src)
         self.rank = "user"
 
@@ -256,16 +256,16 @@ end
 
         local methods = AddMethod(self)
 
-        DPX.Users[src] = methods
+        QPX.Users[src] = methods
 
         return methods
     end
 
 
-function DPX.Player.CreatePlayer(self, src, recrate)
-    if recreate then DPX.Users[src] = nil end
+function QPX.Player.CreatePlayer(self, src, recrate)
+    if recreate then QPX.Users[src] = nil end
     
-    if DPX.Users[src] then return DPX.Users[src] end
+    if QPX.Users[src] then return QPX.Users[src] end
 
     return CreatePlayer(src)
 end
@@ -291,11 +291,11 @@ end)
 AddEventHandler("playerDropped", function(reason)
     local src = source
     if reason == nil then reason = "Unknown" end
-    local user = DPX.Player:GetUser(src)
+    local user = QPX.Player:GetUser(src)
     local posE = json.encode(pos[src])
     pos[src] = nil
 
-    DPX.Users[src] = nil
+    QPX.Users[src] = nil
 
     TriggerEvent('qpixel-base:playerDropped', src, user)
 end)
@@ -324,7 +324,7 @@ end)
 AddEventHandler("playerDropped", function(reason)
     local src = source
     if reason == nil then reason = "Unknown" end
-    local user = DPX.Player:GetUser(src)
+    local user = QPX.Player:GetUser(src)
     local posE = json.encode(pos[src])
     pos[src] = nil
     local pName = GetPlayerName(source)
@@ -338,7 +338,7 @@ AddEventHandler("playerDropped", function(reason)
         if string.find(v, 'discord') then pDiscord = v end
     end
 
-    DPX.Users[src] = nil
+    QPX.Users[src] = nil
 
     local connect = {
         {

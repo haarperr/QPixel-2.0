@@ -1,14 +1,14 @@
-local DPX = DPX or {}
-DPX.Scoreboard = {}
-DPX._Scoreboard = {}
+local QPX = QPX or {}
+QPX.Scoreboard = {}
+QPX._Scoreboard = {}
 
-DPX.Scoreboard.Menu = {}
+QPX.Scoreboard.Menu = {}
 
-DPX._Scoreboard.Players = {}
-DPX._Scoreboard.Recent = {}
-DPX._Scoreboard.SelectedPlayer = nil
-DPX._Scoreboard.MenuOpen = false
-DPX._Scoreboard.Menus = {}
+QPX._Scoreboard.Players = {}
+QPX._Scoreboard.Recent = {}
+QPX._Scoreboard.SelectedPlayer = nil
+QPX._Scoreboard.MenuOpen = false
+QPX._Scoreboard.Menus = {}
 
 local function spairs(t, order)
     local keys = {}
@@ -29,25 +29,25 @@ local function spairs(t, order)
     end
 end
 
-function DPX.Scoreboard.AddPlayer(self, data)
-    DPX._Scoreboard.Players[data.src] = data
+function QPX.Scoreboard.AddPlayer(self, data)
+    QPX._Scoreboard.Players[data.src] = data
 end
 
-function DPX.Scoreboard.RemovePlayer(self, data)
-    DPX._Scoreboard.Players[data.src] = nil
-    DPX._Scoreboard.Recent[data.src] = data
+function QPX.Scoreboard.RemovePlayer(self, data)
+    QPX._Scoreboard.Players[data.src] = nil
+    QPX._Scoreboard.Recent[data.src] = data
 end
 
-function DPX.Scoreboard.RemoveRecent(self, src)
-    DPX._Scoreboard.Recent[src] = nil
+function QPX.Scoreboard.RemoveRecent(self, src)
+    QPX._Scoreboard.Recent[src] = nil
 end
 
 
-function DPX.Scoreboard.AddAllPlayers(self, data)
-    DPX._Scoreboard.Players[data.src] = data
+function QPX.Scoreboard.AddAllPlayers(self, data)
+    QPX._Scoreboard.Players[data.src] = data
 end
 
-function DPX.Scoreboard.GetPlayerCount(self)
+function QPX.Scoreboard.GetPlayerCount(self)
     local count = 0
 
     for i = 0, 255 do
@@ -59,15 +59,15 @@ end
 
 Citizen.CreateThread(function()
     local function DrawMain()
-        if WarMenu.Button("Total:", tostring(DPX.Scoreboard:GetPlayerCount()), {r = 135, g = 206, b = 250, a = 150}) then end
+        if WarMenu.Button("Total:", tostring(QPX.Scoreboard:GetPlayerCount()), {r = 135, g = 206, b = 250, a = 150}) then end
 
-        for k,v in spairs(DPX._Scoreboard.Players, function(t, a, b) return t[a].src < t[b].src end) do
+        for k,v in spairs(QPX._Scoreboard.Players, function(t, a, b) return t[a].src < t[b].src end) do
             local playerId = GetPlayerFromServerId(v.src)
 
             if NetworkIsPlayerActive(playerId) or GetPlayerPed(playerId) == PlayerPedId() then
-                if WarMenu.MenuButton("[" .. v.src .. "] " .. v.steamid .. " ", "options") then DPX._Scoreboard.SelectedPlayer = v end
+                if WarMenu.MenuButton("[" .. v.src .. "] " .. v.steamid .. " ", "options") then QPX._Scoreboard.SelectedPlayer = v end
             else
-                if WarMenu.MenuButton("[" .. v.src .. "] - instanced?", "options", {r = 255, g = 0, b = 0, a = 255}) then DPX._Scoreboard.SelectedPlayer = v end
+                if WarMenu.MenuButton("[" .. v.src .. "] - instanced?", "options", {r = 255, g = 0, b = 0, a = 255}) then QPX._Scoreboard.SelectedPlayer = v end
             end
         end
 
@@ -78,18 +78,18 @@ Citizen.CreateThread(function()
     end
 
     local function DrawRecent()
-        for k,v in spairs(DPX._Scoreboard.Recent, function(t, a, b) return t[a].src < t[b].src end) do
-            if WarMenu.MenuButton("[" .. v.src .. "] " .. v.name, "options") then DPX._Scoreboard.SelectedPlayer = v end
+        for k,v in spairs(QPX._Scoreboard.Recent, function(t, a, b) return t[a].src < t[b].src end) do
+            if WarMenu.MenuButton("[" .. v.src .. "] " .. v.name, "options") then QPX._Scoreboard.SelectedPlayer = v end
         end
     end
 
     local function DrawOptions()
-        if WarMenu.Button("Steam ID:", DPX._Scoreboard.SelectedPlayer.steamid) then end
-        if WarMenu.Button("Community ID:", DPX._Scoreboard.SelectedPlayer.comid) then end
-        if WarMenu.Button("Server ID:", DPX._Scoreboard.SelectedPlayer.src) then end
+        if WarMenu.Button("Steam ID:", QPX._Scoreboard.SelectedPlayer.steamid) then end
+        if WarMenu.Button("Community ID:", QPX._Scoreboard.SelectedPlayer.comid) then end
+        if WarMenu.Button("Server ID:", QPX._Scoreboard.SelectedPlayer.src) then end
     end
 
-    DPX._Scoreboard.Menus = {
+    QPX._Scoreboard.Menus = {
         ["scoreboard"] = DrawMain,
         ["recent"] = DrawRecent,
         ["options"] = DrawOptions
@@ -126,7 +126,7 @@ Citizen.CreateThread(function()
     Init()
     timed = 0
     while true do
-        for k,v in pairs(DPX._Scoreboard.Menus) do
+        for k,v in pairs(QPX._Scoreboard.Menus) do
             if WarMenu.IsMenuOpened(k) then
                 v()
                 WarMenu.Display()
@@ -143,13 +143,13 @@ Citizen.CreateThread(function()
 
 end)
 
-function DPX.Scoreboard.Menu.Open(self)
-    DPX._Scoreboard.SelectedPlayer = nil
+function QPX.Scoreboard.Menu.Open(self)
+    QPX._Scoreboard.SelectedPlayer = nil
     WarMenu.OpenMenu("scoreboard")
 end
 
-function DPX.Scoreboard.Menu.Close(self)
-    for k,v in pairs(DPX._Scoreboard.Menus) do
+function QPX.Scoreboard.Menu.Close(self)
+    for k,v in pairs(QPX._Scoreboard.Menus) do
         WarMenu.CloseMenu(K)        shouldDraw =false    end
 end
 
@@ -161,7 +161,7 @@ end)
 
 Citizen.CreateThread(function()
     local function IsAnyMenuOpen()
-        for k,v in pairs(DPX._Scoreboard.Menus) do
+        for k,v in pairs(QPX._Scoreboard.Menus) do
             if WarMenu.IsMenuOpened(k) then return true end
         end
 
@@ -172,10 +172,10 @@ Citizen.CreateThread(function()
         Citizen.Wait(0)
         if IsControlPressed(0, Controlkey["generalScoreboard"][1]) then
             if not IsAnyMenuOpen() then
-                DPX.Scoreboard.Menu:Open()
+                QPX.Scoreboard.Menu:Open()
             end
         else
-            if IsAnyMenuOpen() then DPX.Scoreboard.Menu:Close() end
+            if IsAnyMenuOpen() then QPX.Scoreboard.Menu:Close() end
             Citizen.Wait(100)
         end
     end
@@ -183,20 +183,20 @@ end)
 
 RegisterNetEvent("qpixel-scoreboard:RemovePlayer")
 AddEventHandler("qpixel-scoreboard:RemovePlayer", function(data)
-    DPX.Scoreboard:RemovePlayer(data)
+    QPX.Scoreboard:RemovePlayer(data)
 end)
 
 RegisterNetEvent("qpixel-scoreboard:AddPlayer")
 AddEventHandler("qpixel-scoreboard:AddPlayer", function(data)
-    DPX.Scoreboard:AddPlayer(data)
+    QPX.Scoreboard:AddPlayer(data)
 end)
 
 RegisterNetEvent("qpixel-scoreboard:RemoveRecent")
 AddEventHandler("qpixel-scoreboard:RemoveRecent", function(src)
-    DPX.Scoreboard:RemoveRecent(src)
+    QPX.Scoreboard:RemoveRecent(src)
 end)
 
 RegisterNetEvent("qpixel-scoreboard:AddAllPlayers")
 AddEventHandler("qpixel-scoreboard:AddAllPlayers", function(data)
-    DPX.Scoreboard:AddAllPlayers(data)
+    QPX.Scoreboard:AddAllPlayers(data)
 end)

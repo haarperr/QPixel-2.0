@@ -1,14 +1,14 @@
-DPX.DB = DPX.DB or {}
+QPX.DB = QPX.DB or {}
 
-function DPX.DB.CreateNewPlayer(self, src, callback)
-    local hexid = DPX.Util:GetHexId(src)
+function QPX.DB.CreateNewPlayer(self, src, callback)
+    local hexid = QPX.Util:GetHexId(src)
     callback = callback and callback or function() return end
 
     local data = {
         hexid = hexid,
-        communityid = DPX.Util:HexIdToComId(hexid),
-        steamid = DPX.Util:HexIdToSteamId(hexid),
-        license = DPX.Util:GetLicense(src),
+        communityid = QPX.Util:HexIdToComId(hexid),
+        steamid = QPX.Util:HexIdToSteamId(hexid),
+        license = QPX.Util:GetLicense(src),
         name = GetPlayerName(src),
         ip = "0.0.0.0",
         rank = "user"
@@ -40,7 +40,7 @@ function DPX.DB.CreateNewPlayer(self, src, callback)
         callback(created)
     end)
 end
-function DPX.DB.CreateNewCharacter(self, src, data2, hexid, ph, callback)
+function QPX.DB.CreateNewCharacter(self, src, data2, hexid, ph, callback)
     local hexid = hexid
     callback = callback and callback or function() return end
 
@@ -76,8 +76,8 @@ function DPX.DB.CreateNewCharacter(self, src, data2, hexid, ph, callback)
 end
 
     
-function DPX.DB.PlayerExistsDB(self, src, callback)
-    local hexId = DPX.Util:GetHexId(src)
+function QPX.DB.PlayerExistsDB(self, src, callback)
+    local hexId = QPX.Util:GetHexId(src)
     callback = callback and callback or function() return end
     
     if not hexId or hexId == "" then callback(false, true) return end
@@ -94,7 +94,7 @@ function DPX.DB.PlayerExistsDB(self, src, callback)
     end)
 end
 
-function DPX.DB.PhoneNumberExists(self, src, phone_number, callback)
+function QPX.DB.PhoneNumberExists(self, src, phone_number, callback)
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
 
     callback = callback and callback or function() return end
@@ -123,8 +123,8 @@ end
 
 
 
-function DPX.DB.FetchPlayerData(self, src, callback)
-    local hexId = DPX.Util:GetHexId(src)
+function QPX.DB.FetchPlayerData(self, src, callback)
+    local hexId = QPX.Util:GetHexId(src)
     callback = callback and callback or function() return end
 
     if not hexId or hexId == "" then callback(false, true) return end
@@ -143,7 +143,7 @@ function DPX.DB.FetchPlayerData(self, src, callback)
     end)
 end
 
-function DPX.DB.FetchCharacterData(self, user, callback)
+function QPX.DB.FetchCharacterData(self, user, callback)
     callback = callback and callback or function() return end
 
     if not user then callback(false, true) return end
@@ -162,7 +162,7 @@ function DPX.DB.FetchCharacterData(self, user, callback)
     end)
 end
 
-function DPX.DB.DeleteCharacter(self, user, id, callback)
+function QPX.DB.DeleteCharacter(self, user, id, callback)
     callback = callback and callback or function() return end
 
     if not user then callback(false, true) return end
@@ -187,7 +187,7 @@ function DPX.DB.DeleteCharacter(self, user, id, callback)
      end)
 end
 
--- function DPX.DB.DeleteCharacter(self, user, id, callback)
+-- function QPX.DB.DeleteCharacter(self, user, id, callback)
 --     callback = callback and callback or function() return end
 
 --     if not user then callback(false, true) return end
@@ -212,7 +212,7 @@ end
 --      end)
 -- end
 
-function DPX.DB.UpdateCharacterStressLevel(self, user, characterId, newLevel, callback)
+function QPX.DB.UpdateCharacterStressLevel(self, user, characterId, newLevel, callback)
     callback = callback and callback or function() return end
     if not user then callback(false,true) return end
     if not characterId or type(characterId) ~= "number" then callback(false, true) return end
@@ -236,7 +236,7 @@ function DPX.DB.UpdateCharacterStressLevel(self, user, characterId, newLevel, ca
 end
 
 
-function DPX.DB.UpdateCharacterDirtyMoney(self, user, characterId, amount, callback)
+function QPX.DB.UpdateCharacterDirtyMoney(self, user, characterId, amount, callback)
 callback = callback and callback or function() return end
     if not user then callback(false,true) return end
     if not characterId or type(characterId) ~= "number" then callback(false, true) return end
@@ -261,7 +261,7 @@ callback = callback and callback or function() return end
 end
 
 
-function DPX.DB.UpdateCharacterMoney(self, user, characterId, amount, callback)
+function QPX.DB.UpdateCharacterMoney(self, user, characterId, amount, callback)
     callback = callback and callback or function() return end
         if not user then callback(false,true) return end
         if not characterId or type(characterId) ~= "number" then callback(false, true) return end
@@ -285,7 +285,7 @@ function DPX.DB.UpdateCharacterMoney(self, user, characterId, amount, callback)
         end)
 end
 
-function DPX.DB.UpdateCharacterBank(self, user, characterId, amount, callback)
+function QPX.DB.UpdateCharacterBank(self, user, characterId, amount, callback)
     callback = callback and callback or function() return end
         if not user then callback(false,true) return end
         if not characterId or type(characterId) ~= "number" then callback(false, true) return end
@@ -309,7 +309,7 @@ function DPX.DB.UpdateCharacterBank(self, user, characterId, amount, callback)
         end)
 end
 
-function DPX.DB.UpdateControls(self, src, controlsTable, callback)
+function QPX.DB.UpdateControls(self, src, controlsTable, callback)
     callback = callback and callback or function() return end
         local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
         if not user then callback(false,true) return end
@@ -331,7 +331,7 @@ function DPX.DB.UpdateControls(self, src, controlsTable, callback)
 end
 
 
-function DPX.DB.GetControls(self, src, callback)
+function QPX.DB.GetControls(self, src, callback)
     callback = callback and callback or function() return end
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
         Citizen.Wait(3000)
@@ -352,7 +352,7 @@ function DPX.DB.GetControls(self, src, callback)
 end
 
     
-function DPX.DB.UpdateSettings(self, src, settingsTable, callback)
+function QPX.DB.UpdateSettings(self, src, settingsTable, callback)
     callback = callback and callback or function() return end
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
         if not user then callback(false,true) return end
@@ -374,7 +374,7 @@ function DPX.DB.UpdateSettings(self, src, settingsTable, callback)
 end
 
 
-function DPX.DB.GetSettings(self, src, callback)
+function QPX.DB.GetSettings(self, src, callback)
     callback = callback and callback or function() return end
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     if not user then callback(false, true) return end
@@ -395,7 +395,7 @@ end
 
 
 -- 3.0
-function DPX.DB.Something(self, src, callback)
+function QPX.DB.Something(self, src, callback)
     callback = callback or function() return end
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
 
