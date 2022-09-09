@@ -11,6 +11,37 @@ RPC.register("qpixel-weed:plantSeed", function(pSource, pCoords, pStrain)
     })  
 end)
 
+RPC.register("qpixel-weed:plantSeed", function(pCoords, pStrain)
+    local src = source
+    local pGender = 0
+    local pTimestamp = os.time()
+
+    local insertId = SQL([[
+        INSERT INTO _weed (gender, strain, coords, timestamp)
+        VALUES (?, ?, ?, ?)
+    ]],
+    { pGender, json.encode(pCoords), json.encode(pStrain), pTimestamp })
+
+    -- if not insertId or insertId < 1 then
+    --     return false
+    -- end
+
+    local data = {
+        id = insertId,
+        gender = pGender,
+        strain = pStrain,
+        coords = pCoords,
+        
+        timestamp = pTimestamp,
+        last_harvest = 0
+    }
+
+    weedPlants[insertId] = data
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 1, data)
+
+    return true
+end)
+
 RPC.register("qpixel-weed:addWater", function(pSource, pData)
     local returnData = Await(SQL.execute("SELECT * FROM _weed WHERE id = ?", pData))
 
