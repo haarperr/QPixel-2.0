@@ -1248,50 +1248,51 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
 
     if (itemid == "Gruppe6Card") then
 
-        local police = exports["isPed"]:isPed("countpolice")
         local coordA = GetEntityCoords(GetPlayerPed(-1), 1)
-        local coordB = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 100.0, 0.0)
-        -- local countpolice = exports["isPed"]:isPed("countpolice")
-        local targetVehicle = getVehicleInDirection(coordA, coordB)
-        if police >= 4 then
-
-            if targetVehicle ~= 0 and GetHashKey("stockade") == GetEntityModel(targetVehicle) then
-                local entityCreatePoint = GetOffsetFromEntityInWorldCoords(targetVehicle, 0.0, -4.0, 0.0)
-                local coords = GetEntityCoords(GetPlayerPed(-1))
-                local aDist = GetDistanceBetweenCoords(coords["x"], coords["y"], coords["z"], entityCreatePoint["x"],
-                    entityCreatePoint["y"], entityCreatePoint["z"])
-                local cityCenter = vector3(-204.92, -1010.13, 29.55) -- alta street train station
-                local timeToOpen = 20000
-                local distToCityCenter = #(coords - cityCenter)
-                if distToCityCenter > 1000 then
-                    local multi = math.floor(distToCityCenter / 1000)
-                    timeToOpen = timeToOpen + (30000 * multi)
-                end
-                if aDist < 2.0 then
-                    -- TriggerEvent("alert:noPedCheck", "banktruck")
-                    FreezeEntityPosition(ped, true)
-                    RequestAnimDict("anim@amb@business@meth@meth_monitoring_cooking@monitoring@")
-                    while not HasAnimDictLoaded("anim@amb@business@meth@meth_monitoring_cooking@monitoring@") do
-                        Citizen.Wait(0)
-                    end
-                    TaskPlayAnim(ped, "anim@amb@business@meth@meth_monitoring_cooking@monitoring@",
-                        "look_around_v5_monitor", 8.0, 8.0, 1.0, 48, -1, 0, 0, 0)
-                    local finished = exports["qpixel-taskbar"]:taskBar(timeToOpen, "Unlocking Vehicle", false, false,
-                        playerVeh)
-                    if finished == 100 then
-                        remove = true
-                        TriggerEvent("sec:AttemptHeist", targetVehicle)
-                    else
-                        TriggerEvent("evidence:bleeding")
-                    end
-
-                else
-                    TriggerEvent("DoLongHudText", "You need to do this from behind the vehicle.")
-                end
+    local coordB = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 100.0, 0.0)
+    local targetVehicle = getVehicleInDirection(coordA, coordB)
+    local Police = exports['isPed']:isPed('copcount')
+    if Police >= 4 then
+        if targetVehicle ~= 0 and GetHashKey("stockade") == GetEntityModel(targetVehicle) then
+            local entityCreatePoint = GetOffsetFromEntityInWorldCoords(targetVehicle, 0.0, -4.0, 0.0)
+            local coords = GetEntityCoords(GetPlayerPed(-1))
+            local aDist = GetDistanceBetweenCoords(coords["x"], coords["y"],coords["z"], entityCreatePoint["x"], entityCreatePoint["y"],entityCreatePoint["z"])
+            local cityCenter = vector3(-204.92, -1010.13, 29.55) -- alta street train station
+            local timeToOpen = 45000
+            local distToCityCenter = #(coords - cityCenter)
+            if distToCityCenter > 1000 then
+                local multi = math.floor(distToCityCenter / 1000)
+                timeToOpen = timeToOpen + (30000 * multi)
             end
-        else
-            TriggerEvent("DoLongHudText", "Not enough cops around", 2)
+            if aDist < 2.0 then
+                FreezeEntityPosition(GetPlayerPed(-1),true)
+                TriggerServerEvent('qpixel-heists:bankTruckLog')
+                TriggerEvent('qpixel-dispatch:bank_truck_robbery')
+                local finished = exports["qpixel-taskbar"]:taskBar(timeToOpen,"Unlocking Vehicle",false,false,playerVeh)
+                if finished == 100 then
+                    TriggerEvent('qpixel-hud:show_hackerman')
+                    exports['qpixel-thermite']:OpenThermiteGame(function(success)
+                        if success then
+                            TriggerEvent('qpixel-hud:hide_hackerman')
+                            TriggerEvent('inventory:removeItem', 'Gruppe6Card', 1)
+                            TriggerEvent("qpixel-heists:start_hitting_truck", targetVehicle)
+                        else
+                            TriggerEvent('qpixel-hud:hide_hackerman')
+                            TriggerEvent('inventory:removeItem', 'Gruppe6Card', 1)
+                        end
+                    end)
+                    FreezeEntityPosition(PlayerPedId(), false)
+                else
+                    TriggerEvent("evidence:bleeding")
+                    FreezeEntityPosition(PlayerPedId(), false)
+                end
+            else
+                TriggerEvent("DoLongHudText","You need to do this from behind the vehicle.")
+            end
         end
+    else
+        TriggerEvent('DoLongHudText', 'Not enough police', 2)
+    end
 
     end
  
