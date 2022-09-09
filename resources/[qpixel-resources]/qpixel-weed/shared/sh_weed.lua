@@ -91,19 +91,6 @@ WeedConfig = {
     MaxLargeRuns = 6,
 }
 
-CornerConfig = {
-    BaggiesPerBrick = 28,
-    -- default: 2 min/populate, -1 to disable
-    PopulateRate = 1000 * 60 * 2,
-    -- default: 1 min/ped
-    TimeBetweenAcquisition = 60 * 1000,
-    --How much should repeatedly selling in an area bring players
-    MaxZoneBonus = 1.2,
-    -- other config stuff
-    RequireScales = true,
-    DropEvidence = true,
-}
-
 -- Map material hash -> material type
 MaterialHashes = {
     [-461750719] = 1,
@@ -129,23 +116,11 @@ MaterialHashes = {
     [1109728704] = 8
 }
 
-WeedZones = {
-    -- x, y, z, radius
-    {vector3(-1586.36, 4153.03, 50.0), 2087.36},
-    {vector3(2292.42, 4577.27, 50.0), 681.29},
-    {vector3(2218.18, 5568.18, 50.0), 78.20},
-    {vector3(928.79, 4540.91, 50.0), 750.88},
-    {vector3(1709.03, 2592.45, 59.88), 200.0},
-    {vector3(1452.94, 1105.35, 114.33), 200.0},
-    {vector3(3283.27, 5183.88, 18.42), 100.0},
-    {vector3(1800.77, 6523.15, 70.33), 200.0},
-}
-
 StrainNames = {
     -- Name given quality rounded to nearest 10s
     [0] = "Scuffjuana",
     [10] = "Cherry",
-    [20] = "Pixel Pie",
+    [20] = "Oaky Kush",
     [30] = "Headband",
     [40] = "Kali Mist",
     [50] = "Kosher",
@@ -153,7 +128,7 @@ StrainNames = {
     [70] = "White Widow",
     [80] = "Golden Goat",
     [90] = "Afghani",
-    [100] = "B. Jangles"
+    [100] = "Cow Moo Moo"
 }
 
 WhitelistedZones = {
