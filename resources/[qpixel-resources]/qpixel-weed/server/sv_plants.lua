@@ -1,224 +1,118 @@
--- TODO;
--- Generate random ID when harvesting to target meta id, like laptops.
+RPC.register("qpixel-weed:plantSeed", function(pSource, pCoords, pStrain)
+    local returnData = Await(SQL.execute("INSERT INTO _weed (coords, strain, timestamp) VALUES (?, ?, ?)", json.encode(pCoords), json.encode(pStrain), os.time()))
 
--- Citizen.CreateThread(function()
---     while true do
---         Citizen.Wait(10000)
---         local data = Await(SQL.execute("SELECT * FROM user_inventory2 WHERE name NOT LIKE @wanted AND item_id = @item_id", {
---             ["wanted"] = "ply",
---             ["item_id"] = "wetbud"
---         }))
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 2, {
+        id = returnData.insertId,
+        coords = pCoords,
+        strain = pStrain,
+        gender = 0,
+        last_harvest = 0,
+        timestamp = os.time()
+    })  
+end)
+
+RPC.register("qpixel-weed:addWater", function(pSource, pData)
+    local returnData = Await(SQL.execute("SELECT * FROM _weed WHERE id = ?", pData))
+
+    local coords = json.decode(returnData[1].coords)
+    returnData[1].coords = vector3(coords.x, coords.y, coords.z)
+    returnData[1].strain = json.decode(returnData[1].strain)
+    returnData[1].strain.water = returnData[1].strain.water + PlantConfig.WaterAdd
+
+    local metaData = Await(SQL.execute("UPDATE _weed SET strain = ? WHERE id = ?", json.encode(returnData[1].strain), pData))
+
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 3, returnData[1])
+
+end)
+
+RPC.register("qpixel-weed:addFertilizer", function(pSource, pData)
+    local returnData = Await(SQL.execute("SELECT * FROM _weed WHERE id = ?", pData.id))
     
---         if data[1] ~= nil then
---         for i = 1, #data do
---             local str = data[i].name
---             if string.find(str, "motel") or string.find(str, "warehouse") or string.find(str, "housing") then
-    
---             local information = data[i].information
---             local metaData = json.decode(information)
---             local timestamp = tonumber(metaData.timestamp)
---             local unix = os.time()
---             local wantedunix = timestamp + 3600000 -- 1 hour
---             if unix > wantedunix then
---                 local data = Await(SQL.execute("UPDATE user_inventory2 SET item_id = @item_id WHERE id = @id", {
---                     ["item_id"] = "driedbud",
---                     ["id"] = data[i].id
---                 }))
---             end
-    
---             end
---         end
---     end
---     end
---     end)
-    
-    Citizen.CreateThread(function()
-        while true do
-        Citizen.Wait(600000)
-        print("[qpixel-weed] Plants Updated")
-        local plants = Await(SQL.execute("SELECT * FROM weed_plants"))
-        weedplants = {}
-        for i = 1, #plants do
-            strain = {n = plants[tonumber(i)].n, p = plants[tonumber(i)].p, k = plants[tonumber(i)].k, water = plants[tonumber(i)].water}
-            weedplants[#weedplants + 1] = {
-                ["id"] = plants[tonumber(i)].id,
-                ["x"] = plants[tonumber(i)].x, 
-                ["y"] = plants[tonumber(i)].y, 
-                ["z"] = plants[tonumber(i)].z,
-                ["gender"] = plants[tonumber(i)].gender,
-                ["timestamp"] = plants[tonumber(i)].timestamp,
-                ["strain"] = strain,
-                ["last_harvest"] = plants[tonumber(i)].last_harvest
-          }
-        end
-        TriggerClientEvent("qpixel-weed:trigger_zone", -1, 1, weedplants)
-        end
-    end)
-    
-    RPC.register("qpixel-weed:getPlants", function(pSource)
-        local plants = Await(SQL.execute("SELECT * FROM weed_plants"))
-    
-        weedplants = {}
-        for i = 1, #plants do
-            strain = {n = plants[tonumber(i)].n, p = plants[tonumber(i)].p, k = plants[tonumber(i)].k, water = plants[tonumber(i)].water}
-            weedplants[#weedplants + 1] = {
-                ["id"] = plants[tonumber(i)].id,
-                ["x"] = plants[tonumber(i)].x, 
-                ["y"] = plants[tonumber(i)].y, 
-                ["z"] = plants[tonumber(i)].z,
-                ["gender"] = plants[tonumber(i)].gender,
-                ["timestamp"] = plants[tonumber(i)].timestamp,
-                ["strain"] = strain,
-                ["last_harvest"] = plants[tonumber(i)].last_harvest
-          }
-        end
+    local coords = json.decode(returnData[1].coords)
+    returnData[1].coords = vector3(coords.x, coords.y, coords.z)
+    returnData[1].strain = json.decode(returnData[1].strain)
+    if pData.type == "n" then
+        returnData[1].strain.n = returnData[1].strain.n + PlantConfig.FertilizerAdd
+    elseif pData.type == "p" then
+        returnData[1].strain.p = returnData[1].strain.p + PlantConfig.FertilizerAdd
+    elseif pData.type == "k" then
+        returnData[1].strain.k = returnData[1].strain.k + PlantConfig.FertilizerAdd
+    end    
+
+    local metaData = Await(SQL.execute("UPDATE _weed SET strain = ? WHERE id = ?", json.encode(returnData[1].strain), pData.id))
+
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 3, returnData[1])
+
+    return true
+end)
+
+RPC.register("qpixel-weed:addMaleSeed", function(pSource, pData)
+    local returnData = Await(SQL.execute("UPDATE _weed SET gender = ? WHERE id = ?", 1, pData))
+
+    local metaData = Await(SQL.execute("SELECT * FROM _weed WHERE id = ?", pData))
+
+    local coords = json.decode(metaData[1].coords)
+    metaData[1].coords = vector3(coords.x, coords.y, coords.z)
+    metaData[1].strain = json.decode(metaData[1].strain)
+
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 3, metaData[1])
+
+
+    return true
+end)
+
+RPC.register("qpixel-weed:removePlant", function(pSource, pData)
+    Await(SQL.execute("DELETE FROM _weed WHERE id = ?", pData))
+
+    -- will get Fertilizer item
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 4, {
+        id = pData
+    })  
+
+    return true
+end)
+
+RPC.register("qpixel-weed:harvestPlant", function(pSource, pID)
+    local returnData = Await(SQL.execute("UPDATE _weed SET last_harvest = ? WHERE id = ?", os.time(), pID))
+
+    local metaData = Await(SQL.execute("SELECT * FROM _weed WHERE id = ?", pID))
+
+    local coords = json.decode(metaData[1].coords)
+    metaData[1].coords = vector3(coords.x, coords.y, coords.z)
+
+    if metaData[1].gender == 1 then
+        local chance = math.random()
         
-        TriggerClientEvent("qpixel-weed:trigger_zone", pSource, 1, weedplants)
-    
-        return weedplants
-    end)
-    
-    RPC.register("qpixel-weed:plantSeed", function(pSource, pCoords, pTypeMod)
-        local coords = pCoords.param
-        local typemod = pTypeMod.param
-        local timestamp = os.time()
-    
-        local data = Await(SQL.execute("INSERT INTO weed_plants (timestamp, x, y, z, gender, water, n, p, k) VALUES (@timestamp, @x, @y, @z, @gender, @water, @n, @p, @k)", {
-            ["timestamp"] = timestamp,
-            ["x"] = coords.x,
-            ["y"] = coords.y,
-            ["z"] = coords.z,
-            ["gender"] = 0, --0/2 = female, 1 = male
-            ["water"] = typemod.water,
-            ["n"] = typemod.n,
-            ["p"] = typemod.p,
-            ["k"] = typemod.k
-        }))
-    end)
-    
-    RPC.register("qpixel-weed:addWater", function(pSource, pData)
-        local data = pData.param
-    
-        local update = Await(SQL.execute("UPDATE weed_plants SET water = water + @water WHERE id = @id", {
-            ["water"] = PlantConfig.WaterAdd,
-            ["id"] = data.id
-        }))
-    
-        return true
-    end)
-    
-    RPC.register("qpixel-weed:addFertilizer", function(pSource, pData)
-        local data = pData.param
-        local type = data.type
-    
-        if type == "n" then
-        local update = Await(SQL.execute("UPDATE weed_plants SET n = n + @amount WHERE id = @id", {
-            ["amount"] = PlantConfig.FertilizerAdd,
-            ["id"] = data.id
-        }))
-        elseif type == "p" then
-        local update = Await(SQL.execute("UPDATE weed_plants SET p = p + @amount WHERE id = @id", {
-            ["amount"] = PlantConfig.FertilizerAdd,
-            ["id"] = data.id
-        }))
-        elseif type == "k" then
-        local update = Await(SQL.execute("UPDATE weed_plants SET k = k + @amount WHERE id = @id", {
-            ["amount"] = PlantConfig.FertilizerAdd,
-            ["id"] = data.id
-        }))
-        end
-    
-        return true
-    end)
-    
-    RPC.register("qpixel-weed:harvestPlant", function(pSource, pId, pStrain)
-        local time = os.time()
-        local plant = pStrain.param
-        --    local update = Await(SQL.execute("UPDATE weed_plants SET timestamp = @timestamp, last_harvest = @last_harvest, maleseeds = @maleseeds WHERE id = @id", {
-        local update = Await(SQL.execute("UPDATE weed_plants SET timestamp = @timestamp, last_harvest = @last_harvest WHERE id = @id", {
-            ["timestamp"] = time,
-            ["last_harvest"] = time,
-            ["id"] = pId.param
-        }))
-    
-        TriggerClientEvent("player:receiveItem", pSource, 'wetbud', 1, false, {
-            _hideKeys = { "timestamp" },
-            timestamp = time,
-            strain = plant.strain,
-            quality = plant.quality
-        })
-    
-        local plants = Await(SQL.execute("SELECT * FROM weed_plants"))
-    
-        weedplants = {}
-        for i = 1, #plants do
-            strain = {n = plants[tonumber(i)].n, p = plants[tonumber(i)].p, k = plants[tonumber(i)].k, water = plants[tonumber(i)].water}
-            weedplants[#weedplants + 1] = {
-                ["id"] = plants[tonumber(i)].id,
-                ["x"] = plants[tonumber(i)].x, 
-                ["y"] = plants[tonumber(i)].y, 
-                ["z"] = plants[tonumber(i)].z,
-                ["gender"] = plants[tonumber(i)].gender,
-                ["timestamp"] = plants[tonumber(i)].timestamp,
-                ["strain"] = strain,
-                ["last_harvest"] = plants[tonumber(i)].last_harvest
-          }
-        end
-        
-        TriggerClientEvent("qpixel-weed:trigger_zone", pSource, 1, weedplants)
-    
-        return true
-    end)
-    
-    RPC.register("qpixel-weed:removePlant", function(pSource, pData, pFertilizer)
-        local data = pData.param
-        local select = Await(SQL.execute("SELECT maleseeds FROM weed_plants WHERE id = @id", {
-            ["id"] = data.id
-        }))
-        local delete = Await(SQL.execute("DELETE FROM weed_plants WHERE id = @id", {
-            ["id"] = data.id
-        }))
-    
-        if select[1].maleseeds > 0 then
-        local maleseeds = select[1].maleseeds
-        local seeds = 1 * maleseeds
-        TriggerClientEvent("player:receiveItem", pSource, "maleseed", seeds)
-        math.randomseed(os.time())
-        local femaleChance = 10
-        if femaleChance > math.random() then
-            TriggerClientEvent("player:receiveItem", pSource, "femaleseed", math.random(1,2))
-        end
-        end
-    
-        local plants = Await(SQL.execute("SELECT * FROM weed_plants"))
-    
-        weedplants = {}
-        if plants[1] ~= nil then
-        for i = 1, #plants do
-            strain = {n = plants[tonumber(i)].n, p = plants[tonumber(i)].p, k = plants[tonumber(i)].k, water = plants[tonumber(i)].water}
-            weedplants[#weedplants + 1] = {
-                ["id"] = plants[tonumber(i)].id,
-                ["x"] = plants[tonumber(i)].x, 
-                ["y"] = plants[tonumber(i)].y, 
-                ["z"] = plants[tonumber(i)].z,
-                ["gender"] = plants[tonumber(i)].gender,
-                ["timestamp"] = plants[tonumber(i)].timestamp,
-                ["strain"] = strain,
-                ["last_harvest"] = plants[tonumber(i)].last_harvest
-          }
-        end
-        end
-    
-        TriggerClientEvent("qpixel-weed:trigger_zone", pSource, 1, weedplants)
-    
-        return true
-    end)
-    
-    RPC.register("qpixel-weed:addMaleSeed", function(pSource, pData)
-        local data = pData.param
-        local update = Await(SQL.execute("UPDATE weed_plants SET maleseeds = maleseeds + @amount WHERE id = @id", {
-            ["id"] = data.id
-        }))
-    end)
-    
-    
+        if json.encode(PlantConfig.MaleChance) > chance then
+            TriggerClientEvent("player:receiveItem", -1, "maleseed", 1)
+        end  
+    else    
+        TriggerClientEvent("player:receiveItem", -1, "wetbud", 1)
+
+    end
+
+    if ((os.time() - metaData[1].timestamp) / 60) >= PlantConfig.LifeTime then
+        Await(SQL.execute("DELETE FROM _weed WHERE id = ?", pID))
+        exports["qpixel-log"]:AddLog("Weed", 
+            source, "Remove Plant", { plantId = tostring(pID) })
+
+        TriggerClientEvent("qpixel-weed:trigger_zone", -1, 4, metaData[1])
+    else
+        TriggerClientEvent("qpixel-weed:trigger_zone", -1, 4, metaData[1])
+    end    
+
+    return true
+end)
+
+RPC.register("qpixel-weed:getPlants", function(pSource)
+    local returnData = Await(SQL.execute("SELECT * FROM _weed", {}))
+
+    for k, v in pairs(returnData) do
+        local coords = json.decode(v.coords)
+        v.coords = vector3(coords.x, coords.y, coords.z)
+        v.strain = json.decode(v.strain)
+    end
+
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 1, returnData)
+    return true
+end)
