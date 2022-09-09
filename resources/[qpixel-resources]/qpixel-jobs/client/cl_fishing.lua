@@ -297,7 +297,7 @@ AddEventHandler('qpixel-fishing:clockIn', function()
     TriggerEvent('DoLongHudText', '[ F1 > Blips > Fishing Location ]', 1)
 end)
 
-exports["qpixel-polyzone"]:AddBoxZone("fishing",  vector3(-335.89, 6106.1, 31.45), 2, 2, {
+--[[ exports["qpixel-polyzone"]:AddBoxZone("fishing",  vector3(-335.89, 6106.1, 31.45), 2, 2, {
     name = "fishing",
     heading=50,
     --debugPoly=false,
@@ -331,4 +331,19 @@ function pClockIn()
 			end
 		end
 	end)
-end
+end ]]
+
+exports["qpixel-polytarget"]:AddCircleZone("froggers", vector3(-335.76, 6106.02, 31.85), 0.45, {
+    useZ=true,
+})
+
+exports["qpixel-interact"]:AddPeekEntryByPolyTarget("froggers", {{
+    event = "qpixel-fishing:clockIn",
+    id = "froggers",
+    icon = "circle",
+    label = "Sign In",
+    parameters = {}, 
+}}, {
+    distance = { radius = 5 },
+});  
+
