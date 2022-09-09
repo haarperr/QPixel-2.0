@@ -7,35 +7,35 @@ local sellBlock = false
 local UsedPeds = {}
 local ActivePeds = {}
 
-local InteractStartCorner = {
+local MethStartCorner = {
   group = { 2 },
   data = {
     {
-      id = 'vehicle_startcornering',
-      label = 'start cornering weed',
+      id = 'meth_corner_start',
+      label = 'start cornering meth',
       icon = 'handshake',
-      event = 'qpixel-weed:startCornering',
+      event = 'qpixel-meth:startCornering',
       parameters = {},
     },
   },
   options = {
     distance = { radius = 5.0 },
     isEnabled = function(pEntity, pContext)
-      local hasWeed = exports['qpixel-inventory']:hasEnoughOfItem('weedq', 1, false, true)
+      local hasMeth = exports['qpixel-inventory']:hasEnoughOfItem('meth1g', 1, false, true)
       local isCorneringAlready = false
-      return not CurrentlyCornering and hasWeed and not IsPedInAnyVehicle(PlayerPedId(), false) and not isCorneringAlready
+      return not CurrentlyCornering and hasMeth and not IsPedInAnyVehicle(PlayerPedId(), false) and not isCorneringAlready
     end,
   },
 }
 
-local InteractStopCorner = {
+local MethStopCorner = {
   group = { 2 },
   data = {
     {
-      id = 'vehicle_stopcornering',
-      label = 'stop cornering weed',
+      id = 'meth_cornering_stop',
+      label = 'stop cornering meth',
       icon = 'handshake-slash',
-      event = 'qpixel-weed:stopCornering',
+      event = 'qpixel-meth:stopCornering',
       parameters = {},
     },
   },
@@ -47,14 +47,14 @@ local InteractStopCorner = {
   },
 }
 
-local InteractCornerSell = {
+local MethCornerInteract = {
   group = { 1 },
   data = {
     {
-      id = 'weed_corner_sale',
+      id = 'meth_corner_sale',
       label = 'sell',
       icon = 'comment-dollar',
-      event = 'qpixel-weed:cornerSale',
+      event = 'qpixel-meth:cornerSale',
       parameters = {},
     },
   },
@@ -67,12 +67,12 @@ local InteractCornerSell = {
 }
 
 Citizen.CreateThread(function()
-  exports['qpixel-interact']:AddPeekEntryByEntityType(InteractCornerSell.group, InteractCornerSell.data, InteractCornerSell.options)
-  exports['qpixel-interact']:AddPeekEntryByEntityType(InteractStartCorner.group, InteractStartCorner.data, InteractStartCorner.options)
-  exports['qpixel-interact']:AddPeekEntryByEntityType(InteractStopCorner.group, InteractStopCorner.data, InteractStopCorner.options)
+  exports['qpixel-interact']:AddPeekEntryByEntityType(MethCornerInteract.group, MethCornerInteract.data, MethCornerInteract.options)
+  exports['qpixel-interact']:AddPeekEntryByEntityType(MethStartCorner.group, MethStartCorner.data, MethStartCorner.options)
+  exports['qpixel-interact']:AddPeekEntryByEntityType(MethStopCorner.group, MethStopCorner.data, MethStopCorner.options)
 end)
 
-AddEventHandler('qpixel-weed:startCornering', function(pContext, pEntity)
+AddEventHandler('qpixel-meth:startCornering', function(pContext, pEntity)
   CurrentCornerCoords = GetEntityCoords(PlayerPedId())
   CurrentCornerZone = GetNameOfZone(CurrentCornerCoords)
 
@@ -81,7 +81,7 @@ AddEventHandler('qpixel-weed:startCornering', function(pContext, pEntity)
     return
   end
 
-  local canCorner, message = RPC.execute('qpixel-weed:startCorner', CurrentCornerCoords)
+  local canCorner, message = RPC.execute('qpixel-meth:startCorner', CurrentCornerCoords)
   TriggerEvent('DoLongHudText', message)
 
   if not canCorner then
@@ -129,7 +129,7 @@ AddEventHandler('qpixel-weed:startCornering', function(pContext, pEntity)
         notFoundCount = notFoundCount + 1
       else
         local retval, coords = GetPointOnRoadSide(CurrentCornerCoords.x, CurrentCornerCoords.y, CurrentCornerCoords.z, 1)
-        local result = RPC.execute('qpixel-weed:cornerPed', coords, NetworkGetNetworkIdFromEntity(foundPed), NetworkGetNetworkIdFromEntity(CurrentCornerVehicle))
+        local result = RPC.execute('qpixel-meth:cornerPed', coords, NetworkGetNetworkIdFromEntity(foundPed), NetworkGetNetworkIdFromEntity(CurrentCornerVehicle))
     end
 
       if notFoundCount > 7 then
@@ -143,9 +143,9 @@ AddEventHandler('qpixel-weed:startCornering', function(pContext, pEntity)
   end)
 end)
 
-local weedItems = { 'corner-weed-item1', 'corner-weed-item2', 'corner-weed-item3', 'corner-weed-item4', 'corner-weed-item5' }
+local methItems = { 'corner-meth-item1', 'corner-meth-item2', 'corner-meth-item3', 'corner-meth-item4', 'corner-meth-item5' }
 
-AddEventHandler('qpixel-weed:cornerSale', function(pContext, pEntity)
+AddEventHandler('qpixel-meth:cornerSale', function(pContext, pEntity)
   if not DoesEntityExist(pEntity) == 1 or IsPedDeadOrDying(pEntity) then
     return
   end
@@ -154,7 +154,7 @@ AddEventHandler('qpixel-weed:cornerSale', function(pContext, pEntity)
 
   sellBlock = true
 
-  local hasBaggies = exports['qpixel-inventory']:hasEnoughOfItem('weedq', 1, true)
+  local hasBaggies = exports['qpixel-inventory']:hasEnoughOfItem('meth1g', 1, true)
   if not hasBaggies then
     TriggerEvent('DoLongHudText', 'You need more baggies to sell')
     sellBlock = false
@@ -165,34 +165,34 @@ AddEventHandler('qpixel-weed:cornerSale', function(pContext, pEntity)
   PlayAmbientSpeech1(pEntity, 'Generic_Hi', 'Speech_Params_Force')
   TaskTurnPedToFaceEntity(PlayerPedId(), pEntity, 1000)
   TaskPlayAnim(PlayerPedId(), 'mp_safehouselost@', 'package_dropoff', 8.0, -8.0, -1, 4096, 0, false, false, false)
-  RPC.execute('qpixel-weed:cornerSyncHandoff', CurrentCornerCoords, NetworkGetNetworkIdFromEntity(pEntity))
+  RPC.execute('qpixel-meth:cornerSyncHandoff', CurrentCornerCoords, NetworkGetNetworkIdFromEntity(pEntity))
 
   Wait(2000)
   SetPedCanRagdoll(PlayerPedId(), true)
   if CornerConfig.DropEvidence and math.random() < 0.3 then
-    local rndItem = math.random(1, #weedItems)
-    TriggerEvent('evidence:drugs', weedItems[rndItem])
+    local rndItem = math.random(1, #methItems)
+    TriggerEvent('evidence:drugs', methItems[rndItem])
   end
 
-  local didSale = RPC.execute('qpixel-weed:cornerSale', CurrentCornerCoords, NetworkGetNetworkIdFromEntity(pEntity), CurrentCornerZone)
+  local didSale = RPC.execute('qpixel-meth:cornerSale', CurrentCornerCoords, NetworkGetNetworkIdFromEntity(pEntity), CurrentCornerZone)
   if didSale then
     PlayAmbientSpeech1(pEntity, 'Chat_State', 'Speech_Params_Force')
     local rndAmt = math.random(1, 3)
-    if rndAmt == 1 and exports['qpixel-inventory']:hasEnoughOfItem('weedq', 1) then
-        TriggerEvent('money:clean')
-        TriggerEvent('inventory:removeItem', 'weedq', 1)
-      elseif rndAmt == 2 and exports['qpixel-inventory']:hasEnoughOfItem('weedq', 3) then
-        TriggerEvent('money:clean')
-        TriggerEvent('money:clean')
-        TriggerEvent('money:clean')
-        TriggerEvent('inventory:removeItem', 'weedq', 1)
-        TriggerEvent('inventory:removeItem', 'weedq', 1)
-        TriggerEvent('inventory:removeItem', 'weedq', 1)
-      elseif rndAmt == 3 and exports['qpixel-inventory']:hasEnoughOfItem('weedq', 2) then
-        TriggerEvent('money:clean')
-        TriggerEvent('money:clean')
-        TriggerEvent('inventory:removeItem', 'weedq', 1)
-        TriggerEvent('inventory:removeItem', 'weedq', 1)
+    if rndAmt == 1 and exports['qpixel-inventory']:hasEnoughOfItem('meth1g', 1) then
+        TriggerEvent('money:clean2')
+        TriggerEvent('inventory:removeItem', 'meth1g', 1)
+      elseif rndAmt == 2 and exports['qpixel-inventory']:hasEnoughOfItem('meth1g', 3) then
+        TriggerEvent('money:clean2')
+        TriggerEvent('money:clean2')
+        TriggerEvent('money:clean2')
+        TriggerEvent('inventory:removeItem', 'meth1g', 1)
+        TriggerEvent('inventory:removeItem', 'meth1g', 1)
+        TriggerEvent('inventory:removeItem', 'meth1g', 1)
+      elseif rndAmt == 3 and exports['qpixel-inventory']:hasEnoughOfItem('meth1g', 2) then
+        TriggerEvent('money:clean2')
+        TriggerEvent('money:clean2')
+        TriggerEvent('inventory:removeItem', 'meth1g', 1)
+        TriggerEvent('inventory:removeItem', 'meth1g', 1)
       end
     Citizen.Wait(3000)
     sellBlock = false
@@ -202,19 +202,19 @@ AddEventHandler('qpixel-weed:cornerSale', function(pContext, pEntity)
   end
 end)
 
-AddEventHandler('qpixel-weed:stopCornering', function(pContext, pEntity)
+AddEventHandler('qpixel-meth:stopCornering', function(pContext, pEntity)
   TriggerEvent('DoLongHudText', 'No longer selling...')
   stopCornering()
 end)
 
-RegisterNetEvent('qpixel-weed:addCorneredPed')
-AddEventHandler('qpixel-weed:addCorneredPed', function(pPed)
+RegisterNetEvent('qpixel-meth:addCorneredPed')
+AddEventHandler('qpixel-meth:addCorneredPed', function(pPed)
   local ped = NetworkGetEntityFromNetworkId(pPed)
   ActivePeds[ped] = false
 end)
 
-RegisterNetEvent('qpixel-weed:cornerSyncHandoff')
-AddEventHandler('qpixel-weed:cornerSyncHandoff', function(pPed)
+RegisterNetEvent('qpixel-meth:cornerSyncHandoff')
+AddEventHandler('qpixel-meth:cornerSyncHandoff', function(pPed)
   local ped = NetworkGetEntityFromNetworkId(pPed)
   local relation = GetPedRelationshipGroupHash(ped)
   SetRelationshipBetweenGroups(0, `PLAYER`, relation)
@@ -224,8 +224,8 @@ AddEventHandler('qpixel-weed:cornerSyncHandoff', function(pPed)
   end
 end)
 
-RegisterNetEvent('qpixel-weed:cornerPed')
-AddEventHandler('qpixel-weed:cornerPed', function(pPed, pCornerCoords, pVehicle)
+RegisterNetEvent('qpixel-meth:cornerPed')
+AddEventHandler('qpixel-meth:cornerPed', function(pPed, pCornerCoords, pVehicle)
   local ped = NetworkGetEntityFromNetworkId(pPed)
   ActivePeds[ped] = true
   UsedPeds[ped] = true
@@ -240,8 +240,8 @@ AddEventHandler('qpixel-weed:cornerPed', function(pPed, pCornerCoords, pVehicle)
   end
 end)
 
-RegisterNetEvent('qpixel-weed:cleanCornerPeds')
-AddEventHandler('qpixel-weed:cleanCornerPeds', function()
+RegisterNetEvent('qpixel-meth:cleanCornerPeds')
+AddEventHandler('qpixel-meth:cleanCornerPeds', function()
   UsedPeds = {}
 end)
 
@@ -363,7 +363,7 @@ local billsCleaningStuff = {
   ["inkset"] = { extra = 15, price = 25 },
 }
 
-AddEventHandler("money:clean", function(pRandomChance)
+AddEventHandler("money:clean2", function(pRandomChance)
   local payment = 0
   for typ, conf in pairs(billsCleaningStuff) do
     local randomAmount = math.random(4, 12)
@@ -377,6 +377,6 @@ AddEventHandler("money:clean", function(pRandomChance)
     end
   end
   if payment == 0 then
-    TriggerServerEvent('zyloz:payout', math.random(50, 100))
+    TriggerServerEvent('zyloz:payout', math.random(250, 380))
   end
 end)

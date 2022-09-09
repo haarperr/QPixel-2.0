@@ -1,47 +1,32 @@
+fx_version 'cerulean'
+games { 'gta5' }
 
-
-
-
-
-
-
-
-
-fx_version "cerulean"
-games { "gta5" }
-
-dependencies {
-  "qpixel-lib",
-  "PolyZone"
-}
+client_script "@arp-sync/client/lib.lua"
+client_script "@arp-sync/client/lib.lua"
+client_script '@arp-lib/client/cl_interface.lua'
+client_script "@arp-lib/client/cl_polyhooks.lua"
+client_script "@mka-array/Array.lua"
+client_script "@arp-lib/client/cl_ui.lua"
+client_script "@arp-lib/client/cl_rpc.lua"
 
 client_scripts {
-  "@qpixel-sync/client/lib.lua",
-  "@qpixel-lib/client/cl_interface.lua",
-  "@qpixel-lib/client/cl_polyhooks.lua",
-  "@qpixel-locales/client/lib.lua",
-  "@qpixel-lib/client/cl_rpc.lua",
-  "client/cl_*.lua",
+  '@arp-lib/client/cl_rpc.lua',
+  'client/cl_*.lua',
   "@PolyZone/client.lua",
 }
 
 shared_script {
-  "@qpixel-lib/shared/sh_util.lua",
-  "shared/sh_*.*",
+  '@arp-lib/shared/sh_util.lua',
+  'shared/sh_*.*',
 }
 
 server_scripts {
-  "@qpixel-lib/server/sv_rpc.lua",
-  "@qpixel-lib/server/sv_sql.lua",
-  "@qpixel-lib/server/sv_asyncExports.lua",
-  "server/sv_*.lua",
-  "server/sv_*.js",
+  '@arp-lib/server/sv_rpc.lua',
+  '@arp-lib/server/sv_sql.lua',
+  '@arp-lib/server/sv_asyncExports.lua',
+  'server/sv_*.lua',
 }
 
-ui_page "./ui/index.html"
-
-files{
-    "./ui/index.html",
-    "./ui/main.css",
-    "./ui/main.js",
+exports {
+  'WeedPackaged'
 }

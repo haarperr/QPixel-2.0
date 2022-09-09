@@ -32,11 +32,11 @@ PlantConfig = {
     -- Plant total lifetime (minutes) from planted -> destroyed
     LifeTime = 1920,
     -- How much longer should a male plant take to grow
-    MaleFactor = 1.5,
+    MaleFactor = 1.3,
     -- How many seeds should come from a male plant (range)
-    SeedsFromMale = {3, 5},
+    SeedsFromMale = {5, 8},
     -- Chance of getting a male seed
-    MaleChance = 0.34,
+    MaleChance = 0.2,
     -- Should male plants be removed when harvested?
     RemoveMaleOnHarvest = true,
     -- Percent at which the plant becomes harvestable
@@ -44,7 +44,7 @@ PlantConfig = {
     -- Time between plant harvests (minutes)
     TimeBetweenHarvest = 400,
     -- How often should the server update growth from DB, expensive (ms) Set to -1 to disable
-    UpdateTimer = 10 * 60 * 1000, -- 10 minutes
+    UpdateTimer = 10 * 60 * 1000,
     -- How much should 1 water bottle add
     WaterAdd = 0.2,
     -- How much should 1 fertilizer bag add to the inputted nutrient
@@ -70,29 +70,27 @@ WeedConfig = {
     -- How much does the Large Delivery list costs
     ListCost = 3000,
     -- restart cooldown past restart, and before restart (in minutes)
-    RestartCooldown = 25,
-    -- server-side cooldown for large dropoffs
-    TimeBetweenLrgDeliveries = 15 * 60 * 1000,
+    RestartCooldown = 45,
+    -- server-side cooldown for large dropoffs (only 1 can be active at a time)
+    TimeBetweenLrgDeliveries = 45 * 60 * 1000,
     -- How many dried buds per 1 brick
     WeedsPerBrick = 10,
     -- How many bricks for 1 weed run
     BricksPerLargeRun = 10,
     -- How much cash is a brick worth
-    BrickValue = 1000,
+    BrickValue = 1425,
     -- How much should quality affect sale price (ie. 0% will multiply by 1.0, 50% quality will multiply by 1.1, 100% is 1.2)
     QualityFactor = 1.5,
     -- Chance of alerting police once someone arrives at a delivery spot
     AlertChance = 0.3,
     -- Time to prepare a brick of weed in seconds
-    BrickPreparingTime = 10,
-    -- Selling 500k worth of weed will get you 1.5x payment
+    BrickPreparingTime = 150,
+    --Selling 500k worth of weed will get you 1.5x payment
     MaxProgressionBonus = 1.5,
-    -- How many large runs can be active at a time
-    MaxLargeRuns = 6,
 }
 
 CornerConfig = {
-    BaggiesPerBrick = 28,
+    BaggiesPerBrick = 14, -- 28,
     -- default: 2 min/populate, -1 to disable
     PopulateRate = 1000 * 60 * 2,
     -- default: 1 min/ped
@@ -150,7 +148,7 @@ StrainNames = {
     [40] = "Kali Mist",
     [50] = "Kosher",
     [60] = "Hurkle",
-    [70] = "White Widow",
+    [70] = "Gwava Dawg",
     [80] = "Golden Goat",
     [90] = "Afghani",
     [100] = "B. Jangles"

@@ -11,12 +11,16 @@ Citizen.CreateThread(function()
         local plyCoords = GetEntityCoords(PlayerPedId())
         if WeedPlants == nil then WeedPlants = {} end
         for idx,plant in ipairs(WeedPlants) do
+            coords = { x = plant.x, y = plant.y, z= plant.z }
+            local compareCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
             if idx % 100 == 0 then
                 Wait(0) --Process 100 per frame
             end
             --convert timestamp -> growth percent
             local plantGrowth = getPlantGrowthPercent(plant)
-            if #(plyCoords - plant.coords) < (50.0 + plantGrowth) and not setDeleteAll then
+            local dist = #(plyCoords - compareCoords)
+
+            if #(plyCoords - compareCoords) < (50.0 + plantGrowth) and not setDeleteAll then
                 local curStage = getStageFromPercent(plantGrowth)
                 local isChanged = (ActivePlants[plant.id] and ActivePlants[plant.id].stage ~= curStage)
 
@@ -25,11 +29,10 @@ Citizen.CreateThread(function()
                 end
 
                 if not ActivePlants[plant.id] or isChanged then
-                    local weedPlant = createWeedStageAtCoords(curStage, plant.coords)
+                    local weedPlant = createWeedStageAtCoords(curStage, coords)
                     ActivePlants[plant.id] = {
                         object = weedPlant,
-                        stage = curStage,
-                        coords = plant.coords
+                        stage = curStage
                     }
                 end
             else
@@ -44,7 +47,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-AddEventHandler("qpixel-inventory:itemUsed", function(item)
+AddEventHandler("arp-inventory:itemUsed", function(item)
     if item == "femaleseed" then
         if inZone > 0 then
             local plyCoords = GetEntityCoords(PlayerPedId())
@@ -58,126 +61,164 @@ AddEventHandler("qpixel-inventory:itemUsed", function(item)
                         local typeMod = PlantConfig.TypeModifiers[matType]
                         foundHash = true
                         TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_GARDENER_PLANT", 0, true)
-                        local finished = exports["qpixel-taskbar"]:taskBar(3000, _L('weed-plants-plant-seed', 'Planting Seed'), false, true, false, false, nil, 5.0, PlayerPedId())
+                        FreezeEntityPosition(PlayerPedId(), true)
+                        local finished = exports["arp-taskbar"]:taskBar(15000, 'Planting Seed', false, true, false, false, nil, 5.0, PlayerPedId())
                         ClearPedTasks(PlayerPedId())
                         if finished == 100 then
-                            RPC.execute("qpixel-weed:plantSeed", endCoords, typeMod)
+                            FreezeEntityPosition(PlayerPedId(), false)
+                            ClearPedTasks(PlayerPedId())
+                            RPC.execute("arp-weed:plantSeed", endCoords, typeMod)
                             TriggerEvent("inventory:removeItem", item, 1)
+                        else
+                            FreezeEntityPosition(PlayerPedId(), false)
                         end
                     end
                 end
                 if not foundHash then
-                    TriggerEvent("DoLongHudText", _L('weed-plants-better-soil', 'I should find better soil to plant this'))
+                    TriggerEvent("DoLongHudText", 'I should find better soil to plant this')
                 end
             end
         else
-            TriggerEvent("DoLongHudText", _L('weed-plants-better-area', 'I should find a better area to plant this'))
+            TriggerEvent("DoLongHudText",'I should find a better area to plant this')
         end
     end
 end)
 
-RegisterNetEvent('qpixel-weed:checkPlant')
-AddEventHandler("qpixel-weed:checkPlant", function(pContext, pEntity)
-    local plantId = getPlantByPos(pContext["polyZoneCoordinates"])
+AddEventHandler("arp-weed:checkPlant", function(pContext, pEntity)
+    local plantId = getPlantId(pEntity)
     if not plantId then return end
     showPlantMenu(plantId)
 end)
 
-RegisterNetEvent('qpixel-weed:addWater')
-AddEventHandler('qpixel-weed:addWater', function (pPlantId)
-    playPourAnimation()
-    local finished = exports["qpixel-taskbar"]:taskBar(2000, "Adding Water", false, true, false, false, nil, 5.0, PlayerPedId())
-    ClearPedTasks(PlayerPedId())
-    if finished == 100 then
-        local success = RPC.execute("qpixel-weed:addWater", pPlantId)
-        if not success then
-            TriggerEvent("DoLongHudText", "[ERR]: Could not add water.")
+RegisterInterfaceCallback('arp-weed:addWater', function (data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+    if exports['arp-inventory']:hasEnoughOfItem('water', 1) then
+        playPourAnimation()
+        FreezeEntityPosition(PlayerPedId(), true)
+        local finished = exports["arp-taskbar"]:taskBar(5000,'Adding Water', false, true, false, false, nil, 5.0, PlayerPedId())
+        ClearPedTasks(PlayerPedId())
+        if finished == 100 then
+            FreezeEntityPosition(PlayerPedId(), false)
+            local success = RPC.execute("arp-weed:addWater", data.key)
+            if not success then
+                TriggerEvent("DoLongHudText", "[ERR]: Could not add water.")
+            else
+                TriggerEvent("inventory:removeItem", "water", 1)
+            end
         else
-            TriggerEvent("inventory:removeItem", "water", 1)
+            FreezeEntityPosition(PlayerPedId(), false)
         end
+        showPlantMenu(data.key.id)
+    else
+        TriggerEvent('DoLongHudText', 'You do not have any water to water the plant.', 2)
     end
-    showPlantMenu(pPlantId)
 end)
 
-RegisterNetEvent('qpixel-weed:addFertilizer')
-AddEventHandler('qpixel-weed:addFertilizer', function (pPlantId, key)
-    playPourAnimation()
-    local finished = exports["qpixel-taskbar"]:taskBar(2000, _L('weed-plants-add-fertilizer', 'Adding Fertilizer'), false, true, false, false, nil, 5.0, PlayerPedId())
-    ClearPedTasks(PlayerPedId())
-    if finished == 100 then
-        local success = RPC.execute("qpixel-weed:addFertilizer", {["id"] = pPlantId, ["type"] = key})
-        if not success then
-            TriggerEvent("DoLongHudText", "[ERR]: Could not add fertilizer")
+RegisterInterfaceCallback('arp-weed:addFertilizer', function (data, cb)
+    if exports['arp-inventory']:hasEnoughOfItem('fertilizer', 1) then
+        cb({ data = {}, meta = { ok = true, message = '' } })
+        playPourAnimation()
+        FreezeEntityPosition(PlayerPedId(), true)
+        local finished = exports["arp-taskbar"]:taskBar(5000, 'Adding Fertilizer', false, true, false, false, nil, 5.0, PlayerPedId())
+        ClearPedTasks(PlayerPedId())
+        if finished == 100 then
+            FreezeEntityPosition(PlayerPedId(), false)
+            local success = RPC.execute("arp-weed:addFertilizer", data.key)
+            if not success then
+                TriggerEvent("DoLongHudText", "[ERR]: Could not add fertilizer")
+            else
+                TriggerEvent("inventory:removeItem", "fertilizer", 1)
+            end
         else
-            TriggerEvent("inventory:removeItem", "fertilizer", 1)
+            FreezeEntityPosition(PlayerPedId(), false)
         end
+        showPlantMenu(data.key.id)
+    else
+        TriggerEvent('DoLongHudText', 'You dont have fertilizer to add', 2)
     end
-    showPlantMenu(pPlantId)
 end)
 
-RegisterNetEvent('qpixel-weed:addMaleSeed')
-AddEventHandler('qpixel-weed:addMaleSeed', function (pPlantId)
+RegisterInterfaceCallback('arp-weed:addMaleSeed', function (data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
     TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_GARDENER_PLANT", 0, true)
-    local finished = exports["qpixel-taskbar"]:taskBar(3000, "Adding Male Seed", false, true, false, false, nil, 5.0, PlayerPedId())
+    FreezeEntityPosition(PlayerPedId(), true)
+    local finished = exports["arp-taskbar"]:taskBar(15000, 'Adding Male Seed', false, true, false, false, nil, 5.0, PlayerPedId())
     ClearPedTasks(PlayerPedId())
     if finished == 100 then
-        RPC.execute("qpixel-weed:addMaleSeed", pPlantId)
+        FreezeEntityPosition(PlayerPedId(), false)
+        RPC.execute("arp-weed:addMaleSeed", data.key)
         TriggerEvent("inventory:removeItem", "maleseed", 1)
+    else
+        FreezeEntityPosition(PlayerPedId(), false)
     end
-    showPlantMenu(pPlantId)
+    showPlantMenu(data.key.id)
 end)
 
-RegisterNetEvent('qpixel-weed:removePlant')
-AddEventHandler('qpixel-weed:removePlant', function ( pPlantId)
+RegisterInterfaceCallback('arp-weed:removePlant', function (data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
     TriggerEvent("animation:PlayAnimation","layspike")
-    local finished = exports["qpixel-taskbar"]:taskBar(3000, _L('weed-plants-remove', 'Removing'), false, true, false, false, nil, 5.0, PlayerPedId())
+    FreezeEntityPosition(PlayerPedId(), true)
+    local finished = exports["arp-taskbar"]:taskBar(15000, 'Removing', false, true, false, false, nil, 5.0, PlayerPedId())
     ClearPedTasks(PlayerPedId())
     if finished == 100 then
-        local getFertilizer = getPlantGrowthPercent(getPlantById( pPlantId)) > 20.0
-        local success = RPC.execute("qpixel-weed:removePlant", pPlantId, getFertilizer)
+        FreezeEntityPosition(PlayerPedId(), false)
+        local getFertilizer = getPlantGrowthPercent(getPlantById(data.key.id)) > 20.0
+        local success = RPC.execute("arp-weed:removePlant", data.key, getFertilizer)
         if not success then
-            print("[ERR]: Could not remove. pid:",  pPlantId)
+            print("[ERR]: Could not remove. pid:", data.key.id)
         end
+    else
+        FreezeEntityPosition(PlayerPedId(), false)
     end
 end)
 
-RegisterNetEvent('qpixel-weed:pickPlant')
-AddEventHandler("qpixel-weed:pickPlant", function(pContext, pEntity)
+AddEventHandler("arp-weed:pickPlant", function(pContext, pEntity)
     local plantId = getPlantId(pEntity)
     if not plantId then return end
 
     local plant = getPlantById(plantId)
     local timeSinceHarvest = GetCloudTimeAsInt() - plant.last_harvest
     if getPlantGrowthPercent(plant) < PlantConfig.HarvestPercent or timeSinceHarvest <= (PlantConfig.TimeBetweenHarvest * 60) then
-        TriggerEvent("DoLongHudText", _L('weed-plants-not-ready', 'Not ready for harvesting'), 2)
+        TriggerEvent("DoLongHudText", 'Not ready for harvesting', 2)
         return
     end
 
-    local plyWeight = exports["qpixel-inventory"]:getCurrentWeight()
-    if plyWeight + 35.0 > 250.0 and plant.gender == 0 then
-        TriggerEvent("DoLongHudText", "You do not have enough room to hold the bud.", 2)
+    local plyWeight = exports["arp-inventory"]:getCurrentWeight()
+    if plyWeight + 100.0 > 250.0 and plant.gender == 0 then
+        TriggerEvent("DoLongHudText", 'You do not have enough room to hold the bud.', 2)
         return
     end
 
     TriggerEvent("animation:PlayAnimation","layspike")
-    local finished = exports["qpixel-taskbar"]:taskBar(10000, _L('weed-plants-harvest', 'Harvesting'), false, true, false, false, nil, 5.0, PlayerPedId())
+    FreezeEntityPosition(PlayerPedId(), true)
+    local finished = exports["arp-taskbar"]:taskBar(5000, 'Harvesting', false, true, false, false, nil, 5.0, PlayerPedId())
     ClearPedTasks(PlayerPedId())
     if finished == 100 then
-        RPC.execute("qpixel-weed:harvestPlant", plantId)
+        FreezeEntityPosition(PlayerPedId(), false)
+        local strainquality = getStrainQuality(plant.strain)
+        local strain = getStrainNameFromQuality(strainquality)
+        local pStrain = {
+            strain = strain,
+            quality = strainquality
+        }
+        RPC.execute("arp-weed:harvestPlant", plantId, pStrain)
+    else
+        FreezeEntityPosition(PlayerPedId(), false)
     end
 end)
 
-AddEventHandler("qpixel-polyzone:enter", function(zone, data)
-    if zone == "qpixel-weed:weed_zone" then
+AddEventHandler("arp-polyzone:enter", function(zone, data)
+    if zone == "arp-weed:weed_zone" then
         inZone = inZone + 1
         if inZone == 1 then
-            RPC.execute("qpixel-weed:getPlants")
+            setDeleteAll = false -- remove
+            RPC.execute("arp-weed:getPlants")
         end
     end
 end)
 
-AddEventHandler("qpixel-polyzone:exit", function(zone, data)
-    if zone == "qpixel-weed:weed_zone" then
+AddEventHandler("arp-polyzone:exit", function(zone, data)
+    if zone == "arp-weed:weed_zone" then
         inZone = inZone - 1
         if inZone < 0 then inZone = 0 end
         if inZone == 0 then
@@ -186,8 +227,8 @@ AddEventHandler("qpixel-polyzone:exit", function(zone, data)
     end
 end)
 
-RegisterNetEvent('qpixel-weed:trigger_zone')
-AddEventHandler("qpixel-weed:trigger_zone", function (type, pData)
+RegisterNetEvent('arp-weed:trigger_zone')
+AddEventHandler("arp-weed:trigger_zone", function (type, pData)
     --Update all plants
     if type == 1 then
         for _,plant in ipairs(WeedPlants) do
@@ -244,7 +285,11 @@ function createWeedStageAtCoords(pStage, pCoords)
         Wait(0)
     end
 
-    local plantObject = CreateObject(model, pCoords.x, pCoords.y, pCoords.z + PlantConfig.GrowthObjects[pStage].zOffset, 0, 0, 0)
+    local x = tonumber(math.floor(tonumber(pCoords.x)) .. ".00")
+    local y = tonumber(math.floor(tonumber(pCoords.y)) .. ".00")
+    local z = tonumber(math.floor(tonumber(pCoords.z)) .. ".00")
+
+    local plantObject = CreateObject(model, x, y, z + PlantConfig.GrowthObjects[pStage].zOffset, 0, 0, 0)
     FreezeEntityPosition(plantObject, true)
     SetEntityHeading(plantObject, math.random(0, 360) + 0.0)
     return plantObject
@@ -265,18 +310,11 @@ end
 
 function getPlantGrowthPercent(pPlant)
     local timeDiff = (GetCloudTimeAsInt() - pPlant.timestamp) / 60
+    local strain = 0.9
     local genderFactor = (pPlant.gender == 1 and PlantConfig.MaleFactor or 1)
     local fertilizerFactor = pPlant.strain.n >= 0.9 and PlantConfig.FertilizerFactor or 1.0
     local growthFactors = (PlantConfig.GrowthTime * genderFactor * fertilizerFactor)
     return math.min((timeDiff / growthFactors) * 100, 100.0)
-end
-
-function getPlantByPos(pCoords)
-    for plantId, plant in pairs(WeedPlants) do
-        if #(pCoords.xy - plant.coords.xy) < 1.5 then
-            return plant.id
-        end
-    end
 end
 
 function getPlantId(pEntity)
@@ -288,7 +326,8 @@ function getPlantId(pEntity)
 end
 
 function getPlantById(pPlantId)
-    for _,plant in pairs(WeedPlants) do
+    local plants = RPC.execute("arp-weed:getPlants")
+    for _,plant in pairs(plants) do
         if plant.id == pPlantId then
             return plant
         end
@@ -307,76 +346,71 @@ function showPlantMenu(pPlantId)
     local plant = getPlantById(pPlantId)
     --Build context menu
     local growth = getPlantGrowthPercent(plant)
-    local water = plant.strain.water * 100.0
+    local water = tonumber(plant.strain.water) * 100.0 -- plant.strain.water * 
     local myjob = exports["isPed"]:isPed("myjob")
-    local context = {}
 
+    local strainquality = getStrainQuality(plant.strain)
+    local strain = getStrainNameFromQuality(strainquality)
+
+    local context = {}
     context[#context+1] = {
-        title = "Growth: " .. string.format("%.2f", growth) .. '%',
-        description = "Gender: " .. (plant.gender == 1 and "Male" or "Female"),
+        title = 'Growth: ' .. string.format("%.2f", growth) .. "%",
+        description = 'Gender: ' .. (plant.gender == 1 and 'Male' or 'Female'),
     }
 
     --Only allow adding water/fertilzier before harvest time
     if growth < PlantConfig.HarvestPercent then
         context[#context+1] = {
-            title = "Add Water",
-            description = "Water: " .. string.format("%.2f", water) .. '%',
-            args = { pPlantId },
-            event = 'qpixel-weed:addWater',
-            disabled = not exports["qpixel-inventory"]:hasEnoughOfItem("water", 1, false)
+            title = 'Add Water',
+            description = 'Water: ' .. string.format("%.2f", water) .. "%",
+            key = { id = pPlantId },
+            action = 'arp-weed:addWater',
+            disabled = not exports["arp-inventory"]:hasEnoughOfItem("water", 1, false),
         }
 
         context[#context+1] = {
-            title = "Add Fertilizer",
-            event = 'qpixel-weed:addFertilizerMenu',
-            args = { pPlantId },
-            disabled = not exports["qpixel-inventory"]:hasEnoughOfItem("fertilizer", 1, false)
+            title  = 'Add Fertilizer',
+            disabled = not exports["arp-inventory"]:hasEnoughOfItem("fertilizer", 1, false),
+            description = "",
+            children = {
+                {
+                    title = 'Add Fertilizer' .. ' (N)',
+                    key = { id = pPlantId, type = "n" },
+                    action = 'arp-weed:addFertilizer',
+                },
+                {
+                    title = 'Add Fertilizer' .. ' (P)',
+                    key = { id = pPlantId, type = "p" },
+                    action = 'arp-weed:addFertilizer',
+                },
+                {
+                    title = 'Add Fertilizer' .. ' (K)',
+                    key = { id = pPlantId, type = "k" },
+                    action = 'arp-weed:addFertilizer',
+                }
+            }
         }
     end
 
     --Only allow changing gender in the first 2~ stages
     if getStageFromPercent(growth) < 3 and plant.gender == 0 then
         context[#context+1] = {
-            title = "Add Male Seed",
-            args = { pPlantId },
-            event = "qpixel-weed:addMaleSeed",
-            description = "Make the plant preggies",
-            disabled = not exports["qpixel-inventory"]:hasEnoughOfItem("maleseed", 1, false)
+            title = 'Add Male Seed',
+            key = { id = pPlantId },
+            action = 'arp-weed:addMaleSeed',
+            description = 'Make the plant preggies',
+            disabled = not exports["arp-inventory"]:hasEnoughOfItem("maleseed", 1, false)
         }
     end
 
-    if growth >= 95 or myjob == "police" or myjob == "judge" then
+    if growth >= 95 or myjob == "police" or myjob == "state" or myjob == "judge" then
         context[#context+1] = {
-            title = "Destroy Plant",
-            args = { pPlantId },
-            event = "qpixel-weed:removePlant"
+            title = 'Destroy Plant',
+            description = "",
+            key = { id = pPlantId },
+            action = 'arp-weed:removePlant',
         }
     end
 
-    TriggerEvent("nc-weed:createMenu", context)
+    exports['arp-interface']:showContextMenu(context);
 end
-
-RegisterNetEvent('qpixel-weed:addFertilizerMenu')
-AddEventHandler("qpixel-weed:addFertilizerMenu", function (pPlantId)
-    local context = {}
-
-    context[#context+1] = {
-        title = "Add Fertilizer (N)",
-        args = { pPlantId, "n" },
-        event = 'qpixel-weed:addFertilizer',
-    }
-
-    context[#context+1] = {
-        title = "Add Fertilizer (P)",
-        args = { pPlantId, "p" },
-        event = 'qpixel-weed:addFertilizer',
-    }
-
-    context[#context+1] = {
-        title = "Add Fertilizer (K)",
-        args = { pPlantId, "k" },
-        event = 'qpixel-weed:addFertilizer',
-    }
-
-    TriggerEvent("nc-weed:createMenu", context)
-end)
