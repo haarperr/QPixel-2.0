@@ -903,13 +903,34 @@ function Save(save, close)
     startingMenu = false
 end
 
-local showBarberShopBlips = false
-local showTattooShopBlips = false
-
 RegisterNetEvent('raid_clothes:saveCharacterClothes')
 AddEventHandler('raid_clothes:saveCharacterClothes', function()
     local data = GetCurrentPed()
     TriggerServerEvent("raid_clothes:insert_character_current", data)
+end)
+
+local showBarberShopBlips = true
+local showTattooShopBlips = true
+local showClothingShopBlips = true
+
+RegisterNetEvent('hairDresser:ToggleHair', function()
+   showBarberShopBlips = not showBarberShopBlips
+   for _, item in pairs(barberShops) do
+        if not showBarberShopBlips then
+            if item.blip ~= nil then
+                RemoveBlip(item.blip)
+            end
+        else
+            item.blip = AddBlipForCoord(item[1], item[2], item[2])
+            SetBlipSprite(item.blip, 71)
+            SetBlipColour(item.blip, 1)
+            SetBlipScale(item.blip, 0.6)
+            SetBlipAsShortRange(item.blip, true)
+            BeginTextCommandSetBlipName("STRING")
+            AddTextComponentString("Barber Shop")
+            EndTextCommandSetBlipName(item.blip)
+        end
+    end
 end)
 
 RegisterNetEvent('tattoo:ToggleTattoo')
@@ -924,6 +945,7 @@ AddEventHandler('tattoo:ToggleTattoo', function()
             item.blip = AddBlipForCoord(item[1], item[2], item[2])
             SetBlipSprite(item.blip, 75)
             SetBlipColour(item.blip, 1)
+            SetBlipScale(item.blip, 0.6)
             SetBlipAsShortRange(item.blip, true)
             BeginTextCommandSetBlipName("STRING")
             AddTextComponentString("Tattoo Shop")
@@ -932,9 +954,52 @@ AddEventHandler('tattoo:ToggleTattoo', function()
     end
 end)
 
+local ClothingShop = {
+	{-162.658, -303.397, 39.733},
+	{75.950, -1392.891, 29.376},
+	{-822.194, -1074.134, 11.328},
+	{-1450.711, -236.83, 49.809},
+	{4.254, 6512.813, 31.877},
+	{615.180, 2762.933, 44.088},
+	{1196.785, 2709.558, 38.222},
+	{-3171.453, 1043.857, 20.863},
+	{-1100.959, 2710.211, 19.107},
+	{-1192.9453125, -772.62481689453, 17.3254737854},
+	{-707.33416748047, -155.07914733887, 37.415187835693},
+	{1683.45667, 4823.17725, 42.1631294},
+	{121.76, -224.6, 54.56},
+	{-1207.5267333984,-1456.9530029297,4.3763856887817},
+}
+
+
+RegisterNetEvent('clothing:ToggleClothing')
+AddEventHandler('clothing:ToggleClothing', function()
+    showClothingShopBlips = not showClothingShopBlips
+    for _, item in pairs(ClothingShop) do 
+        if not showTattooShopBlips then 
+            if item.blip ~= nil then 
+                RemoveBlip(item.blip)
+            end
+        else
+            item.blip = AddBlipForCoord(item[1], item[2], item[2])
+            SetBlipSprite(item.blip, 73)
+            SetBlipColour(item.blip, 5)
+            SetBlipScale(item.blip, 0.6)
+            SetBlipAsShortRange(item.blip, true)
+            BeginTextCommandSetBlipName("STRING")
+            AddTextComponentString("Clothing Shop")
+            EndTextCommandSetBlipName(item.blip)
+        end
+    end
+end)
+
 function addBlips()
-    showBarberShopBlips = true
+    showBarberShopBlips = false
+    showTattooShopBlips = false
+    showClothingShopBlips = false
     TriggerEvent('hairDresser:ToggleHair')
+    TriggerEvent('tattoo:ToggleTattoo')
+    TriggerEvent('clothing:ToggleClothing')
 end
 
 RegisterNetEvent("raid_clothes:inService")

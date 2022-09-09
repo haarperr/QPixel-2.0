@@ -250,25 +250,25 @@ end)
 local displayClothingStoreBlips = true
 
 local ClothingShop = {
-	{name="Clothing Store", id=73, x=-162.658, y=-303.397, z=39.733},
-	{name="Clothing Store", id=73, x=75.950, y=-1392.891, z=29.376},
-	{name="Clothing Store", id=73, x=-822.194, y=-1074.134, z=11.328},
-	{name="Clothing Store", id=73, x=-1450.711, y=-236.83, z=49.809},
-	{name="Clothing Store", id=73, x=4.254, y=6512.813, z=31.877},
-	{name="Clothing Store", id=73, x=615.180, y=2762.933, z=44.088},
-	{name="Clothing Store", id=73, x=1196.785, y=2709.558, z=38.222},
-	{name="Clothing Store", id=73, x=-3171.453, y=1043.857, z=20.863},
-	{name="Clothing Store", id=73, x=-1100.959, y=2710.211, z=19.107},
-	{name="Clothing Store", id=73, x=-1192.9453125, y=-772.62481689453, z=17.3254737854},
-	{name="Clothing Store", id=73, x=-707.33416748047, y=-155.07914733887, z=37.415187835693},
-	{name="Clothing Store", id=73, x=1683.45667, y=4823.17725, z=42.1631294},
-	{name="Clothing Store", id=73, x=-712.215881, y=-155.352982, z=37.4151268},
-	{name="Clothing Store", id=73, x=121.76, y=-224.6, z=54.56},
-	{name="Clothing Store", id=73, x=-1207.5267333984, y=-1456.9530029297, z=4.3763856887817},
+	{-162.658, -303.397, 39.733},
+	{75.950, -1392.891, 29.376},
+	{-822.194, -1074.134, 11.328},
+	{-1450.711, -236.83, 49.809},
+	{4.254, 6512.813, 31.877},
+	{615.180, 2762.933, 44.088},
+	{1196.785, 2709.558, 38.222},
+	{-3171.453, 1043.857, 20.863},
+	{-1100.959, 2710.211, 19.107},
+	{-1192.9453125, -772.62481689453, 17.3254737854},
+	{-707.33416748047, -155.07914733887, 37.415187835693},
+	{1683.45667, 4823.17725, 42.1631294},
+	{-712.215881, -155.352982, 37.4151268},
+	{121.76, -224.6, 54.56},
+	{-1207.5267333984,-1456.9530029297,4.3763856887817},
 }
 
 --Display Map Blips
-Citizen.CreateThread(function()
+--[[ Citizen.CreateThread(function()
 	if (displayClothingStoreBlips == true) then
 	  for _, item in pairs(ClothingShop) do
 		item.blip = AddBlipForCoord(item.x, item.y, item.z)
@@ -281,4 +281,4 @@ Citizen.CreateThread(function()
 		EndTextCommandSetBlipName(item.blip)
 	  end
 	end
-  end)
+  end) ]]

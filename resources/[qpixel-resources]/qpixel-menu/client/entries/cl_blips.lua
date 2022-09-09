@@ -11,7 +11,7 @@ local Blips = {
         id = 'blips:trainstations',
         title = "Train Stations",
         icon = "#blips-trainstations",
-        event = "Trains:ToggleTainsBlip"
+        event = "Trains:ToggleTainsBlip" 
     },
     {
         id = 'blips:barbershop',
@@ -24,6 +24,12 @@ local Blips = {
         title = "Tattoo Shop",
         icon = "#blips-tattooshop",
         event = "tattoo:ToggleTattoo"
+    },
+    {
+        id = 'blips:clothingshop',
+        title = "Clothing Shop",
+        icon = "#blips-clothingshop", 
+        event = "clothing:ToggleClothing"
     },
     {
         id = 'blips:fishinglocation',
