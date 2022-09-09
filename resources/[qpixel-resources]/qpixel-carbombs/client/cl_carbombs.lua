@@ -3,6 +3,7 @@ local carHasBomb = false
 local listening = false
 local bombTick = 0
 local duration = 0
+local foundBombTable = {}
 
 local function getVehicleSpeed(pEntity)
   return GetEntitySpeed(pEntity) * 2.236936
@@ -77,14 +78,16 @@ local function checkForCarBomb(pEntity)
 
   TriggerEvent('animation:PlayAnimation', 'search')
 
-  local progress = exports['qpixel-taskbar']:taskBar(25000, 'Searching for car bomb...', true)
+  local progress = exports['qpixel-taskbar']:taskBar(2500, 'Searching for car bomb...', true)
   ClearPedTasks(PlayerPedId())
 
   if progress ~= 100 then return end
 
   local metaData = RPC.execute("qpixel-miscscripts:carbombs:getCarBombDataFromNetID", NetworkGetNetworkIdFromEntity(pEntity))
+  if metaData == nil then return TriggerEvent('DoLongHudText', 'There seems to be no bomb on this vehicle.', 1) end
   local carBombMeta = metaData.carBombData or false
-  local remoteBomb = RPC.execute('qpixel-usableprops:hasPhoneBomb', NetworkGetNetworkIdFromEntity(pEntity))
+
+--[[   local remoteBomb = RPC.execute('qpixel-usableprops:hasPhoneBomb', NetworkGetNetworkIdFromEntity(pEntity))
 
   if remoteBomb and remoteBomb.planted then
     local number = remoteBomb.bomb.number
@@ -92,7 +95,7 @@ local function checkForCarBomb(pEntity)
     TriggerEvent('qpixel-police:client:showTextPopup', { show = true, text = 'Cell Phone Found, Number: ' .. number })
     TriggerEvent("player:receiveItem", "phonebombdefused", 1)
     return TriggerEvent('DoLongHudText', 'Looks like there is a phone bomb on this vehicle', 1)
-  end
+  end ]]
 
   if carBombMeta and carBombMeta.hasCarBomb then
     TriggerServerEvent('qpixel-miscscripts:carbombs:foundBomb', NetworkGetNetworkIdFromEntity(pEntity), carBombMeta)
@@ -111,6 +114,7 @@ AddEventHandler('baseevents:enteredVehicle', function (pEntity, pSeat, pName, pC
   local carBombMeta = metaData.carBombData or false
 
   if carBombMeta and carBombMeta.hasCarBomb and not carBombActive then
+    print(json.encode(carBombMeta))
     -- print('[miscscripts] Entered vehicle with car bomb')
     listenForBombTick(pEntity, carBombMeta.minSpeed, carBombMeta.ticksBeforeExplode, carBombMeta.ticksForRemoval)
     carHasBomb = true
@@ -132,13 +136,36 @@ AddEventHandler('baseevents:leftVehicle', function (pEntity, pSeat, pName, pClas
   resetCarBombState()
 end)
 
-RegisterCommand("test1", function()
+RegisterNetEvent("qpixel-miscscripts:carbombs:foundBombAll", function(pNetTable)
+    local carBombMeta = pNetTable.carBombData or false
+    if carBombMeta then
+        foundBombTable[carBombMeta.netId] = {
+          carBombData = {
+            netId = carBombMeta.netId,
+            minSpeed = carBombMeta.minSpeed, 
+            ticksBeforeExplode = carBombMeta.ticksBeforeExplode, 
+            ticksForRemoval = carBombMeta.ticksForRemoval, 
+            gridSize = carBombMeta.gridSize, 
+            coloredSquares = carBombMeta.coloredSquares, 
+            timeToComplete = carBombMeta.timeToComplete,
+            hasCarBomb = carBombMeta.hasCarBomb,
+        }
+      }
+    end
+end)
 
-  TriggerEvent("qpixel-bomb:test", 'car_bomb')
+function isThisVehicleABomb(pNetID)
+  for k,v in pairs(foundBombTable) do
+    if k == pNetID then
+      return true
+    end
+  end
+  return false
+end
 
-end, false)
+exports('isThisVehicleABomb', isThisVehicleABomb)
 
-AddEventHandler('qpixel-bomb:test', function (name, info)
+AddEventHandler("qpixel-inventory:itemUsed", function(name, info)
   local items = {
     ['car_bomb'] = true,
     ['bombmirror'] = true,
@@ -162,7 +189,6 @@ AddEventHandler('qpixel-bomb:test', function (name, info)
     { name = 'ticksBeforeExplode', label = 'Ticks before explosion (Seconds)', icon = 'time', _type = 'number' },
     { name = 'ticksForRemoval', label = 'Removal Length (Seconds)', icon = 'time', _type = 'number' },
     { name = "gridSize", label = "Grid Size (5-12)", icon = "time", _type = "number" },
-    { name = "coloredSquares", label = "Colored Sqaures (5-20)", icon = "time", _type = "number" },
     { name = "timeToComplete", label = "Time To Complete (10-30 Seconds)", icon = "time", _type = "number" },
   }
 
@@ -193,24 +219,19 @@ AddEventHandler('qpixel-bomb:test', function (name, info)
       return TriggerEvent("DoLongHudText", "Grid size must be between 5-12", 2)
   end
 
-  local coloredSquares = tonumber(prompt.coloredSquares)
-  if coloredSquares > 20 or coloredSquares < 5 then
-      return TriggerEvent("DoLongHudText", "Colored Sqaures must be between 5-20", 2)
-  end
-
   local timeToComplete = tonumber(prompt.timeToComplete) * 1000
   if timeToComplete < 10000 or timeToComplete > 30000 then
       return TriggerEvent("DoLongHudText", "Time to complete must be between 10-30 seconds", 2)
   end
 
-  local progress = exports['qpixel-taskbar']:taskBar(25000, 'Planting car bomb...', true)
+  local progress = exports['qpixel-taskbar']:taskBar(2500, 'Planting car bomb...', true)
   
   ClearPedTasks(PlayerPedId())
   
   if progress ~= 100 then return end
 
   local netId = NetworkGetNetworkIdFromEntity(vehicle)
-  local added = RPC.execute('qpixel-miscscripts:carbombs:addCarBomb', netId, minSpeed, ticksBeforeExplode, ticksForRemoval, gridSize, coloredSquares, timeToComplete)
+  local added = RPC.execute('qpixel-miscscripts:carbombs:addCarBomb', netId, minSpeed, ticksBeforeExplode, ticksForRemoval, gridSize, 0, timeToComplete)
   TriggerEvent('inventory:removeItem', 'car_bomb', 1)
   
   return TriggerEvent('DoLongHudText', 'Successfully added car bomb to vehicle', 1)
@@ -218,12 +239,28 @@ end)
 
 AddEventHandler('qpixel-miscscripts:carBombs:removeBomb', function (pData, pEntity)
     local metaData = RPC.execute("qpixel-miscscripts:carbombs:getCarBombDataFromNetID", NetworkGetNetworkIdFromEntity(pEntity))
-  local carBombMeta = metaData.carBombData or false
+    local carBombMeta = metaData.carBombData or false
 
   if carBombMeta and carBombMeta.hasCarBomb then
+    local myNetIdentifier = NetworkGetNetworkIdFromEntity(pEntity)
     TriggerEvent('animation:PlayAnimation', 'kneel')
+    TriggerServerEvent('qpixel-miscscripts:carbombs:removeBomb', myNetIdentifier)
+
+    exports['lol-thermite']:OpenThermiteGame(function(success)
+      if success then
+        ClearPedTasks(PlayerPedId())
+        TriggerEvent('DoLongHudText', 'Bomb has been removed from vehicle', 1)
+        TriggerEvent("player:receiveItem", "car_bomb_defused", 1)
+      else
+        print('fail')
+        ClearPedTasks(PlayerPedId())
+        explodeVehicle(pEntity)
+        resetCarBombState()
+      end
+    end, carBombMeta.gridSize or 5, 1, carBombMeta.timeToComplete or 14000 / 1000)
+
   
-    exports['qpixel-interface']:openApplication('memorygame', {
+--[[     exports['qpixel-interface']:openApplication('memorygame', {
       gameFinishedEndpoint = 'qpixel-miscscripts:carBombs:completeHacking',
       gameTimeoutDuration = carBombMeta.timeToComplete or 14000,
       coloredSquares =  carBombMeta.coloredSqaures or 10,
@@ -231,29 +268,7 @@ AddEventHandler('qpixel-miscscripts:carBombs:removeBomb', function (pData, pEnti
       parameters = {
         netId = NetworkGetNetworkIdFromEntity(pEntity)
       }
-    })
+    }) ]]
   end
 
 end)
-
---[[ RegisterInterfaceCallback('qpixel-vehicles:carBombs:completeHacking', function(data, cb)
-  cb({ data = {}, meta = { ok = true, message = '' } })
-
-  local success = data.success
-  local netId = data.parameters.netId
-
-  ClearPedTasks(PlayerPedId())
-
-  TriggerServerEvent('qpixel-miscscripts:carbombs:removeBomb', netId)
-  
-  if success then
-    TriggerEvent('DoLongHudText', 'Bomb has been removed from vehicle', 1)
-    TriggerEvent("player:receiveItem", "car_bomb_defused", 1)
-  else
-    explodeVehicle(NetworkGetEntityFromNetworkId(netId)) 
-    resetCarBombState()
-  end
-
-  Citizen.Wait(2000)
-  exports['qpixel-interface']:closeApplication('memorygame')
-end)  ]]
