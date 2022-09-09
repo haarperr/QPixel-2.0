@@ -2,12 +2,13 @@ fx_version "cerulean"
 games {"gta5"}
 
 author 'loleris'
-description "qpixel-carbombs"
+description "lol-carbombs"
 
 version "1.0.0"
 
 client_scripts {
     "@qpixel-lib/client/cl_rpc.lua",
+    "@qpixel-lib/client/cl_interface.lua",
     "client/*.lua"
 }
 

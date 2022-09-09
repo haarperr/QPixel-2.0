@@ -8,6 +8,10 @@ RegisterNetEvent("qpixel-usableprops:defusePhoneBomb", function(pNetId)
     carBombTable[pNetId] = nil
 end)
 
+RegisterNetEvent("qpixel-miscscripts:carbombs:foundBomb", function(pNetId, pMetaData)
+    TriggerClientEvent("qpixel-miscscripts:carbombs:foundBombAll", -1, carBombTable[pMetaData.netId])
+end)
+
 RPC.register("qpixel-miscscripts:carbombs:addCarBomb", function(pSource, netId, minSpeed, ticksBeforeExplode, ticksForRemoval, gridSize, coloredSquares, timeToComplete)
     print(netId, minSpeed, ticksBeforeExplode, ticksForRemoval, gridSize, coloredSquares, timeToComplete)
     carBombTable[netId] = {
@@ -18,6 +22,7 @@ RPC.register("qpixel-miscscripts:carbombs:addCarBomb", function(pSource, netId, 
             gridSize = gridSize, 
             coloredSquares = coloredSquares, 
             timeToComplete = timeToComplete,
+            netId = netId,
             hasCarBomb = true,
         }
     }
@@ -27,11 +32,10 @@ RPC.register("qpixel-miscscripts:carbombs:getCarBombDataFromNetID", function(pSo
     return carBombTable[netId]
 end)
 
-RPC.register("qpixel-usableprops:hasPhoneBomb", function(pSource, pNetId)
-    for k,v in pairs(carBombTable) do
-        if pNetId == k then
-            return true
-        end
+--[[ RPC.register("qpixel-usableprops:hasPhoneBomb", function(pSource, pNetId)
+    print(pNetId)
+    if carBombTable[pNetId] then
+        return true
     end
     return false
-end)
+end) ]]
