@@ -1,5 +1,7 @@
 fx_version "cerulean"
 
+description "QPixel Object System"
+author "Loleris"
 version '0.0.1'
 
 game "gta5"

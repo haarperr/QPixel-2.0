@@ -1,17 +1,17 @@
 ;(function () {
   'use strict'
   var _0x46657b = {
-      678: function (_0x2783f9, DPX) {
-        Object.defineProperty(DPX, '__esModule', { value: true })
-        DPX.Hud =
-          DPX.Interface =
-          DPX.Utils =
-          DPX.Streaming =
-          DPX.Zones =
-          DPX.Procedures =
-          DPX.Events =
+      678: function (_0x2783f9, _0x4f4e18) {
+        Object.defineProperty(_0x4f4e18, '__esModule', { value: true })
+        _0x4f4e18.Hud =
+          _0x4f4e18.Interface =
+          _0x4f4e18.Utils =
+          _0x4f4e18.Streaming =
+          _0x4f4e18.Zones =
+          _0x4f4e18.Procedures =
+          _0x4f4e18.Events =
             void 0
-        DPX.Events = {
+        _0x4f4e18.Events = {
           on: (_0x4f239c, _0x188b24) => {
             return DPX.Events.on(_0x4f239c, _0x188b24)
           },
@@ -28,7 +28,7 @@
             return DPX.Events.remove(_0x50be3a, _0x52b798)
           },
         }
-        DPX.Procedures = {
+        _0x4f4e18.Procedures = {
           register: (_0x5ded20, _0x28b3a3) => {
             return DPX.Procedures.register(_0x5ded20, _0x28b3a3)
           },
@@ -39,7 +39,7 @@
             )
           },
         }
-        DPX.Zones = {
+        _0x4f4e18.Zones = {
           isActive: (_0x4a4a63, _0x34bec2) => {
             return DPX.Zones.isActive(_0x4a4a63, _0x34bec2)
           },
@@ -88,7 +88,7 @@
             )
           },
         }
-        DPX.Streaming = {
+        _0x4f4e18.Streaming = {
           loadModel: (_0x175d5f) => {
             return DPX.Streaming.loadModel(_0x175d5f)
           },
@@ -108,7 +108,7 @@
             return DPX.Streaming.loadNamedPtfxAsset(_0x43533b)
           },
         }
-        DPX.Utils = {
+        _0x4f4e18.Utils = {
           cache: (_0x3897c1, _0x4da209) => {
             return DPX.Utils.cache(_0x3897c1, _0x4da209)
           },
@@ -134,7 +134,7 @@
             return DPX.Utils.getRandomNumber(_0x55841f, _0x44bb75)
           },
         }
-        DPX.Interface = {
+        _0x4f4e18.Interface = {
           addPeekEntryByModel: (_0x78e684, _0xc8ee38, _0x237162) => {
             return DPX.Interface.addPeekEntryByModel(
               _0x78e684,
@@ -190,7 +190,7 @@
             )
           },
         }
-        DPX.Hud = {
+        _0x4f4e18.Hud = {
           createBlip: (_0x4f96dd, ..._0x40abf5) => {
             return DPX.Hud.createBlip(_0x4f96dd, ..._0x40abf5)
           },
@@ -409,273 +409,273 @@
   var _0x38b2af = {}
   !(function () {
     var _0x43e553 = {},
-      _0x26ceba
-    _0x26ceba = { value: true }
-    _0x26ceba = void 0
+      prepObj
+    prepObj = { value: true }
+    prepObj = void 0
     const _0x3ea73a = _0x2df2bb(678),
       _0x1bac61 = _0x2df2bb(615)
-    let _0x36aece = [],
-      _0x13afd6 = []
+    let objectTable = [],
+      newObjTable = []
     setImmediate(async () => {
       await (0, _0x1bac61.Delay)(5000)
-      Number(_0x36aece.length) === 0 && emitNet('qpixel-objects:requestObjects')
+      Number(objectTable.length) === 0 && emitNet('qpixel-objects:requestObjects')
     })
-    onNet('qpixel-objects:loadObjects', async (_0xe9ddb4) => {
+    onNet('qpixel-objects:loadObjects', async (pObjectData) => {
       console.log('[qpixel-objects] Load Objects')
-      let _0x4ab09a = _0xe9ddb4
-      Object.entries(_0x4ab09a).forEach(([_0x12c7d5, _0x331d4d]) => {
-        _0x491670(_0x331d4d)
+      let objectTable = pObjectData
+      Object.entries(objectTable).forEach(([k, v]) => {
+        prepareObject(v)
       })
     })
-    onNet('qpixel:objects:prepareNewObject', async (_0x29ed64) => {
-      _0x491670(_0x29ed64)
+    onNet('lol:objects:prepareNewObject', async (newObject) => {
+      prepareObject(newObject)
     })
-    on('qpixel-polyzone:enter', async (_0x46614c, _0x2b0f68) => {
-      if (_0x46614c !== 'object_zone') {
+    on('qpixel-polyzone:enter', async (name, data) => {
+      if (name !== 'object_zone') {
         return
       }
-      let _0x255255 = _0x36aece.findIndex(
-        (_0x1a7dca) => _0x1a7dca.id.toString() === _0x2b0f68.id.toString()
+      let fountData = objectTable.findIndex(
+        (pData) => pData.id.toString() === data.id.toString()
       )
-      if (!_0x36aece[_0x255255]) {
+      if (!objectTable[fountData]) {
         return
       }
-      if (_0x36aece[_0x255255].obj) {
+      if (objectTable[fountData].obj) {
         return
       }
       console.log('[qpixel-objects] Entered zone, load objects in distance.')
-      let _0x59c70d = _0x36aece[_0x255255].coordinates
-      _0x36aece[_0x255255].obj = await _0x57b449(
-        _0x36aece[_0x255255].model,
-        _0x59c70d.x,
-        _0x59c70d.y,
-        _0x59c70d.z,
-        _0x59c70d.h
+      let pCoords = objectTable[fountData].coordinates
+      objectTable[fountData].obj = await createAndLoadObject(
+        objectTable[fountData].model,
+        pCoords.x,
+        pCoords.y,
+        pCoords.z,
+        pCoords.h
       )
-      let _0x434fd7 = _0x13afd6.findIndex(
-        (_0x26c558) => _0x26c558.id.toString() === _0x2b0f68.id.toString()
+      let findData = newObjTable.findIndex(
+        (fountdata) => fountdata.id.toString() === data.id.toString()
       )
-      _0x13afd6[_0x434fd7] = {
-        x: _0x59c70d.x,
-        y: _0x59c70d.y,
-        z: _0x59c70d.z,
+      newObjTable[findData] = {
+        x: pCoords.x,
+        y: pCoords.y,
+        z: pCoords.z,
       }
     })
-    on('qpixel-polyzone:exit', (_0x329570, _0x2b3c55) => {
-      if (_0x329570 !== 'object_zone') {
+    on('qpixel-polyzone:exit', (name, data) => {
+      if (name !== 'object_zone') {
         return
       }
-      let _0xeb43df = _0x36aece.findIndex(
-        (_0x4d3e26) => _0x4d3e26.id.toString() === _0x2b3c55.id.toString()
+      let findData = objectTable.findIndex(
+        (fountData) => fountData.id.toString() === data.id.toString()
       )
-      if (!_0x36aece[_0xeb43df]) {
+      if (!objectTable[findData]) {
         return
       }
-      if (!_0x36aece[_0xeb43df].obj) {
+      if (!objectTable[findData].obj) {
         return
       }
       console.log('[qpixel-objects] Left zone, unload objects in distance.')
-      DeleteObject(_0x36aece[_0xeb43df].obj)
-      _0x36aece[_0xeb43df].obj = 0
-      let _0xc01015 = _0x13afd6.filter(
-        (_0x4926c1) => Number(_0x4926c1.id) !== Number(_0x2b3c55.id)
+      DeleteObject(objectTable[findData].obj)
+      objectTable[findData].obj = 0
+      let filteredData = newObjTable.filter(
+        (_0x4926c1) => Number(_0x4926c1.id) !== Number(data.id)
       )
-      _0x13afd6 = _0xc01015
+      newObjTable = filteredData
     })
-    onNet('qpixel-objects:clearObjects', (_0x469f66) => {
-      Object.entries(_0x469f66).forEach(([_0x4b6899, _0x5614bf]) => {
-        let _0x5fa75b = _0x13afd6.findIndex(
-          (_0x104dbc) => _0x104dbc.id.toString() === _0x5614bf.toString()
+    onNet('qpixel-objects:clearObjects', (objectData) => {
+      Object.entries(objectData).forEach(([k, v]) => {
+        let findIndex = newObjTable.findIndex(
+          (fountIndex) => fountIndex.id.toString() === v.toString()
         )
-        if (_0x13afd6[_0x5fa75b]) {
-          let _0xee06d8 = _0x13afd6.filter(
-            (_0x23c4ed) => Number(_0x23c4ed.id) !== Number(_0x5614bf)
+        if (newObjTable[findIndex]) {
+          let filterData = newObjTable.filter(
+            (filteredData) => Number(filteredData.id) !== Number(v)
           )
-          _0x13afd6 = _0xee06d8
+          newObjTable = filterData
         }
-        let _0x22f962 = _0x36aece.findIndex(
-          (_0x216a26) => _0x216a26.id.toString() === _0x5614bf.toString()
+        let findData = objectTable.findIndex(
+          (fountData) => fountData.id.toString() === v.toString()
         )
-        if (_0x36aece[_0x22f962]) {
-          _0x36aece[_0x22f962].obj &&
-            DeleteObject(Number(_0x36aece[_0x22f962].obj))
-          let _0x179acd = _0x36aece.filter(
-            (_0x4894ff) => Number(_0x4894ff.id) !== Number(_0x5614bf)
+        if (objectTable[findData]) {
+          objectTable[findData].obj &&
+            DeleteObject(Number(objectTable[findData].obj))
+          let filterIndex = objectTable.filter(
+            (filteredIndex) => Number(filteredIndex.id) !== Number(v)
           )
-          _0x36aece = _0x179acd
+          objectTable = filterIndex
         }
       })
     })
-    onNet('qpixel-objects:updateObjects', (_0xacd038) => {
-      Object.entries(_0xacd038).forEach(([_0x24dcf9, _0x5e989a]) => {
-        let _0x1bdcfe = _0x13afd6.findIndex(
-          (_0x18ec50) => _0x18ec50.id.toString() === _0x5e989a.toString()
+    onNet('qpixel-objects:updateObjects', (objectData) => {
+      Object.entries(objectData).forEach(([k, v]) => {
+        let findData = newObjTable.findIndex(
+          (fountData) => fountData.id.toString() === v.toString()
         )
-        if (_0x13afd6[_0x1bdcfe]) {
-          let _0x13f749 = _0x13afd6.filter(
-            (_0xf0a494) => Number(_0xf0a494.id) !== Number(_0x5e989a)
+        if (newObjTable[findData]) {
+          let filterData = newObjTable.filter(
+            (filteredData) => Number(filteredData.id) !== Number(v)
           )
-          _0x13afd6 = _0x13f749
+          newObjTable = filterData
         }
-        let _0x114174 = _0x36aece.findIndex(
-          (_0x168973) => _0x168973.id.toString() === _0x5e989a.toString()
+        let findInd = objectTable.findIndex(
+          (fountInd) => fountInd.id.toString() === v.toString()
         )
-        if (_0x36aece[_0x114174]) {
-          _0x36aece[_0x114174].obj && DeleteObject(_0x36aece[_0x114174].obj)
-          let _0x260f1b = _0x36aece.filter(
-            (_0x409534) => Number(_0x409534.id) !== Number(_0x5e989a)
+        if (objectTable[findInd]) {
+          objectTable[findInd].obj && DeleteObject(objectTable[findInd].obj)
+          let filterObjTable = objectTable.filter(
+            (filteredObjTable) => Number(filteredObjTable.id) !== Number(v)
           )
-          _0x36aece = _0x260f1b
+          objectTable = filterObjTable
         }
       }),
-        _0x491670(_0xacd038)
+        prepareObject(objectData)
     })
-    async function _0x491670(_0x2d06c6) {
-      console.log('[qpixel-objects] Adding object: ', _0x2d06c6)
-      let _0x1194f7 = {
-        x: _0x2d06c6.coordinates.x,
-        y: _0x2d06c6.coordinates.y,
-        z: _0x2d06c6.coordinates.z,
+    async function prepareObject(objectData) {
+      console.log('[qpixel-objects] Adding object: ', objectData)
+      let coords = {
+        x: objectData.coordinates.x,
+        y: objectData.coordinates.y,
+        z: objectData.coordinates.z,
       }
       PolyZone.addCircleZone(
         'object_zone',
         {
-          x: _0x2d06c6.coordinates.x,
-          y: _0x2d06c6.coordinates.y,
-          z: _0x2d06c6.coordinates.z,
+          x: objectData.coordinates.x,
+          y: objectData.coordinates.y,
+          z: objectData.coordinates.z,
         },
         Math.max(75, 40),
-        { data: { id: _0x2d06c6.id } }
+        { data: { id: objectData.id } }
       )
-      let _0x37746e = undefined,
-        _0x20deed = GetEntityCoords(PlayerPedId(), false),
-        _0x363956 = GetDistanceBetweenCoords(
-          _0x20deed[0],
-          _0x20deed[1],
-          _0x20deed[2],
-          _0x1194f7.x,
-          _0x1194f7.y,
-          _0x1194f7.z,
+      let pObject = undefined,
+        entityCoords = GetEntityCoords(PlayerPedId(), false),
+        dist = GetDistanceBetweenCoords(
+          entityCoords[0],
+          entityCoords[1],
+          entityCoords[2],
+          coords.x,
+          coords.y,
+          coords.z,
           true
         )
-      if (Number(_0x363956) < 25) {
-        let _0x1dc8f3 = _0x2d06c6.coordinates.h
-        if (_0x1dc8f3 === undefined) {
-          _0x1dc8f3 = 0
+      if (Number(dist) < 25) {
+        let heading = objectData.coordinates.h
+        if (heading === undefined) {
+          heading = 0
         }
-        _0x37746e = await _0x57b449(
-          _0x2d06c6.model,
-          _0x1194f7.x,
-          _0x1194f7.y,
-          _0x1194f7.z,
-          _0x1dc8f3
+        pObject = await createAndLoadObject(
+          objectData.model,
+          coords.x,
+          coords.y,
+          coords.z,
+          heading
         )
-        _0x13afd6.push({
-          id: _0x2d06c6.id,
-          vector: _0x1194f7,
+        newObjTable.push({
+          id: objectData.id,
+          vector: coords,
         })
       }
-      _0x36aece.push({
-        id: _0x2d06c6.id,
-        model: _0x2d06c6.model,
-        coordinates: _0x2d06c6.coordinates,
-        metaData: _0x2d06c6.metaData,
-        obj: _0x37746e,
+      objectTable.push({
+        id: objectData.id,
+        model: objectData.model,
+        coordinates: objectData.coordinates,
+        metaData: objectData.metaData,
+        obj: pObject,
       })
     }
-    _0x26ceba = _0x491670
-    async function _0x57b449(
-      _0x23ee65,
-      _0x4c62d1,
-      _0x2c9216,
-      _0x398b48,
-      _0x7075cf
+    prepObj = prepareObject
+    async function createAndLoadObject(
+      pObject,
+      coordsX,
+      coordsY,
+      coordsZ,
+      coordsH
     ) {
-      await _0x3ea73a.Streaming.loadModel(_0x23ee65)
-      const _0x220409 = GetHashKey(_0x23ee65)
-      let _0x4b237c = CreateObjectNoOffset(
-        _0x220409,
-        _0x4c62d1,
-        _0x2c9216,
-        _0x398b48,
+      await _0x3ea73a.Streaming.loadModel(pObject)
+      const pObjHash = GetHashKey(pObject)
+      let createdEntity = CreateObjectNoOffset(
+        pObjHash,
+        coordsX,
+        coordsY,
+        coordsZ,
         false,
         false,
         false
       )
-      if (!_0x7075cf) {
-        _0x7075cf = 0
+      if (!coordsH) {
+        coordsH = 0
       }
-      if (typeof _0x7075cf === 'number') {
-        SetEntityHeading(_0x4b237c, _0x7075cf + 0)
+      if (typeof coordsH === 'number') {
+        SetEntityHeading(createdEntity, coordsH + 0)
       } else {
         SetEntityRotation(
-          _0x4b237c,
-          _0x7075cf.x,
-          _0x7075cf.y,
-          _0x7075cf.z,
+          createdEntity,
+          coordsH.x,
+          coordsH.y,
+          coordsH.z,
           2,
           true
         )
       }
-      return FreezeEntityPosition(_0x4b237c, true), _0x4b237c
+      return FreezeEntityPosition(createdEntity, true), createdEntity
     }
-    on('onResourceStop', (_0xac4bba) => {
-      if (_0xac4bba !== 'qpixel-objects') {
+    on('onResourceStop', (resName) => {
+      if (resName !== 'qpixel-objects') {
         return
       }
-      Object.entries(_0x36aece).forEach(([_0x4c9cbc, _0x58d4bf]) => {
-        if (_0x58d4bf.obj) {
-          DeleteObject(Number(_0x58d4bf.obj))
+      Object.entries(objectTable).forEach(([k, v]) => {
+        if (v.obj) {
+          DeleteObject(Number(v.obj))
         }
       })
     })
-    function _0x14414e(_0x1f9d74) {
-      let _0x2a3055 = false
+    function GetObjectByEntity(pEntity) {
+      let pFountData = false
       return (
-        Object.entries(_0x36aece).forEach(([_0x107522, _0xf23082]) => {
-          if (Number(_0xf23082.obj) === Number(_0x1f9d74)) {
-            let _0x1cf6a6 = _0x36aece.findIndex(
-              (_0x294514) => Number(_0x294514.id) === Number(_0xf23082.id)
+        Object.entries(objectTable).forEach(([k, v]) => {
+          if (Number(v.obj) === Number(pEntity)) {
+            let findInd = objectTable.findIndex(
+              (fountInd) => Number(fountInd.id) === Number(v.id)
             )
-            _0x36aece[_0x1cf6a6] && (_0x2a3055 = _0x36aece[_0x1cf6a6])
+            objectTable[findInd] && (pFountData = objectTable[findInd])
           }
         }),
-        _0x2a3055
+        pFountData
       )
     }
-    _0x2df2bb.g.exports('GetObjectByEntity', _0x14414e)
-    function _0x21c8af(_0x144364) {
-      let _0x26f222 = false,
-        _0x41f227 = _0x36aece.findIndex(
-          (_0x249bdb) => _0x249bdb.id.toString() === _0x144364.toString()
+    exports('GetObjectByEntity', GetObjectByEntity)
+    function GetObject(pObject) {
+      let pFountData = false,
+        findInd = objectTable.findIndex(
+          (fountInd) => fountInd.id.toString() === pObject.toString()
         )
       return (
-        _0x36aece[_0x41f227] && (_0x26f222 = _0x36aece[_0x41f227]), _0x26f222
+        objectTable[findInd] && (pFountData = objectTable[findInd]), pFountData
       )
     }
-    _0x2df2bb.g.exports('GetObject', _0x21c8af)
-    function _0x3712a8(_0x4b77ba) {
-      let _0x5f588f = RPC.execute('qpixel-objects:DeleteObject', _0x4b77ba)
-      return _0x5f588f
+    exports('GetObject', GetObject)
+    function DelObject(obj) {
+      let deleted = RPC.execute('qpixel-objects:DeleteObject', obj)
+      return deleted
     }
-    _0x2df2bb.g.exports('DelObject', _0x3712a8)
-    function _0x3fc7e3(_0x45e806, _0x4befc3) {
-      RPC.execute('qpixel-objects:UpdateObject', _0x45e806, _0x4befc3)
+    exports('DelObject', DelObject)
+    function UpdateObject(object, updatedObject) {
+      RPC.execute('qpixel-objects:UpdateObject', object, updatedObject)
     }
-    _0x2df2bb.g.exports('UpdateObject', _0x3fc7e3)
+    exports('UpdateObject', UpdateObject)
     RegisterCommand(
       'getObject',
-      (_0x37a992, _0x4114dc, _0x5d60b5) => {
-        let _0x51028f = _0x4114dc[0],
-          _0x51a571 = _0x14414e(_0x51028f)
-        console.log('[qpixel-objects] getObject return: ', _0x51a571)
+      (src, args, user) => {
+        let obj = args[0],
+          consoleObj = _0x14414e(obj)
+        console.log('[qpixel-objects] getObject return: ', consoleObj)
       },
       false
     )
     RegisterCommand(
       'objects:print',
       () => {
-        console.log(_0x36aece)
+        console.log(objectTable)
       },
       false
     )
@@ -691,16 +691,16 @@
       _0x573470 = 0,
       _0x304a5c = undefined,
       _0x1e299c = undefined
-    const _0x5c2611 = async (
-      _0xbe56e,
-      _0x4a5e9a = {},
+    const PlaceAndSaveObject = async (
+      pObjectModel,
+      pHeading = {},
       _0x72d15e,
       _0x46e724 = () => true,
-      _0x5ea3c5 = 'objects',
-      _0xba03fd
+      pRando = 'objects',
+      pMetaData
     ) => {
-      const [_0x5447e5, _0x52f925] = await _0x254698(
-        _0xbe56e,
+      const [_0x5447e5, pCoords] = await _0x254698(
+        pObjectModel,
         _0x72d15e,
         _0x46e724
       )
@@ -709,15 +709,15 @@
       }
       return await RPC.execute(
         'qpixel-objects:SaveObject',
-        _0x5ea3c5,
-        _0xbe56e,
-        _0x52f925.coords,
-        _0x52f925.rotation,
-        _0x4a5e9a,
-        _0xba03fd
+        pRando,
+        pObjectModel,
+        pCoords.coords,
+        pCoords.rotation,
+        pHeading,
+        pMetaData
       )
     }
-    _0x2df2bb.g.exports('PlaceAndSaveObject', _0x5c2611)
+    exports('PlaceAndSaveObject', PlaceAndSaveObject)
     let _0x49ebb8 = false
     const _0x254698 = async (_0x1debe8, _0x1e1814, _0x65c686 = () => true) => {
       var _0x3deadd, _0x3e8019, _0x54e9e9, _0x1e7782
@@ -935,7 +935,7 @@
         [true, _0xa47eb9]
       )
     }
-    _0x2df2bb.g.exports('PlaceObject', _0x254698)
+    exports('PlaceObject', _0x254698)
     function _0x25eb10(_0x5574d5, _0x3fb1d4, _0x38236a, _0x35feb8, _0x598e5e) {
       const _0x2e96b9 = _0x54d89c.mathClass.fromArray(
           GetEntityRotation(_0x5574d5, 2)
