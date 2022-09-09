@@ -62,7 +62,7 @@ function showPlantMenu(pPlantId)
     local plant = weedPlants[pPlantId]
     local growth = getPlantGrowthPercent(plant)
     local water = plant.strain.water * 100.0
-    local myjob = exports["isPed"]:isPed("myjob")
+    local myjob = exports["qpixel-base"]:getChar("job")
     local context = {}
 
     context[#context+1] = {
