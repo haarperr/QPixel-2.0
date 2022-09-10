@@ -13,3 +13,8 @@ RegisterNetEvent("police:changewhiteboard", function(pUrl, pRoom)
     TriggerClientEvent("police:changewhiteboardcli", -1, pUrl, pRoom)
 end)
 
+RegisterNetEvent("SpawnEventsServer", function()
+    local src = source
+    TriggerClientEvent("police:changewhiteboardcli", src, currentClassRoomBoardUrl, "classroom")
+    TriggerClientEvent("police:changewhiteboardcli", src, currentMeetingRoomBoardUrl, "meetingroom")
+end)

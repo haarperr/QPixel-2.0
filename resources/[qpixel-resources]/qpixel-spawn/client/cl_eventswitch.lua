@@ -41,6 +41,9 @@ function Login.characterLoaded()
   -- Anything that might need to wait for the client to get information, do it here.
   TriggerServerEvent("login:get:keys")
 
+  --Sync Whiteboards
+  TriggerServerEvent("SpawnEventsServer")
+
   
   -- // New Clothing Menu // --
   --TriggerServerEvent("qpixel_clothing:retrieve_tats")
