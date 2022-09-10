@@ -44,7 +44,7 @@ PlantConfig = {
     -- Time between plant harvests (minutes)
     TimeBetweenHarvest = 400,
     -- How often should the server update growth from DB, expensive (ms) Set to -1 to disable
-    UpdateTimer = 10 * 60 * 1000, -- 10 minutes
+    UpdateTimer = 1, -- 10 minutes
     -- How much should 1 water bottle add
     WaterAdd = 0.2,
     -- How much should 1 fertilizer bag add to the inputted nutrient
@@ -89,19 +89,6 @@ WeedConfig = {
     MaxProgressionBonus = 1.5,
     -- How many large runs can be active at a time
     MaxLargeRuns = 6,
-}
-
-CornerConfig = {
-    BaggiesPerBrick = 28,
-    -- default: 2 min/populate, -1 to disable
-    PopulateRate = 1000 * 60 * 2,
-    -- default: 1 min/ped
-    TimeBetweenAcquisition = 60 * 1000,
-    --How much should repeatedly selling in an area bring players
-    MaxZoneBonus = 1.2,
-    -- other config stuff
-    RequireScales = true,
-    DropEvidence = true,
 }
 
 -- Map material hash -> material type
