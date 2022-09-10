@@ -808,6 +808,11 @@ onNet("server-inventory-open", async(coords, player, secondInventory, targetName
             var shopArray = BeanMachineOrder();
             var shopAmount = 6;
             emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
+        } else if(secondInventory == "141") {
+                var targetinvname = targetName;
+                var shopArray = recycle();
+                var shopAmount = 8;
+                emitNet("inventory-open-target", src, [invArray,arrayCount,playerinvname,shopArray,shopAmount,targetinvname,500,false]);    
         } else if (secondInventory == "1312") {
             var targetinvname = targetName;
             var shopArray = DigitalDen();

@@ -9091,6 +9091,71 @@ DOOR_CONFIG = {
     forceUnlocked = false,
   },
 
+  {
+    info = "",
+    active = true,
+    id = 584,
+    coords = vector3(200.86154174805,-238.06153869629,53.96484375),
+    model = -1226987899,
+    lock = true,
+    desc = "CASSideDoorVIP_R",
+    access = {
+      job = {},
+      business = {
+        ["cosmic_cannabis"] = true,
+      },
+    },
+    forceUnlocked = false,
+  },
+  {
+    info = "",
+    active = true,
+    id = 585,
+    coords = vector3(202.06153869629,-240.48791503906,53.947998046875),
+    model = -1226987899,
+    lock = true,
+    desc = "CASSideDoorVIP_L",
+    access = {
+      job = {},
+      business = {
+        ["cosmic_cannabis"] = true,
+      },
+    },
+    forceUnlocked = false,
+  },
+  {
+    info = "",
+    active = true,
+    id = 586,
+    coords = vector3(187.19999694824,-237.57362365723,54.06591796875),
+    model = -2051651622,
+    lock = true,
+    desc = "CASSideDoorIN_L",
+    access = {
+      job = {},
+      business = {
+        ["cosmic_cannabis"] = true,
+      },
+    },
+    forceUnlocked = false,
+  },
+  {
+    info = "",
+    active = true,
+    id = 587,
+    coords = vector3(186.19779968262,-244.06153869629,54.06591796875),
+    model = -2051651622,
+    lock = true,
+    desc = "CASSideDoorIN_R",
+    access = {
+      job = {},
+      business = {
+        ["cosmic_cannabis"] = true,
+      },
+    },
+    forceUnlocked = false,
+    },
+
 
   {
     desc = "lean manor left front gate",

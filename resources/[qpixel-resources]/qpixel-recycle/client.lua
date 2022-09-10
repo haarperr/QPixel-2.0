@@ -380,3 +380,29 @@ function renderPropsWhereHouse()
 	SetEntityHeading(tool3,GetEntityHeading(tool3)+90)
 	SetEntityHeading(tool4,GetEntityHeading(tool4)-90)
 end
+
+RegisterNetEvent('qpixel-trade:mats')
+AddEventHandler('qpixel-trade:mats', function()
+	local isEmployed = exports["qpixel-business"]:IsEmployedAt("recycle_center")
+
+	if isEmployed then
+		TriggerEvent("server-inventory-open", "141", "Craft")
+	end
+end)  
+
+exports["qpixel-polytarget"]:AddCircleZone("recycle_trade",  vector3(995.23, -3100.04, -39.1), 0.3, {
+	useZ = true
+})
+
+-- Recycling Center
+exports["qpixel-interact"]:AddPeekEntryByPolyTarget("recycle_trade", {
+	{
+		event = "qpixel-trade:mats",
+		id = "recycle_trade",
+		icon = "circle",
+		label = "Trade Material",
+		parameters = {},
+	}
+}, {
+	distance = { radius = 2.5 },
+});  
