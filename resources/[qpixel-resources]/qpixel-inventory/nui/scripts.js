@@ -1132,6 +1132,10 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         secondaryMaxWeight = 110.0;
         slotLimitTarget = 5;
         displayName = 'Mailbox';
+    } else if (targetinvName.startsWith('cosmic_cannabis')) {
+        secondaryMaxWeight = 5000.0;
+        slotLimitTarget = 100;
+        displayName = 'Hydra Incorporation Stash';
     } else if (targetinvName.indexOf('tuner-shop-stash') > -1) {
         secondaryMaxWeight = 5000.0;
         slotLimitTarget = 100;
