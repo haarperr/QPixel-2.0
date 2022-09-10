@@ -137,5 +137,9 @@ DPX.Jobs.ValidJobs = {
         name = "Car Dealer",
         paycheck = 200
     },
+    ["cosmic_cannabis"] = {
+        name = "Cosmic Cannabis",
+        paycheck = 150,
+    },
 
 }
