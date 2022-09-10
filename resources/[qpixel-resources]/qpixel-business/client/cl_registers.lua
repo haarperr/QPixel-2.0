@@ -129,6 +129,16 @@ local activeRegisters = {
         },
         business="uwu_cafe",
     },
+    {
+        polytarget = {
+            vector3(188.18, -243.59, 54.07), 0.5, 0.5, {
+                heading=340,
+                minZ=50.47,
+                maxZ=54.47
+            }
+        },
+        business="cosmic_cannabis",
+    },
 }
 
 local activePurchases = {}
