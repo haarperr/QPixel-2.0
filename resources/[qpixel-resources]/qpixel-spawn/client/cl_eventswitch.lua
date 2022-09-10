@@ -44,6 +44,9 @@ function Login.characterLoaded()
   --Sync Whiteboards
   TriggerServerEvent("SpawnEventsServer")
 
+  --Meth shit
+  TriggerServerEvent('qpixel-methtable:spawnInitialized')
+
   
   -- // New Clothing Menu // --
   --TriggerServerEvent("qpixel_clothing:retrieve_tats")

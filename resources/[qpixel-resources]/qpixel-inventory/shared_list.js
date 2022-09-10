@@ -11210,6 +11210,72 @@ itemList['livechicken'] = {
     information: 'A slaughtered chicken',
     };
 
+
+  itemList['methbench'] = {
+    fullyDegrades: true,
+    illegal: true,
+    decayrate: 0.75,
+    displayname: 'Portable Meth Lab',
+    price: 150,
+    weight: 50,
+    nonStack: false,
+    model: '',
+    image: 'qpixel-methtable.png',
+    information: 'Look at it! Marked for police seizure',
+    contraband: true,
+  };
+  
+  itemList['acetone'] = {
+    fullyDegrades: true,
+    illegal: true,
+    decayrate: 0.75,
+    displayname: 'Acetone',
+    price: 150,
+    weight: 1,
+    nonStack: false,
+    model: '',
+    image: 'acetone.png',
+    information: 'Do not drink..',
+    contraband: true,
+  };
+  
+  itemList['emptybaggies'] = {
+    fullyDegrades: false,
+    decayrate: 0.0,
+    displayname: 'Empty Baggies',
+    price: 50,
+    weight: 1,
+    nonStack: false,
+    model: '',
+    image: 'qpixel-emptybaggies.png',
+  };
+  
+  itemList['methlabbatch'] = { // Not cooked 
+    fullyDegrades: true,
+    decayrate: 1.0,
+    displayname: 'Batch of Raw Meth',
+    price: 1,
+    weight: 10,
+    nonStack: false,
+    model: '',
+    image: 'qpixel-rawmethbatch.png',
+    information: 'Crystal-like. Needs to be stored somewhere cool and dry to cure.',
+    contraband: true,
+  };
+  
+  itemList['methcooked'] = { // Cooked
+    fullyDegrades: true,
+    decayrate: 1.0,
+    displayname: 'Batch of Crystal Meth',
+    price: 1,
+    weight: 1,
+    nonStack: false,
+    model: '',
+    image: 'qpixel-batch_cystalmeth.png',
+    information: 'Ready for bagging!',
+    contraband: true,
+  };
+
 itemList['methlabcured'] = {
   fullyDegrades: true,
   decayrate: 1.0,

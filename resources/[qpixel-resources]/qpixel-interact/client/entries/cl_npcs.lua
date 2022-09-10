@@ -161,7 +161,22 @@ Entries[#Entries + 1] = {
 }
 
 
-
+Entries[#Entries + 1] = {
+    type = 'flag',
+    group = { 'isNPC' },
+    data = {
+        {
+            id = "purchasemethkey",
+            label = "Purchase D Key",
+            icon = "circle",
+            event = "qpixel-meth:purchaseMethLabKey",
+        }
+    },
+    options = {
+        distance = { radius = 1.5 },
+        npcIds = {"purchasemethkey"} 
+    }
+}
 
 --[[Entries[#Entries + 1] = {
     type = 'flag',

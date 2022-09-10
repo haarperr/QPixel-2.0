@@ -295,6 +295,31 @@ GeneralEntries[#GeneralEntries+1] = {
 
 GeneralEntries[#GeneralEntries+1] = {
   data = {
+      id = "sellmeth",
+      title = "Sell",
+      icon = "#walking",
+      event = "qpixel-meth:cornerSellProduct",
+  },
+  isEnabled = function(pEntity, pContext)
+      print( json.encode( {showSellMethOption , canStartCornering , hasCarTarget }) )
+      return not isDead and showSellMethOption and not canStartCornering and hasCarTarget
+  end
+}
+
+GeneralEntries[#GeneralEntries+1] = {
+  data = {
+      id = "sellmethfromcorner",
+      title = "Corner",
+      icon = "#walking",
+      event = "qpixel-meth:cornerStartSelling",
+  },
+  isEnabled = function(pEntity, pContext)
+      return not isDead and and canStartCornering
+  end
+}
+
+GeneralEntries[#GeneralEntries+1] = {
+  data = {
       id = "dispatch:openDispatch",
       title = "Dispatch",
       icon = "#general-check-over-target",
