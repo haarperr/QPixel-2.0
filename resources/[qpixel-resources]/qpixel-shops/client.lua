@@ -997,3 +997,14 @@ function loadAnimDict( dict )
         Citizen.Wait( 5 )
     end
 end 
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(5)
+		SetRichPresence("Total Players. ".. #GetActivePlayers().. '/64')
+		--SetDiscordAppId(972423146932154379)
+		--SetDiscordRichPresenceAsset("atlas_rp")
+		SetDiscordRichPresenceAssetText('Qpixel Official [dev]')
+		SetDiscordRichPresenceAction(0, 'Join Today!', 'https://discord.gg/qpixel')
+	end
+end)
