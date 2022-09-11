@@ -203,6 +203,23 @@ Entries[#Entries + 1] = {
 
 Entries[#Entries + 1] = {
     type = 'flag',
+    group = { 'isTrash' },
+    data = {
+        {
+            id = 'search',
+            label = "Search Dumpster",
+            icon = "circle",
+            event = "qpixel-dumpster",
+            parameters = {}
+        }
+    },
+    options = {
+        distance = { radius = 1.7 },
+    }
+}
+
+Entries[#Entries + 1] = {
+    type = 'flag',
     group = { 'isFruitStand' },
     data = {
         {

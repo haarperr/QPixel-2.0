@@ -41,9 +41,9 @@ AddEventHandler('qpixel-dumpster', function()
                     LoadDict(dict)
                     FreezeEntityPosition(GetPlayerPed(-1),true)
                     TaskPlayAnim(GetPlayerPed(-1), dict, 'base', 3.0, -8, -1, 63, 0, 0, 0, 0 )
-                    local finished = exports["qpixel-interface"]:taskBarSkill(5000, math.random( 200,400 ))
+                    local finished = exports["qpixel-ui"]:taskBarSkill(5000, math.random( 200,400 ))
                     ::skill::
-                    if (finished == 100) then
+                    if (finished == 100) then 
                         local random = math.random(1, 2)
                         if random == 2 then
                             goto skill
