@@ -330,7 +330,7 @@ AddEventHandler('qpixel-gopro:blurCamera', function(pArgs, pEntity, pContext)
     while loopCount < count do
         Wait(100)
         loopCount = loopCount + 1
-        local finished = exports["qpixel-interface"]:taskBarSkill(math.random(1400, 2000), math.random(7, 12))
+        local finished = exports["qpixel-ui"]:taskBarSkill(math.random(1400, 2000), math.random(7, 12))
         if finished ~= 100 then
             return false
         end
