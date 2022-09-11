@@ -1,7 +1,9 @@
 
 
 local vehicleModes = {}
-Citizen.CreateThread(function()
+local pursuitmode = 0
+
+Citizen.CreateThread(function() 
     Wait(150)
     vehicleModes = RPC.execute("pursuit:getJSON")
     DecorRegister('pursuitLevel', 1)
@@ -88,22 +90,27 @@ RegisterCommand("pursuit", function(source, args)
 	if source then
 		if modLevel.name == "Default" then 
 			TriggerEvent("qpixel-hud:pursuit_values", 0)
+			pursuitmode = 0
 			SendNUIMessage({action = "pursuitmode", pursuitmode = 0})
 		end 
 		if modLevel.name == "A" then 
 			TriggerEvent("qpixel-hud:pursuit_values", 25)
+			pursuitmode = 25
 			SendNUIMessage({action = "pursuitmode", pursuitmode = 25})
 		end
 		if modLevel.name == "A+" then 
 			TriggerEvent("qpixel-hud:pursuit_values", 50)
+			pursuitmode = 50
 			SendNUIMessage({action = "pursuitmode", pursuitmode = 50})
 		end
 		if modLevel.name == "S" then 
 			TriggerEvent("qpixel-hud:pursuit_values", 75)
+			pursuitmode = 75
 			SendNUIMessage({action = "pursuitmode", pursuitmode = 75})
 		end
 		if modLevel.name == "S+" then 
 			TriggerEvent("qpixel-hud:pursuit_values", 100)
+			pursuitmode = 100
 			SendNUIMessage({action = "pursuitmode", pursuitmode = 100})
 		end
 		if modLevel.name ~= "Default" then 
@@ -115,6 +122,8 @@ RegisterCommand("pursuit", function(source, args)
 	end
 end)
 
+
+
 --[[ SelectedPursuitMode = 0
 
 TriggerEvent("qpixel-hud:pursuit_values", SelectedPursuitMode)
@@ -123,4 +132,8 @@ SendNUIMessage({action = "pursuitmode", pursuitmode = SelectedPursuitMode})
  ]]
 Citizen.CreateThread(function()
     exports["qpixel-keybinds"]:registerKeyMapping("", "Pursuit Modes", "Change Mode", "pursuit", "")
+end)
+
+exports('pursuitmode', function()
+	return pursuitmode
 end)

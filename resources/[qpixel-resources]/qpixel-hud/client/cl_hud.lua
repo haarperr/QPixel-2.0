@@ -7,7 +7,7 @@ local pursuitmode = 0
 local lastDamageTrigger = 0
 local nuke, gps, gpu = 0, 0, 0
 
-
+ 
 local isLoggedIn = false
 local HudActive = false
 local harness = 0
@@ -18,11 +18,29 @@ local inVehicle = false
 local inveh = false
 local engineOn = false
 local weaponFireRate = 0
-local showWeaponFireRate = false
+local showWeaponFireRate = false 
 local showOutLine = false
 local buffCountMoney = false
 local pStress = 0
 local stresstime = 0
+local nitrous = exports['qpixel-vehicles']:nitroLevel()
+ 
+AddEventHandler('baseevents:leftVehicle', function ()
+    exports['qpixel-vehicles']:nitroLevelLeave()
+    pursuitmode = 0
+end)
+
+AddEventHandler('baseevents:enteredVehicle', function (currentVehicle, currentSeat)
+    nitrous = exports['qpixel-vehicles']:nitroLevelEnter()
+    
+    pursuitmode = exports['qpixel-hud']:pursuitmode() 
+  end)
+  
+AddEventHandler('baseevents:vehicleChangedSeat', function (currentVehicle, currentSeat)
+    nitrous = 0
+    pursuitmode = 0
+end)
+  
 
 local currentValues = {
 	["health"] = 100,

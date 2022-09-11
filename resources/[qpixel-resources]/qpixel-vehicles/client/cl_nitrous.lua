@@ -1,6 +1,7 @@
 local nitroactive = false
 local nitroflowrate = 0.3
 local pNitrousLevel = 0
+local oldNitrousLvl = 0
 local nitroveh
 local pNitrousInUse = false
 
@@ -148,6 +149,17 @@ Citizen.CreateThread(function()
 		end
 		Wait(sleep)
 	end
+end)
+
+exports('nitroLevelLeave', function()
+	oldNitrousLvl = pNitrousLevel
+	Citizen.Wait(100)
+	pNitrousLevel = 0
+end)
+
+exports('nitroLevelEnter', function()
+	pNitrousLevel = oldNitrousLvl
+	nitroactive = true
 end)
 
 exports('nitroLevel', function()
