@@ -21,21 +21,34 @@ RPC.register("qpixel-weed:getPlants", function()
     return weedPlants
 end)
 
-RPC.register("qpixel-weed:plantSeed", function( pCoords, pStrain)
+function dump(o)
+	if type(o) == 'table' then
+	   local s = '{ '
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ','
+	   end
+	   return s .. '} '
+	else
+	   return tostring(o)
+	end
+ end
+
+RPC.register("qpixel-weed:plantSeed", function(pSource, pCoords, pTypeMod)
     local src = source
     local pGender = 0
     local pTimestamp = os.time()
-
+    print(dump(pTypeMod))
     local insertId = SQL([[
         INSERT INTO weed (gender, coords, strain, timestamp)
         VALUES (?, ?, ?, ?)
     ]],
-    { pGender, json.encode(pCoords), json.encode(pStrain), pTimestamp })
+    { pGender, json.encode(pCoords), json.encode(pTypeMod), pTimestamp })
     local data = {
         id = insertId,
         gender = pGender,
         coords = pCoords,
-        strain = pStrain,
+        strain = pTypeMod,
         timestamp = pTimestamp,
         last_harvest = 0
     }
@@ -67,23 +80,37 @@ RPC.register("qpixel-weed:daddWater", function(pPlantId)
     return true
 end)
 
-RPC.register("qpixel-weed:addFertilizer", function(pPlantId, pType)
+function dump(o)
+	if type(o) == 'table' then
+	   local s = '{ '
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ','
+	   end
+	   return s .. '} '
+	else
+	   return tostring(o)
+	end
+ end
+
+RPC.register("qpixel-weed:addFertilizer", function(pSrc, data)
     local src = source
-    local plant = weedPlants[pPlantId]
+    local plant = weedPlants[data.id]
+    print(dump(data))
     if plant == nil then
         return false
     end
     local strain = plant["strain"]
-    strain[pType] = strain[pType] + PlantConfig.FertilizerAdd
+    strain[data.type] = strain[data.type] + PlantConfig.FertilizerAdd
 
     local affectedRows = SQL([[
         UPDATE weed
         SET strain = ?
         WHERE id = ?
     ]],
-    { json.encode(strain), pPlantId })
-    weedPlants[pPlantId]["strain"] = strain
-    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 2, weedPlants[pPlantId])
+    { json.encode(strain), data.id })
+    weedPlants[data.id]["strain"] = strain
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 2, weedPlants[data.id])
     return true
 end)
 

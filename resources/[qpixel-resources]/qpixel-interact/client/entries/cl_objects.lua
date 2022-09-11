@@ -445,7 +445,7 @@ Entries[#Entries + 1] = {
     type = 'flag',
     group = { 'isWeedPlant' },
     data = {
-        {
+        { 
             id = 'weed',
             label = _L("interact-weedplant-check", "Check"),
             icon = "cannabis",

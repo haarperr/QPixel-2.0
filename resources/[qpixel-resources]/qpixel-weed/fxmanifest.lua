@@ -9,14 +9,14 @@ shared_script {
 }
 
 server_scripts {
-    "@oxmysql/lib/MySQL.lua",
-    "@qpixel-remotecalls/server/sv_main.lua",
+    "@oxmysql/lib/MySQL.lua", 
+    "@qpixel-lib/server/sv_rpc.lua",
     "server/*",
 }
 
 client_scripts {
     "@qpixel-sync/client/lib.lua",
-    "@qpixel-lib/client/cl_interface.lua",
+    '@qpixel-lib/client/cl_interface.lua',
     "@qpixel-lib/client/cl_polyhooks.lua",
     "@qpixel-locales/client/lib.lua",
     "@qpixel-lib/client/cl_rpc.lua",
