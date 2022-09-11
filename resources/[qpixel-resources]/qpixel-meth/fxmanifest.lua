@@ -1,22 +1,26 @@
 fx_version 'cerulean'
 
 games { 'gta5' }
-
-client_script "@divine-sync/client/lib.lua"
-client_script "@divine-remotecalls/client/cl_ui.lua"
+shared_script {
+  "@qpixel-lib/server/sv_rpc.lua",
+  "@qpixel-lib/server/sv_sql.lua",
+  "@qpixel-lib/server/sv_asyncExports.lua"
+}
 
 client_scripts {
-  '@divine-remotecalls/client/cl_main.lua',
-  '@divine-remotecalls/client/cl_animTask.lua',
+  "@qpixel-sync/client/lib.lua",
+  '@qpixel-lib/client/cl_interface.lua',
+  "@qpixel-lib/client/cl_polyhooks.lua",
+  "@qpixel-locales/client/lib.lua",
+  "@qpixel-lib/client/cl_rpc.lua",
   'client/cl_*.lua',
   "@PolyZone/client.lua",
 }
 
 server_scripts {
-  '@divine-remotecalls/server/sv_main.lua',
-  '@divine-remotecalls/server/sv_sql.lua',
-  '@divine-remotecalls/server/sv_sql.js',
+  "@qpixel-lib/server/sv_rpc.lua",
   'server/sv_*.lua',
   'server/sv_*.js',
   'build-server/sv_*.js',
 }
+  

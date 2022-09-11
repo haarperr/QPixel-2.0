@@ -76,7 +76,7 @@ local function processAction(action, pEntity, fnCb)
     end
 end
 
-RegisterUICallback("qpixel-ui:submitRangeValues", function(data, cb)
+--[[ RegisterUICallback("qpixel-ui:submitRangeValues", function(data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })
     ClearPedTasksImmediately(PlayerPedId())
     Wait(100)
@@ -87,7 +87,7 @@ RegisterUICallback("qpixel-ui:submitRangeValues", function(data, cb)
     if not result then return end
 
     RPC.execute("phone:adjustCryptoBalance", 1, getConfig())
-end)
+end) ]]
 
 local skipKeyChecks = {
   ["Bonecrusher"] = true,
@@ -97,16 +97,19 @@ local skipKeyChecks = {
 AddEventHandler("qpixel-meth:startCooking", function()
     if not skipKeyChecks[insideLab] and not exports["qpixel-inventory"]:hasEnoughOfItem("methlabkey", 1, false, true) then
         TriggerEvent("DoLongHudText", "No key...", 2)
+        print("1")
         return
     end
 
     local wallet, message = RPC.execute("phone:adjustCryptoBalance", 1, getConfig())
     myWallet = wallet
     if not wallet then
+        print("2")
         TriggerEvent("DoLongHudText", message, 2)
         return
     end
 
+    print("3")
     exports["qpixel-ui"]:openApplication("range-picker")
 end)
 
