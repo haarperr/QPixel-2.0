@@ -110,6 +110,9 @@ function doAddBlip(properties)
     return blip_id
 end
 
+local enteringVehicle = false
+local enteringVehicleNow = false
+
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1000)
@@ -140,50 +143,108 @@ Citizen.CreateThread(function()
 
                     setBlipProperties(blips_cache[follow_id_key].synced_blip_id, data.properties)
                 end
+                
+                if enteringVehicle then 
+                    local blip_id = blips_cache[follow_id_key].synced_blip_id
+                    local veh = GetVehiclePedIsIn(data.player_ped, false)
+
+                    if veh ~= 0 then
+                        SetBlipRotation(blip_id, math.ceil(GetEntityHeading(veh)))
+                    end
+                    enteringVehicle = false
+                    enteringVehicleNow = true
+                    setBlipProperties(blips_cache[follow_id_key].synced_blip_id, data.properties)
+                end
             end
         end
     end
 end)
 
+local color = 12
+
+local blipSpriteNew = 1
+
+function getPDBlipColors()
+	
+	--[[ local departments = {
+		["lspd"] = 3,
+		["bcso"] = 5,
+		["sdso"] = 31,
+		["rangers"] = 2,
+		["troopers"] = 12,
+		["dispatch"] = 8,
+		["scu"] = 40,
+		["hvtu"] = 76,
+		["k9"] = 27,
+		["sru"] = 0,
+	} ]]
+
+    if exports["isPed"]:GroupRank("police") then
+        color = 3
+    elseif exports["isPed"]:GroupRank("ems") then
+        color = 23
+    elseif exports["isPed"]:GroupRank("doc") then
+        color = 2
+    end
+	return color
+end
+
+AddEventHandler('baseevents:enteredVehicle', function (pVehicle, pSeat, pName, pClass, pModel)
+    if GetVehicleClass(pVehicle) == 15 then
+        blipSpriteNew = 43
+        enteringVehicle = true
+    end
+    if GetVehicleNumberOfWheels(pVehicle) == 2 then
+        blipSpriteNew = 559
+        enteringVehicle = true
+    end
+end)
+
+AddEventHandler('baseevents:leftVehicle', function (pVehicle, pSeat, pName, pClass, pModel)
+    blipSpriteNew = 1
+    enteringVehicle = true
+end)
+
+AddEventHandler('baseevents:leftVehicle', function (pVehicle, pSeat, pName, pClass, pModel)
+	if pClass ~= 15 or pSeat ~= -1 and pSeat ~= 0 then return end
+
+	local serverId = GetPlayerServerId(PlayerId())
+	TriggerServerEvent('e-blips:updateBlipHandlerSprite', serverId, 1)
+end)
+
+local blip_id = blip_id
+
 function setBlipProperties(blip_id, properties)
+    blip_id = blip_id
     local current_type = GetBlipSprite(blip_id)
     local current_color = GetBlipColour(blip_id)
     local template_type = properties[4]
     local type = config.default_type._type
-    local color = config.default_type._color
+    local color = getPDBlipColors()
     local scale = config.default_type._scale
     local alpha = config.default_type._alpha
     local show_local_indicator = config.default_type._show_local_direction
     local show_off_screen = config.default_type._show_off_screen
 
-    if blip_types[template_type]._type then type = blip_types[template_type]._type end
-    if blip_types[template_type]._color then color = blip_types[template_type]._color end
+    if blip_types[template_type]._type then type = GetBlipSprite(blip_id)  end
+    if blip_types[template_type]._color then color = getPDBlipColors() end
     if blip_types[template_type]._scale then scale = blip_types[template_type]._scale end
     if blip_types[template_type]._alpha then alpha = blip_types[template_type]._alpha end
     if blip_types[template_type]._show_local_direction then show_local_indicator = blip_types[template_type]._show_local_direction end
     if blip_types[template_type]._show_off_screen then show_off_screen = blip_types[template_type]._show_off_screen end
 
-    if current_type ~= type or current_color ~= color then
-        SetBlipSprite(blip_id, type)
+    if current_type ~= type or current_color ~= color or enteringVehicleNow then
+        SetBlipSprite(blip_id, blipSpriteNew)
         SetBlipColour(blip_id, color)
         SetBlipScale(blip_id, scale)
         SetBlipAlpha(blip_id, alpha)
         SetBlipAsShortRange(not show_off_screen)
+        ShowHeadingIndicatorOnBlip(blip_id, true)
 
-        if show_local_indicator then
-            ShowHeadingIndicatorOnBlip(blip_id, true)
-        end
+        BeginTextCommandSetBlipName('STRING')
+        AddTextComponentString(properties[6])
+        EndTextCommandSetBlipName(blip_id)
 
-        --if properties[6] then
-            BeginTextCommandSetBlipName('STRING')
-            AddTextComponentString(properties[6])
-            EndTextCommandSetBlipName(blip_id)
-        -- else
-        --     SetBlipHiddenOnLegend(blip_id)
-        --     BeginTextCommandSetBlipName('STRING')
-        --     AddTextComponentString("Colleague")
-        --     EndTextCommandSetBlipName(blip_id)
-        -- end
+        enteringVehicleNow = false
     end
 end
-
