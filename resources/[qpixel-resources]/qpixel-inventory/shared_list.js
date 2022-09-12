@@ -19221,7 +19221,7 @@ itemList['car_bomb'] = {
   weight: 5,
   nonStack: true,
   model: '',
-  image: 'np_carbomb.png',
+  image: 'np_phone_bomb.png',
   information: 'Beep...Beep...Beep...',
   contraband: true,
 };
@@ -19235,7 +19235,7 @@ itemList['car_bomb_defused'] = {
   weight: 5,
   nonStack: true,
   model: '',
-  image: 'np_carbomb.png',
+  image: 'np_phone_bomb.png',
   information: 'You should try and shake it!',
   contraband: true,
 };

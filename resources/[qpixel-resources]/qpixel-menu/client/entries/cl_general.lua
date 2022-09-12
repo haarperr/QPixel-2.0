@@ -314,7 +314,7 @@ GeneralEntries[#GeneralEntries+1] = {
       event = "qpixel-meth:cornerStartSelling",
   },
   isEnabled = function(pEntity, pContext)
-      return not isDead and and canStartCornering
+      return not isDead and canStartCornering
   end
 }
 
