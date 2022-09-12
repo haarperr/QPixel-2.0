@@ -5,8 +5,8 @@ local Blips = {
         id = 'blips:gasstations',
         title = "Gas Stations",
         icon = "#blips-gasstations",
-        event = "CarPlayerHud:ToggleGas"
-    },
+        event = "gasstations:ToggleGas"
+    }, 
     {
         id = 'blips:trainstations',
         title = "Train Stations",

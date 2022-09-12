@@ -267,7 +267,7 @@ exports('SetFuel', SetFuel) -- exports['qpixel-fuel']:SetFuel(veh, fuel)
 exports('GetFuel', GetFuel)-- exports['qpixel-fuel']:GetFuel(veh)
 
 CreateThread(function()
-	for i=1, #GasStations do
+	--[[ for i=1, #GasStations do
 		local blip = AddBlipForCoord(GasStations[i])    
 		SetBlipSprite(blip, 361)
 		SetBlipScale(blip, 0.7)
@@ -276,7 +276,7 @@ CreateThread(function()
 		AddTextComponentString("Gas Station")
 		EndTextCommandSetBlipName(blip)
 		SetBlipAsShortRange(blip, true)
-	end
+	end ]]
 	GasStations = nil
 	while true do
 		Wait(1000)
