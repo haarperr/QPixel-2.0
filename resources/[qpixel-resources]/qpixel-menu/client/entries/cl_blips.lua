@@ -28,7 +28,7 @@ local Blips = {
     {
         id = 'blips:clothingshop',
         title = "Clothing Shop",
-        icon = "#blips-clothingshop", 
+        icon = "#blips-clothingshop",  
         event = "clothing:ToggleClothing"
     },
     {
@@ -36,6 +36,12 @@ local Blips = {
         title = "Fishing Location",
         icon = "#blips-fishing",
         event = "fishing:addFishingBlip"
+    },
+    {
+        id = 'blips:storagelocation',
+        title = "Self Storage Location", 
+        icon = "#obj-box",
+        event = "storage:Togglestorage"
     },
 }
 

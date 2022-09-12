@@ -912,6 +912,7 @@ end)
 local showBarberShopBlips = true
 local showTattooShopBlips = true
 local showClothingShopBlips = true
+local showStorageBlips = true
 
 RegisterNetEvent('hairDresser:ToggleHair', function()
    showBarberShopBlips = not showBarberShopBlips
@@ -971,23 +972,27 @@ local ClothingShop = {
 	{-1207.5267333984,-1456.9530029297,4.3763856887817},
 }
 
+local storageLockers = {
+	{-67.14555, -1204.11900, 27.23},
+}
 
-RegisterNetEvent('clothing:ToggleClothing')
-AddEventHandler('clothing:ToggleClothing', function()
-    showClothingShopBlips = not showClothingShopBlips
-    for _, item in pairs(ClothingShop) do 
-        if not showTattooShopBlips then 
+
+RegisterNetEvent('storage:Togglestorage')
+AddEventHandler('storage:Togglestorage', function()
+    showStorageBlips = not showStorageBlips
+    for _, item in pairs(storageLockers) do 
+        if not showStorageBlips then 
             if item.blip ~= nil then 
                 RemoveBlip(item.blip)
             end
         else
             item.blip = AddBlipForCoord(item[1], item[2], item[2])
-            SetBlipSprite(item.blip, 73)
+            SetBlipSprite(item.blip, 50)
             SetBlipColour(item.blip, 5)
             SetBlipScale(item.blip, 0.6)
             SetBlipAsShortRange(item.blip, true)
             BeginTextCommandSetBlipName("STRING")
-            AddTextComponentString("Clothing Shop")
+            AddTextComponentString("Storage Units")
             EndTextCommandSetBlipName(item.blip)
         end
     end
@@ -997,6 +1002,7 @@ function addBlips()
     showBarberShopBlips = false
     showTattooShopBlips = false
     showClothingShopBlips = false
+    showStorageBlips = false
     TriggerEvent('hairDresser:ToggleHair')
     TriggerEvent('tattoo:ToggleTattoo')
     TriggerEvent('clothing:ToggleClothing')

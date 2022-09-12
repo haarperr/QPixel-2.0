@@ -23,7 +23,6 @@ local showOutLine = false
 local buffCountMoney = false
 local pStress = 0
 local stresstime = 0
-local nitrous = exports['qpixel-vehicles']:nitroLevel()
  
 AddEventHandler('baseevents:leftVehicle', function ()
     exports['qpixel-vehicles']:nitroLevelLeave()
@@ -31,7 +30,7 @@ AddEventHandler('baseevents:leftVehicle', function ()
 end)
 
 AddEventHandler('baseevents:enteredVehicle', function (currentVehicle, currentSeat)
-    nitrous = exports['qpixel-vehicles']:nitroLevelEnter()
+    exports['qpixel-vehicles']:nitroLevelEnter()
     
     pursuitmode = exports['qpixel-hud']:pursuitmode() 
   end)
