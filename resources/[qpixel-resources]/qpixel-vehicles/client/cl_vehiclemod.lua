@@ -432,6 +432,56 @@ AddEventHandler("client:illegal:upgrades",function(Extractors,Filter,Suspension,
     end
 end)
 
+--[[ local driftMode = false
+
+--values you can play around with
+--this makes the drift a toggle. set to false to require holding for drifting,
+--much like vMenu's drifting
+local driftIsToggle = true
+--if the value above is false, this control is used to drift
+--check https://docs.fivem.net/docs/game-references/controls/ for more info
+local controlIfToggleDisabled = 21
+
+--actual coding stuff
+local globalDriftState = false
+
+function ShowNotification(text)
+    SetNotificationTextEntry("STRING")
+    AddTextComponentString(text)
+    DrawNotification(false, false)
+end
+
+local gobber = GetVehicleHandlingFloat(playerVehicle, "CHandlingData", "fSteeringLock")
+local oldSteeringLock = 0
+
+function ChangeDrift(bool)
+    local playerPed = PlayerPedId()
+    local playerVehicle = GetVehiclePedIsIn(playerPed, false)
+    if playerVehicle ~= 0 and IsVehicleOnAllWheels(playerVehicle) and GetPedInVehicleSeat(playerVehicle, -1) == playerPed then
+        globalDriftState = bool
+        print(oldSteeringLock)
+        oldSteeringLock = GetVehicleHandlingFloat(playerVehicle, "CHandlingData", "fSteeringLock")
+        SetVehicleHandlingFloat(playerVehicle, 'CHandlingData', 'fSteeringLock', 42)
+        SetDriftTyresEnabled(playerVehicle, globalDriftState)
+        SetReduceDriftVehicleSuspension(playerVehicle, globalDriftState)
+        print(oldSteeringLock)
+        if globalDriftState then
+            ShowNotification("~b~Drift is ~g~ON")
+        else
+            ShowNotification("~b~Drift is ~r~OFF")
+        end
+    end
+end
+
+if driftIsToggle then
+    RegisterCommand("toggledrift", function()
+        local playerPed = PlayerPedId()
+        local playerVehicle = GetVehiclePedIsIn(playerPed, false)
+        ChangeDrift(not GetDriftTyresEnabled(playerVehicle))
+    end)
+    RegisterKeyMapping("toggledrift", "Toggle Drift", "keyboard", "lshift")
+end
+ ]]
 
 Citizen.CreateThread(function()
     local firstDrop = GetEntityVelocity(PlayerPedId())
@@ -455,7 +505,7 @@ Citizen.CreateThread(function()
                 SetVehicleHandlingFloat(veh, 'CHandlingData', 'fWeaponDamageMult', 3.500000)
 
                 local fSteeringLock = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fSteeringLock')
-
+                
                 fSteeringLock = math.ceil((fSteeringLock * 0.6)) + 0.1
                 SetVehicleHandlingFloat(veh, 'CHandlingData', 'fSteeringLock', fSteeringLock)
                 SetVehicleHandlingField(veh, 'CHandlingData', 'fSteeringLock', fSteeringLock)
