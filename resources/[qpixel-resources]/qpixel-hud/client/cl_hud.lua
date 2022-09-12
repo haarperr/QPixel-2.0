@@ -1,6 +1,6 @@
 local sesduzey = 1
 local ping
-local dogalgaz, db, wind, bulb, dollar, swim, gym = false, 0, 0, 0, 0, 0, 0
+local dogalgaz, db, wind, ampul, dollar, yuzme, gym = false, 0, 0, 0, 0, 0, 0
 local health2, armor2, oxy2, hunger2, thirst2 = false, false, false, false, false
 local developer, debug = false, false
 local pursuitmode = 0
@@ -310,9 +310,9 @@ Citizen.CreateThread(function()
                 db = db,
                 wind = wind,
                 ping = ping,
-                bulb = bulb, --lightbulp
+                ampul = ampul, --lightbulp
                 dollar = dollar,
-                swim = swim, -- swim buff
+                yuzme = yuzme, -- swim buff
                 gym = gym,
                 harness = harness,
                 cruise = pursuitmode,
@@ -353,11 +353,11 @@ function dobuffthing(name, value)
     elseif name == "wind" then
         wind = tonumber(value)
     elseif name == "lightbulp" then
-        bulb = tonumber(value)
+        ampul = tonumber(value)
     elseif name == "dollar" then
         dollar = tonumber(value)
     elseif name == "swimming" then
-        swim = tonumber(value)
+        yuzme = tonumber(value)
     elseif name == "gym" then
         gym = tonumber(value)
     elseif name == "dev" then 
