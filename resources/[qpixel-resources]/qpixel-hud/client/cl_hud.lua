@@ -37,7 +37,7 @@ AddEventHandler('baseevents:enteredVehicle', function (currentVehicle, currentSe
   end)
   
 AddEventHandler('baseevents:vehicleChangedSeat', function (currentVehicle, currentSeat)
-    nitrous = 0
+    exports['qpixel-vehicles']:nitroLevelLeave() 
     pursuitmode = 0
 end)
   
