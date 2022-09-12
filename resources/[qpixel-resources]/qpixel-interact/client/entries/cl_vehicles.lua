@@ -20,6 +20,28 @@ Entries[#Entries + 1] = {
     }
 }
 
+--[[ Carbomb Entry ]]-- 
+
+Entries[#Entries + 1] = {
+    type = 'entity',
+    group = { 2 },
+    data = {
+        {
+            id = "vehicle_defusebomb",
+            label = "Defuse Car Bomb",
+            icon = "cut",
+            event = "qpixel-miscscripts:carBombs:removeBomb",
+            parameters = {}
+        },
+    },
+    options = {
+        distance = { radius = 1.8 },
+        isEnabled = function(pEntity, pContext)
+            return exports['qpixel-carbombs']:isThisVehicleABomb(NetworkGetNetworkIdFromEntity(pEntity))
+        end
+    }
+}
+
 Entries[#Entries + 1] = {
     type = 'entity',
     group = { 2 },
