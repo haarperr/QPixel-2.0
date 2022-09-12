@@ -909,7 +909,7 @@ AddEventHandler('raid_clothes:saveCharacterClothes', function()
     TriggerServerEvent("raid_clothes:insert_character_current", data)
 end)
 
-local showBarberShopBlips = true
+local showBarberShopBlips = true 
 local showTattooShopBlips = true
 local showClothingShopBlips = true
 local showStorageBlips = true
@@ -1007,6 +1007,27 @@ local GasStations = {
 	{-319.292, -1471.715, 30.549},
 	{1784.324, 3330.55, 41.253}
 }
+
+RegisterNetEvent('clothing:ToggleClothing')
+AddEventHandler('clothing:ToggleClothing', function()
+    showClothingShopBlips = not showClothingShopBlips
+    for _, item in pairs(ClothingShop) do 
+        if not showClothingShopBlips then 
+            if item.blip ~= nil then 
+                RemoveBlip(item.blip) 
+            end
+        else
+            item.blip = AddBlipForCoord(item[1], item[2], item[2])
+            SetBlipSprite(item.blip, 73)
+            SetBlipColour(item.blip, 5)
+            SetBlipScale(item.blip, 0.6)
+            SetBlipAsShortRange(item.blip, true)
+            BeginTextCommandSetBlipName("STRING")
+            AddTextComponentString("Clothing Shop")
+            EndTextCommandSetBlipName(item.blip)
+        end
+    end
+end)
 
 
 RegisterNetEvent('gasstations:ToggleGas')
