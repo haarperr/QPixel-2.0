@@ -1,0 +1,27 @@
+<CodeWalkerProject>
+  <Name>New CodeWalker Project</Name>
+  <Version value="1" />
+  <YmapFilenames>
+    <Item>oilrig_exterior_placement_02.ymap</Item>
+    <Item>oilrig_props_placement_02.ymap</Item>
+    <Item>oilrig_exterior_placement_02_lod.ymap</Item>
+    <Item>oilrig_02_lodlights.ymap</Item>
+    <Item>oilrig_02_distantlights.ymap</Item>
+    <Item>oilrig_distantlights.ymap</Item>
+    <Item>oilrig_exterior_placement.ymap</Item>
+    <Item>oilrig_exterior_placement_lod.ymap</Item>
+    <Item>oilrig_lodlights.ymap</Item>
+    <Item>oilrig_props_placement.ymap</Item>
+  </YmapFilenames>
+  <YtypFilenames />
+  <YbnFilenames />
+  <YndFilenames />
+  <YnvFilenames />
+  <TrainsFilenames />
+  <ScenarioFilenames />
+  <AudioRelFilenames />
+  <YdrFilenames />
+  <YddFilenames />
+  <YftFilenames />
+  <YtdFilenames />
+</CodeWalkerProject>
