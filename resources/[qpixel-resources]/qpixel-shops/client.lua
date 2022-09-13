@@ -319,7 +319,7 @@ end)
 
 RegisterNetEvent('rings') 
 AddEventHandler('rings', function()
-	local isEmployed = exports["qpixel-business"]:IsEmployedAt("art_gallery")
+	local isEmployed = exports["qpixel-business"]:IsEmployedAt("gallery")
     if isEmployed then
 	TriggerEvent("server-inventory-open", "29", "Craft"); 
 	end
@@ -756,7 +756,7 @@ end)
 
 RegisterNetEvent('artgallery:storage')
 AddEventHandler('artgallery:storage', function()
-	local jobs = exports["isPed"]:GroupRank('art_gallery')
+	local jobs = exports["isPed"]:GroupRank('gallery')
 	if jobs > 0 then 
 		TriggerEvent("server-inventory-open", "1", "artgallery:storage")
 		Wait(1000)
@@ -766,7 +766,7 @@ end)
 
 RegisterNetEvent('artcounter:storage')
 AddEventHandler('artcounter:storage', function()
-	local jobs = exports["isPed"]:GroupRank('art_gallery')
+	local jobs = exports["isPed"]:GroupRank('gallery')
 	if jobs > 0 then 
 		TriggerEvent("server-inventory-open", "1", "artcounter:storage")
 		Wait(1000)
