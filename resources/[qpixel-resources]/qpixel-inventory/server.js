@@ -808,6 +808,18 @@ onNet("server-inventory-open", async(coords, player, secondInventory, targetName
             var shopArray = BeanMachineOrder();
             var shopAmount = 6;
             emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
+        } else if(secondInventory == "29") {
+                var targetinvname = targetName;
+                var shopArray = GalleryRings();
+                var shopAmount = 4;
+                emitNet("inventory-open-target", src, [invArray,arrayCount,playerinvname,shopArray,shopAmount,targetinvname,500,false]);
+
+        } else if(secondInventory == "1313") {
+                var targetinvname = targetName;
+                var shopArray = DragonJewel();
+                var shopAmount = 7;
+                emitNet("inventory-open-target", src, [invArray,arrayCount,playerinvname,shopArray,shopAmount,targetinvname,500,false]);
+            
         } else if(secondInventory == "141") {
                 var targetinvname = targetName;
                 var shopArray = recycle();

@@ -609,6 +609,29 @@ function BlackMafiaCraft() { // keyb -- owned
 };
 
 
+function GalleryRings() {
+    var shopItems = [
+        { item_id: "craftedgemaquamarine", id: 0, name: "Craft", information: "{}", slot: 1, amount: 5 },
+        { item_id: "craftedgemcitrine", id: 0, name: "Craft", information: "{}", slot: 2, amount: 5 },
+        { item_id: "craftedgemjade", id: 0, name: "Craft", information: "{}", slot: 3, amount: 5 },
+        { item_id: "basering", id: 0, name: "Craft", information: "{}", slot: 4, amount: 5 },
+    ];
+    return JSON.stringify(shopItems);
+}
+
+function DragonJewel() {
+    var shopItems = [
+        { item_id: "mtfchain", id: 0, name: "Craft", information: "{}", slot: 1, amount: 5 },
+        { item_id: "gsfchain", id: 0, name: "Craft", information: "{}", slot: 2, amount: 5 },
+        { item_id: "cgchain", id: 0, name: "Craft", information: "{}", slot: 3, amount: 5 },
+        { item_id: "cerberuschain", id: 0, name: "Craft", information: "{}", slot: 4, amount: 5 },
+        { item_id: "mdmchain", id: 0, name: "Craft", information: "{}", slot: 5, amount: 5 },
+        { item_id: "vagoschain", id: 0, name: "Craft", information: "{}", slot: 6, amount: 5 },
+        { item_id: "koilchain", id: 0, name: "Craft", information: "{}", slot: 7, amount: 5 },
+    ];
+    return JSON.stringify(shopItems);
+}
+
 
 function SosaCraft() { // keyc  --- owned
     var shopItems = [

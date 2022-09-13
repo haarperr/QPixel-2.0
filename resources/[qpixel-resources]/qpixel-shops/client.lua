@@ -309,6 +309,22 @@ AddEventHandler('prisonlp:general', function()
   	end
 end)
 
+RegisterNetEvent('DragonJewelCraft')
+AddEventHandler('DragonJewelCraft', function()
+	local isEmployed = exports["qpixel-business"]:IsEmployedAt("JewelDragon")
+    if isEmployed then
+	TriggerEvent("server-inventory-open", "1313", "Craft");
+	end
+end)
+
+RegisterNetEvent('rings')
+AddEventHandler('rings', function()
+	local isEmployed = exports["qpixel-business"]:IsEmployedAt("art_gallery")
+    if isEmployed then
+	TriggerEvent("server-inventory-open", "29", "Craft");
+	end
+end)
+
 
 RegisterNetEvent('slushy:general')
 AddEventHandler('slushy:general', function()

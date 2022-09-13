@@ -3188,3 +3188,31 @@ exports["qpixel-polytarget"]:AddBoxZone("maldinis_fridge", vector3(805.79, -761.
     minZ=24.18,
     maxZ=28.18
 })
+
+exports["qpixel-polytarget"]:AddCircleZone("jewdragon",  vector3(-698.02, -904.65, 19.27), 0.31, {
+    useZ = true
+})
+
+exports["qpixel-interact"]:AddPeekEntryByPolyTarget('jewdragon', {{
+    id = "jewdragon",
+    event = "DragonJewelCraft",
+    icon = "hammer",
+    label = "Craft Chains",
+    paramers = {},
+}}, { distance = { radius = 3.5 }  })
+
+exports["qpixel-polytarget"]:AddCircleZone("galleryring",  vector3(-463.01, 47.58, 46.23), 0.35, {
+    useZ = true
+})
+
+exports["qpixel-interact"]:AddPeekEntryByPolyTarget("galleryring", {
+    {
+        event = "rings",
+        id = "galleryring",
+        icon = "circle",
+        label = "Craft Blessed Rings",
+        parameters = {},
+    }
+}, {
+    distance = { radius = 7 },
+});
