@@ -103,6 +103,7 @@ end)
 
 RegisterServerEvent("raid_clothes:insert_character_face")
 AddEventHandler("raid_clothes:insert_character_face",function(data)
+    print(json.encode(data.fadeStyle))
     if not data then return end
     local src = source
 
@@ -123,37 +124,39 @@ AddEventHandler("raid_clothes:insert_character_face",function(data)
             ["headBlend"] = data.headBlend,
             ["headOverlay"] = json.encode(data.headOverlay),
             ["headStructure"] = json.encode(data.headStructure),
+            ["headFade"] = json.encode(data.fadeStyle),
         }
 
         if not exists then
-            local cols = "cid, hairColor, headBlend, headOverlay, headStructure"
-            local vals = "@cid, @hairColor, @headBlend, @headOverlay, @headStructure"
+            local cols = "cid, hairColor, headBlend, headOverlay, headStructure, headFade"
+            local vals = "@cid, @hairColor, @headBlend, @headOverlay, @headStructure, @headFade"
 
             exports.oxmysql:execute("INSERT INTO character_face ("..cols..") VALUES ("..vals..")", values, function()
             end)
             return
         end
 
-        local set = "hairColor = @hairColor,headBlend = @headBlend, headOverlay = @headOverlay,headStructure = @headStructure"
+        local set = "hairColor = @hairColor,headBlend = @headBlend, headOverlay = @headOverlay,headStructure = @headStructure,headFade = @headFade"
         exports.oxmysql:execute("UPDATE character_face SET "..set.." WHERE cid = @cid", values )
     end)
 end)
 
 RegisterServerEvent("raid_clothes:get_character_face")
-AddEventHandler("raid_clothes:get_character_face",function(pSrc)
+AddEventHandler("raid_clothes:get_character_face",function(pSrc, fadeStyle)
     local src = (not pSrc and source or pSrc)
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     local characterId = user:getCurrentCharacter().id
 
     if not characterId then return end
 
-    exports.oxmysql:execute("SELECT cc.model, cf.hairColor, cf.headBlend, cf.headOverlay, cf.headStructure FROM character_face cf INNER JOIN character_current cc on cc.cid = cf.cid WHERE cf.cid = @cid", {['cid'] = characterId}, function(result)
+    exports.oxmysql:execute("SELECT cc.model, cf.hairColor, cf.headBlend, cf.headOverlay, cf.headStructure, cf.headFade FROM character_face cf INNER JOIN character_current cc on cc.cid = cf.cid WHERE cf.cid = @cid", {['cid'] = characterId}, function(result)
         if (result ~= nil and result[1] ~= nil) then
             local temp_data = {
                 hairColor = json.decode(result[1].hairColor),
                 headBlend = json.decode(result[1].headBlend),
                 headOverlay = json.decode(result[1].headOverlay),
                 headStructure = json.decode(result[1].headStructure),
+                headFade = json.decode(result[1].fadeStyle),
             }
             local model = tonumber(result[1].model)
             if model == 1885233650 or model == -1667301416 then
@@ -171,7 +174,7 @@ AddEventHandler("raid_clothes:get_character_current",function(pSrc)
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     local characterId = user:getCurrentCharacter().id
 
-    if not characterId then return end
+    if not characterId then return end 
 
     exports.oxmysql:execute("SELECT * FROM character_current WHERE cid = @cid", {['cid'] = characterId}, function(result)
         local temp_data = {
@@ -364,3 +367,4 @@ end)
 RegisterCommand("outfits", function(source,args,raw)
     TriggerClientEvent("hotel:outfit", source)
 end)
+

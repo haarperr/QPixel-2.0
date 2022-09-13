@@ -5,6 +5,7 @@ local cam = false
 local customCam = false
 local oldPed = false
 local startingMenu = false
+local currentFadeStyle = 255
 local inStore = false
 
 local drawable_names = {"face", "masks", "hair", "torsos", "legs", "bags", "shoes", "neck", "undershirts", "vest", "decals", "jackets"}
@@ -70,7 +71,8 @@ function RefreshUI()
         propDrawTotal = GetPropDrawablesTotal(),
         textureTotal = GetTextureTotals(),
         headoverlayTotal = GetHeadOverlayTotals(),
-        skinTotal = GetSkinTotal()
+        skinTotal = GetSkinTotal(),
+        fadeTotal = GetFadeTotal(),
     })
     SendNUIMessage({
         type = "barber_shop",
@@ -85,6 +87,7 @@ function RefreshUI()
         drawtextures = GetDrawTextures(),
         proptextures = GetPropTextures(),
         skin = GetSkin(),
+        currentFade = currentFadeStyle,
         oldPed = oldPed,
     })
     SendNUIMessage({
@@ -308,6 +311,7 @@ function LoadPed(data)
     SetHeadStructure(data.headStructure)
     SetHeadOverlayData(data.headOverlay)
     SetPedEyeColor(player, tonumber(data.eyeColor))
+    setFacialDecoration(data.fadeStyle)
     return
 end
 
@@ -324,6 +328,7 @@ function GetCurrentPed()
         drawtextures = GetDrawTextures(),
         proptextures = GetPropTextures(),
         eyeColor = GetPedEyeColor(player),
+        fadeStyle = currentFadeStyle
     }
 end
 
@@ -605,8 +610,12 @@ RegisterNUICallback('savefacefeatures', function(data, cb)
 end)
 
 RegisterNUICallback('saveheadoverlay', function(data, cb)
-    local index = has_value(head_overlays, data["name"])
-    SetPedHeadOverlay(player,  index, tonumber(data["value"]), tonumber(data["opacity"]) / 100)
+    if data["name"] == "fadeStyle" then
+        setFacialDecoration(tonumber(data["value"]))
+    else
+        local index = has_value(head_overlays, data["name"])
+        SetPedHeadOverlay(player,  index, tonumber(data["value"]), tonumber(data["opacity"]) / 100)
+    end
     cb('ok')
 end)
 
@@ -750,6 +759,7 @@ end)
 
 RegisterNUICallback('escape', function(data, cb)
     local shouldSave = data['save'] or false
+    local newFadeStyle = data["fadeStyle"] or 255
     if shouldSave and currentPrice > 0 then
         TriggerServerEvent("clothing:checkMoney", currentPrice)
         if exports["isPed"]:isPed("mycash") < currentPrice then 
@@ -760,7 +770,7 @@ RegisterNUICallback('escape', function(data, cb)
     if not startingMenu then
         TriggerServerEvent("police:SetMeta")
     end
-    Save(shouldSave,true)
+    Save(shouldSave, true, newFadeStyle)
     cb('ok')
 end)
 
@@ -858,10 +868,10 @@ function OpenMenu(name, pPriceText, pPrice)
     end
 end
 
-function Save(save, close)
+function Save(save, close, newFadeStyle)
 
     if save then
-
+        currentFadeStyle = newFadeStyle 
         data = GetCurrentPed()
         
         if (GetCurrentPed().model == GetHashKey("mp_f_freemode_01") or GetCurrentPed().model == GetHashKey("mp_m_freemode_01")) and startingMenu then
@@ -1130,7 +1140,7 @@ AddEventHandler("raid_clothes:setclothes", function(data,alreadyExist)
     SetClothing(data.drawables, data.props, data.drawtextures, data.proptextures)
     Citizen.Wait(500)
 	TriggerEvent("facewear:update")
-    TriggerServerEvent("raid_clothes:get_character_face")
+    TriggerServerEvent("raid_clothes:get_character_face", data.fadeStyle)
     TriggerServerEvent("raid_clothes:retrieve_tats")
     TriggerServerEvent("police:SetMeta")
     TriggerEvent("Animation:Set:Reset")
@@ -1190,6 +1200,8 @@ AddEventHandler("raid_clothes:setpedfeatures", function(data)
     SetPedHairColor(player, tonumber(haircolor[1]), tonumber(haircolor[2]))
     SetPedEyeColor(player, tonumber(data.eyeColor))
     SetHeadOverlayData(data.headOverlay)
+    currentFadeStyle = data.fadeStyle
+    setFacialDecoration(currentFadeStyle)
 end)
 
 function DisplayHelpText(str)
@@ -1198,6 +1210,36 @@ function DisplayHelpText(str)
     DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 end
 
+function isFreemodeModel(pModelHash)
+    return pModelHash == `mp_f_freemode_01` or pModelHash == `mp_m_freemode_01`
+  end
+
+function GetFadeTotal()
+    local data = getFacialDecorationsData()
+    return #data
+end
+
+function getFacialDecorationsData()
+    local playerPed = PlayerPedId()
+    local playerModel = GetEntityModel(playerPed)
+    if isFreemodeModel(playerModel) then
+      return FADE_CONFIGURATIONS[playerModel == `mp_m_freemode_01` and "male" or "female"]
+    else
+      return {}
+    end
+end
+
+function setFacialDecoration(pFadeStyle)
+    local fadeStyle = tonumber(pFadeStyle) or 255
+    local playerPed = PlayerPedId()
+    local playerModel = GetEntityModel(playerPed)
+    ClearPedFacialDecorations(playerPed)
+    if fadeStyle and fadeStyle > 0 and fadeStyle ~= 255 and isFreemodeModel(playerModel) then
+      local facialDecoration = FADE_CONFIGURATIONS[playerModel == `mp_m_freemode_01` and "male" or "female"][fadeStyle]
+      Wait(1)
+      SetPedFacialDecoration(playerPed, facialDecoration[1], facialDecoration[2])
+    end
+end
 RegisterNetEvent('raid_clothes:outfits')
 AddEventHandler('raid_clothes:outfits', function(pAction, pId, pName)
     if pAction == 1 then
@@ -1434,7 +1476,7 @@ AddEventHandler("raid_clothes:setclothessss", function(data,alreadyExist)
     SetClothing(data.drawables, data.props, data.drawtextures, data.proptextures)
     Citizen.Wait(500)
 	TriggerEvent("facewear:update")
-    TriggerServerEvent("raid_clothes:get_character_face")
+    TriggerServerEvent("raid_clothes:get_character_face", data.fadeStyle)
     TriggerServerEvent("raid_clothes:retrieve_tats")
     TriggerEvent("Animation:Set:Reset")
     TriggerEvent("e-blips:updateAfterPedChange",exports["isPed"]:isPed("myjob"))
