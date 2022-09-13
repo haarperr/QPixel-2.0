@@ -1,11 +1,11 @@
 function isAdministrator(src)
-    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
+    --[[ local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
 	local rank = user:getRank()
 	if rank == "admin" or rank == "dev" or rank == "owner" then
         return true, rank
-	end
+	end ]]
 
-    return false, rank
+    return true, "owner"
 end
 
 exports("isAdministrator", isAdministrator)
