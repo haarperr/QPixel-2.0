@@ -1,0 +1,535 @@
+Casino Heist and Hotel Door and Interior Info - 
+
+Main Casino - <position x="975.69110000" y="40.30351000" z="70.90102000"/>
+
+info = "Front Entrance Left Left"
+coords = vector3(927.68,49.65,81.54),
+model = 21324050
+
+info = "Front Entrance Left"
+coords = vector3(926.35,47.52,81.54),
+model = 21324050
+
+info = "Front Entrance Middle Left"
+coords = vector3(926.19,47.25,81.54),
+model = 21324050
+
+info = "Front Entrance Middle Right"
+coords = vector3(924.86,45.12,81.54),
+model = 21324050
+
+info = "Front Entrance Right"
+coords = vector3(924.71,44.86,81.54),
+model = 21324050
+
+info = "Front Entrance Right Right"
+coords = vector3(923.38,42.73,81.54),
+model = 21324050
+
+info = "Lower Front Entrance Left"
+coords = vector3(958.14,33.98,72.4),
+model = 21324050
+
+info = "Lower Front Entrance Right"
+coords = vector3(960.27,32.65,72.4),
+model = 21324050
+
+info = "Gate Left"
+coords = vector3(1000.43,45.57,70.67),
+model = -389557955
+
+info = "Gate Right"
+coords = vector3(1000.85,43.76,70.67),
+model = -389557955
+
+info = "Management Left"
+coords = vector3(1017.64,65.48,70.01),
+model = 680601509
+
+info = "Management Right"
+coords = vector3(1018.69,67.18,70.01),
+model = 680601509
+
+info = "Restroom Left"
+coords = vector3(1031.52,69.14,70.01),
+model = 901693952
+
+info = "Restroom Right"
+coords = vector3(1039.17,36.39,70.01),
+model = 901693952
+
+info = "Backroom Left"
+coords = vector3(1026.79,32.43,70.01),
+model = 680601509
+
+info = "Backroom Right"
+coords = vector3(1025.09,33.49,70.01),
+model = 680601509
+
+info = "Right of Cashier"
+coords = vector3(1010.44,63.94,70.61),
+model = 680601509
+
+info = "Cashier"
+coords = vector3(1010.44,63.94,70.61),
+model = 680601509
+
+info = "Private Room Left"
+coords = vector3(991.75,25.03,71.61),
+model = 401003935
+
+info = "Private Room right"
+coords = vector3(995.43,31.16,71.61),
+model = 401003935
+
+info = "Executive Offices"
+coords = vector3(1013.78,60.43,75.22),
+model = 401003935
+
+info = "Office Left"
+coords = vector3(1000.61,61.37,75.21),
+model = -643593781
+
+info = "Office Right"
+coords = vector3(1000.61,61.37,75.21),
+model = -643593781
+
+Casino Back - <position x="1015.19100000" y="20.33376000" z="70.46169000"/>
+
+Long Emergency Elevator Shaft Ladder Entity Set Name: set_casino_ladder
+
+info = "Glass Door Hallway"
+coords = vector3(994.51,25.09,71.61),
+model = 1278063852
+
+info = "Lower Elevator Left"
+coords = vector3(1009.01,30.05,70.46),
+model = -1240156945
+
+info = "Lower Elevator Left Middle"
+coords = vector3(1010.28,29.26,70.46),
+model = -1240156945
+
+info = "Lower Elevator Right Middle"
+coords = vector3(1012.26,28.08,70.46),
+model = -1240156945
+
+info = "Lower Elevator Right"
+coords = vector3(1013.53,27.29,70.46),
+model = -1240156945
+
+info = "To Main Casino"
+coords = vector3(1021.19,20.67,71.61),
+model = 1226684428
+
+info = "Security 1"
+coords = vector3(1017.38,15.34,71.61),
+model = 1890811383
+
+info = "Garbage Room"
+coords = vector3(1036.26,15.03,71.61),
+model = -35610440
+
+info = "Security 2"
+coords = vector3(1018.88,2.03,71.61),
+model = 1890811383
+
+info = "Security Inner"
+coords = vector3(1013.2,16.05,71.61),
+model = 1890811383
+
+info = "Mini Vault"
+coords = vector3(1006.63,7.44,71.71),
+model = -2050208642
+
+info = "Hallway Left"
+coords = vector3(1019.82,-5.19,71.61),
+model = -267451115
+
+info = "Hallway Right"
+coords = vector3(1021.52,-6.24,71.61),
+model = -267451115
+
+info = "Laundry Double Left"
+coords = vector3(1018.43,-9.21,71.61),
+model = -267451115
+
+info = "Laundry Double Right"
+coords = vector3(1016.73,-8.16,71.61),
+model = -267451115
+
+info = "Laundry Single"
+coords = vector3(1013.62,-6.23,71.61),
+model = -35610440
+
+info = "Uniform Storage"
+coords = vector3(1009.47,-3.65,71.61),
+model = -35610440
+
+info = "Lockers Left"
+coords = vector3(1005.2,-0.99,71.61),
+model = -35610440
+
+info = "Lockers Right"
+coords = vector3(996.61,4.34,71.61),
+model = -35610440
+
+info = "Office Hall Double Left"
+coords = vector3(1010.98,39.27,75.21),
+model = -1747430008
+
+info = "Office Hall Double Right"
+coords = vector3(1009.28,40.32,75.21),
+model = -1747430008
+
+info = "Upper Elevator Left"
+coords = vector3(1015.24,30.03,74.06),
+model = -1240156945
+
+info = "Upper Elevator Left Middle"
+coords = vector3(1013.96,30.83,74.06),
+model = -1240156945
+
+info = "Upper Elevator Right Middle"
+coords = vector3(1012.01,32.04,74.06),
+model = -1240156945
+
+info = "Upper Elevator Right"
+coords = vector3(1010.74,32.83,74.06),
+model = -1240156945
+
+info = "Broken Elevator Left"
+coords = vector3(1010.56,29.21,62.46),
+model = -1240156945
+
+info = "Broken Elevator Right"
+coords = vector3(1009.28,30.0,62.46),
+model = -1240156945
+
+info = "Bottom Shaft Elevator Top"
+coords = vector3(1014.56,29.9,-7.03),
+model = 2087042309
+
+info = "Bottom Shaft Elevator Left"
+coords = vector3(1013.75,27.2,-9.54),
+model = -1240156945
+
+info = "Bottom Shaft Elevator Right"
+coords = vector3(1012.48,27.99,-9.54),
+model = -1240156945
+
+info = "Vault Left"
+coords = vector3(1009.59,19.76,-8.39),
+model = 272844368
+
+info = "Vault Right"
+coords = vector3(1007.38,21.11,-8.39),
+model = 272844368
+
+Casino Tunnel - <position x="931.27100000" y="-47.44128000" z="21.53241000"/>
+
+Casino Utility - <position x="999.39990000" y="16.48752000" z="62.46171000"/>
+
+info = "To Elevator Shaft"
+coords = vector3(1006.89,25.96,63.6),
+model = 217447762
+
+info = "Upper Floor 1"
+coords = vector3(1008.12,16.3,63.61),
+model = 217447762
+
+info = "Upper Floor 2"
+coords = vector3(1000.0,8.9,63.61),
+model = 217447762
+
+info = "Lower Door 1"
+coords = vector3(1000.86,7.47,48.6),
+model = 217447762
+
+info = "Lower Door 2"
+coords = vector3(999.15,6.02,48.6),
+model = 217447762
+
+info = "Lower Door 3"
+coords = vector3(995.64,4.17,48.6),
+model = 217447762
+
+info = "Lower Door 4"
+coords = vector3(993.27,1.61,48.6),
+model = 217447762
+
+Casino Vault - <position x="986.03490000" y="38.96069000" z="-9.45547000"/>
+
+Vault Door Closed Entityset name: np2_vault_clean
+Vault Door Open Entityset name: np2_vault_broken
+Long Emergency Ladder In Elevator Shaft :set_casino_ladder
+
+info = "Vault Door"
+coords = vector3(1000.19,10.54,-7.99),
+model = -1520917551
+
+info = "Inner Gate 1"
+coords = vector3(998.59,6.71,-9.55),
+model = -219532439
+
+info = "Inner Gate 2"
+coords = vector3(1004.39,-9.75,-9.55),
+model = -219532439
+
+info = "Inner Gate 3"
+coords = vector3(1010.72,-6.91,-9.55),
+model = -754698435
+
+info = "Inner Gate 4"
+coords = vector3(985.64,-14.08,-9.55),
+model = -219532439
+
+info = "Inner Gate 5"
+coords = vector3(990.53,-20.23,-9.55),
+model = -754698435
+
+info = "Inner Gate 6"
+coords = vector3(979.79,-13.53,-9.55),
+model = -754698435
+
+info = "Inner Gate 7"
+coords = vector3(983.16,3.53,-9.55),
+model = -219532439
+
+info = "Inner Gate 8"
+coords = vector3(983.7,9.36,-9.55),
+model = -754698435
+
+Casino Penthouse - <position x="976.63640000" y="70.29476000" z="115.16410000"/>
+
+info = "Right Entrance Left Door"
+coords = vector3(979.49,62.21,116.29),
+model = -1074495927
+
+info = "Right Entrance Right Door"
+coords = vector3(981.18,61.15,116.29),
+model = -1074495927
+
+info = "Bedroom Left Door"
+coords = vector3(985.76,64.95,116.27),
+model = 1731641084
+
+info = "Bedroom Right Door"
+coords = vector3(984.7,63.26,116.27),
+model = 1731641084
+
+info = "Bedroom Sliding Door 1"
+coords = vector3(984.73,72.52,116.63),
+model = -368796032
+
+info = "Bathroom Door 1"
+coords = vector3(984.83,73.55,116.26),
+model = -1691719897
+
+info = "Bedroom Sliding Door 2"
+coords = vector3(976.41,75.2,116.63),
+model = -368796032
+
+info = "Bathroom Door 2"
+coords = vector3(980.11,75.68,116.26),
+model = -1691719897
+
+info = "Left Main Entrance Left Door"
+coords = vector3(973.83,54.38,116.81),
+model = 196775740
+
+info = "Left Main Entrance Right Door"
+coords = vector3(973.83,54.38,116.81),
+model = 196775740
+
+info = "Meeting Room Left Door"
+coords = vector3(966.82,54.19,116.68),
+model = 1016572513
+
+info = "Meeting Room Right Door"
+coords = vector3(969.8,52.33,116.68),
+model = 1016572513
+
+info = "Creampie Door"
+coords = vector3(969.6,47.03,116.26),
+model = -242110718
+
+info = "Theatre Room Left Door"
+coords = vector3(959.82,38.56,116.68),
+model = 1016572513
+
+info = "Theatre Room Right Door"
+coords = vector3(956.85,40.42,116.68),
+model = 1016572513
+
+info = "Bathroom Door 3"
+coords = vector3(962.35,29.5,116.26),
+model = -1691719897
+
+info = "Large Bathroom Door Left"
+coords = vector3(959.49,24.92,116.26),
+model = 1731641084
+
+info = "Large Bathroom Door Right"
+coords = vector3(959.49,24.92,116.26),
+model = 1731641084
+
+info = "Bar Left Door"
+coords = vector3(958.53,24.81,116.81),
+model = 196775740
+
+info = "Bar Right Door"
+coords = vector3(956.44,26.11,116.81),
+model = 196775740
+
+Casino Hotel - <position x="900.00000000" y="-50.00000000" z="20.00000000"/>
+
+info = "Service Outer Left Door 1"
+coords = vector3(900.54,-65.38,21.15),
+model = -192278810
+
+info = "Service Outer Right Door 1"
+coords = vector3(901.55,-63.77,21.15),
+model = -192278810
+
+info = "Service Outer Left Door 2"
+coords = vector3(883.78,-50.52,21.15),
+model = -170420121
+
+info = "Service Outer Right Door 2"
+coords = vector3(882.77,-52.14,21.15),
+model = 1090039464
+
+info = "Service Inner Right Door"
+coords = vector3(893.5,-59.91,21.15),
+model = 1938754783
+
+info = "Service Inner Left Door"
+coords = vector3(892.45,-61.61,21.15),
+model = 1938754783
+
+Casino Hotel - 
+
+info = "501"
+coords = vector3(922.36,-55.16,21.15),
+model = 272844368
+<position x="925.75460000" y="-56.26089000" z="21.53241000"/>
+
+info = "502"
+coords = vector3(925.11,-50.74,21.15),
+model = 272844368
+<position x="928.49920000" y="-51.84136000" z="21.53241000"/>
+
+info = "503"
+coords = vector3(927.88,-46.34,21.15),
+model = 272844368
+<position x="931.27100000" y="-47.44128000" z="21.53241000"/>
+
+info = "503 secret shower"
+coords = vector3(935.57,-52.71,21.8),
+model = -2603300
+
+info = "504"
+coords = vector3(927.37,-35.87,21.15),
+model = 272844368
+<position x="928.46410000" y="-32.48080000" z="21.53241000"/>
+
+info = "505"
+coords = vector3(922.95,-33.13,21.15),
+model = 272844368
+<position x="924.04620000" y="-29.73793000" z="21.53241000"/>
+
+info = "506"
+coords = vector3(918.54,-30.36,21.15),
+model = 272844368
+<position x="919.64610000" y="-26.96481000" z="21.53241000"/>
+
+info = "507"
+coords = vector3(908.08,-30.87,21.15),
+model = 272844368
+<position x="904.68640000" y="-29.77088000" z="21.53241000"/>
+
+info = "508"
+coords = vector3(905.34,-35.29,21.15),
+model = 272844368
+<position x="901.94170000" y="-34.18922000" z="21.53233000"/>
+
+info = "509"
+coords = vector3(902.56,-39.69,21.15),
+model = 272844368
+<position x="899.17000000" y="-38.58870000" z="21.53233000"/>
+
+info = "510"
+coords = vector3(881.0,-44.91,21.15),
+model = 272844368
+<position x="877.60260000" y="-43.81165000" z="21.53242000"/>
+
+info = "511"
+coords = vector3(878.25,-49.33,21.15),
+model = 272844368
+<position x="874.85820000" y="-48.23071000" z="21.53242000"/>
+
+info = "512"
+coords = vector3(875.51,-53.75,21.15),
+model = 272844368
+<position x="872.11450000" y="-52.64772000" z="21.53242000"/>
+
+info = "513"
+coords = vector3(872.77,-58.16,21.15),
+model = 272844368
+<position x="869.37130000" y="-57.06422000" z="21.53242000"/>
+
+info = "514"
+coords = vector3(869.99,-62.57,21.15),
+model = 272844368
+<position x="866.59890000" y="-61.46432000" z="21.53242000"/>
+
+info = "515"
+coords = vector3(870.51,-73.03,21.15),
+model = 272844368
+<position x="869.40720000" y="-76.42566000" z="21.53241000"/>
+
+info = "516"
+coords = vector3(874.92,-75.77,21.15),
+model = 272844368
+<position x="873.82360000" y="-79.16872000" z="21.53241000"/>
+
+info = "517"
+coords = vector3(879.34,-78.52,21.15),
+model = 272844368
+<position x="878.24380000" y="-81.91403000" z="21.53241000"/>
+
+info = "518"
+coords = vector3(883.76,-81.26,21.15),
+model = 272844368
+<position x="882.65900000" y="-84.65616000" z="21.53241000"/>
+
+info = "519"
+coords = vector3(888.17,-84.01,21.15),
+model = 272844368
+<position x="887.07640000" y="-87.39968000" z="21.53241000"/>
+
+info = "520"
+coords = vector3(892.58,-86.78,21.15),
+model = 272844368
+<position x="891.47570000" y="-90.17183000" z="21.53241000"/>
+
+info = "521"
+coords = vector3(903.04,-86.26,21.15),
+model = 272844368
+<position x="906.43790000" y="-87.36291000" z="21.53241000"/>
+
+info = "522"
+coords = vector3(905.79,-81.85,21.15),
+model = 272844368
+<position x="909.18120000" y="-82.94586000" z="21.53241000"/>
+
+info = "523"
+coords = vector3(908.53,-77.43,21.15),
+model = 272844368
+ <position x="911.92450000" y="-78.52880000" z="21.53241000"/>
+
+info = "524"
+coords = vector3(911.3,-73.03,21.15),
+model = 272844368
+<position x="914.69640000" y="-74.12915000" z="21.53241000"/>
