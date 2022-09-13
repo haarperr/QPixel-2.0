@@ -16943,5 +16943,113 @@ DOOR_CONFIG = {
     forceUnlocked = false,
     hidden = true,
   }, 
+  {
+    info = "jeweled_dragon frontdoor1",
+    active = true,
+    id = getDoorId(),
+    coords = vector3(-708.3281, -887.6705, 23.816444),
+    model = -266682831, 
+    lock = true,
+    keyFob = true,
+    desc = "",
+    hidden = true,
+    access = {
+      job = {},
+      cid= {},
+      business = {
+        ["JewelDragon"] = true
+      }
+    }
+  },
+  {
+    info = "jeweled_dragon frontdoor2",
+    active = true,
+    id = getDoorId(),
+    coords = vector3(-709.4989, -887.7143, 23.816429),
+    model = 1674388876, 
+    lock = true,
+    keyFob = true,
+    desc = "",
+    hidden = true,
+    access = {
+      job = {},
+      cid= {},
+      business = {
+        ["JewelDragon"] = true
+      }
+    }
+  },
+  {
+    info = "jeweled_dragon inside door 1",
+    active = true,
+    id = getDoorId(),
+    coords = vector3(-702.66,-901.53,23.96),
+    model = -717018680, 
+    lock = true,
+    keyFob = true,
+    desc = "",
+    hidden = true,
+    access = {
+      job = {},
+      cid= {},
+      business = {
+        ["JewelDragon"] = true
+      }
+    }
+  },
+  {
+    info = "jeweled_dragon inside door 2",
+    active = getDoorId(),
+    id = 735,
+    coords = vector3(-697.46,-902.14,23.97),
+    model = -670027930, 
+    lock = true,
+    keyFob = true,
+    desc = "",
+    hidden = true,
+    access = {
+      job = {},
+      cid= {},
+      business = {
+        ["JewelDragon"] = true
+      }
+    }
+  },
+  {
+    info = "jeweled_dragon inside door 3",
+    active = true,
+    id = getDoorId(),
+    coords = vector3(-698.22,-900.32,19.68),
+    model = -717018680,
+    lock = true,
+    keyFob = true,
+    desc = "",
+    hidden = true,
+    access = {
+      job = {},
+      cid= {},
+      business = {
+        ["JewelDragon"] = true
+      }
+    }
+  },
+  {
+    info = "jeweled_dragon insidesafe",
+    active = true,
+    id = getDoorId(),
+    coords = vector3(-710.3964, -896.6571, 19.524682),
+    model = 819960528,
+    lock = true,
+    keyFob = true,
+    desc = "",
+    hidden = true,
+    access = {
+      job = {},
+      cid= {},
+      business = {
+        ["JewelDragon"] = true
+      }
+    }
+  },
   
 }

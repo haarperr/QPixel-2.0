@@ -317,14 +317,14 @@ AddEventHandler('DragonJewelCraft', function()
 	end
 end)
 
-RegisterNetEvent('rings')
+RegisterNetEvent('rings') 
 AddEventHandler('rings', function()
 	local isEmployed = exports["qpixel-business"]:IsEmployedAt("art_gallery")
     if isEmployed then
-	TriggerEvent("server-inventory-open", "29", "Craft");
+	TriggerEvent("server-inventory-open", "29", "Craft"); 
 	end
 end)
-
+ 
 
 RegisterNetEvent('slushy:general')
 AddEventHandler('slushy:general', function()
