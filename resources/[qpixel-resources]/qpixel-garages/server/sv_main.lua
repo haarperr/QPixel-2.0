@@ -75,7 +75,66 @@ RPC.register("qpixel-garages:selectShared",function(pSource,garname)
     local src = source
 	local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
 	local char = user:getCurrentCharacter()
-	exports.ghmattimysql:execute('SELECT * FROM characters_cars WHERE current_garage = @garage ', { ["garage"] = garname.param }, function(result)
+
+	TriggerClientEvent('qpixel-context:sendMenu', src, {
+		{
+			id = "close",
+			header = "Police Garage",
+			txt = "",
+			params = {
+				event = "qpixel-garages:open2"
+			}
+		},
+		{
+			id = "lspd",
+			header = "LSPD" ,
+			txt = 'Los Santos Police Department',
+			params = {
+				event = "qpixel-garages:attempt:lspd",
+				args = result
+			}
+		},
+		{
+			id = "bcso",
+			header = "BCSO" ,
+			txt = 'Blane County Sheriffs Office',
+			params = {
+				event = "qpixel-garages:attempt:bcso",
+				args = result
+			}
+		},
+		{
+			id = "sasp",
+			header = "SASP" ,
+			txt = 'San Andreas State Police',
+			params = {
+				event = "qpixel-garages:attempt:sasp",
+				args = result
+			}
+		},
+		{
+			id = "parkranger",
+			header = "Park Ranger" ,
+			txt = 'Park Rangers',
+			params = {
+				event = "qpixel-garages:attempt:parkranger",
+				args = result
+			}
+		},
+		{
+			id = "doc",
+			header = "DOC" ,
+			txt = 'Department Of Corrections',
+			params = {
+				event = "qpixel-garages:attempt:doc",
+				args = result
+			}
+		},
+
+		
+	})
+
+	--[[ exports.ghmattimysql:execute('SELECT * FROM characters_cars WHERE current_garage = @garage ', { ["garage"] = garname.param }, function(result)
 		if (result[1]) then
 			for ind, value in pairs(result) do
 				enginePercent = value.engine_damage / 10
@@ -88,7 +147,7 @@ RPC.register("qpixel-garages:selectShared",function(pSource,garname)
 						header = value.name,
 						txt = 'Plate: ' .. value.license_plate,
 						params = {
-							event = "qpixel-garages:takeout2",
+							event = "qpixel-garages:takeout2", 
 							args = value.id
 						}
 					},
@@ -97,7 +156,7 @@ RPC.register("qpixel-garages:selectShared",function(pSource,garname)
 		else
 			TriggerClientEvent('DoLongHudText', src, "There is no parked vehicles in this garage.", 2)
 		end
-	end)
+	end) ]]
 end)
 
 RPC.register("qpixel-garages:attempt:sv",function(pSource,pdata)
@@ -364,4 +423,326 @@ AddEventHandler("yorktax:emspro",function ()
     local src = source
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     user:removeMoney(35000)
+end)
+
+
+
+RPC.register("qpixel-garages:selecteddepartment",function(pSource,deparment)
+    local src = source
+	local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
+	local char = user:getCurrentCharacter()
+
+	if deparment.param == 'lspd' then
+		TriggerClientEvent('qpixel-context:sendMenu', src, {
+			{
+				id = "close",
+				header = "Police Garage",
+				txt = "",
+				params = {
+					event = "qpixel-garages:open2"
+				}
+			},
+			{
+				id = "patrol_lspd",
+				header = "Patrol" ,
+				txt = 'Patrol Vehicles',
+				params = {
+					event = "qpixel-garages:patrol",
+					args = deparment.param
+				}
+			},
+			{
+				id = "interceptor_lspd",
+				header = "Interceptor" ,
+				txt = 'Interceptor Vehicles',
+				params = {
+					event = "qpixel-garages:intercept",
+					args = deparment.param
+				}
+			},
+			
+		})
+	end
+
+	if deparment.param == 'bcso' then
+		TriggerClientEvent('qpixel-context:sendMenu', src, {
+			{
+				id = "close",
+				header = "Police Garage",
+				txt = "",
+				params = {
+					event = "qpixel-garages:open2"
+				}
+			},
+			{
+				id = "patrol_7lspd",
+				header = "Patrol" ,
+				txt = 'Patrol Vehicles',
+				params = {
+					event = "qpixel-garages:patrol",
+					args = deparment.param
+				}
+			},
+			{
+				id = "intercepto4r_lspd",
+				header = "Interceptor" ,
+				txt = 'Interceptor Vehicles',
+				params = {
+					event = "qpixel-garages:intercept",
+					args = deparment.param
+				}
+			},
+			
+		})
+	end
+
+	if deparment.param == 'sasp' then
+		TriggerClientEvent('qpixel-context:sendMenu', src, {
+			{
+				id = "close",
+				header = "Police Garage",
+				txt = "",
+				params = {
+					event = "qpixel-garages:open2"
+				}
+			},
+			{
+				id = "patrol_79lspd",
+				header = "Patrol" ,
+				txt = 'Patrol Vehicles',
+				params = {
+					event = "qpixel-garages:patrol",
+					args = deparment.param
+				}
+			},
+			{
+				id = "intercepto94r_lspd",
+				header = "Interceptor" ,
+				txt = 'Interceptor Vehicles',
+				params = {
+					event = "qpixel-garages:intercept",
+					args = deparment.param
+				}
+			},
+			
+		})
+	end
+
+	if deparment.param == 'parkranger' then
+		TriggerClientEvent('qpixel-context:sendMenu', src, {
+			{
+				id = "close",
+				header = "Police Garage",
+				txt = "",
+				params = {
+					event = "qpixel-garages:open2"
+				}
+			},
+			{
+				id = "patrol_769lspd",
+				header = "Patrol" ,
+				txt = 'Patrol Vehicles',
+				params = {
+					event = "qpixel-garages:patrol",
+					args = deparment.param
+				}
+			},
+			{
+				id = "intercept4o94r_lspd",
+				header = "Interceptor" ,
+				txt = 'Interceptor Vehicles',
+				params = {
+					event = "qpixel-garages:intercept",
+					args = deparment.param
+				}
+			},
+			
+		})
+	end
+
+	if deparment.param == 'doc' then
+		TriggerClientEvent('qpixel-context:sendMenu', src, {
+			{
+				id = "close",
+				header = "Police Garage",
+				txt = "",
+				params = {
+					event = "qpixel-garages:open2"
+				}
+			},
+			{
+				id = "patrol_79l9spd",
+				header = "Patrol" ,
+				txt = 'Patrol Vehicles',
+				params = {
+					event = "qpixel-garages:patrol",
+					args = deparment.param
+				}
+			},
+			{
+				id = "intercepto964r_lspd",
+				header = "Interceptor" ,
+				txt = 'Interceptor Vehicles',
+				params = {
+					event = "qpixel-garages:intercept",
+					args = deparment.param
+				}
+			},
+			
+		})
+	end
+end)
+
+RPC.register("qpixel-garages:selecteddepartmentmod",function(pSource,departmentVeh)
+    local src = source
+	local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
+	local char = user:getCurrentCharacter()
+	
+
+	TriggerClientEvent('qpixel-context:sendMenu', src, {
+		{
+			id = "close",
+			header = "Police Garage",
+			txt = "",
+			params = {
+				event = "qpixel-garages:open2"
+			}
+		},
+		{
+			id = "fcv",
+			header = "Ford Crown Victoria" ,
+			txt = 'Cadet+',
+			params = {
+				event = "qpixel-garages:fordcrownvic",
+				args = departmentVeh
+			}
+		},
+		{
+			id = "fex",
+			header = "Ford Explorer" ,
+			txt = 'Corporal+',
+			params = {
+				event = "qpixel-garages:fordexplorer",
+				args = departmentVeh
+			}
+		},
+		{
+			id = "dcha",
+			header = "Dodge Charger" ,
+			txt = 'H.E.A.T Certified',
+			params = {
+				event = "qpixel-garages:dodgecharger",
+				args = departmentVeh
+			}
+		},
+	})
+end)
+
+RPC.register("qpixel-garages:selecteddepartmentmodImp",function(pSource,departmentVeh)
+    local src = source
+	local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
+	local char = user:getCurrentCharacter()
+	
+
+	TriggerClientEvent('qpixel-context:sendMenu', src, {
+		{
+			id = "close",
+			header = "Police Garage",
+			txt = "",
+			params = {
+				event = "qpixel-garages:open2"
+			}
+		},
+		{
+			id = "fgcv",
+			header = "Dodge Charger" ,
+			txt = 'H.E.A.T Certified',
+			params = {
+				event = "qpixel-garages:fordcrownvic",
+				args = departmentVeh
+			}
+		},
+		{
+			id = "fedx",
+			header = "Dodge Challenger" ,
+			txt = 'H.E.A.T Certified',
+			params = {
+				event = "qpixel-garages:fordexplorer",
+				args = departmentVeh
+			}
+		},
+		{
+			id = "dcgha",
+			header = "Ford Mustang" ,
+			txt = 'H.E.A.T Certified',
+			params = {
+				event = "qpixel-garages:dodgecharger",
+				args = departmentVeh
+			}
+		},
+		{
+			id = "ddcha",
+			header = "Chevrolet Corvette" ,
+			txt = 'H.E.A.T Certified',
+			params = {
+				event = "qpixel-garages:dodgecharger",
+				args = departmentVeh
+			}
+		},
+	})
+end)
+
+
+RPC.register("qpixel-garages:viccategrey",function(pSource,departmentVeh, carAsk)
+    local src = source
+	local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
+	local char = user:getCurrentCharacter()
+	local vehicleName = json.encode(carAsk.param)
+	print("--------")
+	print(json.encode(departmentVeh.param.param))
+	print(json.encode(carAsk.param))
+
+
+	exports.ghmattimysql:execute('SELECT * FROM characters_cars WHERE current_model = @model ', { ["model"] = departmentVeh.param.param }, function(result)
+		if (result[1]) then
+				for ind, value in pairs(result) do
+					enginePercent = value.engine_damage / 10
+					bodyPercent = value.body_damage / 10
+					curGarage = value.current_garage
+
+					nameC = 'Ford Victoria tes'
+
+					if vehicleName == '"npolvic"' then
+						nameC = 'Ford Victoria'
+					end
+
+					if vehicleName == '"npolstang"' then
+						nameC = 'Ford Mustang'
+					end
+
+					TriggerClientEvent('qpixel-context:sendMenu', src, {
+						{
+							id = "close",
+							header = "Police Garage",
+							txt = "",
+							params = {
+								event = "qpixel-garages:open2"
+							}
+						},
+						{
+							id = value.id,
+							header = nameC,
+							txt = 'Plate : ' .. value.license_plate..' | Status : '..value.vehicle_state..'',
+							params = {
+								event = "qpixel-garages:takeout2", 
+								args = value.id
+							}
+						},
+					})
+				end
+		else
+			TriggerClientEvent('DoLongHudText', src, "There is no parked vehicles in this garage.", 2)
+		end
+	end) 
+
 end)

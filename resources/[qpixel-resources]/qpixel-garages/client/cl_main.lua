@@ -68,6 +68,55 @@ RegisterNetEvent("qpixel-garages:takeout2", function(pData)
     end
 end)
 
+-----
+
+RegisterNetEvent("qpixel-garages:attempt:lspd", function(pData)
+    local department = "lspd"
+    RPC.execute("qpixel-garages:selecteddepartment", department)
+end)
+RegisterNetEvent("qpixel-garages:attempt:bcso", function(pData)
+    local department = "bcso"
+    RPC.execute("qpixel-garages:selecteddepartment", department)
+end)
+RegisterNetEvent("qpixel-garages:attempt:sasp", function(pData)
+    local department = "sasp"
+    RPC.execute("qpixel-garages:selecteddepartment", department)
+end)
+RegisterNetEvent("qpixel-garages:attempt:parkranger", function(pData)
+    local department = "parkranger"
+    RPC.execute("qpixel-garages:selecteddepartment", department)
+end)
+RegisterNetEvent("qpixel-garages:attempt:doc", function(pData)
+    local department = "doc"
+    RPC.execute("qpixel-garages:selecteddepartment", department)
+end)
+
+RegisterNetEvent("qpixel-garages:patrol", function(pData)
+    RPC.execute("qpixel-garages:selecteddepartmentmod", pData)
+end)
+RegisterNetEvent("qpixel-garages:intercept", function(pData)
+    RPC.execute("qpixel-garages:selecteddepartmentmodImp", pData)
+end)
+
+
+RegisterNetEvent("qpixel-garages:fordcrownvic", function(pData)
+    print(json.encode(pData))
+    local carAsk = 'npolvic'
+    RPC.execute("qpixel-garages:viccategrey", pData, carAsk)
+end)
+RegisterNetEvent("qpixel-garages:fordexplorer", function(pData)
+    print(json.encode(pData))
+    RPC.execute("qpixel-garages:viccategrey", pData)
+end)
+RegisterNetEvent("qpixel-garages:dodgecharger", function(pData)
+    print(json.encode(pData))
+    RPC.execute("qpixel-garages:viccategrey", pData)
+end)
+
+
+
+---------
+
 local entityEnumerator = {
     __gc = function(enum)
         if enum.destructor and enum.handle then
