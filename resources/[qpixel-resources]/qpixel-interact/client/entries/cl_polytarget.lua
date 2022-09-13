@@ -3216,3 +3216,18 @@ exports["qpixel-interact"]:AddPeekEntryByPolyTarget("galleryring", {
 }, {
     distance = { radius = 7 },
 });
+
+exports["qpixel-polytarget"]:AddBoxZone("prison_slushy",  vector3(1777.91, 2560.06, 45.67), 0.6, 1.6, {
+    minZ=45.47,
+    maxZ=46.67
+})
+
+exports["qpixel-interact"]:AddPeekEntryByPolyTarget("prison_slushy", {{
+    event = "slushy:general",
+    id = "void_prison_slushy",
+    icon = "fas fa-glass-whiskey",
+    label = "Make Slushy!!!",
+    parameters = {},
+}}, {
+    distance = { radius = 1.5 },
+});
