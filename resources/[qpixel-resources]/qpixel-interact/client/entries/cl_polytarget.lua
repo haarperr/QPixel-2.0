@@ -2993,6 +2993,56 @@ Entries[#Entries + 1] = {
     }
 }
 
+Entries[#Entries + 1] = {
+    type = 'polytarget',
+    group = { 'prison_slushy' },
+    data = {
+        {
+            id = "prison_slushy",
+            label = "Make Slushy!!!",
+            icon = "fas fa-glass-whiskey",
+            event = "slushy:general",
+            parameters = {}
+        }
+    },
+    options = {
+        distance = { radius = 3.0 }
+    }
+}
+
+Entries[#Entries + 1] = {
+    type = 'polytarget',
+    group = { 'jewdragon' },
+    data = {
+        {
+            id = "jewdragon",
+            label = "Craft Chains",
+            icon = "hammer",
+            event = "DragonJewelCraft",
+            parameters = {}
+        }
+    },
+    options = {
+        distance = { radius = 3.0 }
+    }
+}
+Entries[#Entries + 1] = {
+    type = 'polytarget',
+    group = { 'galleryring' },
+    data = {
+        {
+            id = "galleryring",
+            label = "Craft Blessed Rings",
+            icon = "circle",
+            event = "rings",
+            parameters = {}
+        }
+    },
+    options = {
+        distance = { radius = 3.0 }
+    }
+}
+
 -- Entries[#Entries + 1] = {
 --     type = 'polytarget',
 --     group = { 'ak_storage' },
@@ -3189,45 +3239,19 @@ exports["qpixel-polytarget"]:AddBoxZone("maldinis_fridge", vector3(805.79, -761.
     maxZ=28.18
 })
 
-exports["qpixel-polytarget"]:AddCircleZone("jewdragon",  vector3(-698.02, -904.65, 19.27), 0.31, {
-    useZ = true
-})
-
-exports["qpixel-interact"]:AddPeekEntryByPolyTarget('jewdragon', {{
-    id = "jewdragon",
-    event = "DragonJewelCraft",
-    icon = "hammer",
-    label = "Craft Chains",
-    paramers = {},
-}}, { distance = { radius = 3.5 }  })
+exports["qpixel-polytarget"]:AddBoxZone("jewdragon", vector3(-697.7, -904.69, 19.52), 1.0, 1.2, {
+    heading=0,
+    --debugPoly=false,
+    minZ=15.92,
+    maxZ=19.92
+}) 
 
 exports["qpixel-polytarget"]:AddCircleZone("galleryring",  vector3(-463.01, 47.58, 46.23), 0.35, {
     useZ = true
 })
 
-exports["qpixel-interact"]:AddPeekEntryByPolyTarget("galleryring", {
-    {
-        event = "rings",
-        id = "galleryring",
-        icon = "circle",
-        label = "Craft Blessed Rings",
-        parameters = {},
-    }
-}, {
-    distance = { radius = 7 },
-});
-
 exports["qpixel-polytarget"]:AddBoxZone("prison_slushy",  vector3(1777.91, 2560.06, 45.67), 0.6, 1.6, {
     minZ=45.47,
     maxZ=46.67
 })
-
-exports["qpixel-interact"]:AddPeekEntryByPolyTarget("prison_slushy", {{
-    event = "slushy:general",
-    id = "void_prison_slushy",
-    icon = "fas fa-glass-whiskey",
-    label = "Make Slushy!!!",
-    parameters = {},
-}}, {
-    distance = { radius = 1.5 },
-});
+ 
