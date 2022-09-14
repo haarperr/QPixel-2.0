@@ -1405,10 +1405,10 @@ end)
 RegisterNetEvent('raid_clothes:openClothing')
 AddEventHandler('raid_clothes:openClothing', function(pDontShowBarber, pShouldCost)
     if pShouldCost ~= nil and pShouldCost then
-        local priceWithTax = RPC.execute("PriceWithTaxString", MenuData.clothing_shop.basePrice, "Services")
-        currentPrice = priceWithTax.total
-        priceWithTax.text = priceWithTax.text
-        OpenMenu("clothing_shop", priceWithTax.text, currentPrice)
+        local priceWithTax = 200
+        currentPrice = isFree and 0 or priceWithTax
+        priceWithTax = isFree and 0 or priceWithTax
+        OpenMenu("clothing_shop", priceWithTax, currentPrice)
         startingMenu = false
         TriggerEvent('attachedItems:block', true)
     else

@@ -48,7 +48,7 @@ RPC.register("clothing:purchasebank",function(pSource,pPrice)
     return true
 end)
 
-RPC.register("PriceWithTaxString1",function(pSource,pPrice,pType)
+RPC.register("PriceWithTaxString",function(pSource,pPrice,pType)
     local data = {
         total = pPrice.param,
         text = pPrice.param.." + "..pType.param
