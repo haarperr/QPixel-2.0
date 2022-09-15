@@ -367,6 +367,21 @@ GeneralEntries[#GeneralEntries+1] = {
   end
 }
 
+GeneralEntries[#GeneralEntries+1] = {
+  data = {
+    id = "civEject",
+    title = _L("menu-general-ejectvehicle", "Self Eject"),
+    icon = "#vehicle-plate-remove",
+    event = "ragdoll:ejectVehicle",
+  },
+  isEnabled = function(pEntity, pContext)
+      local ped = PlayerPedId()
+      local plyVeh = GetVehiclePedIsIn(ped, false)
+      local IsDriver = GetPedInVehicleSeat(plyVeh, -1) == ped
+      return isDead and plyVeh and IsDriver
+  end
+}
+
 -- GeneralEntries[#GeneralEntries+1] = {
 --   data = {
 --       id = "drivingInstructor:testToggle",
