@@ -5,7 +5,7 @@ local canReturnNozle = true
 local canRefillVehicle = true
 local canPayBill = false
 local zoneData = nil
-local GallonPrice = 6
+local GallonPrice = 3
 local paid = false
 attachedProp = 0
 
