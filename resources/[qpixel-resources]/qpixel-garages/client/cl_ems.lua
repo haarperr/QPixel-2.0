@@ -158,14 +158,13 @@ AddEventHandler('qpixel-garages:PurchasedVeh2', function(name, veh, price)
     local id = NetworkGetNetworkIdFromEntity(personalvehicle)
     SetNetworkIdCanMigrate(id, true)
     Citizen.InvokeNative(0x629BFA74418D6239,Citizen.PointerValueIntInitialized(personalvehicle))
-    SetVehicleColours(personalvehicle,colors[1],colors[2])
-    SetVehicleExtraColours(personalvehicle,extra_colors[1],extra_colors[2])
+    --SetVehicleColours(personalvehicle,colors[1],colors[2])
+    --SetVehicleExtraColours(personalvehicle,extra_colors[1])
     TaskWarpPedIntoVehicle(PlayerPedId(),personalvehicle,-1)
     SetEntityVisible(ped,true)            
     local primarycolor = colors[1]
     local secondarycolor = colors[2]    
     local pearlescentcolor = extra_colors[1]
-    local wheelcolor = extra_colors[2]
     --local VehicleProps = exports['qpixel-base']FetchVehProps(personalvehicle)
     local model = GetEntityModel(personalvehicle)
     local vehname = GetDisplayNameFromVehicleModel(model)

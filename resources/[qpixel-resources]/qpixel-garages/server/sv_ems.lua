@@ -4,9 +4,9 @@ AddEventHandler('qpixel-garages:FinalizedPur2', function(plate, name, vehicle, p
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(source)
     local char = user:getVar("character")
     local player = user:getVar("hexid")
-    exports.ghmattimysql:execute('INSERT INTO characters_cars (owner, cid, license_plate, model, data, purchase_price, last_payment, financed, payments_left, name, vehicle_state, current_garage) VALUES (@owner, @cid, @license_plate, @model, @data, @purchase_price, @last_payment, @financed, @payments_left, @name, @vehicle_state, @current_garage)',{
+    exports.ghmattimysql:execute('INSERT INTO characters_cars (character_name, cid, license_plate, model, data, purchase_price, last_payment, financed, payments_left, name, vehicle_state, current_garage) VALUES (@owner, @cid, @license_plate, @model, @data, @purchase_price, @last_payment, @financed, @payments_left, @name, @vehicle_state, @current_garage)',{
         ['@cid']   = char.id,
-        ['@owner']   = player,
+        ['@character_name']   = newname,
         ['@license_plate']  = plate,
         ['@model'] = vehicle,
         ['@data'] = json.encode(personalvehicle),
