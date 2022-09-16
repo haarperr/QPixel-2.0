@@ -50,34 +50,26 @@ AddEventHandler('qpixel-garages:openBuyMenu2', function()
     TriggerEvent('qpixel-context:sendMenu', {
 		{
 			id = 1,
-			header = "EMS Speedo",
+			header = "EMS Ambulance",
 			txt = "Purchase for $5000",
+			params = {
+				event = "qpixel-garages:PurchasedAmb"
+			}
+		},
+        {
+			id = 2,
+			header = "EMS Speedo",
+			txt = "Purchase for $15000",
 			params = {
 				event = "qpixel-garages:PurchasedSpeedo"
 			}
 		},
-        --[[{ WIP
-			id = 2,
-			header = "EMS Ambulance",
-			txt = "Purchase for $5000",
-			params = {
-				event = "qpixel-garages:PurchasedBamb"
-			}
-		},--]]
-        {
-			id = 2,
-			header = "EMS Explorer",
-			txt = "Purchase for $15000",
-			params = {
-				event = "qpixel-garages:PurchasedBexp"
-			}
-		},
         {
 			id = 3,
-			header = "EMS Sierra Truck",
+			header = "EMS Explorer",
 			txt = "Purchase for $35000",
 			params = {
-				event = "qpixel-garages:PurchasedEMSPRO"
+				event = "qpixel-garages:PurchasedExp"
 			}
 		},
         
@@ -86,7 +78,7 @@ end)
 
 RegisterNetEvent('qpixel-garages:PurchasedSpeedo')
 AddEventHandler('qpixel-garages:PurchasedSpeedo', function()
-    if exports["isPed"]:isPed("mycash") >= 5000 then
+    if exports["isPed"]:isPed("mycash") >= 15000 then
         --TriggerServerEvent('bankingremoveMoney')
         TriggerServerEvent('yorktax:speedo')
         TriggerEvent('qpixel-garages:PurchasedVeh2', 'Speedo', 'emsnspeedo', '0')
@@ -95,12 +87,12 @@ AddEventHandler('qpixel-garages:PurchasedSpeedo', function()
     end
 end)
 
-RegisterNetEvent('qpixel-garages:PurchasedBamb')
-AddEventHandler('qpixel-garages:PurchasedBamb', function()
-    if exports["isPed"]:isPed("mycash") >= 5000 then
+RegisterNetEvent('qpixel-garages:PurchasedAmb')
+AddEventHandler('qpixel-garages:PurchasedAmb', function()
+    if exports["isPed"]:isPed("mycash") >= 5000 then 
         --TriggerServerEvent('bankingremoveMoney', 5000)
         TriggerServerEvent('yorktax:bamb')
-        TriggerEvent('qpixel-garages:PurchasedVeh2', 'Ambulance', 'bamb', '0')
+        TriggerEvent('qpixel-garages:PurchasedVeh2', 'Ambulance', 'emsa', '0')
     else
         TriggerEvent('DoLongHudText', "You do not have enough money!", 2)
     end
@@ -111,18 +103,18 @@ AddEventHandler('qpixel-garages:PurchasedBexp', function()
     if exports["isPed"]:isPed("mycash") >= 15000 then
         --TriggerServerEvent('bankingremoveMoney', 5000)
         TriggerServerEvent('yorktax:bexp')
-        TriggerEvent('qpixel-garages:PurchasedVeh2', 'Explorer', 'bexp', '0')
+        TriggerEvent('qpixel-garages:PurchasedVeh2', 'Explorer', 'npolexp2', '0')
     else
         TriggerEvent('DoLongHudText', "You do not have enough money!", 2)
     end
 end)   
 
-RegisterNetEvent('qpixel-garages:PurchasedEMSPRO')
-AddEventHandler('qpixel-garages:PurchasedEMSPRO', function()
+RegisterNetEvent('qpixel-garages:PurchasedExp')
+AddEventHandler('qpixel-garages:PurchasedExp', function()
     if exports["isPed"]:isPed("mycash") >= 35000 then
         --TriggerServerEvent('bankingremoveMoney', 5000)
         TriggerServerEvent('yorktax:emspro')
-        TriggerEvent('qpixel-garages:PurchasedVeh2', 'Sierra', 'emspro', '0')
+        TriggerEvent('qpixel-garages:PurchasedVeh2', 'Sierra', 'npolexp2', '0')
     else
         TriggerEvent('DoLongHudText', "You do not have enough money!", 2)
     end

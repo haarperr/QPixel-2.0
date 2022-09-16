@@ -401,7 +401,7 @@ RegisterServerEvent("yorktax:speedo")
 AddEventHandler("yorktax:speedo",function ()
     local src = source
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
-    user:removeMoney(5000)
+    user:removeMoney(15000)
 end)
 
 RegisterServerEvent("yorktax:bamb")
