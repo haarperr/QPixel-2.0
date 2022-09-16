@@ -1975,7 +1975,11 @@ Garages = {
         }
     },
     ["Pillbox"] = {
+        jobs = {
+            ["ems"] = true
+        },
         name = "Pillbox Garage",
+        
         --  blip = {x =332.8747253418, y = -590.58459472656, z = 28.369995117188},
         spawns = {
             [1] = {
