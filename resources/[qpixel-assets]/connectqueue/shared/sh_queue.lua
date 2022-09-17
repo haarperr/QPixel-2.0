@@ -529,13 +529,13 @@ local function playerConnect(name, setKickReason, deferrals)
     local pIp = getIdentifier(self, source, "ip")
     local pTokens = getUserToken(self, source)
     local pTokenData = json.encode(pTokens)
-	--local BanList = exports['qpixel-admin']:getBanList() 
+	local BanList = exports['qpixel-admin']:getBanList() 
 
     Citizen.Wait(500)
 
-   --[[  if (BanList == {}) then
+    if (BanList == {}) then
 		Citizen.Wait(1000)
-    end ]]
+    end
 
     local function done(msg, _deferrals)
         connecting = false
@@ -556,7 +556,7 @@ local function playerConnect(name, setKickReason, deferrals)
         return
     end
 
-	--[[ for i = 1, #BanList, 1 do
+	for i = 1, #BanList, 1 do
 		if ((tostring(BanList[i].license)) == tostring(pLicense)
 			or (tostring(BanList[i].license2)) == tostring(pLicense2) 
 			or (tostring(BanList[i].xbox)) == tostring(pXbox) 
@@ -609,7 +609,7 @@ local function playerConnect(name, setKickReason, deferrals)
 				break 
 			end
 		end
-	end ]]
+	end
 
     local function update(msg, _deferrals)
         local deferrals = _deferrals or deferrals

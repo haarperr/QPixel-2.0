@@ -5,29 +5,10 @@ Config = {}
 -- you can also give priority through the API, read the examples/readme.
 Config.Priority = {
     -- Management / Community Managers
-    ["steam:11000013fcd2349"] = 99, -- Aspect
-    ["steam:110000142b5b05b"] = 99, -- BxRaycon
-    ["steam:110000152d90217"] = 99, -- loleris
+    ["steam:11000013fcd2349"] = 99, -- Kazumi
+    ["steam:110000142b5b05b"] = 99, -- zuentity
+    ["steam:110000152d90217"] = 99, -- zukat
 
-    ["steam:110000152928485"] = 99, -- BobbyD
-    ["steam:1100001419279ef"] = 99, -- Nos
-    -- Staff
-    ["steam:11000014481bdb8"] = 90, -- Ryan
-    ["steam:110000116976442"] = 90, -- Ramiii
-    ["steam:110000118667dcc"] = 90, -- Lummox
-    ["steam:11000014481bdb8"] = 90, -- MrInk
-    ["steam:1100001449704b2"] = 90, -- Rakz
-    ["steam:110000141817c16"] = 90, -- Mackkk
-    ["steam:11000013d130311"] = 90, -- Etay
-    ["steam:1100001148604a8"] = 90, -- Lucas
-    -- Trust
-    ["steam:"] = 85, -- N/A
-    -- Tier 3 (70)
-    ["steam:"] = 70, -- N/A
-    -- Tier 2 (60)S
-    ["steam:"] = 60, -- N/A
-    -- Tier 1 (50)
-    ["steam:"] = 50, -- N/A
 
 }
 

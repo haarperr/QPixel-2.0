@@ -4,19 +4,19 @@
 
 /// Config Area ///
 
-var guild = "982008531085574194";
-var botToken = "OTkzMTU2NTM1NDAyMzgxNDEy.GoxcOp.3VJp6HZ1vesDC80Jg_xUQ7SSwj0YIkDbJ0gKcg";
+var guild = "947662586164420619";
+var botToken = "OTk3MTU5ODA5OTY5MjkxMzQ1.GwcfBT.4XoQNLVF4jjYKbFE2ZElcX9AyDvzthEpP-a6Hw";
 
 var whitelistRoles = [ // Roles by ID that are whitelisted.
-    "991195932374863882"
+    "956679918593396756"
 ]
 
 var blacklistRoles = [ // Roles by Id that are blacklisted.
     ""
 ]
 
-var notWhitelistedMessage = "You are not allowlisted for qpixel feel free to visit our discord https://discord.gg/qpixelroleplay"
-var noGuildMessage = "Discord Not Detected. Make sure your discord is on and in qpixel | discord.gg/qpixelroleplay."
+var notWhitelistedMessage = "Not In Discord | Join Discord Now To Play | https://discord.gg/qpixel"
+var noGuildMessage = "Discord Not Detected. Make sure your discord is on and you are in the qpixel discord | discord.gg/qpixel."
 var blacklistMessage = "You're blacklisted from this server."
 var debugMode = true
 
