@@ -1045,6 +1045,7 @@
           <AmmoMax50MP value="1000" />
           <AmmoMax100MP value="9999" />
           <AmmoFlags />
+          <AmmoSpecialType>Tracer</AmmoSpecialType>
         </Item>
         <Item type="CAmmoInfo">
           <Name>AMMO_SMG</Name>
@@ -1058,6 +1059,7 @@
           <AmmoMax50MP value="1000" />
           <AmmoMax100MP value="9999" />
           <AmmoFlags />
+          <AmmoSpecialType>Tracer</AmmoSpecialType>
         </Item>
         <Item type="CAmmoInfo">
           <Name>AMMO_RIFLE</Name>
@@ -1071,6 +1073,7 @@
           <AmmoMax50MP value="1000" />
           <AmmoMax100MP value="9999" />
           <AmmoFlags />
+          <AmmoSpecialType>Tracer</AmmoSpecialType>
         </Item>
         <Item type="CAmmoInfo">
           <Name>AMMO_MG</Name>
@@ -1304,12 +1307,12 @@
           <Model>w_lr_rpg_rocket</Model>
           <Audio />
           <Slot />
-          <AmmoMax value="20" />
-          <AmmoMax50 value="20" />
-          <AmmoMax100 value="20" />
-          <AmmoMaxMP value="20" />
-          <AmmoMax50MP value="20" />
-          <AmmoMax100MP value="20" />
+          <AmmoMax value="2" />
+          <AmmoMax50 value="2" />
+          <AmmoMax100 value="2" />
+          <AmmoMaxMP value="2" />
+          <AmmoMax50MP value="2" />
+          <AmmoMax100MP value="2" />
           <AmmoFlags>AddSmokeOnExplosion</AmmoFlags>
           <Damage value="0.000000" />
           <LifeTime value="5.000000" />
@@ -1375,12 +1378,12 @@
           <Model>w_lr_rpg_rocket</Model>
           <Audio />
           <Slot />
-          <AmmoMax value="20" />
-          <AmmoMax50 value="20" />
-          <AmmoMax100 value="20" />
-          <AmmoMaxMP value="20" />
-          <AmmoMax50MP value="20" />
-          <AmmoMax100MP value="20" />
+          <AmmoMax value="1" />
+          <AmmoMax50 value="1" />
+          <AmmoMax100 value="1" />
+          <AmmoMaxMP value="1" />
+          <AmmoMax50MP value="1" />
+          <AmmoMax100MP value="1" />
           <AmmoFlags>AddSmokeOnExplosion</AmmoFlags>
           <Damage value="0.000000" />
           <LifeTime value="20.000000" />
@@ -2650,6 +2653,20 @@
           <AmmoMax100MP value="160" />
           <AmmoFlags />
           <AmmoSpecialType>Incendiary</AmmoSpecialType>
+        </Item>
+        <Item type="CAmmoInfo">
+          <Name>AMMO_HCA</Name>
+          <Model />
+          <Audio />
+          <Slot />
+          <AmmoMax value="25" />
+          <AmmoMax50 value="25" />
+          <AmmoMax100 value="25" />
+          <AmmoMaxMP value="25" />
+          <AmmoMax50MP value="25" />
+          <AmmoMax100MP value="25" />
+          <AmmoFlags />
+          <AmmoSpecialType>Tracer</AmmoSpecialType>
         </Item>		
 	  </Infos>
     </Item>
@@ -5521,8 +5538,8 @@
           <HeadShotDamageModifierAI value="1000.000000" />
           <RecoilAccuracyToAllowHeadShotPlayer value="0.175000" />
           <MinHeadShotDistancePlayer value="5.000000" />
-          <MaxHeadShotDistancePlayer value="230.000000" />
-          <HeadShotDamageModifierPlayer value="1.750000" />
+          <MaxHeadShotDistancePlayer value="100.000000" />
+          <HeadShotDamageModifierPlayer value="2.500000" />
           <Damage value="40.000000" />
           <DamageTime value="0.000000" />
           <DamageTimeInVehicle value="0.000000" />
@@ -5733,10 +5750,6 @@
                   <Name>COMPONENT_PISTOL50_CLIP_01</Name>
                   <Default value="true" />
                 </Item>
-                <Item>
-                  <Name>COMPONENT_PISTOL50_CLIP_02</Name>
-                  <Default value="false" />
-                </Item>
               </Components>
             </Item>
             <Item>
@@ -5757,7 +5770,16 @@
                 </Item>
               </Components>
             </Item>
-			<Item>
+            <Item>
+              <AttachBone>WAPGrip</AttachBone>
+              <Components>
+                <Item>
+                  <Name>COMPONENT_PISTOL50_EXTENDED</Name>
+                  <Default value="false" />
+                </Item>
+              </Components>
+            </Item>
+			      <Item>
               <AttachBone>gun_root</AttachBone>
               <Components>
                 <Item>
@@ -6136,9 +6158,9 @@
           <HeadShotDamageModifierAI value="1000.000000" />
           <RecoilAccuracyToAllowHeadShotPlayer value="0.175000" />
           <MinHeadShotDistancePlayer value="5.000000" />
-          <MaxHeadShotDistancePlayer value="40.000000" />
-          <HeadShotDamageModifierPlayer value="1.700000" />
-          <Damage value="44.000000" />
+          <MaxHeadShotDistancePlayer value="70.000000" />
+          <HeadShotDamageModifierPlayer value="2.400000" />
+          <Damage value="38.000000" />
           <DamageTime value="0.000000" />
           <DamageTimeInVehicle value="0.000000" />
           <DamageTimeInVehicleHeadShot value="0.000000" />
@@ -6778,7 +6800,7 @@
           <HeadShotDamageModifierAI value="1000.000000" />
           <RecoilAccuracyToAllowHeadShotPlayer value="0.175000" />
           <MinHeadShotDistancePlayer value="5.000000" />
-          <MaxHeadShotDistancePlayer value="40.000000" />
+          <MaxHeadShotDistancePlayer value="300.000000" />
           <HeadShotDamageModifierPlayer value="2.000000" />
           <Damage value="38.000000" />
           <DamageTime value="0.000000" />
@@ -9706,7 +9728,7 @@
           <FireType>DELAYED_HIT</FireType>
           <WheelSlot>WHEEL_SNIPER</WheelSlot>
           <Group>GROUP_SNIPER</Group>
-          <AmmoInfo ref="AMMO_SNIPER" />
+          <AmmoInfo ref="AMMO_HCA" />
           <AimingInfo ref="RIFLE_HI_BASE_STRAFE" />
           <ClipSize value="5" />
           <AccuracySpread value="5.000000" />

@@ -79,7 +79,7 @@
           <HitLimbsDamageModifier value="0.500000" />
           <NetworkHitLimbsDamageModifier value="0.800000" />
           <LightlyArmouredDamageModifier value="0.750000" />
-          <VehicleDamageModifier value="1.500000" />
+          <VehicleDamageModifier value="2.500000" />
           <Force value="75.000000" />
           <ForceHitPed value="140.000000" />
           <ForceHitVehicle value="1200.000000" />
@@ -355,7 +355,7 @@
           </AttachPoints>
           <GunFeedBone />
           <TargetSequenceGroup />
-          <WeaponFlags>CarriedInHand OnlyFireOneShot OnlyFireOneShotPerTriggerPress ApplyBulletForce FirstPersonScope Gun CanLockonOnFoot CanLockonInVehicle CanFreeAim TwoHanded AnimReload AnimCrouchFire UsableOnFoot UsableInCover AllowEarlyExitFromFireAnimAfterBulletFired NoLeftHandIKWhenBlocked AllowCloseQuarterKills HasLowCoverReloads HasLowCoverSwaps LongWeapon UseFPSAimIK UseFPSSecondaryMotion FPSOnlyExitFireAnimAfterRecoilEnds DisableFPSAimForScope</WeaponFlags>
+          <WeaponFlags>CarriedInHand OnlyFireOneShot OnlyFireOneShotPerTriggerPress Gun CanLockonOnFoot CanLockonInVehicle CanFreeAim TwoHanded AnimReload AnimCrouchFire UsableOnFoot UsableInCover AllowEarlyExitFromFireAnimAfterBulletFired NoLeftHandIKWhenBlocked AllowCloseQuarterKills HasLowCoverReloads HasLowCoverSwaps LongWeapon UseFPSAimIK UseFPSSecondaryMotion FPSOnlyExitFireAnimAfterRecoilEnds</WeaponFlags>
           <TintSpecValues ref="TINT_GUNRUNNING" />
           <FiringPatternAliases ref="FIRING_PATTERN_RIFLE" />
           <ReloadUpperBodyFixupExpressionData ref="default" />

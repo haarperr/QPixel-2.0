@@ -587,18 +587,54 @@
 			<modelName>w_me_karambit</modelName>
 			<txdName>w_me_karambit</txdName>
 			<ptfxAssetName>null</ptfxAssetName>
-			<lodDist value="30"/>
+			<lodDist value="50"/>
 		</Item>
 		
 		<Item>
 			<modelName>w_ar_ak74</modelName>
 			<txdName>w_ar_ak74</txdName>
 			<ptfxAssetName>null</ptfxAssetName>
-			<lodDist value="30"/>
+			<lodDist value="100"/>
 		</Item>
 		<Item>
 			<modelName>w_ar_ak74_mag1</modelName>
 			<txdName>w_ar_ak74</txdName>
+			<ptfxAssetName>null</ptfxAssetName>
+			<lodDist value="30"/>
+		</Item>
+		<Item>
+			<modelName>w_sg_spas12</modelName>
+			<txdName>w_sg_spas12</txdName>
+			<ptfxAssetName>null</ptfxAssetName>
+			<lodDist value="100"/>
+		</Item>
+		<Item>
+			<modelName>w_sg_spas12_mag1</modelName>
+			<txdName>w_sg_spas12</txdName>
+			<ptfxAssetName>null</ptfxAssetName>
+			<lodDist value="30"/>
+		</Item>
+		<Item>
+			<modelName>w_ar_aksu74</modelName>
+			<txdName>w_ar_aksu74</txdName>
+			<ptfxAssetName>null</ptfxAssetName>
+			<lodDist value="100"/>
+		</Item>
+		<Item>
+			<modelName>w_ar_aksu74_mag1</modelName>
+			<txdName>w_ar_aksu74</txdName>
+			<ptfxAssetName>null</ptfxAssetName>
+			<lodDist value="30"/>
+		</Item>
+		<Item>
+			<modelName>w_sb_tec9</modelName>
+			<txdName>w_sb_tec9</txdName>
+			<ptfxAssetName>null</ptfxAssetName>
+			<lodDist value="100"/>
+		</Item>
+		<Item>
+			<modelName>w_sb_tec9_mag1</modelName>
+			<txdName>w_sb_tec9</txdName>
 			<ptfxAssetName>null</ptfxAssetName>
 			<lodDist value="30"/>
 		</Item>

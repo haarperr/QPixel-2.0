@@ -39,7 +39,7 @@
       <Infos>
         <Item type="CWeaponInfo">
           <Name>WEAPON_COMPACTRIFLE</Name>
-          <Model>w_ar_draco</Model>
+          <Model>w_ar_aksu74</Model>
           <Audio>AUDIO_ITEM_COMPACT_RIFLE</Audio>
           <Slot>SLOT_COMPACTRIFLE</Slot>
           <DamageType>BULLET</DamageType>
@@ -58,20 +58,20 @@
           <AimingInfo ref="PISTOL_FLAREGUN_BASE_STRAFE" />
           <ClipSize value="30" />
           <AccuracySpread value="3.900000" />
-          <AccurateModeAccuracyModifier value="0.850000" />
+          <AccurateModeAccuracyModifier value="0.650000" />
           <RunAndGunAccuracyModifier value="2.000000" />
           <RunAndGunAccuracyMinOverride value="-1.000000" />
-          <RecoilAccuracyMax value="0.900000" />
-          <RecoilErrorTime value="1.100000" />
-          <RecoilRecoveryRate value="1.100000" />
+          <RecoilAccuracyMax value="0.750000" />
+          <RecoilErrorTime value="1.500000" />
+          <RecoilRecoveryRate value="1.000000" />
           <RecoilAccuracyToAllowHeadShotAI value="1000.000000" />
           <MinHeadShotDistanceAI value="1000.000000" />
           <MaxHeadShotDistanceAI value="1000.000000" />
           <HeadShotDamageModifierAI value="1000.000000" />
           <RecoilAccuracyToAllowHeadShotPlayer value="0.175000" />
           <MinHeadShotDistancePlayer value="5.000000" />
-          <MaxHeadShotDistancePlayer value="60.000000" />
-          <HeadShotDamageModifierPlayer value="2.000000" />
+          <MaxHeadShotDistancePlayer value="94.000000" />
+          <HeadShotDamageModifierPlayer value="3.000000" />
           <Damage value="50.000000" />
           <DamageTime value="0.000000" />
           <DamageTimeInVehicle value="0.000000" />
@@ -156,7 +156,7 @@
             <MuzzleSmokeFxMinLevel value="0.300000" />
             <MuzzleSmokeFxIncPerShot value="0.100000" />
             <MuzzleSmokeFxDecPerSec value="0.250000" />
-            <MuzzleOverrideOffset x="0.420000" y="0.000000" z="0.044000" />
+            <MuzzleOverrideOffset x="0.3631568" y="-0.000146" z="0.0478732" />
             <ShellFx>eject_auto</ShellFx>
             <ShellFxFP>eject_smg_fp</ShellFxFP>
             <TracerFx>bullet_tracer</TracerFx>
@@ -295,7 +295,7 @@
               <AttachBone>WAPClip</AttachBone>
               <Components>
                 <Item>
-                  <Name>COMPONENT_DRACO_CLIP_01</Name>
+                  <Name>COMPONENT_AKSU74_CLIP_01</Name>
                   <Default value="true" />
                 </Item>
                 <Item>
@@ -339,7 +339,7 @@
           <GunFeedBone />
           <TargetSequenceGroup />
           <WeaponFlags>CarriedInHand Automatic Gun CanLockonOnFoot CanLockonInVehicle CanFreeAim TwoHanded AnimReload AnimCrouchFire TreatAsOneHandedInCover UsableOnFoot UsableInCover AllowEarlyExitFromFireAnimAfterBulletFired NoLeftHandIKWhenBlocked AllowCloseQuarterKills HasLowCoverReloads HasLowCoverSwaps TorsoIKForWeaponBlock LongWeapon UseFPSAimIK UseFPSSecondaryMotion FPSOnlyExitFireAnimAfterRecoilEnds DisableLeftHandIkInDriveby</WeaponFlags>
-          <TintSpecValues ref="TINT_DEFAULT" />
+          <TintSpecValues ref="TINT_GUNRUNNING" />
           <FiringPatternAliases ref="FIRING_PATTERN_RIFLE" />
           <ReloadUpperBodyFixupExpressionData ref="default" />
           <AmmoDiminishingRate value="3" />

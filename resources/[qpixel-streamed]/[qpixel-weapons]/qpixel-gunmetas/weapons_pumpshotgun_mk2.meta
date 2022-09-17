@@ -120,10 +120,10 @@
           <BatchSpread value="0.050000" />
           <ReloadTimeMP value="-1.000000" />
           <ReloadTimeSP value="-1.000000" />
-          <VehicleReloadTime value="1.000000" />
-          <AnimReloadRate value="0.900000" />
-          <BulletsPerAnimLoop value="8" />
-          <TimeBetweenShots value="0.800000" />
+          <VehicleReloadTime value="0.500000" />
+          <AnimReloadRate value="0.500000" />
+          <BulletsPerAnimLoop value="1" />
+          <TimeBetweenShots value="0.500000" />
           <TimeLeftBetweenShotsWhereShouldFireIsCached value="-1.000000" />
           <SpinUpTime value="0.000000" />
           <SpinTime value="0.000000" />
@@ -195,8 +195,8 @@
           <AiSoundRange value="-1.000000" />
           <AiPotentialBlastEventRange value="-1.000000" />
           <DamageFallOffRangeMin value="20.000000" />
-          <DamageFallOffRangeMax value="45.000000" />
-          <DamageFallOffModifier value="0.600000" />
+          <DamageFallOffRangeMax value="50.000000" />
+          <DamageFallOffModifier value="0.500000" />
           <VehicleWeaponHash />
           <DefaultCameraHash>SHOTGUN_AIM_CAMERA</DefaultCameraHash>
           <AimCameraHash />

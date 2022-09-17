@@ -33,7 +33,7 @@
   <AimingInfos />
   <Infos>
     <Item>
-      <Infos />
+      <Infos/>
     </Item>
     <Item>
       <Infos>
@@ -54,7 +54,7 @@
           <FireType>DELAYED_HIT</FireType>
           <WheelSlot>WHEEL_SNIPER</WheelSlot>
           <Group>GROUP_SNIPER</Group>
-          <AmmoInfo ref="AMMO_SNIPER" />
+          <AmmoInfo ref="AMMO_HCA" />
           <AimingInfo ref="RIFLE_HI_BASE_STRAFE" />
           <ClipSize value="5" />
           <AccuracySpread value="5.000000" />

@@ -24,7 +24,10 @@ files {
 	'weapons_specialcarbine_mk2.meta',
 	'weaponhominglauncher.meta',
 	'weapon_ceramicpistol.meta',
-	'weapondagger.meta'
+	'weapondagger.meta',
+	'weapongusenberg.meta',
+	'weapon_combatshotgun.meta',
+	'weaponmachinepistol.meta'
 }
 
 	data_file 'WEAPONCOMPONENTSINFO_FILE' 'weaponcomponents.meta'
@@ -66,3 +69,9 @@ files {
 	data_file 'WEAPONINFO_FILE_PATCH' 'weapon_ceramicpistol.meta'
 	data_file 'WEAPONINFO_FILE' 'weapondagger.meta'
 	data_file 'WEAPONINFO_FILE_PATCH' 'weapondagger.meta'
+	data_file 'WEAPONINFO_FILE' 'weapongusenberg.meta'
+	data_file 'WEAPONINFO_FILE_PATCH' 'weapongusenberg.meta'
+	data_file 'WEAPONINFO_FILE' 'weapon_combatshotgun.meta'
+	data_file 'WEAPONINFO_FILE_PATCH' 'weapon_combatshotgun.meta'
+	data_file 'WEAPONINFO_FILE' 'weaponmachinepistol.meta'
+	data_file 'WEAPONINFO_FILE_PATCH' 'weaponmachinepistol.meta'

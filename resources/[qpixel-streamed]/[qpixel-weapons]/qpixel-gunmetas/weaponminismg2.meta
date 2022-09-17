@@ -72,7 +72,7 @@
           <MinHeadShotDistancePlayer value="5.000000" />
           <MaxHeadShotDistancePlayer value="40.000000" />
           <HeadShotDamageModifierPlayer value="2.000000" />
-          <Damage value="45.000000" />
+          <Damage value="38.000000" />
           <DamageTime value="0.000000" />
           <DamageTimeInVehicle value="0.000000" />
           <DamageTimeInVehicleHeadShot value="0.000000" />
@@ -204,9 +204,9 @@
           <BulletDirectionOffsetInDegrees value="0.000000" />
           <AiSoundRange value="-1.000000" />
           <AiPotentialBlastEventRange value="-1.000000" />
-          <DamageFallOffRangeMin value="17.000000" />
+          <DamageFallOffRangeMin value="15.000000" />
           <DamageFallOffRangeMax value="90.000000" />
-          <DamageFallOffModifier value="0.520000" />
+          <DamageFallOffModifier value="0.500000" />
           <VehicleWeaponHash />
           <DefaultCameraHash>DEFAULT_THIRD_PERSON_PED_AIM_CAMERA</DefaultCameraHash>
           <AimCameraHash />
@@ -300,8 +300,13 @@
                   <Name>COMPONENT_SKORPION_CLIP_01</Name>
                   <Default value="true" />
                 </Item>
+              </Components>
+            </Item>
+            <Item>
+              <AttachBone>WAPSupp</AttachBone>
+              <Components>
                 <Item>
-                  <Name>COMPONENT_MINISMG_CLIP_02</Name>
+                  <Name>COMPONENT_AT_PI_SUPP</Name>
                   <Default value="false" />
                 </Item>
               </Components>
