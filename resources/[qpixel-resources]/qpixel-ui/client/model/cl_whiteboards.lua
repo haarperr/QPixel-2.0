@@ -1,6 +1,7 @@
 local currentClassRoomBoardUrl = "https://cdn.discordapp.com/attachments/979775387896774661/982377179751018577/unknown.png"
 local currentMeetingRoomBoardUrl = "https://cdn.discordapp.com/attachments/979775387896774661/982377179751018577/unknown.png"
-local inClassRoom, inMeetingRoom = false, false
+local uwuScreenOneBoardUrl = "https://cdn.discordapp.com/attachments/979775387896774661/982377179751018577/unknown.png"
+local inClassRoom, inMeetingRoom, inUwuCafe = false, false, false
 local dui = nil
 pURL = nil
 --[[
@@ -8,7 +9,7 @@ pURL = nil
     Events
 
 ]]
-
+ 
 Citizen.CreateThread(function()
 
     exports["qpixel-polyzone"]:AddPolyZone("mrpd_classroom",
@@ -19,6 +20,26 @@ Citizen.CreateThread(function()
             minZ = 34.04,
             maxZ = 37.69
         })
+
+    --UWU--
+
+   --[[  exports["qpixel-polyzone"]:AddPolyZone("ktown",
+    {
+        vector2(-581.58740234375, -1072.8555908203),
+        vector2(-562.11468505859, -1072.9683837891),
+        vector2(-562.28344726562, -1044.8640136719),
+        vector2(-614.44683837891, -1041.0454101562),
+        vector2(-610.89025878906, -1074.6127929688)
+    }, 
+    {
+        gridDivisions = 25,
+        minZ = 21.78,
+        maxZ = 22.32
+    })  ]]
+
+    -------
+
+
     exports["qpixel-polyzone"]:AddBoxZone("mrpd_meetingroom", vector3(474.07, -995.08, 30.69), 10.2, 5.2, {
         heading = 0,
         minZ = 29.64,
@@ -36,6 +57,30 @@ Citizen.CreateThread(function()
         minZ = 30.54,
         maxZ = 32.54
     })
+
+    --UWU--
+
+   --[[  exports["qpixel-polytarget"]:AddBoxZone("screen01", vector3(-587.1, -1060.58, 24.20), 0.6, 0.25, {
+        heading = 1,
+        minZ = 23.54,
+        maxZ = 24.47
+    })
+
+    exports["qpixel-interact"]:AddPeekEntryByPolyTarget("screen01", {{
+        event = "qpixel-polce:changewhiteboardurl",
+        id = 'uwus1changewhiteboardurlc',
+        icon = "circle",
+        label = "Change URL",
+        parameters = {
+            room = "uwuscreenone"
+        }
+    }}, {
+        distance = {
+            radius = 2.5
+        }
+    }) ]]
+
+    -------
 
     exports["qpixel-interact"]:AddPeekEntryByPolyTarget("mrdp_change_picture", {{
         event = "qpixel-polce:changewhiteboardurl",
@@ -116,6 +161,30 @@ AddEventHandler("qpixel-polyzone:exit", function(pZoneName, pZoneData)
     end
 end)
 
+--UWU--
+--[[ AddEventHandler("qpixel-polyzone:enter", function(pZoneName, pZoneData)
+    if pZoneName == "ktown" then
+        if not dui then
+            dui = exports["qpixel-lib"]:getDui(currentClassRoomBoardUrl)
+            AddReplaceTexture("denis3d_catcafe_txd", dui.dictionary, dui.texture)
+        else
+            exports["qpixel-lib"]:changeDuiUrl(dui.id, currentClassRoomBoardUrl)
+        end
+        inUwuCafe = true
+    end
+end)
+
+AddEventHandler("qpixel-polyzone:exit", function(pZoneName, pZoneData)
+    if pZoneName == "ktown" then
+        RemoveReplaceTexture("denis3d_catcafe_txd", "t_m_catcafe_imageatlas01")
+        if dui ~= nil then
+            exports["qpixel-lib"]:releaseDui(dui.id)
+            dui = nil
+        end
+        inUwuCafe = false
+    end
+end) ]]
+-------
 
 
 AddEventHandler("qpixel-polce:changewhiteboardurl", function(pParams)
@@ -153,5 +222,12 @@ AddEventHandler("police:changewhiteboardcli", function(pUrl, pRoom)
         if inMeetingRoom and dui then
             exports["qpixel-lib"]:changeDuiUrl(dui.id, currentMeetingRoomBoardUrl)
         end
+    --[[ elseif pRoom == "uwuscreenone" and inUwuCafe and dui then
+        uwuScreenOneBoardUrl = pUrl
+
+        if inUwuCafe and dui then
+            exports["qpixel-lib"]:changeDuiUrl(dui.id, uwuScreenOneBoardUrl)
+        end ]]
+
     end
 end)
