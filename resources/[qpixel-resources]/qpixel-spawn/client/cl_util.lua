@@ -310,7 +310,7 @@ function findCharPed(ped,isHover)
         else
             if (not isHover and Login.Selected) or (not Login.Selected) then
                 local pedCoords =  GetEntityCoords(ped)
-                for i=1,#Login.spawnLoc do
+                for i = 1, getCharLimit() do
                     if Login.CreatedPeds[i] ~= nil then
                         local spawnPos = vector3(Login.spawnLoc[i].x,Login.spawnLoc[i].y,Login.spawnLoc[i].z)
                         local dist = #(pedCoords - spawnPos)
@@ -328,6 +328,10 @@ function findCharPed(ped,isHover)
     end
     return Login.CurrentPedInfo
 end
+
+function getCharLimit()
+    return 8
+  end
 
 function GetPlayers()
     local players = {}
