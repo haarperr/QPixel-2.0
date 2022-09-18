@@ -45,6 +45,8 @@
                     </div>
                 </div>
 
+                
+
                 <div class="character-header" v-if="!showNewChar && !currentCharData && showDeleteConfirmation == null">
                     <div class="character-button" v-if="displayCharSelect">
                       <div class="character-name-wrapper">
@@ -64,11 +66,11 @@
                 </div>
 
                 <div class="bottom-buttons" v-if="!showNewChar">
-                    <div class="character-new-prompt" id="newcharButton">
+                    <!-- <div class="character-new-prompt" id="newcharButton">
                         <div class="character-text-new" v-on:click="showNewChar = true">
                             <i class="fas fa-plus" style="padding-top: 0.6vh; padding-right: 0.05vh;"></i>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="character-help-prompt" id="helpButton">
                         <div class="character-text-help" v-on:click="showHelpF">
@@ -132,6 +134,9 @@
                         <div class="new-help-key">Icon</div>
                         <div class="new-help-info">Question mark to Toggle menu</div>
                     </div>
+
+                    <div style="padding-top: 3%; font-size: 1.6vh">Want More Characters?</div>
+                    <div style="padding-top: 3%; font-size: 1.4vh">Then head over to qpixel.gg</div>
                 </div>
             </div>
 

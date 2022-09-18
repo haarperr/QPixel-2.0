@@ -90,7 +90,7 @@ let v = new Vue({
 			}
 
 			if (!this.showNewChar){
-			    if ($('#helpButton').is(':hover') || $('#newcharButton').is(':hover')) {
+			    if ($('#helpButton').is(':hover')) {
 				   safeToChange = false	
 			    }
 			}

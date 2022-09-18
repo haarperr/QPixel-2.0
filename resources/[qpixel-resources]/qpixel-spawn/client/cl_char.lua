@@ -52,8 +52,9 @@ function Login.CreatePlayerCharacterPeds(characterModelData,isReset)
         local PlusOneEmpty = false
 		
         local noCharacters = true
+        local chars = getCharLimit()
 		
-        for _=1,#Login.spawnLoc do
+        for _=1, chars do 
             local isCustom = false
             local character = nil
             local cid = 0
