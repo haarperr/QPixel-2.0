@@ -13,6 +13,7 @@ files {
 	'html/css/materialize.min.css',
 	'html/css/*.css',
 	'html/js/phone/*.js',
+	'html/js/phone/apps/*.js',
 	'html/images/*.png',
 	'html/images/*.jpg',
 	'html/images/*.svg',

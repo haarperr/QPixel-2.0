@@ -1,0 +1,106 @@
+
+function createCamera(cameras) {
+    $.each(cameras, function (__, camera) {
+        var random = Math.floor(Math.random() * 100000) + 1;
+        var name = camera.cameraName;
+        var camid = camera.cameraId;
+        var html =
+            `
+    <div camerahover=${random} class="component-paper camera-count" style="width: 100%;">
+        <div class="main-container">
+            <div class="image">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-camera fa-w-16 fa-3x"><path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path></svg>
+            </div>
+            <div class="details ">
+                <div class="title ">
+                <p class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary"
+                    style="word-break: break-word;">${name}</p>
+                </div>
+            </div>
+            <div camerahover="${random}" class="actions actions-show">
+                <div data-tippy-content="View" class="eye-camera" cameraid="${camid}">
+                    <svg style="font-size: 2.3vh;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="eye" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-eye fa-w-18 fa-1x"><path fill="currentColor" d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z" class=""></path></svg>
+                </div>`
+                if (camera.cameraOwner) {
+                    html += `<div data-tippy-content="Add Camera Access" class="add-camera" cameraid="${camid}">
+                        <svg style="font-size: 2.3vh;" aria-hidden="true" focusable="false" data-prefix="far" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640  512" class="svg-inline--fa fa-user-plus fa-w-18 fa-1x"><path fill="currentColor" d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3C0 496.5 15.52 512 34.66 512h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM616 200h-48v-48C568 138.8 557.3 128 544 128s-24 10.75-24 24v48h-48C458.8 200 448 210.8 448 224s10.75 24 24 24h48v48C520 309.3 530.8 320 544 320s24-10.75 24-24v-48h48C629.3 248 640 237.3 640 224S629.3 200 616 200z"class=""></path></svg>
+                    </div>
+                    <div data-tippy-content="Remove Camera Access" class="remove-camera" cameraid="${camid}">
+                        <svg style="font-size: 2.3vh;" aria-hidden="true" focusable="false" data-prefix="far" data-icon="user-minus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640  512" class="svg-inline--fa fa-user-minus fa-w-18 fa-1x"><path fill="currentColor" d="M274.7 304H173.3C77.61 304 0 381.6 0 477.3C0 496.5 15.52 512 34.66 512h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM616 200h-144C458.8 200 448 210.8 448 224s10.75 24 24 24h144C629.3 248 640 237.3 640 224S629.3 200 616 200z" class=""></path></svg>
+                    </div>`
+
+                }
+                html += `</div>
+        </div>
+    </div>`
+        $('.camera-inside').append(html);
+    })
+    tippy('[data-tippy-content]', {
+        theme: 'nopixel',
+        animation: 'scale',
+        inertia: true,
+      })
+    $(".component-paper").mouseover(function () {
+        overid = $(this).attr("camerahover")
+        $(".actions[camerahover=" + overid + "]").css("display", "flex");
+    }).mouseout(function () {
+        $(".actions").css("display", "none");
+    });
+    $(".eye-camera").click(function () {
+        var cameraId = $(this).attr('cameraid');
+        $.post('https://qpixel-phone/OpenCamera', JSON.stringify({
+            cameraId: cameraId
+        }));
+    })
+    $('.add-camera').click(function() {
+        var cameraId = $(this).attr('cameraid');
+        $("#cameras-id").val(cameraId)
+        $(".add-camera-form").css('display','flex');
+    })
+    $("#add-camera-cancel").click(function() {
+        $(".add-camera-form").hide();
+    })
+    $("#remove-camera-cancel").click(function() {
+        $(".remove-camera-form").fadeOut();
+    })
+    $(".remove-camera").click(function() {
+        var cameraId = $(this).attr('cameraid');
+        $("#cameras-id").val(cameraId)
+        $(".remove-camera-form").css('display','flex');
+        $(".removeCamera").empty();
+        $.post("https://qpixel-phone/getCameraAccessPlayers", JSON.stringify({
+            cameraId: cameraId
+        }))
+    })
+};
+
+
+$("#add-camera-submit").click(function() {
+    var cid = $("#contactInput-id").val();
+    var camid = $("#cameras-id").val();
+    $(".add-camera-form").fadeOut();
+    $("#contactInput-id").val("");
+
+    complateInputQuick()
+    setTimeout(() => {
+        $.post("https://qpixel-phone/addUserToCamera", JSON.stringify({
+            cameraId: camid,
+            targetPhoneNumber: cid
+        }))
+    }, 1500)
+})
+
+$("#remove-camera-submit").click(function() {
+    var cid = $("#cameraRemoveID").val();
+    var camid = $("#cameras-id").val();
+    $(".remove-camera-form").fadeOut();
+
+    complateInputQuick()
+    setTimeout(() => {
+        $("#cameraRemoveID").val("");
+        $.post("https://qpixel-phone/removeUserFromCamera", JSON.stringify({
+            cameraId: camid,
+            targetPhoneNumber: cid
+        }))
+    }, 1500)
+})
