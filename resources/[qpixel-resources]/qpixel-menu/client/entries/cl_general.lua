@@ -394,29 +394,29 @@ GeneralEntries[#GeneralEntries+1] = {
   end
 }
 
--- GeneralEntries[#GeneralEntries+1] = {
---   data = {
---       id = "drivingInstructor:testToggle",
---       title = "Driving Test",
---       icon = "#drivinginstructor-drivingtest",
---       event = "drivingInstructor:testToggle"
---   },
---   isEnabled = function(pEntity, pContext)
---       return not isDead and isInstructorMode
---   end
--- }
+GeneralEntries[#GeneralEntries+1] = {
+  data = {
+      id = "drivingInstructor:testToggle",
+      title = "Driving Test",
+      icon = "#drivinginstructor-drivingtest",
+      event = "drivingInstructor:testToggle"
+  },
+  isEnabled = function(pEntity, pContext)
+      return not isDead and isInstructorMode
+  end
+}
 
--- GeneralEntries[#GeneralEntries+1] = {
---   data = {
---       id = "drivingInstructor:submitTest",
---       title = "Submit Test",
---       icon = "#drivinginstructor-submittest",
---       event = "drivingInstructor:submitTest"
---   },
---   isEnabled = function(pEntity, pContext)
---       return not isDead and isInstructorMode
---   end
--- }
+GeneralEntries[#GeneralEntries+1] = {
+  data = {
+      id = "drivingInstructor:submitTest",
+      title = "Submit Test",
+      icon = "#drivinginstructor-submittest",
+      event = "drivingInstructor:submitTest"
+  },
+  isEnabled = function(pEntity, pContext)
+      return not isDead and isInstructorMode
+  end
+}
 
 GeneralEntries[#GeneralEntries+1] = {
   data = {
