@@ -227,10 +227,10 @@ end)
 
 RegisterInterfaceCallback('qpixel-business:finishPurchasePrompt', function (data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })
-    local success, message = RPC.execute("qpixel-business:completePurchaseRegister", data.key)
+    local success, message = RPC.execute("qpixel-business:completePurchase", data.key)  
     if not success then
         TriggerEvent("DoLongHudText", message, 2)
-    end
+    end 
 end)
 
 RegisterInterfaceCallback("qpixel-interface:business:charge", function(data, cb)

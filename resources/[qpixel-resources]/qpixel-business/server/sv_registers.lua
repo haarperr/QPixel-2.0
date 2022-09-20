@@ -31,6 +31,28 @@ RPC.register("qpixel-business:startPurchase", function(pSource, pData)
     TriggerClientEvent("qpixel-business:activePurchase", -1, insert)
 end)
 
+local random = math.random
+local function uuid()
+    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    return string.gsub(template, '[xy]', function (c)
+        local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
+        return string.format('%x', v)
+    end)
+end
+
+function dump(o)
+	if type(o) == 'table' then
+	   local s = '{ '
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ','
+	   end
+	   return s .. '} '
+	else
+	   return tostring(o)
+	end
+ end
+
 RPC.register("qpixel-business:completePurchase", function(pSource, pData)
     -- here we need to grab tax amount, and add to state account
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(pSource)
@@ -77,11 +99,62 @@ RPC.register("qpixel-business:completePurchase", function(pSource, pData)
 
     TriggerClientEvent('qpixel-phone:businessRegisterNoti', pSource, "SERVICE CHARGE", message)
 
+    print(dump(pData))
+
+    
+
+    local getBusinessNameByID = Await(SQL.execute("SELECT business_name FROM businesses WHERE business_id = @business_id", {
+        ["business_id"] = businessname
+    }))
+
+    print("HI")
+
     exports.oxmysql:execute("SELECT `bank` FROM `businesses` WHERE business_name = @pBizName", {['@pBizName'] = businessname}, function(pValues)
         exports.oxmysql:execute('UPDATE `businesses` SET `bank` = @newAmt WHERE `business_name` = @bizName', {
             ['@newAmt'] = pValues[1].bank + amount, ['@bizName'] = businessname
         }, function()
         end)
     end)
+
+    print("MAYBE")
+
+    local transactionId = uuid()
+    -- insert biz transaction log
+
+    exports.oxmysql:execute("INSERT INTO bank_transactions (identifier, sender, target, label, amount, iden, type, date, business_id, transaction_id) VALUES (@identifier, @sender, @target, @label, @amount, @iden, @type, @date, @business_id, @transaction_id)", {
+        ["identifier"] = 0,
+        ["sender"] = businessname,
+        ["target"] = char.first_name .. " " .. char.last_name, -- change to biz name,
+        ["label"] = data.comment,
+        ["amount"] = amount,
+        ["iden"] = "PURCHASE",
+        ["type"] = "pos",
+        ["date"] = os.date(), 
+        ["business_id"] = data.business,
+        ["transaction_id"] = transactionId
+    }, function(pValues) 
+    end)
+
+    exports.oxmysql:execute("INSERT INTO bank_transactions (identifier, sender, target, label, amount, iden, type, date, transaction_id) VALUES (@identifier, @sender, @target, @label, @amount, @iden, @type, @date, @transaction_id)", {
+        ["identifier"] = char.id,
+        ["sender"] = char.first_name .. " " .. char.last_name,
+        ["target"] = businessname,
+        ["label"] = data.comment, 
+        ["amount"] = amount,
+        ["iden"] = "PURCHASE", 
+        ["type"] = "neg",
+        ["date"] = os.date(),
+        ["transaction_id"] = transactionId
+    }, function(pValues) 
+    end)
+
+    print("DONE")
+
+    --[[ exports.oxmysql:execute("SELECT `bank` FROM `businesses` WHERE business_name = @pBizName", {['@pBizName'] = businessname}, function(pValues)
+        exports.oxmysql:execute('UPDATE `businesses` SET `bank` = @newAmt WHERE `business_name` = @bizName', {
+            ['@newAmt'] = pValues[1].bank + amount, ['@bizName'] = businessname
+        }, function()
+        end)
+    end) ]]
     return true
 end)
