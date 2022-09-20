@@ -20,6 +20,18 @@ GeneralEntries[#GeneralEntries+1] = {
 
 GeneralEntries[#GeneralEntries+1] = {
   data = {
+    id = "outfitsbruh",
+    title = "Outfits",
+    icon = "#blips-clothingshop", 
+    event = "raid_clothes:outfits"
+  },
+  isEnabled = function(pEntity, pContext)
+      return not isDead and exports['raid_clothes']:isNearClothing()
+  end
+}
+
+GeneralEntries[#GeneralEntries+1] = {
+  data = {
     id = "vehicles-keysgive",
     title = "Give Keys",
     icon = "#general-keys-give",
