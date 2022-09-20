@@ -20,22 +20,34 @@ local acceptedCustomers = {}
 --RegisterNetEvent("acceptOrDenyCustomer")
 RPC.register("qpixel-phone:sendChargeCustomerNotif", function(pSource, BusinessName, GroupID, stateID, amount, reason)
     local tSrc = getPlayerFromCidForCharge(tonumber(stateID))
+    local tax = exports['qpixel-business']:taxTotal(amount)
     local businessName = MySQL.query.await([[
         SELECT * FROM businesses WHERE business_id = ?
     ]],
     { GroupID })
 
-    TriggerClientEvent("qpixel-phone:chargeCustomerNotif", tSrc, {
+    
+ 
+    TriggerClientEvent("qpixel-phone:chargeCustomerNotif", tSrc, { 
         businessName = businessName[1].business_name, 
-        amount = amount, 
+        amount = tax,  
         stateID = stateID, 
         businessID = GroupID,
         senderID = pSource
     })
 end)
 
+local random = math.random
+local function uuid()
+    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    return string.gsub(template, '[xy]', function (c)
+        local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
+        return string.format('%x', v)
+    end)
+end
+
 RPC.register("qpixel-phone:chargeCustomerBus", function(pSource, amount, GroupID, stateID, sID)
-    local amtTax = exports['qpixel-business']:taxTotal(amount)
+    local amtTax = amount
     local tSrc = getPlayerFromCidForCharge(tonumber(stateID))
     local user = exports['qpixel-base']:getModule("Player"):GetUser(tSrc)
     local char = user:getCurrentCharacter()
@@ -52,6 +64,48 @@ RPC.register("qpixel-phone:chargeCustomerBus", function(pSource, amount, GroupID
             UPDATE businesses SET bank = ? WHERE business_id = ?
         ]],
         { businessBank[1].bank + amount, GroupID })
+
+
+        --[[ local getBizNameByID = Await(SQL.execute("SELECT business_name FROM businesses WHERE business_id = @business_id", {
+            ["business_id"] = GroupID
+        }))
+        print(GroupID)
+        print(json.encode(getBizNameByID))
+        local businessname = getBizNameByID[1].business_name ]]
+
+        local transactionId = uuid()
+        local comment = "Thanks for your order at " .. GroupID
+    
+        exports.oxmysql:execute("INSERT INTO bank_transactions (identifier, sender, target, label, amount, iden, type, date, business_id, transaction_id) VALUES (@identifier, @sender, @target, @label, @amount, @iden, @type, @date, @business_id, @transaction_id)", {
+            ["identifier"] = 0,
+            ["sender"] = GroupID,
+            ["target"] = char.first_name .. " " .. char.last_name, -- change to biz name,
+            ["label"] = comment,
+            ["amount"] = amount,
+            ["iden"] = "PURCHASE",
+            ["type"] = "pos",
+            ["date"] = os.date(), 
+            ["business_id"] = GroupID,
+            ["transaction_id"] = transactionId
+        }, function(pValues) 
+        end)
+        
+    
+        exports.oxmysql:execute("INSERT INTO bank_transactions (identifier, sender, target, label, amount, iden, type, date, transaction_id) VALUES (@identifier, @sender, @target, @label, @amount, @iden, @type, @date, @transaction_id)", {
+            ["identifier"] = char.id,
+            ["sender"] = char.first_name .. " " .. char.last_name,
+            ["target"] = GroupID,
+            ["label"] = comment, 
+            ["amount"] = amount,
+            ["iden"] = "PURCHASE", 
+            ["type"] = "neg",
+            ["date"] = os.date(),
+            ["transaction_id"] = transactionId
+        }, function(pValues) 
+        end)
+
+
+        --
     else
         TriggerClientEvent("qpixel-phone:businessRegisterNoti", sID, "SERVICE CHARGE", "They couldn't accept the payment")
         TriggerClientEvent("qpixel-phone:businessRegisterNoti", tSrc, "SERVICE CHARGE", "Not enough money to complete the payment.")
