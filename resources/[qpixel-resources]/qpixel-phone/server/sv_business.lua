@@ -75,17 +75,18 @@ RPC.register("qpixel-phone:chargeCustomerBus", function(pSource, amount, GroupID
 
         local transactionId = uuid()
         local comment = "Thanks for your order at " .. businessname
+        local commentB = "Purchase made by " .. char.first_name .. " " .. char.last_name
     
         exports.oxmysql:execute("INSERT INTO bank_transactions (identifier, sender, target, label, amount, iden, type, date, business_id, transaction_id) VALUES (@identifier, @sender, @target, @label, @amount, @iden, @type, @date, @business_id, @transaction_id)", {
             ["identifier"] = 0,
             ["sender"] = businessname,
             ["target"] = char.first_name .. " " .. char.last_name, -- change to biz name,
-            ["label"] = comment,
+            ["label"] = commentB,
             ["amount"] = amount,
             ["iden"] = "PURCHASE",
             ["type"] = "pos",
             ["date"] = os.date(), 
-            ["business_id"] = businessname,
+            ["business_id"] = GroupID,
             ["transaction_id"] = transactionId
         }, function(pValues) 
         end)
