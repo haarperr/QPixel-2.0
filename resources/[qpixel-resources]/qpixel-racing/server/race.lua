@@ -247,7 +247,7 @@ RPC.register("qpixel-racing:startRace", function(src, ids, countdowns, ownerID)
     local isStartEnabled = false
     for j,s in pairs(ActiveRaces[id]["players"]) do
         startTime = startTime+1
-        if startTime >= 4 then
+        if startTime >= 0 then
             isStartEnabled = true
         end
     end
