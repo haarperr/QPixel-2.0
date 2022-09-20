@@ -65,27 +65,27 @@ RPC.register("qpixel-phone:chargeCustomerBus", function(pSource, amount, GroupID
         ]],
         { businessBank[1].bank + amount, GroupID })
 
+        -- Need to fix this for bank account name
+        local getBizNameByID = MySQL.query.await([[
+            SELECT business_name FROM businesses WHERE business_id = ?
+        ]],
+        { GroupID })
 
-        --[[ local getBizNameByID = Await(SQL.execute("SELECT business_name FROM businesses WHERE business_id = @business_id", {
-            ["business_id"] = GroupID
-        }))
-        print(GroupID)
-        print(json.encode(getBizNameByID))
-        local businessname = getBizNameByID[1].business_name ]]
+        local businessname = getBizNameByID[1].business_name 
 
         local transactionId = uuid()
-        local comment = "Thanks for your order at " .. GroupID
+        local comment = "Thanks for your order at " .. businessname
     
         exports.oxmysql:execute("INSERT INTO bank_transactions (identifier, sender, target, label, amount, iden, type, date, business_id, transaction_id) VALUES (@identifier, @sender, @target, @label, @amount, @iden, @type, @date, @business_id, @transaction_id)", {
             ["identifier"] = 0,
-            ["sender"] = GroupID,
+            ["sender"] = businessname,
             ["target"] = char.first_name .. " " .. char.last_name, -- change to biz name,
             ["label"] = comment,
             ["amount"] = amount,
             ["iden"] = "PURCHASE",
             ["type"] = "pos",
             ["date"] = os.date(), 
-            ["business_id"] = GroupID,
+            ["business_id"] = businessname,
             ["transaction_id"] = transactionId
         }, function(pValues) 
         end)
@@ -94,7 +94,7 @@ RPC.register("qpixel-phone:chargeCustomerBus", function(pSource, amount, GroupID
         exports.oxmysql:execute("INSERT INTO bank_transactions (identifier, sender, target, label, amount, iden, type, date, transaction_id) VALUES (@identifier, @sender, @target, @label, @amount, @iden, @type, @date, @transaction_id)", {
             ["identifier"] = char.id,
             ["sender"] = char.first_name .. " " .. char.last_name,
-            ["target"] = GroupID,
+            ["target"] = businessname,
             ["label"] = comment, 
             ["amount"] = amount,
             ["iden"] = "PURCHASE", 
