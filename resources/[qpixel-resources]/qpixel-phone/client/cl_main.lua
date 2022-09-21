@@ -1193,7 +1193,7 @@ RegisterNUICallback('carpaymentsowed', function()
   TriggerEvent("car:carpaymentsowed")
 end)
 
-local sellCarPlate = 0
+local sellCarPlate = 0 
 
 RegisterNUICallback('sellVeh', function(data)
   TriggerEvent('DoLongHudText', 'Coming Soon')
@@ -1204,12 +1204,12 @@ RegisterNetEvent('qpixel-phone:sellCar')
 AddEventHandler('qpixel-phone:sellCar', function(plate,amount,sId)
   sellCarPlate = plate
   local title = "Purchase Vehicle"
-  data = {amount = amount, sellerID = sId, pType = 'car_sale'}
-  phoneBillNotification("car",data,title)
+  data = {amount = amount, sellerID = sId}
+  phoneBillNotification("carsale",data,title)  
 end)
 
 RegisterNUICallback('purchaseCar', function(data)
-  TriggerServerEvent('qpixel-phone:purchasedCar', sellCarPlate, data.amount,data.sID)
+  TriggerServerEvent('qpixel-phone:purchasedCar', sellCarPlate, data.amount,data.senderID)
 end)
 
 RegisterNUICallback('purchase_gas', function(data)

@@ -564,12 +564,24 @@ var bankBusterTargetID;
 var bankBusterSenderID;
 var bankBusterTargetCID;
 
+var amount;
+var sellerIDc;
+
 function createGasBill(gasinfo) {
 
 	if (pPhoneOpen === false) {
 		movePhone("notify")
 		clearInterval(GasInterval);
 		htmlse = ""
+	}
+
+
+	if (gasinfo.data.amount != null) {
+		amount = gasinfo.data.amount;
+	}
+
+	if (gasinfo.data.sellerID != null) {
+		sellerIDc = gasinfo.data.sellerID;
 	}
 
 	if (gasinfo.data.bankBusterGroupID != null) {
@@ -916,7 +928,7 @@ btnGasAccept = () => {
             }, 499)
         }
     }, 3000)
-	if (gasType == "gas") {
+	if (gasType == "gas") { 
 		$.post("https://qpixel-phone/purchase_gas", JSON.stringify({}))
 	} else if (gasType == "charge") {
 		$.post("https://qpixel-phone/acceptBusinessCharge", JSON.stringify({
@@ -925,6 +937,14 @@ btnGasAccept = () => {
 			pTargetID: targetID,
 			pSenderID: senderIDX
 		}))
+
+	} else if (gasType == "carsale") {
+		$.post("https://qpixel-phone/purchaseCar", JSON.stringify({
+			//plate: plate,
+			amount: amount,
+			senderID: sellerIDc,
+		}))
+
 	} else if (gasType == "joboffertowing") {
         $.post("https://qpixel-phone/accept_tow_job", JSON.stringify({}))
     } else if (gasType == "jobofferdelivery") {

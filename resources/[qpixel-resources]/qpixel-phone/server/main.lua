@@ -1473,7 +1473,7 @@ end)
 --       else
 --           TriggerClientEvent("phone:error", src)
 --       end
---   end)
+--   end) 
 -- end)
 
 RegisterNetEvent('setEyeColor')
@@ -1508,18 +1508,17 @@ RPC.register('qpixel-phone:sellVehicle', function(pSource,pl,py,am)
 end)
 
 RegisterServerEvent('qpixel-phone:purchasedCar')
-AddEventHandler('qpixel-phone:purchasedCar', function(plate,amount,sID)
+AddEventHandler('qpixel-phone:purchasedCar', function(plate,amount,sellerID)
     local src = source
     local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
     local char = user:getCurrentCharacter()
-    local player = exports["qpixel-base"]:getModule("Player"):GetUser(sID)
+    local player = exports["qpixel-base"]:getModule("Player"):GetUser(sellerID)
     local zchar = player:getCurrentCharacter()
     local cid = tonumber(char.id)
     local price = tonumber(amount)
 
     if tonumber(char.bank) > tonumber(amount) then
-        exports.oxmysql:execute('UPDATE characters_cars SET owner = @owner, cid = @cid  WHERE license_plate = @license_plate',{
-            ['owner'] = char.owner,
+        exports.oxmysql:execute('UPDATE characters_cars SET cid = @cid  WHERE license_plate = @license_plate',{
             ['cid'] = cid,
             ['license_plate'] = plate
         }, function()
