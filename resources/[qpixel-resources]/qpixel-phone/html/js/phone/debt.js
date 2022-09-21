@@ -1,4 +1,5 @@
-function addDebtCars(vehData){
+function addDebtCars2(vehData){ 
+    console.log(vehData)
     if (Object.keys(vehData).length == 0){
         $('.asset-fee').css('display', 'none');
     }
@@ -75,7 +76,7 @@ function addDebtCars(vehData){
             plate:plate,
             payment:payment
         }))
-        complateInput();
+        complateInputJustGreen();
         setTimeout(() => {
             $.post("https://qpixel-phone/btnDebt", JSON.stringify({}))
         }, 2000);
@@ -131,7 +132,7 @@ function addDebtHouse(houseData){
                     <button
                         class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall h-pawynow-button"
                         hId="${houseData[house].house_id}" h-payment="${paymentReq}" tabindex="0" type="button" debt-id="${houseData[house].id}">
-                    <span class="MuiButton-label">Pay</span>
+                    <span class="MuiButton-label">PAY NOW</span>
                     <span class="MuiTouchRipple-root"></span>
                     </button>
                 </div>
@@ -198,7 +199,7 @@ function addDebtPlayer(playerDebt){
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="calendar" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-calendar fa-w-14 fa-1x"><path fill="currentColor" d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z" class=""></path></svg>
                 </div>
                 <div class="text">
-                    <p data-tippy-content="Biller" class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary tippy-debt"
+                    <p aria-label="Biller" class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary"
                         style="word-break: break-word;">${playerDebt[debt].name}</p>
                 </div>
             </div>
@@ -207,8 +208,8 @@ function addDebtPlayer(playerDebt){
                 <svg  aria-hidden="true" focusable="false" data-prefix="fas" data-icon="calendar" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-calendar fa-w-14 fa-1x"><path fill="currentColor" d="M18.92 351.2l108.5-46.52c12.78-5.531 27.77-1.801 36.45 8.98l44.09 53.82c69.25-34 125.5-90.31 159.5-159.5l-53.81-44.04c-10.75-8.781-14.41-23.69-8.974-36.47l46.51-108.5c6.094-13.91 21.1-21.52 35.79-18.11l100.8 23.25c14.25 3.25 24.22 15.8 24.22 30.46c0 252.3-205.2 457.5-457.5 457.5c-14.67 0-27.18-9.968-30.45-24.22l-23.25-100.8C-2.571 372.4 5.018 357.2 18.92 351.2z" class=""></path></svg>
             </div>
             <div class="text">
-                <p class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary tippy-debt"
-                data-tippy-content="Call" id="call-debt" phone_number="${playerDebt[debt].number}" style="word-break: break-word;">${playerDebt[debt].number}</p>
+                <p class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary"
+                aria-label="Call" id="call-debt" phone_number="${playerDebt[debt].number}" style="word-break: break-word;">${playerDebt[debt].number}</p>
             </div>
         </div>
             <div class="debtItem">
@@ -232,12 +233,6 @@ function addDebtPlayer(playerDebt){
         </div>`
 
         $('.player-entries').append(houses);
-        tippy('.tippy-debt', {
-            theme: 'nopixel',
-            animation: 'scale',
-            inertia: true,
-          })
-
     }
    $('.p-pawynow-button').click(function(){
         pid = $(this).attr("pId")
@@ -248,7 +243,7 @@ function addDebtPlayer(playerDebt){
             did:did,
             payment:payment
         }))
-        complateInput();
+        complateInputJustGreen();
         setTimeout(() => {
             $.post("https://qpixel-phone/btnDebt", JSON.stringify({}))
         }, 2000);
@@ -263,10 +258,10 @@ function addDebtPlayer(playerDebt){
 }
 
 
-// $('.cars-entries, .debtjss271711').on('click', '.c-pawynow-button',function(e){
-//     e.preventDefault();
-//     // console.log("PAYMENTS FOR CAR")
-//     plate = $(this).attr("plate")
-//     overid = $(this).attr("cPayment")
-//     console.log("PRICE",overid,plate)
-// })
+/* $('.cars-entries, .debtjss271711').on('click', '.c-pawynow-button',function(e){
+    e.preventDefault();
+    // console.log("PAYMENTS FOR CAR")
+    plate = $(this).attr("plate")
+    overid = $(this).attr("cPayment")
+    console.log("PRICE",overid,plate)
+}) */

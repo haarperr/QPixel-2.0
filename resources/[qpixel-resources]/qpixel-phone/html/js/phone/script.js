@@ -61,6 +61,7 @@ let pModel = false;
 let editingHouse = false;
 let connectedToWifi = false;
 let hasVPN = false;
+let cars = {};
 
 const callStates = {
     0: "isNotInCall",
@@ -876,6 +877,7 @@ function createDOJDepartments(doj) {
 
     window.addEventListener('message', function (event) {
         var item = event.data;
+        //console.log(JSON.stringify(item))
 
         if (item.newContact === true) {
             // $('.jss1481').empty()f
@@ -1658,10 +1660,11 @@ function createDOJDepartments(doj) {
                 $('.jss2717').empty();
                 $('.jss489').css("display", "flex");
                 addNewVehicles(item.vehicleData, item.showCarPaymentsOwed)
+                cars = item.vehicleData
                 // addVehicles(item.vehicleData, item.showCarPaymentsOwed)
                 // openContainer("garage");
                 $("#garage-container").show()
-                
+                 
                 openContainer("jss2720")
                
                 break;
@@ -1846,12 +1849,19 @@ function createDOJDepartments(doj) {
             case "debt":
                 $('.jss1153').css('display',"none")
                 $('.wbank-container').css('display',"none")
+                $('.debt-entries').empty();
+                //console.log(JSON.stringify(item.cars))
+                //console.log(JSON.stringify(item.house))
                 openContainer("debt");
                 $('.debt-house-entries').empty()
                 $('.cars-entries').empty()
                 $('.player-entries').empty()
-                addDebtCars(item.cars)
-                addDebtPlayer(item.debt)
+                //console.log("------------------")
+                console.log(JSON.stringify(cars))
+                addDebtCars(cars)
+                //console.log("------------------")
+                //addDebtPlayer(item.debt) 
+                //addNewVehicles
                 break;
             case "newemail":
                $('.notification-email').css("display", "flex").hide().fadeIn(150);
@@ -3451,7 +3461,7 @@ $('#veh-amount').keyup(debounce(function () {
 }, 1));
 
 function addNewVehicles(vehicleData, showCarPayments){
-    // console.log(JSON.stringify(vehicleData))
+    console.log(JSON.stringify(vehicleData))
     if(Object.keys(vehicleData).length > 0){
         $('.noEmail').hide()
         $('.noVehicle').css('display', 'none')
@@ -8160,3 +8170,99 @@ $('.wifi-password').on('click', '#submit-input',function(){
         }, 2000);
     }
 })
+
+function addDebtCars(vehData){ 
+    //console.log(cars)
+    if (Object.keys(vehData).length == 0){
+        $('.asset-fee').css('display', 'none');
+    }
+    if (Object.keys(vehData).length >= 1){
+        $('.asset-fee').css('display', 'block');
+    }
+    
+    for (let vehicle of Object.keys(vehData)) {
+        let price = 0 
+        let payment = ""
+        console.log(JSON.stringify(vehData[vehicle].amountDue))
+        if (vehData[vehicle].amountDue !== null){
+            price = vehData[vehicle].amountDue
+        }
+        if (vehData[vehicle].lastPayment === 0){
+            payment = "Payments Overdue"
+        }else{
+            payment = vehData[vehicle].lastPayment+" Day(s) left"
+        }
+        // console.log("VEHICLE NAME",vehData[vehicle].name)
+        var car =`<div class="DebtPaper" id="debt-${vehData[vehicle].id}">
+        <div class="debtContainer clicked-function-container debt-count">
+           <div class="image">
+            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="receipt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline--fa fa-receipt fa-w-12 fa-3x" style="padding-right: 10px; overflow: unset;"><path fill="currentColor" d="M499.99 176h-59.87l-16.64-41.6C406.38 91.63 365.57 64 319.5 64h-127c-46.06 0-86.88 27.63-103.99 70.4L71.87 176H12.01C4.2 176-1.53 183.34.37 190.91l6 24C7.7 220.25 12.5 224 18.01 224h20.07C24.65 235.73 16 252.78 16 272v48c0 16.12 6.16 30.67 16 41.93V416c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32v-32h256v32c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32v-54.07c9.84-11.25 16-25.8 16-41.93v-48c0-19.22-8.65-36.27-22.07-48H494c5.51 0 10.31-3.75 11.64-9.09l6-24c1.89-7.57-3.84-14.91-11.65-14.91zm-352.06-17.83c7.29-18.22 24.94-30.17 44.57-30.17h127c19.63 0 37.28 11.95 44.57 30.17L384 208H128l19.93-49.83zM96 319.8c-19.2 0-32-12.76-32-31.9S76.8 256 96 256s48 28.71 48 47.85-28.8 15.95-48 15.95zm320 0c-19.2 0-48 3.19-48-15.95S396.8 256 416 256s32 12.76 32 31.9-12.8 31.9-32 31.9z" class=""></path>
+            </svg>
+           </div>
+           <div class="details ">
+              <div class="title ">
+                 <p class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary"
+                    style="word-break: break-word;">${price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+              </div>
+              <div class="description ">
+                 <p class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary"
+                    style="word-break: break-word;">Vehicle (${vehData[vehicle].name})</p>
+              </div>
+           </div>
+        </div>
+        <div class="debtDrawer">
+           <div class="debtItem">
+              <div class="icon">
+                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="calendar" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-calendar fa-w-14 fa-1x"><path fill="currentColor" 
+                    d="M512 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h448c35.35 0 64-28.65 64-64V96C576 60.65 547.3 32 512 32zM168.6 289.9c18.69 18.72 49.19 18.72 67.87 0c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94c-18.72 18.72-43.28 28.08-67.87 28.08s-49.16-9.359-67.87-28.08C116.5 305.8 106.5 281.6 106.5 256s9.1-49.75 28.12-67.88c37.44-37.44 98.31-37.44 135.7 0c9.375 9.375 9.375 24.56 0 33.94s-24.56 9.375-33.94 0c-18.69-18.72-49.19-18.72-67.87 0C159.5 231.1 154.5 243.2 154.5 256S159.5 280.9 168.6 289.9zM360.6 289.9c18.69 18.72 49.19 18.72 67.87 0c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94c-18.72 18.72-43.28 28.08-67.87 28.08s-49.16-9.359-67.87-28.08C308.5 305.8 298.5 281.6 298.5 256s9.1-49.75 28.12-67.88c37.44-37.44 98.31-37.44 135.7 0c9.375 9.375 9.375 24.56 0 33.94s-24.56 9.375-33.94 0c-18.69-18.72-49.19-18.72-67.87 0C351.5 231.1 346.5 243.2 346.5 256S351.5 280.9 360.6 289.9z" class=""></path></svg>
+              </div>
+              <div class="text">
+                 <p class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary"
+                    style="word-break: break-word;">${vehData[vehicle].plate}</p>
+              </div>
+           </div>
+           <div class="debtItem">
+              <div class="icon">
+                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="calendar" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-calendar fa-w-14 fa-1x"><path fill="currentColor" 
+                    d="M12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm436-44v-36c0-26.5-21.5-48-48-48h-48V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H160V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v36c0 6.6 5.4 12 12 12h424c6.6 0 12-5.4 12-12z" class=""></path></svg>
+              </div>
+              <div class="text">
+                 <p class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary"
+                    style="word-break: break-word;">${payment}</p>
+              </div>
+           </div>
+            <div class="flex-space-around" style="align-items: center;display: flex; width: 100%;">
+                <button
+                cPayment="${price}" plate="${vehData[vehicle].plate}" class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall c-pawynow-button" id="c-pawynow-button"
+                tabindex="0" type="button" debt-id="${vehData[vehicle].id}">
+                <span class="MuiButton-label">PAY NOW</span>
+                <span class="MuiTouchRipple-root"></span>
+                </button>
+            </div>
+           </div>
+     </div>`
+     $('.cars-entries').append(car);
+    }
+
+    $('.c-pawynow-button').click(function(){
+        plate = $(this).attr("plate")
+        payment = $(this).attr("cPayment")
+        $.post("https://qpixel-phone/car_paid", JSON.stringify({
+            plate:plate,
+            payment:payment
+        }))
+        complateInputJustGreen();
+        setTimeout(() => {
+            $.post("https://qpixel-phone/btnDebt", JSON.stringify({}))
+        }, 2000);
+   })
+
+    $('.debtContainer').parent('.DebtPaper').children(".debtDrawer").css("display", "none");
+}
+
+
+/* [{"enginePercent":100,"bodyPercent":96.9,"name":"npolvic","payments":10,"lastPayment":0,"amountDue":1,
+"plate":"61EVX817","state":"In","fuel":0,"model":"npolvic","garage":"Police Shared"},{"enginePercent":100,
+"bodyPercent":98.5,"name":"npolvic","payments":0,"lastPayment":0,"amountDue":0,"plate":"08PEF007",
+"state":"In","fuel":0,"model":"npolvic","garage":"Police Shared"}
+ */
