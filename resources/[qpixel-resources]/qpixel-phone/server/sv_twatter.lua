@@ -33,7 +33,7 @@ AddEventHandler('Tweet', function(handle, data, time)
       ['attachment'] = data.attachment
     }, 
     function(result)
-  end)
+  end) 
     -- local twat = MySQL.query.await([[
     --     SELECT * FROM tweets
     -- ]])

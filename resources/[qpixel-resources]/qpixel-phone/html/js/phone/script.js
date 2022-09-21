@@ -5623,18 +5623,15 @@ $("#twat-submit-input").click(function (event){
         // console.log("TJIOS SUBMIT")
         complateInputQuick();
         var msg = escapeHtml($(".send-twat-form .twat-message").val())
-        var urls = msg.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-        if (urls === null) {
-            urls = "";
-        }
-        console.log(urls)
-        msg.replace(urls, "")
+        var attach = $(".send-twat-form .twat-attach").val()
+
+        console.log(attach)
+
         $("#twatCleanedMessage").val(msg)
 
         var newMsg = $("#twatCleanedMessage").val()
-
         $.post('http://qpixel-phone/newTwatSubmit', JSON.stringify({
-            twat: { text: newMsg, attachment: urls },
+            twat: { text: newMsg, attachment: attach },
             time: moment.utc()
         }));
         // setTimeout(() => {

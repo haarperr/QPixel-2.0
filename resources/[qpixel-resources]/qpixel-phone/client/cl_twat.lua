@@ -41,6 +41,7 @@ end)
 RegisterNUICallback('newTwatSubmit', function(data, cb)
     local handle = exports["isPed"]:isPed("twitterhandle")
     TriggerServerEvent('Tweet', handle, data.twat, data.time)
+    print(json.encode(data.twat))
     TriggerServerEvent('qpixel-phone:twatSendNotification', handle, data, data.time)
     local data = {twat = data.twat} 
    
