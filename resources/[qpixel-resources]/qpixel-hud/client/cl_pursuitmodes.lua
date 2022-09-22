@@ -48,7 +48,7 @@ RegisterCommand("pursuit", function(source, args)
 		return 
 	end
 
-	if vehiclePresetName == "generic" and currentLevel == 5 then 
+	if vehiclePresetName == "generic" and currentLevel == 4 then 
 		currentLevel = 0 
 	end
 
@@ -93,20 +93,15 @@ RegisterCommand("pursuit", function(source, args)
 			pursuitmode = 0
 			SendNUIMessage({action = "pursuitmode", pursuitmode = 0})
 		end 
-		if modLevel.name == "A" then 
-			TriggerEvent("qpixel-hud:pursuit_values", 25)
-			pursuitmode = 25
-			SendNUIMessage({action = "pursuitmode", pursuitmode = 25})
-		end
 		if modLevel.name == "A+" then 
-			TriggerEvent("qpixel-hud:pursuit_values", 50)
-			pursuitmode = 50
-			SendNUIMessage({action = "pursuitmode", pursuitmode = 50})
+			TriggerEvent("qpixel-hud:pursuit_values", 33)
+			pursuitmode = 33
+			SendNUIMessage({action = "pursuitmode", pursuitmode = 33})
 		end
 		if modLevel.name == "S" then 
-			TriggerEvent("qpixel-hud:pursuit_values", 75)
-			pursuitmode = 75
-			SendNUIMessage({action = "pursuitmode", pursuitmode = 75})
+			TriggerEvent("qpixel-hud:pursuit_values", 66)
+			pursuitmode = 66
+			SendNUIMessage({action = "pursuitmode", pursuitmode = 66})
 		end
 		if modLevel.name == "S+" then 
 			TriggerEvent("qpixel-hud:pursuit_values", 100)
