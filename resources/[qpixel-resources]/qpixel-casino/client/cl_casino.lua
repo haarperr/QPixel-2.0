@@ -1,6 +1,6 @@
 local inCasino = false
 local postGateTriggered = false
-local carOnShow = `r35`
+local carOnShow = `vulcan`
 local carOnShowAppearence = json.decode('{"colors":{"primary":64,"secondary":0,"pearlescent":70,"wheels":0,"tyre":{"r":255,"g":255,"b":255},"neon":{"r":255,"g":0,"b":255},"xenon":12,"dashboard":0,"interior":0},"tint":3,"neon":{"left":false,"right":false,"front":false,"back":false},"extras":[1],"wheelType":0,"oldLivery":0,"plateIndex":0}')
 local carOnShowMods = json.decode('{"Spoilers":2,"FrontBumper":6,"RearBumper":6,"SideSkirt":-1,"Exhaust":-1,"Frame":0,"Grille":-1,"Hood":0,"Fender":-1,"RightFender":-1,"Roof":-1,"Engine":-1,"Brakes":-1,"Transmission":-1,"Horns":-1,"Suspension":3,"Armor":-1,"UNK17":false,"Turbo":false,"UNK19":false,"TireSmoke":false,"UNK21":false,"XenonHeadlights":1,"FrontWheels":56,"BackWheels":-1,"PlateHolder":-1,"VanityPlates":-1,"InteriorTrim":-1,"Ornaments":-1,"Dashboard":-1,"Dials":-1,"DoorSpeakers":-1,"Seats":-1,"SteeringWheel":-1,"ShiftLeavers":-1,"Plaques":-1,"Speakers":-1,"Trunk":-1,"Hydraulics":-1,"EngineBlock":-1,"AirFilter":-1,"Struts":-1,"ArchCover":-1,"Aerials":-1,"ExteriorTrim":-1,"Tank":-1,"Windows":-1,"UNK47":-1,"Livery":-1}')
 local carOnShow2 = `r1`
@@ -18,17 +18,12 @@ local auxCar = nil
 local duiList = {}
 local wheelDui = nil
 local tvDui = nil
---local tvUri = "https://i.imgur.com/cQ3KSpI.png"
---local tvUri = "https://i.imgur.com/FA1zej7.gif" 
-local tvUri = "https://prod-gta.nopixel.net/casinowheel/"
+local tvUri =   "https://prod-gta.nopixel.net/dui/?type=video&src=https://i.imgur.com/bgn4RKc.mp4&encoding=mp4" --"https://i.imgur.com/cQ3KSpI.png"
 local wheelUrl = "https://prod-gta.nopixel.net/casinowheel/"
 
-local _isRolling = false
 
 Citizen.CreateThread(function()
-  -- local isPublic = exports['qpixel-config']:IsPublic()
-  -- if not isPublic then return end
-  wheelUrl = "https://prod-gta.nopixel.net/casinowheel/"
+  local wheelUrl = "https://prod-gta.nopixel.net/casinowheel/"
 end)
 
 -- CAR FOR WINS
@@ -56,12 +51,12 @@ function drawCarForWins()
   if carOnShow2Active then
     auxCar = CreateVehicle(carOnShow2, 1007.23, 46.5, 70.47 + 0.05, 197.13, 0, 0)
   end
-  if carOnShowAppearence then
-    --exports['qpixel-vehicles']:SetVehicleAppearance(spinningCar, carOnShowAppearence)
-  end
-  if carOnShowMods then
-    --exports['qpixel-vehicles']:SetVehicleMods(spinningCar, carOnShowMods)
-  end
+  -- if carOnShowAppearence then
+  --   exports['qpixel-vehicles']:SetVehicleAppearance(spinningCar, carOnShowAppearence)
+  -- end
+  -- if carOnShowMods then
+  --   exports['qpixel-vehicles']:SetVehicleMods(spinningCar, carOnShowMods)
+  -- end
   SetVehicleDirtLevel(spinningCar, 0.0)
   SetVehicleOnGroundProperly(spinningCar)
   SetVehicleNumberPlateText(spinningCar, "SPIN2WIN")
@@ -89,10 +84,8 @@ end)
 
 AddEventHandler("qpixel-polyzone:enter", function(zone)
   if zone == "casino_entrance" then
-    print("dentro")
     enterCasino(true)
   elseif zone == "casino_exit" then
-    print("fora")
     enterCasino(false)
   end
 end)
@@ -153,44 +146,11 @@ function enterCasino(pIsInCasino)
     -- stopRunningInMyCasino()
     -- doRaffleTickets()
   end
-  -- if not pFromElevator then
-  --   DoScreenFadeOut(500)
-  --   Wait(500)
-  --   NetworkFadeOutEntity(PlayerPedId(), true, true)
-  --   Wait(300)
-  --   SetPedCoordsKeepVehicle(PlayerPedId(), pCoords)
-  --   SetEntityHeading(PlayerPedId(), pHeading)
-  --   Citizen.CreateThread(function()
-  --     -- if enterFirstTime and inCasino then
-  --     --   enterFirstTime = false
-  --     --   Citizen.Wait(500)
-  --     --   SetPedCoordsKeepVehicle(PlayerPedId(), exitTeleportCoords)
-  --     --   Citizen.Wait(500)
-  --     --   SetPedCoordsKeepVehicle(PlayerPedId(), entranceTeleportCoords)
-  --     -- end
-  --     if inCasino then
-  --       local pedCoords = RPC.execute("qpixel-casino:getSpawnedPedCoords", true)
-  --       handlePedCoordsBaby(pedCoords)
-  --       Citizen.Wait(250)
-  --     else
-  --       Citizen.Wait(800)
-  --     end
-  --     ClearPedTasksImmediately(PlayerPedId())
-  --     SetGameplayCamRelativeHeading(0.0)
-  --     NetworkFadeInEntity(PlayerPedId(), true)
-  --     if inCasino then
-  --       doInitStuff()
-  --     end
-  --     Citizen.Wait(500)
-  --     DoScreenFadeIn(500)
-  --   end)
-  -- end
   if not inCasino then
     doSomeTextureReplacesBruv(false)
     showThe6StrImage(false)
-    --RPC.execute("qpixel-casino:getSpawnedPedCoords", false)
     TriggerEvent("qpixel-casino:casinoExitedEvent")
-    TriggerServerEvent('qpixel-infinity:scopes:casino', false)
+    inCasino = false
     postGateTriggered = false
     return
   end
@@ -198,13 +158,12 @@ function enterCasino(pIsInCasino)
   -- handlePedCoordsBaby(pedCoords)
   doInitStuff()
   TriggerEvent("qpixel-casino:casinoEnteredEvent")
-  TriggerServerEvent('qpixel-infinity:scopes:casino', true)
 end
 
 Citizen.CreateThread(function()
-  --enterCasino(true)
+  -- enterCasino(true)
   Wait(10000)
- -- RPC.execute("qpixel-casino:getCurrentInteriorSetName")
+  RPC.execute("qpixel-casino:getCurrentInteriorSetName")
 end)
 
 local casinoRaffleThreadActive = false
@@ -284,12 +243,8 @@ function doSomeTextureReplacesBruv(apply)
   if wheelDui == nil then
     wheelDui = exports["qpixel-lib"]:getDui(wheelUrl, 1024, 1024)
     AddReplaceTexture('vw_prop_vw_luckywheel_01a', 'script_rt_casinowheel', wheelDui.dictionary, wheelDui.texture)
-    local retval = GetEntityRotation(wheelUrl, 1)
-    print("ROT",retval)
   else
     exports["qpixel-lib"]:changeDuiUrl(wheelDui.id, wheelUrl)
-    local retval2 = GetEntityRotation(wheelUrl, 1)
-    print("ROT2",retval2)
   end
 end
 
@@ -530,7 +485,6 @@ function handlePedCoordsBaby(pPedCoords)
     myPeds[#myPeds + 1] = { entity = ped, scenario = pedData.scenario, netId = pedNetId }
     Wait(0)
   end
- -- RPC.execute("qpixel-casino:handoffPedData", myPeds)
   Citizen.CreateThread(function()
     while inCasino do
       for _, ped in pairs(myPeds) do
@@ -559,83 +513,46 @@ function handlePedCoordsBaby(pPedCoords)
   -- end)
 end
 
-AddEventHandler("qpixel-casino:purchaseChips", function()
-  local data = {
-    {
-        title = "Comprar",
-        description = "Comprar Fichas",
-        action = "qpixel-ui:purchaseChipsAction",
-        key = "purchase"
-    },
-    -- {
-    --     title = "Purchase Dirty",
-    --     description = "Nice way to clean ahn?!",
-    --     action = "qpixel-ui:purchaseChipsAction",
-    --     key = "purchase:dirty"
-    -- },
-    {
-        title = "Levantar em Dinheiro",
-        description = "Dinheiro para o bolso!",
-        action = "qpixel-ui:purchaseChipsAction",
-        key = "withdraw:cash"
-    },
-    {
-        title = "Levantar para Banco",
-        description = "Levanta para a conta bancaria",
-        action = "qpixel-ui:purchaseChipsAction",
-        key = "withdraw:bank"
-        
-    },
-    {
-        title = "Transferir",
-        description = "Transferir fichas para um amigo",
-        action = "qpixel-ui:purchaseChipsAction",
-        key = "transfer"
-    },
-  }
-  exports["qpixel-interface"]:showContextMenu(data)
-end)
-
 -- chips
 RegisterInterfaceCallback("qpixel-ui:casinoPurchaseChipsAmount", function(data, cb)
-  cb({ data = {}, meta = { ok = true, message = '' } })
-  local amount = data[1].value
-  TriggerServerEvent("qpixel-casino:casinoPurchaseChips",amount)
+  cb({ data = {}, meta = { ok = true, message = "done" } })
+  local amount = data.values.amount 
+  RPC.execute("qpixel-casino:purchaseChips", amount)
   exports['qpixel-ui']:closeApplication('textbox')
 end)
 
 RegisterInterfaceCallback("qpixel-ui:transferChipsAmount", function(data, cb)
-  cb({ data = {}, meta = { ok = true, message = '' } })
-  local amount = data[1].value
-  local stateId = data[2].value
+  cb({ data = {}, meta = { ok = true, message = "done" } })
+  local amount = data.values.amount
+  local stateId = data.values.state_id
+  RPC.execute("qpixel-casino:transferChips", stateId, amount)
   exports['qpixel-ui']:closeApplication('textbox')
 end)
 
-RegisterInterfaceCallback("qpixel-ui:purchaseChipsAction", function(data, cb)
-  cb({ data = {}, meta = { ok = true, message = '' } })
-  exports["qpixel-ui"]:hideContextMenu(data)
-  --local action = pArgs[1]
-  local action = data.key
+AddEventHandler("qpixel-casino:purchaseChipsAction", function(pArgs)
+  local action = pArgs[1]
   if not hasMembership() then
     TriggerEvent("DoLongHudText", "Members only", 2)
     return
   end
-  if action == "purchase" then
-    Wait(100)
-    exports['qpixel-ui']:openApplication('textbox', {
-      callbackUrl = 'qpixel-ui:casinoPurchaseChipsAmount',
-      key = 1,
-      header = "Fichas Diamond Casino", 
-      items = {
-        {
-          icon = "fas fa-dollar-sign",
-          label = "Montante",
-          name = "amount",
-        },
-      },
-      show = true,
-    })
-  elseif action == "purchase:dirty" then
+
+  -- if action == "purchase" then
+  --   Wait(100)
+  --   exports['qpixel-ui']:openApplication('textbox', {
+  --     callbackUrl = 'qpixel-ui:casinoPurchaseChipsAmount',
+  --     key = 1,
+  --     header = "",
+  --     items = {
+  --       {
+  --         icon = "dollar-sign",
+  --         label = "Purchase Amount",
+  --         name = "amount",
+  --       },
+  --     },
+  --     show = true,
+  --   })
+
+  if action == "purchase:dirty" then
     local payment = math.random(10, 110)
     if exports["qpixel-inventory"]:hasEnoughOfItem("markedbills", 20, false, true) then
       TriggerEvent("inventory:removeItem", "markedbills", 20)
@@ -649,50 +566,48 @@ RegisterInterfaceCallback("qpixel-ui:purchaseChipsAction", function(data, cb)
       TriggerEvent("inventory:removeItem", "band", 5)
       payment = payment + (300 * 5) -- $1500, / $300 per
     end
-    --RPC.execute("qpixel-casino:purchaseChipsDirty", payment)
+    RPC.execute("qpixel-casino:purchaseChipsDirty", payment)
+
   elseif action == "withdraw:cash" then
-    local chipsAmount = exports["qpixel-inventory"]:getQuantity("redchip")
-    TriggerServerEvent("qpixel-casino:withdraw","cash",chipsAmount)
+    RPC.execute("qpixel-casino:withdrawChips", "cash")
   elseif action == "withdraw:bank" then
-    TriggerServerEvent("qpixel-casino:withdraw","bank",chipsAmount)
-  elseif action == "transfer" then
-    Wait(100)
-    exports['qpixel-ui']:openApplication('textbox', {
-      callbackUrl = 'qpixel-ui:transferChipsAmount',
-      key = 1,
-      header = "Diamond Casino Transferir",
-      items = {
-        {
-          icon = "fas fa-user",
-          label = "State ID",
-          name = "state_id",
-        },
-        {
-          icon = "fas fa-dollar-sign",
-          label = "Montante",
-          name = "amount",
-        },
-      },
-      show = true,
-    })
+    RPC.execute("qpixel-casino:withdrawChips", "bank")
+  -- elseif action == "transfer" then
+  --   Wait(100)
+  --   exports['qpixel-ui']:openApplication('textbox', {
+  --     callbackUrl = 'qpixel-ui:transferChipsAmount',
+  --     key = 1,
+  --     items = {
+  --       {
+  --         icon = "user",
+  --         label = "State ID",
+  --         name = "state_id",
+  --       },
+  --       {
+  --         icon = "dollar-sign",
+  --         label = "Amount",
+  --         name = "amount",
+  --       },
+  --     },
+  --     show = true,
+  --   })
   end
-  
 end)
 
 AddEventHandler("qpixel-casino:purchaseMembership", function()
-  local characterId = exports["isPed"]:isPed("cid")
-  -- local jobAccess = RPC.execute("IsEmployedAtBusiness", { character = { id = characterId }, business = { id = "casino"} })
-  -- if not jobAccess then
-  --   TriggerEvent("DoLongHudText", "Please talk to a member of floor staff", 2)
-  --   return
-  -- end
+  -- local characterId = exports["isPed"]:isPed("cid")
+  local jobAccess = exports["isPed"]:GroupRank('casino')
+  if not jobAccess then
+    TriggerEvent("DoLongHudText", "Please talk to a member of floor staff", 2)
+    return
+  end
   exports['qpixel-ui']:openApplication('textbox', {
     callbackUrl = 'qpixel-ui:casinoGetMembership',
     key = 1,
-    header = "Diamond Casino Membro",
+    header = '',
     items = {
       {
-        icon = "fas fa-user",
+        icon = "user",
         label = "State ID",
         name = "state_id",
       },
@@ -700,17 +615,18 @@ AddEventHandler("qpixel-casino:purchaseMembership", function()
     show = true,
   })
 end)
-
 RegisterInterfaceCallback("qpixel-ui:casinoGetMembership", function(data, cb)
-  cb({ data = {}, meta = { ok = true, message = '' } })
+  cb({ data = {}, meta = { ok = true, message = "done" } })
   exports['qpixel-ui']:closeApplication('textbox')
-  TriggerServerEvent("qpixel-casino:purchageMembership","normal", data[1].value)
+  local state_id = {
+    ["stateID"] = data[1].state_id
+    }
+  TriggerEvent("player:receiveItem", "casinomember", 1, true, state_id)
 end)
 
--- AddEventHandler("qpixel-casino:purchaseMembershipCard", function()
---   local characterId = exports["isPed"]:isPed("cid")
---   --RPC.execute("qpixel-casino:purchaseMembershipCard", characterId)
--- end)
+AddEventHandler("qpixel-casino:purchaseMembershipCard", function()
+  RPC.execute("qpixel-casino:purchaseMembershipCard")
+end)
 
 AddEventHandler("qpixel-casino:getLoyaltyCard", function()
   local characterId = exports["isPed"]:isPed("cid")
@@ -732,10 +648,10 @@ AddEventHandler("qpixel-casino:purchaseVipMembership", function()
   exports['qpixel-ui']:openApplication('textbox', {
     callbackUrl = 'qpixel-ui:casinoGetVipMembership',
     key = 1,
-    header = "Diamond Casino Membro VIP",
+    header = '',
     items = {
       {
-        icon = "fas fa-user",
+        icon = "user",
         label = "State ID",
         name = "state_id",
       },
@@ -744,9 +660,9 @@ AddEventHandler("qpixel-casino:purchaseVipMembership", function()
   })
 end)
 RegisterInterfaceCallback("qpixel-ui:casinoGetVipMembership", function(data, cb)
-  cb({ data = {}, meta = { ok = true, message = '' } })
+  cb({ data = {}, meta = { ok = true, message = "done" } })
   exports['qpixel-ui']:closeApplication('textbox')
-  TriggerServerEvent("qpixel-casino:purchageMembership","vip", data[1].value)
+  TriggerEvent("player:receiveItem", "casinovip", 1, false, { state_id = data.values.state_id }, { state_id = data.values.state_id })
 end)
 
 AddEventHandler("qpixel-casino:purchaseDrinks", function(data)
@@ -754,45 +670,17 @@ AddEventHandler("qpixel-casino:purchaseDrinks", function(data)
 end)
 
 function hasMembership(hrOnly)
-  if not exports['qpixel-inventory']:hasEnoughOfItem("casinomember", 1, false, true) and not exports['qpixel-inventory']:hasEnoughOfItem("casinovip", 1, false, true) then
+  local characterId = exports["isPed"]:isPed("cid")
+  local info = exports["qpixel-inventory"]:GetInfoForFirstItemOfName("casinomember")
+  if not info then
     return false
-  else
-    return true
   end
+  info = json.decode(info.information)
+  return tonumber(info.state_id) == tonumber(characterId)
 end
-
 exports('hasMembership', hasMembership)
 
-AddEventHandler("qpixel-casino:inVRHeadset", function(pInVRHeadset)
-  inVRHeadset = pInVRHeadset
-end)
 
-RegisterInterfaceCallback("qpixel-ui:casinoCheckSpentWheelAmount", function(data, cb)
-  cb({ data = {}, meta = { ok = true, message = '' } })
-  local stateId = data.values.state_id
-  --RPC.execute("qpixel-casino:checkSpentAmount", stateId)
-  exports['qpixel-ui']:closeApplication('textbox')
-end)
-AddEventHandler("qpixel-casino:wheel:checkSpentAmount", function()
-  local cid = exports["isPed"]:isPed("cid")
-  if cid ~= 3503 then
-    TriggerEvent("DoLongHudText", "You cannot do that.", 2)
-    return
-  end
-  exports['qpixel-ui']:openApplication('textbox', {
-    callbackUrl = 'qpixel-ui:casinoCheckSpentWheelAmount',
-    key = 1,
-    header = "Amount Spend",
-    items = {
-      {
-        icon = "fas fa-user-alt",
-        label = "State ID",
-        name = "state_id",
-      },
-    },
-    show = true,
-  })
-end)
 
 -- RegisterCommand("incas", function()
 --   inCasino = not inCasino
@@ -865,50 +753,3 @@ end)
 --     end
 --   end
 -- end)
-
-
-RegisterNetEvent("qpixel-luckywheel:doRoll")
-AddEventHandler("qpixel-luckywheel:doRoll", function(_priceIndex) 
-    _isRolling = true
-    --exports["qpixel-lib"]:changeDuiUrl(wheelDui.id, wheelUrl)
-    -- SetEntityHeading(wheelUrl, -30.0)
-    -- SetEntityRotation(wheelUrl, 0.0, 0.0, 0.0, 1, true)
-    Citizen.CreateThread(function()
-        local speedIntCnt = 1
-        local rollspeed = 1.0
-        local _priceIndex = math.random(1, 20)
-        local _winAngle = (_priceIndex - 1) * 18
-        local _rollAngle = _winAngle + (360 * 8)
-        local _midLength = (_rollAngle / 2)
-        local intCnt = 0
-        while speedIntCnt > 0 do
-            local retval = GetEntityRotation(wheelDui.id, 1)
-            if _rollAngle > _midLength then
-                speedIntCnt = speedIntCnt + 1
-            else
-                speedIntCnt = speedIntCnt - 1
-                if speedIntCnt < 0 then
-                    speedIntCnt = 0
-                    
-                end
-            end
-            intCnt = intCnt + 1
-            rollspeed = speedIntCnt / 10
-            local _y = retval.y - rollspeed
-            _rollAngle = _rollAngle - rollspeed
-             if _rollAngle < 5.0 then
-                 if _y > _winAngle then
-                     _y = _winAngle
-                 end
-             end
-             print(_y)
-            SetEntityRotation(wheelDui.id, 0.0, _y, 0.0, 1, true)
-            Citizen.Wait(0)
-        end
-    end)
-end)
-
-RegisterNetEvent("qpixel-luckywheel:rollFinished")
-AddEventHandler("qpixel-luckywheel:rollFinished", function() 
-    _isRolling = false
-end)
