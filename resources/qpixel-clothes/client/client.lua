@@ -3,6 +3,14 @@ playerApperance = nil
 currentFadeStyle = {}
 playerTattoos = {}
 
+local drawable_names = {"face", "masks", "hair", "torsos", "legs", "bags", "shoes", "neck", "undershirts", "vest", "decals", "jackets"}
+local prop_names = {"hats", "glasses", "earrings", "mouth", "lhand", "rhand", "watches", "braclets"}
+local head_overlays = {"Blemishes","FacialHair","Eyebrows","Ageing","Makeup","Blush","Complexion","SunDamage","Lipstick","MolesFreckles","ChestHair","BodyBlemishes","AddBodyBlemishes"}
+local face_features = {"Nose_Width","Nose_Peak_Hight","Nose_Peak_Lenght","Nose_Bone_High","Nose_Peak_Lowering","Nose_Bone_Twist","EyeBrown_High","EyeBrown_Forward","Cheeks_Bone_High","Cheeks_Bone_Width","Cheeks_Width","Eyes_Openning","Lips_Thickness","Jaw_Bone_Width","Jaw_Bone_Back_Lenght","Chimp_Bone_Lowering","Chimp_Bone_Lenght","Chimp_Bone_Width","Chimp_Hole","Neck_Thikness"}
+local tatCategory = GetTatCategs()
+local tattooHashList = CreateHashList()
+
+
 playerHeadBlend = {
     ["shapeFirst"] = 0,
     ["shapeSecond"] = 0,
@@ -113,7 +121,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     TriggerServerEvent("qpixel-clothes:loadPlayerSkin", PlayerPedId())
 end)
 
-CreateThread(function()
+CreateThread(function() 
     Config.SetShops()
 end)
 
@@ -272,11 +280,156 @@ RegisterNUICallback("handleClothe", function(data)
         end
     end
 end)
- 
+
+function GetCurrentPed()
+    player = PlayerPedId()
+    return {
+        model = GetEntityModel(PlayerPedId()),
+        hairColor = GetPedHair(),
+        headBlend = GetPedHeadBlendData(),
+        headOverlay = GetHeadOverlayData(),
+        headStructure = GetHeadStructure(),
+        drawables = GetDrawables(),
+        props = GetProps(),
+        drawtextures = GetDrawTextures(),
+        proptextures = GetPropTextures(),
+        eyeColor = GetPedEyeColor(player),
+        fadeStyle = currentFadeStyle
+    }
+end
+
+function GetSkin()
+    for i = 1, #frm_skins do
+        if (GetHashKey(frm_skins[i]) == GetEntityModel(PlayerPedId())) then
+            return {name="skin_male", value=i}
+        end
+    end
+    for i = 1, #fr_skins do
+        if (GetHashKey(fr_skins[i]) == GetEntityModel(PlayerPedId())) then
+            return {name="skin_female", value=i}
+        end
+    end
+    return false
+end
+
+function GetDrawables()
+    drawables = {}
+    local model = GetEntityModel(PlayerPedId())
+    local mpPed = false
+    if (model == `mp_f_freemode_01` or model == `mp_m_freemode_01`) then
+        mpPed = true
+    end
+    for i = 0, #drawable_names-1 do
+        if mpPed and drawable_names[i+1] == "undershirts" and GetPedDrawableVariation(player, i) == -1 then
+            SetPedComponentVariation(player, i, 15, 0, 2)
+        end
+        drawables[i] = {drawable_names[i+1], GetPedDrawableVariation(player, i)}
+    end
+    return drawables
+end
+
+function GetProps()
+    props = {}
+    for i = 0, #prop_names-1 do
+        props[i] = {prop_names[i+1], GetPedPropIndex(player, i)}
+    end
+    return props
+end
+
+function GetDrawTextures()
+    textures = {}
+    for i = 0, #drawable_names-1 do
+        table.insert(textures, {drawable_names[i+1], GetPedTextureVariation(player, i)})
+    end
+    return textures
+end
+
+function GetPropTextures()
+    textures = {}
+    for i = 0, #prop_names-1 do
+        table.insert(textures, {prop_names[i+1], GetPedPropTextureIndex(player, i)})
+    end
+    return textures
+end
+
+function GetDrawablesTotal()
+    drawables = {}
+    for i = 0, #drawable_names - 1 do
+        drawables[i] = {drawable_names[i+1], GetNumberOfPedDrawableVariations(player, i)}
+    end
+    return drawables
+end
+
+function GetPropDrawablesTotal()
+    props = {}
+    for i = 0, #prop_names - 1 do
+        props[i] = {prop_names[i+1], GetNumberOfPedPropDrawableVariations(player, i)}
+    end
+    return props
+end
+
+function GetTextureTotals()
+    local values = {}
+    local draw = GetDrawables()
+    local props = GetProps()
+
+    for idx = 0, #draw-1 do
+        local name = draw[idx][1]
+        local value = draw[idx][2]
+        values[name] = GetNumberOfPedTextureVariations(player, idx, value)
+    end
+
+    for idx = 0, #props-1 do
+        local name = props[idx][1]
+        local value = props[idx][2]
+        values[name] = GetNumberOfPedPropTextureVariations(player, idx, value)
+    end
+    return values
+end
+
+function GetPedHair()
+    local hairColor = {}
+    hairColor[1] = GetPedHairColor(player)
+    hairColor[2] = GetPedHairHighlightColor(player)
+    return hairColor
+end
+
+function GetHeadStructureData()
+    local structure = {}
+    for i = 1, #face_features do
+        structure[face_features[i]] = GetPedFaceFeature(player, i-1)
+    end
+    return structure
+end
+
+function GetHeadStructure(data)
+    local structure = {}
+    for i = 1, #face_features do
+        structure[i] = GetPedFaceFeature(player, i-1)
+    end
+    return structure
+end
+
+function GetHeadOverlayData()
+    local headData = {}
+    for i = 1, #head_overlays do
+        local retval, overlayValue, colourType, firstColour, secondColour, overlayOpacity = GetPedHeadOverlayData(player, i-1)
+        if retval then
+            headData[i] = {}
+            headData[i].name = head_overlays[i]
+            headData[i].overlayValue = overlayValue
+            headData[i].colourType = colourType
+            headData[i].firstColour = firstColour
+            headData[i].secondColour = secondColour
+            headData[i].overlayOpacity = overlayOpacity
+        end
+    end
+    return headData
+end
 
 function toggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
-    SendReactMessage('setDisplay', shouldShow)
+    SendReactMessage('setDisplay', shouldShow) 
 end
 
 RegisterNUICallback("closeNui", function(data)
@@ -288,12 +441,21 @@ RegisterNUICallback("closeNui", function(data)
         setPedAppearance(PlayerPedId(), playerApperance)
     end
 
+    playerSkin = GetCurrentPed()
+
     if data.buy and data.amount then
         local canPurchase = RPC.execute("qpixel-clothes:purchaseClothes", data.type, data.amount) 
         print(canPurchase)
         if canPurchase then
             TriggerEvent("DoLongHudText","Successfully Purchased.", 1)
-            TriggerServerEvent('qpixel-clothes:saveSkin', getPedAppearance(PlayerPedId()))
+
+            TriggerServerEvent("qpixel-clothes:insert_character_current", playerSkin)
+            TriggerServerEvent("qpixel-clothes:insert_character_face", playerSkin) 
+            TriggerServerEvent("qpixel-clothes:insert_character_face_blend", getPedAppearance(PlayerPedId())) 
+            TriggerServerEvent("qpixel-clothes:set_tats", getPedAppearance(PlayerPedId()))
+            --TriggerServerEvent("raid_clothes:set_tats", currentTats)
+
+           --TriggerServerEvent('qpixel-clothes:saveSkin', getPedAppearance(PlayerPedId()))
         elseif not canPurchase and playerApperance then
             TriggerEvent("DoLongHudText","Not enough bread.", 2)
             setPedAppearance(PlayerPedId(), playerApperance)
