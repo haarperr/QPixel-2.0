@@ -1688,7 +1688,7 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
     
     if (itemid == "detcord") then
 
-        TriggerEvent("detcord")
+        TriggerEvent("qpixel-doors:detCoord")
 
     end
 
