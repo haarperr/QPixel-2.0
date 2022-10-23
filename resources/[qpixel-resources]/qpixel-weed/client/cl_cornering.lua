@@ -7,6 +7,7 @@ local sellBlock = false
 local UsedPeds = {}
 local ActivePeds = {}
 
+
 local InteractStartCorner = {
     group = { 2 },
     data = {
@@ -22,8 +23,7 @@ local InteractStartCorner = {
         distance = { radius = 5.0 },
         isEnabled = function(pEntity, pContext)
             local hasWeed = exports["qpixel-inventory"]:hasEnoughOfItem("weedq", 1, false, true)
-        --    local isCorneringAlready = exports["qpixel-meth"]:IsCornering()
-            return not CurrentlyCornering and hasWeed and not IsPedInAnyVehicle(PlayerPedId(), false) and not isCorneringAlready
+            return not CurrentlyCornering and hasWeed and not IsPedInAnyVehicle(PlayerPedId(), false)
         end
     }
 }
@@ -103,7 +103,7 @@ AddEventHandler("qpixel-weed:startCornering", function(pContext, pEntity)
     end
 
     local canCorner, message, engMessage = RPC.execute("qpixel-weed:startCorner", CurrentCornerCoords)
-    TriggerEvent('DoLongHudText', 'Started Corner Selling.', 1)
+    TriggerEvent('DoLongHudText', 'Corner Active.', 1)
 
     if not canCorner then return end
 

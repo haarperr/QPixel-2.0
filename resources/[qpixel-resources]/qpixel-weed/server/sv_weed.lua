@@ -1,165 +1,155 @@
 local weedPlants = {}
 
-SQL = function(query, parameters, cb)
-    local res = nil
-    local IsBusy = true
-    exports.oxmysql:execute(query, parameters, function(result)
-        if cb then
-            cb(result)
-        else
-            res = result
-            IsBusy = false
-        end
-    end)
-    while IsBusy do
-        Citizen.Wait(0)
-    end
-    return res
-end
-
-RPC.register("qpixel-weed:getPlants", function()
+RPC.register("qpixel-weed:getPlants", function(src)
     return weedPlants
 end)
 
-function dump(o)
-	if type(o) == 'table' then
-	   local s = '{ '
-	   for k,v in pairs(o) do
-		  if type(k) ~= 'number' then k = '"'..k..'"' end
-		  s = s .. '['..k..'] = ' .. dump(v) .. ','
-	   end
-	   return s .. '} '
-	else
-	   return tostring(o)
-	end
- end
-
-RPC.register("qpixel-weed:plantSeed", function(pSource, pCoords, pTypeMod)
-    local src = source
+RPC.register("qpixel-weed:plantSeed", function(src, pCoords, pStrain)
     local pGender = 0
     local pTimestamp = os.time()
-    print(dump(pTypeMod))
-    local insertId = SQL([[
-        INSERT INTO weed (gender, coords, strain, timestamp)
+
+    local insertId = MySQL.insert.await([[
+        INSERT INTO _weed (gender, coords, strain, timestamp)
         VALUES (?, ?, ?, ?)
     ]],
-    { pGender, json.encode(pCoords), json.encode(pTypeMod), pTimestamp })
+    { pGender, json.encode(pCoords), json.encode(pStrain), pTimestamp })
+
+    if not insertId or insertId < 1 then
+        return false
+    end
+
     local data = {
         id = insertId,
         gender = pGender,
         coords = pCoords,
-        strain = pTypeMod,
+        strain = pStrain,
         timestamp = pTimestamp,
         last_harvest = 0
     }
 
     weedPlants[insertId] = data
     TriggerClientEvent("qpixel-weed:trigger_zone", -1, 1, data)
-
     return true
 end)
 
-RPC.register("qpixel-weed:daddWater", function(pPlantId)
-    local src = source
+RPC.register("qpixel-weed:addWater", function(src, pPlantId)
     local plant = weedPlants[pPlantId]
+
     if plant == nil then
         return false
     end
 
     local strain = plant["strain"]
     strain["water"] = strain["water"] + PlantConfig.WaterAdd
-    local affectedRows = SQL([[
-        UPDATE weed
+
+    local affectedRows = MySQL.update.await([[
+        UPDATE _weed
         SET strain = ?
         WHERE id = ?
     ]],
     { json.encode(strain), pPlantId })
+
+    if not affectedRows or affectedRows < 1 then
+        return false
+    end
+
     weedPlants[pPlantId]["strain"] = strain
     TriggerClientEvent("qpixel-weed:trigger_zone", -1, 2, weedPlants[pPlantId])
-
     return true
 end)
 
-function dump(o)
-	if type(o) == 'table' then
-	   local s = '{ '
-	   for k,v in pairs(o) do
-		  if type(k) ~= 'number' then k = '"'..k..'"' end
-		  s = s .. '['..k..'] = ' .. dump(v) .. ','
-	   end
-	   return s .. '} '
-	else
-	   return tostring(o)
-	end
- end
+RPC.register("qpixel-weed:addFertilizer", function(src, pPlantId, pType)
+    local plant = weedPlants[pPlantId]
 
-RPC.register("qpixel-weed:addFertilizer", function(pSrc, data)
-    local src = source
-    local plant = weedPlants[data.id]
-    print(dump(data))
     if plant == nil then
         return false
     end
-    local strain = plant["strain"]
-    strain[data.type] = strain[data.type] + PlantConfig.FertilizerAdd
 
-    local affectedRows = SQL([[
-        UPDATE weed
+    local strain = plant["strain"]
+    strain[pType] = strain[pType] + PlantConfig.FertilizerAdd
+
+    local affectedRows = MySQL.update.await([[
+        UPDATE _weed
         SET strain = ?
         WHERE id = ?
     ]],
-    { json.encode(strain), data.id })
-    weedPlants[data.id]["strain"] = strain
-    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 2, weedPlants[data.id])
+    { json.encode(strain), pPlantId })
+
+    if not affectedRows or affectedRows < 1 then
+        return false
+    end
+
+    weedPlants[pPlantId]["strain"] = strain
+    TriggerClientEvent("qpixel-weed:trigger_zone", -1, 2, weedPlants[pPlantId])
     return true
 end)
 
-RPC.register("qpixel-weed:addMaleSeed", function(pPlantId)
-    local src = source
+RPC.register("qpixel-weed:addMaleSeed", function(src, pPlantId)
     local plant = weedPlants[pPlantId]
+
     if plant == nil then
         return false
     end
-    local affectedRows = SQL([[
-        UPDATE weed
+
+    local affectedRows = MySQL.update.await([[
+        UPDATE _weed
         SET gender = 1
         WHERE id = ?
     ]],
     { pPlantId })
+
+    if not affectedRows or affectedRows < 1 then
+        return false
+    end
+
     weedPlants[pPlantId]["gender"] = 1
     TriggerClientEvent("qpixel-weed:trigger_zone", -1, 2, weedPlants[pPlantId])
     return true
 end)
 
-RPC.register("qpixel-weed:removePlant", function(pPlantId, pFertilizer)
-    local src = source
+RPC.register("qpixel-weed:removePlant", function(src, pPlantId, pFertilizer)
     local plant = weedPlants[pPlantId]
+
     if plant == nil then
         return false
     end
-    local affectedRows = SQL([[
-        DELETE FROM weed
+
+    local affectedRows = MySQL.update.await([[
+        DELETE FROM _weed
         WHERE id = ?
     ]],
     { pPlantId })
+
+    if not affectedRows or affectedRows < 1 then
+        return false
+    end
+
     weedPlants[pPlantId] = nil
     TriggerClientEvent("qpixel-weed:trigger_zone", -1, 3, { id = pPlantId })
     return true
 end)
 
-RPC.register("qpixel-weed:harvestPlant", function(pPlantId)
-    local src = source
+RPC.register("qpixel-weed:harvestPlant", function(src, pPlantId)
     local plant = weedPlants[pPlantId]
+
     if plant == nil then
         return false
     end
+
     local pTimestamp = os.time()
-    local affectedRows = SQL([[
-        UPDATE weed
+
+    local affectedRows = MySQL.update.await([[
+        UPDATE _weed
         SET last_harvest = ?
         WHERE id = ?
     ]],
     { pTimestamp, pPlantId })
+
+    if not affectedRows or affectedRows < 1 then
+        TriggerEvent("DoLongHudText", src, "ERROR: affectedRows == nil or affectedRows < 1", 2)
+        return false
+    end
+
     weedPlants[pPlantId]["last_harvest"] = pTimestamp
     TriggerClientEvent("qpixel-weed:trigger_zone", -1, 2, weedPlants[pPlantId])
 
@@ -167,13 +157,13 @@ RPC.register("qpixel-weed:harvestPlant", function(pPlantId)
         TriggerClientEvent("player:receiveItem", src, "weedq", 5)
     elseif weedPlants[pPlantId]["gender"] == 1 then
         if PlantConfig.RemoveMaleOnHarvest then
-            local affectedRows2 = SQL([[
-                DELETE FROM weed
+            local affectedRows2 = MySQL.update.await([[
+                DELETE FROM _weed
                 WHERE id = ?
             ]],
             { pPlantId })
 
-            if not affectedRows2.affectedRows2 or affectedRows2.affectedRows2 < 1 then
+            if not affectedRows2 or affectedRows2 < 1 then
                 TriggerEvent("DoLongHudText", src, "ERROR: affectedRows2 == nil or affectedRows2 < 1", 2)
                 return false
             end
@@ -192,21 +182,18 @@ RPC.register("qpixel-weed:harvestPlant", function(pPlantId)
             end
         end
     end
-
     return true
 end)
 
 Citizen.CreateThread(function()
-    local plants = SQL([[
+    local plants = MySQL.query.await([[
         SELECT *
-        FROM weed
+        FROM _weed
     ]])
 
     for idx, plant in ipairs(plants) do
-
         plant["coords"] = json.decode(plant.coords)
         plant["strain"] = json.decode(plant.strain)
-
         plant["coords"] = vector3(plant["coords"]["x"], plant["coords"]["y"], plant["coords"]["z"])
         weedPlants[plant.id] = plant
     end
@@ -216,13 +203,13 @@ Citizen.CreateThread(function()
 
         for id, plant in pairs(weedPlants) do
             if (time - plant.timestamp) >= (PlantConfig.LifeTime * 60) then
-                local affectedRows = SQL([[
-                    DELETE FROM weed
+                local affectedRows = MySQL.update.await([[
+                    DELETE FROM _weed
                     WHERE id = ?
                 ]],
                 { id })
 
-                if affectedRows.affectedRows and affectedRows.affectedRows > 0 then
+                if affectedRows and affectedRows > 0 then
                     weedPlants[id] = nil
                     TriggerClientEvent("qpixel-weed:trigger_zone", -1, 3, plant)
                 end

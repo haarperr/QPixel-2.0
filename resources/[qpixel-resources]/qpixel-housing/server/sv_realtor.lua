@@ -265,7 +265,6 @@ RegisterNetEvent("qpixel-housing:getGarages", function()
         local vector = vector3(info.garage_coordinates["x"], info.garage_coordinates["y"], info.garage_coordinates["z"])
         local heading = info.garage_coordinates["w"]
         local garagedata = json.encode(vector)
-        print(info,name,vector)
         TriggerClientEvent("menu:send:qpixel-housing:garages", src,json.decode(garagedata),v.hid)
     end
 end)

@@ -1,29 +1,25 @@
+--[[
+
+    Variables
+
+]]
+
 local weedPlants = {}
-activeZones = {}
+local activeZones = {}
 local inZone = false
 
-local function cl_ ()
-    print("Close menu?")
-    --exports["qpixel-interface"]:hideContextMenu() 
-end
+--[[
 
-function dump(o)
-	if type(o) == 'table' then
-	   local s = '{ '
-	   for k,v in pairs(o) do
-		  if type(k) ~= 'number' then k = '"'..k..'"' end
-		  s = s .. '['..k..'] = ' .. dump(v) .. ','
-	   end
-	   return s .. '} '
-	else
-	   return tostring(o)
-	end
- end
+    Functions
+
+]]
 
 function addPlant(pPlant)
     exports["qpixel-polyzone"]:AddCircleZone("qpixel-weed:plant", pPlant.coords, 50, {
+        --debugPoly = true,
         data = pPlant,
     })
+
     weedPlants[pPlant.id] = pPlant
 end
 
@@ -64,15 +60,10 @@ end
 
 function showPlantMenu(pPlantId)
     local plant = weedPlants[pPlantId]
-
-    --Build context menu
     local growth = getPlantGrowthPercent(plant)
-    local water = tonumber(plant.strain.water) * 100.0 -- plant.strain.water * 
+    local water = plant.strain.water * 100.0
     local myjob = exports["isPed"]:isPed("myjob")
-
-    local strainquality = getStrainQuality(plant.strain)
-    local strain = getStrainNameFromQuality(strainquality)
-
+    local context = {}
 
     local context = {}
     context[#context+1] = {
@@ -255,93 +246,69 @@ AddEventHandler("qpixel-weed:checkPlant", function(pContext, pEntity)
             break
         end
     end
+
     if not plantId then return end
+
     showPlantMenu(plantId)
 end)
 
-RegisterInterfaceCallback("qpixel-weed:addWater", function (data, cb) 
-    cb({ data = {}, meta = { ok = true, message = '' } })
-    if exports['qpixel-inventory']:hasEnoughOfItem('water', 1) then
-        playPourAnimation()
-        FreezeEntityPosition(PlayerPedId(), true)
-        local finished = exports["qpixel-taskbar"]:taskBar(5000,'Adding Water', false, true, false, false, nil, 5.0, PlayerPedId())
-        ClearPedTasks(PlayerPedId())
-        if finished == 100 then
-            FreezeEntityPosition(PlayerPedId(), false)
-            local success = RPC.execute("qpixel-weed:daddWater", data.key)
-            if not success then
-                TriggerEvent("DoLongHudText", "[ERR]: Could not add water.")
-            else
-                TriggerEvent("inventory:removeItem", "water", 1)
-            end
-        else
-            FreezeEntityPosition(PlayerPedId(), false)
-        end
-        showPlantMenu(data.key.id)
-    else
-        TriggerEvent('DoLongHudText', 'You do not have any water to water the plant.', 2)
-    end
-end)
+RegisterInterfaceCallback("qpixel-weed:addWater", function (pParams)
+    if not exports["qpixel-inventory"]:hasEnoughOfItem("water", 1, true, true) then return end
 
-RegisterInterfaceCallback('qpixel-weed:addFertilizer', function (data, cb)
-    if exports['qpixel-inventory']:hasEnoughOfItem('fertilizer', 1) then
-        cb({ data = {}, meta = { ok = true, message = '' } })
-        playPourAnimation()
-        FreezeEntityPosition(PlayerPedId(), true)
-        local finished = exports["qpixel-taskbar"]:taskBar(5000, 'Adding Fertilizer', false, true, false, false, nil, 5.0, PlayerPedId())
-        ClearPedTasks(PlayerPedId())
-        if finished == 100 then
-            FreezeEntityPosition(PlayerPedId(), false)
-            print(json.encode(data.key.type))
-            local success = RPC.execute("qpixel-weed:addFertilizer", data.key, data.key.type) 
-            if not success then
-                TriggerEvent("DoLongHudText", "[ERR]: Could not add fertilizer") 
-            else
-                TriggerEvent("inventory:removeItem", "fertilizer", 1)
-            end
-        else
-            FreezeEntityPosition(PlayerPedId(), false)
-        end
-        showPlantMenu(data.key.id)
-    else
-        TriggerEvent('DoLongHudText', 'You dont have fertilizer to add', 2)
-    end
-end)
-
-RegisterInterfaceCallback("qpixel-weed:addMaleSeed", function (data, cb)
-    cb({ data = {}, meta = { ok = true, message = '' } })
-    cl_()
-    if not exports["qpixel-inventory"]:hasEnoughOfItem("maleseed", 1, true, true) then return TriggerEvent('DoLongHudText', 'Missing Something !',2) end
-    TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_GARDENER_PLANT", 0, true)
-    FreezeEntityPosition(PlayerPedId(), true)
-    local finished = exports["qpixel-taskbar"]:taskBar(15000, 'Adding Male Seed', false, true, false, false, nil, 5.0, PlayerPedId())
+    playPourAnimation()
+    local finished = exports["qpixel-taskbar"]:taskBar(2000, "Adding Water", false, true, false, false, nil, 5.0, PlayerPedId())
     ClearPedTasks(PlayerPedId())
     if finished == 100 then
-        FreezeEntityPosition(PlayerPedId(), false)
-        RPC.execute("qpixel-weed:addMaleSeed", data.key)
-        TriggerEvent("inventory:removeItem", "maleseed", 1)
-    else
-        FreezeEntityPosition(PlayerPedId(), false)
-    end
-    showPlantMenu(data.key.id)
-end)
-
-RegisterInterfaceCallback("qpixel-weed:removePlant", function (data, cb)
-    cb({ data = {}, meta = { ok = true, message = '' } })
-    TriggerEvent("animation:PlayAnimation","layspike")
-    cl_()
-    FreezeEntityPosition(PlayerPedId(), true)
-    local finished = exports["qpixel-taskbar"]:taskBar(15000, 'Removing', false, true, false, false, nil, 5.0, PlayerPedId())
-    ClearPedTasks(PlayerPedId())
-    if finished == 100 then
-        FreezeEntityPosition(PlayerPedId(), false)
-        local getFertilizer = getPlantGrowthPercent(getPlantById(data.key.id)) > 20.0
-        local success = RPC.execute("qpixel-weed:removePlant", data.key, getFertilizer)
+        local success = RPC.execute("qpixel-weed:addWater", pParams.key.id)
         if not success then
-            print("[ERR]: Could not remove. pid:", data.key.id)
+            TriggerEvent("DoLongHudText", "[ERRO]: Could not add water", 2)
+        else
+            TriggerEvent("inventory:removeItem", "water", 1)
         end
-    else
-        FreezeEntityPosition(PlayerPedId(), false)
+    end
+    showPlantMenu(pParams.key.id)
+end)
+
+RegisterInterfaceCallback("qpixel-weed:addFertilizer", function (pParams)
+    if not exports["qpixel-inventory"]:hasEnoughOfItem("fertilizer", 1, true, true) then return end
+
+    playPourAnimation()
+    local finished = exports["qpixel-taskbar"]:taskBar(2000, "Adding Fertilizer", false, true, false, false, nil, 5.0, PlayerPedId())
+    ClearPedTasks(PlayerPedId())
+    if finished == 100 then
+            local success = RPC.execute("qpixel-weed:addFertilizer", pParams.key.id, pParams.key.type)
+        if not success then
+            TriggerEvent("DoLongHudText", "[ERRO]: Could not add fertilizer.")
+        else
+            TriggerEvent("inventory:removeItem", "fertilizer", 1)
+        end
+    end
+    showPlantMenu(pParams.key.id)
+end)
+
+RegisterInterfaceCallback("qpixel-weed:addMaleSeed", function (pParams)
+    if not exports["qpixel-inventory"]:hasEnoughOfItem("maleseed", 1, true, true) then return end
+
+    TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_GARDENER_PLANT", 0, true)
+    local finished = exports["qpixel-taskbar"]:taskBar(3000, "Adding Male Seed", false, true, false, false, nil, 5.0, PlayerPedId())
+    ClearPedTasks(PlayerPedId())
+    if finished == 100 then
+        RPC.execute("qpixel-weed:addMaleSeed", pParams.key.id)
+        TriggerEvent("inventory:removeItem", "maleseed", 1)
+    end
+    showPlantMenu(pParams.key.id)
+end)
+
+RegisterInterfaceCallback("qpixel-weed:removePlant", function (pParams)
+    TriggerEvent("animation:PlayAnimation","layspike")
+    local finished = exports["qpixel-taskbar"]:taskBar(3000, "Removing", false, true, false, false, nil, 5.0, PlayerPedId())
+    ClearPedTasks(PlayerPedId())
+    if finished == 100 then
+        local getFertilizer = getPlantGrowthPercent(weedPlants[pParams.key.id]) > 20.0
+        local success = RPC.execute("qpixel-weed:removePlant", pParams.key.id, getFertilizer)
+        if not success then
+            print("[ERRO]: Could not remove. pid:", pParams.key.id)
+        end
     end
 end)
 
@@ -359,7 +326,7 @@ AddEventHandler("qpixel-weed:pickPlant", function(pContext, pEntity)
 
     local plant = weedPlants[plantId]
     if getPlantGrowthPercent(plant) < PlantConfig.HarvestPercent then
-        TriggerEvent("DoLongHudText", "This plant is not ready yet..", 2)
+        TriggerEvent("DoLongHudText", "This plant is not ready yet.", 2)
         return
     end
 
@@ -376,18 +343,18 @@ AddEventHandler("qpixel-weed:pickPlant", function(pContext, pEntity)
     end
 
     TriggerEvent("animation:PlayAnimation", "layspike")
-    cl_()
-   -- local finished = exports["qpixel-taskbar"]:taskBar(10000, "Harvesting", false, true, false, false, nil, 5.0, PlayerPedId())
-   exports['qpixel-taskbar']:Progress({
-    duration = 10000,
-    label = "Harvesting",
-}, function(cancelled)
+    local finished = exports["qpixel-taskbar"]:taskBar(10000, "Harvesting", false, true, false, false, nil, 5.0, PlayerPedId())
     ClearPedTasks(PlayerPedId())
-    if not cancelled then
+    if finished == 100 then
         RPC.execute("qpixel-weed:harvestPlant", plantId)
     end
-  end)
 end)
+
+--[[
+
+    Threads
+
+]]
 
 --Creates da weed
 --TODO: cache close plants
