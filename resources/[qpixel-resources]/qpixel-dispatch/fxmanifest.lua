@@ -4,20 +4,11 @@ game 'gta5'
 version '1.4'
 
 client_scripts {
-    '@qpixel-lib/client/cl_rpc.lua',
     'config.lua',
     'client/*.lua',
 }
 
-shared_scripts {
-    "@qpixel-lib/shared/sh_util.lua",
-}
-
 server_scripts {
-    "@oxmysql/lib/MySQL.lua",
-    "@qpixel-lib/server/sv_rpc.lua",
-    "@qpixel-lib/server/sv_sql.lua",
-    'server_config.lua',
     'server/*.lua',
 }
 
@@ -35,6 +26,7 @@ files {
 
 exports {
     'dispatchadd',
-    'policedead',
+    'officerDownAlert',
+    'bankRobsnShit',
     'callsign_command'
 }

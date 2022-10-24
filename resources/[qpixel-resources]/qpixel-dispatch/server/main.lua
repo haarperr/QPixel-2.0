@@ -4,8 +4,8 @@ local dispatch_table = {}
 local dispatch_number = 0
 local html
 
-RegisterNetEvent("dispatch:add-police")
-AddEventHandler("dispatch:add-police", function(code, name, icon, under, coords)
+RegisterNetEvent("dispatch:add-police-to-dispatch")
+AddEventHandler("dispatch:add-police-to-dispatch", function(code, name, icon,under, coords)
     if icon == 'car' then
         icon = 'fa-car-side'
     elseif icon == 'heli' then
@@ -39,10 +39,10 @@ AddEventHandler("dispatch:add-police", function(code, name, icon, under, coords)
         whounder = "",
         aktif = false
     }
+end)
 
-    print(json.encode(police_table))
-    
-    print("Officer Signed On: " .. code .. " name: " .. name .. " icon: " .. icon)
+exports('GetDispatchCalls',function()
+    return dispatch_table
 end)
 
 RegisterNetEvent("dispatch:create-call")
@@ -74,8 +74,8 @@ AddEventHandler("dispatch:remove-call", function(alah)
 end)
 
 RegisterNetEvent("dispatch:add_police-assign")
-AddEventHandler("dispatch:add_police-assign", function(allahsizkurt)
-    TriggerClientEvent("dispatch:add_police-assign_cl", -1, allahsizkurt)
+AddEventHandler("dispatch:add_police-assign", function(pCallSign)
+    TriggerClientEvent("dispatch:add_police-assign_cl", -1, pCallSign)
 end)
 
 RegisterNetEvent("dispatch:delete_police-assign")
@@ -89,8 +89,8 @@ AddEventHandler("dispatch:delete-police_sv", function(alah)
 end)
 
 
-RegisterNetEvent("dispatch:alahyok")
-AddEventHandler("dispatch:alahyok", function()
+RegisterNetEvent("dispatch:police_tableSave")
+AddEventHandler("dispatch:police_tableSave", function()
     for k,v in pairs(police_table) do
         police_table[k].save = "1"
     end
@@ -124,46 +124,27 @@ AddEventHandler("dispatch:coords-police", function(code, coords, heading)
 end)
 
 RegisterNetEvent("dispatch:change-police")
-AddEventHandler("dispatch:change-police", function(data, currentCallSign)
-
-
-
-    
-    print(dump(data))
-    print(dump(data.icon)) 
-    print(dump(data.name))
-    print(dump(currentCallSign))
-    print(dump(police_table[currentCallSign].vehicle))
-    police_table[currentCallSign].vehicle = data.icon 
+AddEventHandler("dispatch:change-police", function(data)
+    police_table[data.name].vehicle = data.icon
 end)
 
-
-function dump(o)
-	if type(o) == 'table' then
-	   local s = '{ '
-	   for k,v in pairs(o) do
-		  if type(k) ~= 'number' then k = '"'..k..'"' end
-		  s = s .. '['..k..'] = ' .. dump(v) .. ','
-	   end
-	   return s .. '} '
-	else
-	   return tostring(o)
-	end
- end
-
-RegisterNetEvent("dispatch:get-police")
+RegisterServerEvent("dispatch:get-police")
 AddEventHandler("dispatch:get-police", function()
     TriggerClientEvent("dispatch:get-police-cl", source, police_table, dispatch_table)
 end)
 
-RPC.register('qpixel-police:getActiveUnits', function(pSource)
-    local count = 0
-    for k,v in pairs(police_table) do
-        count = count + 1
-    end
-    return count
-end)
 
+RegisterServerEvent('dispatch:setcallsign')
+AddEventHandler("dispatch:setcallsign", function()
+  local src = source
+  local user = exports['qpixel-base']:GetModule('GetPlayer')(src)
+  if user == nil then return end
+  local cid = user["PlayerData"]["id"]
+
+  local defaultType = 'car'
+  local getCallsign = exports['qpixel-mdt']:GetCallsign(cid) 
+  TriggerClientEvent('qpixel-dispatch:altercallsign;spawn',src,getCallsign,defaultType)
+end)
 
 RegisterNetEvent("dispatch:delete-police")
 AddEventHandler("dispatch:delete-police", function(name)
@@ -194,8 +175,8 @@ AddEventHandler("dispatch:table_ayril", function(player)
     police_table[player].aktif = false
 end)
 
-RegisterNetEvent("dispatch:alahyok2")
-AddEventHandler("dispatch:alahyok2", function()
+RegisterNetEvent("dispatch:force:closeithink")
+AddEventHandler("dispatch:force:closeithink", function()
     TriggerClientEvent("dispatch:tasima-force-yeter", -1)
 end)
 
@@ -203,10 +184,9 @@ end)
 RegisterNetEvent("getname")
 AddEventHandler("getname", function()
     local src = source   
-    local name = getIdentity(src)
-    fal = name.firstname .. " " .. name.lastname
-    call = name.callsign
-    TriggerClientEvent("getname-cl", src, fal,call)
+    local user = exports['qpixel-base']:GetModule('GetPlayer')(src)
+    local fullname = user["PlayerData"]["first_name"] .. " " .. user["PlayerData"]["last_name"]
+    TriggerClientEvent("getname-cl", src, fullname)
 end)
 
 RegisterNetEvent("dispatch:trigger-dispatch-server:normal")
@@ -228,7 +208,7 @@ AddEventHandler("dispatch:trigger-dispatch-server:normal", function(alertName, s
 end)
 
 RegisterNetEvent("dispatch:trigger-dispatch-server:full")
-AddEventHandler("dispatch:trigger-dispatch-server:full", function(alertName, street, car, plate, colorName, alertCoordx, alertCoordy, time, code, icon)
+AddEventHandler("dispatch:trigger-dispatch-server:full", function(alertName, street, car, plate, colorName, alertCoordx, alertCoordy, time, code)
     dispatch_number = dispatch_number + 1
 
     dispatch_table[dispatch_number] = {
@@ -242,25 +222,16 @@ AddEventHandler("dispatch:trigger-dispatch-server:full", function(alertName, str
         y = alertCoordy,
         time = time,
         plate = plate,
-        color = colorName,
-        icon = icon
+        color = colorName
     }
 
-    TriggerClientEvent("dispatch:trigger-dispatch-client:full", -1, dispatch_number, code, alertName,street, alertCoordx, alertCoordy, time,car,plate,colorName, icon)
+    TriggerClientEvent("dispatch:trigger-dispatch-client:full", -1, dispatch_number, code, alertName,street, alertCoordx, alertCoordy, time,car,plate,colorName)
 end)
 
 RegisterNetEvent("dispatch:trigger-dispatch-server:custom")
-AddEventHandler("dispatch:trigger-dispatch-server:custom", function(pPlayShit, alertName, street, alertCoordx, alertCoordy, time, code, icon, sa)
-    local user = exports["qpixel-base"]:getModule("Player"):GetUser(source)
-    local userjob = user:getVar("job")
-    
+AddEventHandler("dispatch:trigger-dispatch-server:custom", function(alertName, street, alertCoordx, alertCoordy, time, code, icon, pIsEmergency)
     dispatch_number = dispatch_number + 1
-
-    if pPlayShit == true then
-        TriggerClientEvent('qpixel-dispatch:beepEffect', -1)
-    end
-
-    if sa then 
+    if pIsEmergency then 
         dispatch_table[dispatch_number] = {
             code = code,
             mod = 1,
@@ -291,17 +262,16 @@ AddEventHandler("dispatch:trigger-dispatch-server:custom", function(pPlayShit, a
 
 end)
 
+
 AddEventHandler('playerDropped', function(reason)
     local src = source   
-    local name = getIdentity(src)
-    local fullname = name.firstname .. " " .. name.lastname
-
+    local user = exports['qpixel-base']:GetModule('GetPlayer')(src)
+    local fullname = user["PlayerData"]["first_name"] .. " " .. user["PlayerData"]["last_name"]
     for k,v in pairs(police_table) do
         local check = police_table[k].name
-        print(check, fullname)
         if police_table[k].name == fullname then
             TriggerClientEvent("dispatch:delete-player", -1, police_table[k].code)
             police_table[k] = nil
         end
     end
-end)
+end)  

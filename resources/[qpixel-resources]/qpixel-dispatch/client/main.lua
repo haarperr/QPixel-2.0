@@ -1,21 +1,13 @@
 local police_table = {}
 local dispatch_table = {}
 local playername
-local call
 local playercode
 local menu = false
 local enable_coord = false
 local html
+PlayerData  = {}
 
-
-
-RegisterNetEvent("qpixel-jobmanager:playerBecameJob")
-AddEventHandler("qpixel-jobmanager:playerBecameJob", function(job, name, notify)
-    if job ~= "police" then
-        TriggerServerEvent("dispatch:delete-police", playercode)
-    end
-end)
-
+-- Converted and optmized by ~ Ghost 
 
 --- nui callback --- 
 
@@ -24,14 +16,13 @@ RegisterNUICallback('close', function(data, cb)
     SetNuiFocusKeepInput(false)
     menu = false
 
-    TriggerServerEvent("dispatch:alahyok")
+    TriggerServerEvent("dispatch:police_tableSave")
 end)
 
 RegisterNUICallback('close-callsign', function(data, cb)
     SetNuiFocus(false, false)
     SetNuiFocusKeepInput(false)
-
-    TriggerServerEvent("dispatch:alahyok2")
+    TriggerServerEvent("dispatch:force:closeithink")
 end)
 
 RegisterNUICallback('set-coords', function(data, cb)
@@ -65,27 +56,13 @@ RegisterNUICallback('table_ayril', function(data, cb)
     TriggerServerEvent("dispatch:table_ayril", name)
 end)
 
-function dump(o)
-	if type(o) == 'table' then
-	   local s = '{ '
-	   for k,v in pairs(o) do
-		  if type(k) ~= 'number' then k = '"'..k..'"' end
-		  s = s .. '['..k..'] = ' .. dump(v) .. ','
-	   end
-	   return s .. '} '
-	else
-	   return tostring(o)
-	end
- end
+
 
 RegisterNUICallback('change-vehicle', function(data, cb)
-    TriggerEvent("kazumi:pd:icon:fix", data) 
-
-    --[[ TriggerServerEvent("dispatch:change-police", data) ]]
+    TriggerServerEvent("dispatch:change-police", data)
 end)
 
 RegisterNUICallback('under-police', function(data, cb)
-    print(data.player, data.owner)
     TriggerServerEvent("dispatch:table_sv", data.owner, data.player)
 end)
 
@@ -122,8 +99,7 @@ RegisterNUICallback('delete_police-assign', function(data, cb)
     TriggerServerEvent("dispatch:delete_police-assign", data.ronin)
 end)
 
----- command event
-
+---- dmb fkcs
 RegisterNetEvent("dispatch:add_police-assign_cl")
 AddEventHandler("dispatch:add_police-assign_cl", function(osurcam)
     SendNUIMessage({
@@ -141,7 +117,6 @@ end)
 
 RegisterNetEvent("dispatch:create-call_cl")
 AddEventHandler("dispatch:create-call_cl", function(test, test2, test3, test4)
-
     SendNUIMessage({
         action = "create_call",
         html = test2,
@@ -181,23 +156,16 @@ AddEventHandler("dispatch:close_ui_cl", function()
             action = "close-callsign"
         })
     end
-
     Citizen.Wait(300)
 
     if menu then
-
-
         SetNuiFocus(true, true)
-    
         SetNuiFocusKeepInput(true)
-
 
         TriggerServerEvent("dispatch:get-police")
         TriggerServerEvent("dispatch:osurcam-html")
 
         Citizen.Wait(1000)
-
-
         SendNUIMessage({
             action = "open",
             table = police_table,
@@ -209,16 +177,15 @@ AddEventHandler("dispatch:close_ui_cl", function()
 end)
 
 RegisterNetEvent("getname-cl")
-AddEventHandler("getname-cl", function(name, callsign)
+AddEventHandler("getname-cl", function(name)
     playername = name
-    call = callsign
 end)
 
 RegisterNetEvent("dispatch:delete-player")
 AddEventHandler("dispatch:delete-player", function(name)
     SendNUIMessage({
-        action = "deleteallah",
-        player_code = name
+        action = "delete-player",
+        code = name
     })
 end)
 
@@ -229,9 +196,8 @@ AddEventHandler("dispatch:get-police-cl", function(allah, allah2)
 end)
 
 RegisterNetEvent("dispatch:get-html")
-AddEventHandler("dispatch:get-html", function(allah)
-    html = allah
-
+AddEventHandler("dispatch:get-html", function(dataa)
+    html = dataa
     SendNUIMessage({
         action = "update-html",
         code = html
@@ -240,7 +206,6 @@ end)
 
 RegisterNetEvent("dispatch:delete-police_cl")
 AddEventHandler("dispatch:delete-police_cl", function(allah)
-    print(allah, "çıktı")
     SendNUIMessage({
         action = "deleteallah",
         player_code = allah
@@ -248,30 +213,35 @@ AddEventHandler("dispatch:delete-police_cl", function(allah)
 end)
 
 
-function callsign_command() 
-    callSing("car")
-end
--- functions ---
+function callsign_command(pCallsign, pName)
+    if playercode == nil then 
+        callSing(pCallsign, pName)
+    else
+        TriggerServerEvent("dispatch:delete-police_sv", playercode)
 
-RegisterNetEvent('qpixel-dispatch:openFull')
-AddEventHandler('qpixel-dispatch:openFull', function()
-    openMenu()
-    SendNUIMessage({
-        action = "map"
-    })
+        callSing(pCallsign, pName)
+    end
+end
+
+RegisterCommand("call-sing2", function(source, args)
+    TriggerServerEvent("dispatch:add-police-to-dispatch", args[1], args[2], args[3] , GetEntityCoords(PlayerPedId()))
+    Citizen.Wait(550)
+    TriggerServerEvent("dispatch:get-police")
 end)
 
+-- functions ---
+
 function openMenu()
-    if exports['isPed']:isPed("myjob") == "police" or exports['isPed']:isPed("myjob") == 'offpolice' then 
+    local myjob = exports['qpixel-base']:CurrentJob()
+    if myjob == "police" or myjob == 'state' or myjob == 'sheriff' then
         TriggerServerEvent("dispatch:get-police")
         TriggerServerEvent("dispatch:osurcam-html")
-        Citizen.Wait(250)
+        Citizen.Wait(350)
         SetNuiFocus(true, true)
         SetNuiFocusKeepInput(true)
     
         menu = not menu
     
-        print(menu)
     
         if menu then
             SendNUIMessage({
@@ -303,7 +273,8 @@ function openMenu()
                         code1 = dispatch_table[k].code
                     })
     
-                elseif dispatch_table[k].mode == "full" then     
+                elseif dispatch_table[k].mode == "full" then 
+    
                     SendNUIMessage({
                         action = "create_dispatch-menu",
                         mod = "vehicle",
@@ -392,7 +363,6 @@ function openMenuForce()
     Citizen.Wait(300)
     SetNuiFocus(true, true)
     SetNuiFocusKeepInput(true)
-    print("force calisti", menu)
 
     if menu then
         SendNUIMessage({
@@ -416,19 +386,20 @@ function openMenuForce()
     end)
 end
 
-function callSing(icon)
+function callSing(code, icon)
 
-  --  if playername == nil then 
+    if playername == nil then 
         TriggerServerEvent("getname")
-   -- end
+    end
 
     Citizen.Wait(250)
-    local string = call
+    local string = code .. " " .. playername
     playercode = string
     local coord = GetEntityCoords(PlayerPedId())
-    print(string, playername, icon, false, coord)
+    
+    TriggerServerEvent("dispatch:add-police-to-dispatch", string, playername, icon, false, coord)
 
-    TriggerServerEvent("dispatch:add-police", string, playername, icon, false, coord)
+    --TriggerServerEvent("dispatch:add-police-to-dispatch", code, playername, icon , GetEntityCoords(PlayerPedId()))
 
     Citizen.Wait(550)
 
@@ -437,22 +408,16 @@ function callSing(icon)
     enable_coord = true
 end
 
-RegisterCommand("countTest", function()
-    local count = RPC.execute("qpixel-police:getActiveUnits")
-
-    print(count)
-
-end)
-
 CreateThread(function()
     while true do
-        local sleep = 500
+        local sleep = 1000
 
         TriggerServerEvent("dispatch:get-police")
 
-        Citizen.Wait(250)
+        Citizen.Wait(1100)
 
         for k,v in pairs(police_table) do
+
             if v.x and v.y and v.whounder == "" or v.whounder == false then 
 
                 local icon
@@ -468,12 +433,30 @@ CreateThread(function()
                 end
 
                 -- if v.code == playercode then 
+                local myjob = exports['qpixel-base']:CurrentJob()
                 -- else
+                if myjob == "police" or myjob == 'state' or myjob == 'sheriff' then
+                    if v.code ~= playercode then 
+                        RemoveBlip(blip)
+                        blip = AddBlipForCoord(v.x, v.y, 5.0)
+                        SetBlipSprite(blip, 1)
+                        SetBlipDisplay(blip, 2)
+                        SetBlipScale(blip, 0.8)
+                        SetBlipColour(blip, 3)
+                        BeginTextCommandSetBlipName("STRING")
+                        AddTextComponentString(v.code)
+                        EndTextCommandSetBlipName(blip)
+                        
+                        ShowHeadingIndicatorOnBlip(blip, true)
+                        SetBlipRotation(blip, v.heading)
+                    end
+                end
                 -- end
+
                 
                 SendNUIMessage({
                     action = "update-coord",
-                    code = v.code .. ' - '..v.name,
+                    code = v.code,
                     x = v.x,
                     y = v.y,
                     vehicle = icon
@@ -676,36 +659,6 @@ local lastAlertId = nil
 local toggleOld = false
 local gpsName = ""
 
---[[
-Citizen.CreateThread(function()
-    while true do
-        local time = 1000
-        local ped = PlayerPedId()
-        if IsPedArmed(ped, 4) then
-            time = 1
-            if IsPedShooting(ped) then
-                local annen = math.random(1, 2)
-                if annen == 1 then
-                    local weaponSlec = GetSelectedPedWeapon(ped)
-                    if weaponSlec ~= `WEAPON_SNOWBALL` then
-                        if exports['isPed']:isPed("myjob") ~= "sheriff" and exports['isPed']:isPed("myjob") ~= "police" then
-                            if weaponSlec == `weapon_stungun` then
-                                dispatch("10-10", "Stinger S-200(Taser)", false)
-                            else
-                                dispatch("10-11", gunshotmsg, true)
-                            end
-                            Citizen.Wait(5000)
-                        end
-                    end
-                else
-                    Citizen.Wait(10000)
-                end
-            end
-        end
-        Citizen.Wait(time)
-    end
-end)]]
-
 function DisableDisplayControlActions()
     DisableControlAction(0, 1, true) -- disable mouse look
     DisableControlAction(0, 2, true) -- disable mouse look
@@ -732,9 +685,10 @@ function DisableDisplayControlActions()
     SetVehRadioStation(GetVehiclePedIsIn(PlayerPedId(),true), "OFF");
 end
 
-RegisterNetEvent("dispatch:trigger-dispatch-client:normal")
+RegisterNetEvent("dispatch:trigger-dispatch-client:normal") -- normal dispatch aca
 AddEventHandler("dispatch:trigger-dispatch-client:normal", function(code,code1, name, street, alertcoordx, alertcoordy, time)
-    if exports['isPed']:isPed("myjob") == "police" or "sheriff" or "state" then 
+    local myjob = exports['qpixel-base']:CurrentJob()
+    if myjob == "police" or myjob == 'state' or myjob == 'sheriff' then
         PlaySoundFrontend(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
         SendNUIMessage({
             action = "add-dispatch",
@@ -751,9 +705,11 @@ AddEventHandler("dispatch:trigger-dispatch-client:normal", function(code,code1, 
     end
 end)
 
+
 RegisterNetEvent("dispatch:trigger-dispatch-client:full")
 AddEventHandler("dispatch:trigger-dispatch-client:full", function(code,code1, name, street, alertcoordx, alertcoordy, time, car, plate, carColor)
-    if exports['isPed']:isPed("myjob") == "police" then 
+    local myjob = exports['qpixel-base']:CurrentJob()
+    if myjob == "police" or myjob == 'state' or myjob == 'sheriff' then 
         PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false)
         SendNUIMessage({
             action = "add-dispatch",
@@ -773,7 +729,7 @@ AddEventHandler("dispatch:trigger-dispatch-client:full", function(code,code1, na
     end
 end)
 
-function dispatch(code, alertName, plate, alertCoord, vehicle, icon)
+function dispatch(code, alertName, plate, alertCoord, vehicle)
     local vehActive = true
     if vehicle ~= nil then vehActive = vehicle end
     local hidePlate = false
@@ -782,8 +738,6 @@ function dispatch(code, alertName, plate, alertCoord, vehicle, icon)
     local playerPed = PlayerPedId()	
     local padCoords = GetEntityCoords(playerPed)
     local alertCoord = vector3(padCoords.x, padCoords.y, padCoords.z)
-    local alertCoordx = padCoords.x
-    local alertCoordy = padCoords.y
 
     if alertCoord then alertCoord = vector3(alertCoord.x, alertCoord.y, alertCoord.z) end
 
@@ -802,39 +756,44 @@ function dispatch(code, alertName, plate, alertCoord, vehicle, icon)
     end
 
     local hour = GetClockHours()
-    if hour < 10 then 
-        hour = "0" .. hour
-    end
-    local minute = GetClockMinutes()
-    if minute < 10 then 
-        minute = "0" .. minute
-    end
-    local time = hour .. ":" .. minute
+        if hour < 10 then 
+            hour = "0" .. hour
+        end
+        local minute = GetClockMinutes()
+        if minute < 10 then 
+            minute = "0" .. minute
+        end
+        local time = hour .. ":" .. minute
 
-    local showPlate = math.random(1, 100)
-    local vehicle = GetVehiclePedIsIn(GetPlayerPed(-1))
-    local color1 = colors[tostring(GetVehicleCustomPrimaryColour(vehicle))]
-    local color2 = colors[tostring(GetVehicleCustomSecondaryColour(vehicle))]
-    local plate = plate
+    if IsPedInAnyVehicle(playerPed, false) and vehActive then
+        local showPlate = math.random(1, 100)
+        local vehicle = GetVehiclePedIsIn(GetPlayerPed(-1))
+        local color1 = colors[tostring(GetVehicleCustomPrimaryColour(vehicle))]
+        local color2 = colors[tostring(GetVehicleCustomSecondaryColour(vehicle))]
+        local plate = "Unknown"
 
-    if showPlate < 50 and not hidePlate then plate = GetVehicleNumberPlateText(vehicle) end
+        if showPlate < 50 and not hidePlate then plate = GetVehicleNumberPlateText(vehicle) end
 
-    if color2 == color1 then
-        colorName = color1
+        if color2 == color1 then
+            colorName = color1
+        else
+            colorName = color1 ..', '.. color2
+        end
+
+        TriggerServerEvent("dispatch:trigger-dispatch-server:full", alertName, street, GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)), plate, colorName, alertCoord.x, alertCoord.y, time, code)
     else
-        colorName = color1 ..', '.. color2
-    end
 
-    TriggerServerEvent("dispatch:trigger-dispatch-server:full", alertName, street, GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)), plate, colorName, alertCoord.x, alertCoord.y, time, code, icon)
-    mapblipcustom(alertName, alertCoordx, alertCoordy, icon)
-    
+        TriggerServerEvent("dispatch:trigger-dispatch-server:normal", alertName, street, alertCoord.x, alertCoord.y, time, code)
+    end	    
 end
 
+
+
 RegisterNetEvent("dispatch:trigger-dispatch-client:custom")
-AddEventHandler("dispatch:trigger-dispatch-client:custom", function(code,code1, name, street, alertcoordx, alertcoordy, time, icon, sa)
-    if exports['isPed']:isPed("myjob") == "police" then 
-        if sa then 
-            print("police_vers")
+AddEventHandler("dispatch:trigger-dispatch-client:custom", function(code,code1, name, street, alertcoordx, alertcoordy, time, icon, pEmergencyType)
+    local myjob = exports['qpixel-base']:CurrentJob()
+    if myjob == "police" or myjob == 'state' or myjob == 'sheriff' then
+        if pEmergencyType then 
             TriggerEvent('InteractSound_CL:PlayOnOne', "alert", 0.3)
             SendNUIMessage({
                 action = "add-dispatch",
@@ -848,7 +807,6 @@ AddEventHandler("dispatch:trigger-dispatch-client:custom", function(code,code1, 
                 code1 = code1
             })
         else
-            print("normal")
             PlaySoundFrontend(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
             SendNUIMessage({
                 action = "add-dispatch",
@@ -865,6 +823,113 @@ AddEventHandler("dispatch:trigger-dispatch-client:custom", function(code,code1, 
         mapblipcustom(name, alertcoordx, alertcoordy, icon)
     end
 end)
+
+RegisterNetEvent('qpixel-dispatch:altercallsign;spawn')
+AddEventHandler('qpixel-dispatch:altercallsign;spawn',function(getCallsign,pStatusType)
+    exports['qpixel-dispatch']:callsign_command(getCallsign,pStatusType)
+end)
+
+RegisterNetEvent('civilian:alertPolice')
+AddEventHandler("civilian:alertPolice",function(basedistance,alertType,objPassed,isGunshot,isHunting,sentWeapon)
+    local isPolice = exports['qpixel-base']:CurrentJob() == 'police' or exports['qpixel-base']:CurrentJob() == 'sheriff' or exports['qpixel-base']:CurrentJob() == 'state'
+    local object = objPassed
+    local plyCoords = GetEntityCoords(PlayerPedId())
+    local shittypefuckyou
+    if alertType == "personRobbed" then
+        dispatchadd("10-65", "Person being robbed", 458)
+    end
+
+    if isGunshot == nil then 
+        isGunshot = false 
+    end
+
+
+    if isGunshot then
+        shittypefuckyou = 'gunshot'
+    end
+
+    local nearNPC
+
+    if alertType == 'drugsale' then
+        nearNPC = GetClosestNPC(plyCoords, basedistance, 'combat', object)
+    else
+        nearNPC = GetClosestNPC(plyCoords, basedistance, shittypefuckyou)
+    end 
+
+    local dst = 0
+
+    if nearNPC then
+        dst = #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(nearNPC))
+    end
+
+    if nearNPC and DoesEntityExist(nearNPC) then -- PED ANIMATION.
+        if not isSpeeder then
+            Wait(500)
+            if GetEntityHealth(nearNPC) == 0 then
+              return
+            end
+            if not DoesEntityExist(nearNPC) then
+                return
+            end
+            if IsPedFatallyInjured(nearNPC) then
+                return
+            end
+            if IsPedInMeleeCombat(nearNPC) then
+                return
+            end
+            if IsPedShooting(nearNPC) then
+                return
+            end
+            local dontcall = {
+                [29] = true,
+                [28] = true,
+                [27] = true
+            }
+            if not dontcall[GetPedType(nearNPC)] then
+                ClearPedTasks(nearNPC)
+                TaskPlayAnim(nearNPC, "cellphone@", "cellphone_call_listen_base", 1.0, 1.0, -1, 49, 0, 0, 0, 0)
+            end
+        end
+    end
+
+    local isUnderground = false
+    if plyCoords.z <= -25 then isUnderground = true end
+
+    if alertType == "drugsale" and not underground then
+        if dst > 50.5 and dst < 75.0 then
+            dispatchadd("10-40", "Drug sale reported in the area", 51)
+        end
+
+    elseif alertType == "druguse" and not underground and not pd then
+        if dst > 12.0 and dst < 18.0 then
+            dispatchadd("10-40", "Drug use reported", 51)
+        end
+        
+    elseif alertType == "carcrash" then
+        dispatchadd("10-50", "Vehicle Crash", 227)
+    -- elseif alertType == "death" then
+    --     local roadtest2 = IsPointOnRoad(GetEntityCoords(PlayerPedId()), PlayerPedId())
+    --     if roadtest2 then return end
+    --     dispatchadd("10-47", "Injured Person", 126)
+    elseif alertType == "Suspicious" then
+        dispatchadd("10-75", "Suspicious activity reported", 51)
+
+    elseif alertType == "fight" and not underground then
+        dispatchadd("10-10", "Fight in progress", 437)
+
+    elseif (alertType == "gunshot" or alertType == "gunshotvehicle") then
+        dispatchadd("10-71", "Gun shots reported", 110)
+
+    elseif alertType == "lockpick" then
+        if dst > 5.0 and dst < 85.0 then
+            if math.random(100) >= 25 then
+                AlertCheckLockpick(object)
+            end
+        end
+    end
+end)
+
+
 
 function dispatchadd(code, alertName, icon)
 
@@ -895,11 +960,11 @@ function dispatchadd(code, alertName, icon)
         icon = 433
     end
 
-    TriggerServerEvent("dispatch:trigger-dispatch-server:custom", false, alertName, street, alertCoord.x, alertCoord.y, time, code, icon, false)  
+    TriggerServerEvent("dispatch:trigger-dispatch-server:custom", alertName, street, alertCoord.x, alertCoord.y, time, code, icon, false)  
 end
 
 
-function policedead(code, alertName, icon, pState)
+function officerDownAlert(code, alertName, icon ,isEmergency)
 
     local playerPed = PlayerPedId()	
     local padCoords = GetEntityCoords(playerPed)
@@ -927,45 +992,48 @@ function policedead(code, alertName, icon, pState)
     if icon == nil then 
         icon = 433
     end
-    TriggerServerEvent("dispatch:trigger-dispatch-server:custom", pState, alertName, street, alertCoord.x, alertCoord.y, time, code, icon, true)  
+
+    if isEmergency == nil then
+        isEmergency = true
+    end
+
+    TriggerServerEvent("dispatch:trigger-dispatch-server:custom", alertName, street, alertCoord.x, alertCoord.y, time, code, icon, isEmergency)  
 end
 
 function mapblip(alertName, x, y)
     if alertName == "" then
-        osoruk(x, y, 433, alertName)
-    elseif alertName == "Gunshot Report" then
-        osoruk(x, y, 433, alertName)
-    elseif alertName == "Bobcat Security" then
-        osoruk(x, y, 110, alertName)
-    elseif alertName == "Pacific Bank Robbery" then
-        osoruk(x, y, 272, alertName)
-    elseif alertName == "House Robbery" then
-        osoruk(x, y, 40, alertName)
-    elseif alertName == "Power Plant" then
-        osoruk(x, y, 354, alertName)
+        doBlipp(x, y, 433, alertName)
+    elseif alertName == "Gunshot Warning" then
+        doBlipp(x, y, 433, alertName)
+    elseif alertName == "Robbery in progress at bobcat security" then
+        doBlipp(x, y, 110, alertName)
+    elseif alertName == "Pacific Bank Emergency Notice" then
+        doBlipp(x, y, 272, alertName)
+    elseif alertName == "Home Robbery Report" then
+        doBlipp(x, y, 40, alertName)
+    elseif alertName == "Power Plant Sabotage Status" then
+        doBlipp(x, y, 354, alertName)
     elseif alertName == "Fleeca Bank Robbery" then
-        osoruk(x, y, 272, alertName)
+        doBlipp(x, y, 272, alertName)
     elseif alertName == "Pacific Bank Robbery" then
-        osoruk(x, y, 272, alertName)
-    elseif alertName == "Vangelico Robbery" then
-        osoruk(x, y, 617, alertName)
-    elseif alertName == "Store Robbery" then
-        osoruk(x, y, 628, alertName)
+        doBlipp(x, y, 272, alertName)
+    elseif alertName == "Jewelry Store Robbery" then
+        doBlipp(x, y, 617, alertName)
+    elseif alertName == "Store Robbery Report" then
+        doBlipp(x, y, 628, alertName)
     end
 end
 
 function mapblipcustom(alertName, x, y, icon)
-    if exports['isPed']:isPed('myjob') == 'police' then
-        osoruk(x, y, tonumber(icon), alertName)
-    end
+    doBlipp(x, y, tonumber(icon), alertName)
 end
 
-function osoruk(x, y, icon, alertName)
+function doBlipp(x, y, icon, alertName)
     local alpha = 200
     local blip = AddBlipForCoord(x, y, 5.0)
 	SetBlipSprite(blip, icon)
     SetBlipDisplay(blip, 2)
-    SetBlipScale(blip, 1.70)
+    SetBlipScale(blip, 1.20)
     SetBlipColour(blip, 75)
     SetBlipAsShortRange(blip, false)
     SetBlipAlpha(blip, alpha)
@@ -985,52 +1053,67 @@ function osoruk(x, y, icon, alertName)
     end
 end
 
-Citizen.CreateThread( function()
-    canSendGunshot = true
-    local playerPed = PlayerPedId()	
-    local padCoords = GetEntityCoords(playerPed)
-    local alertCoord = vector3(padCoords.x, padCoords.y, padCoords.z)
+RegisterCommand("setonduty", function(source, args) -- add to when 10-41 is triggered
+    local myjob = exports['qpixel-base']:CurrentJob()
+    if myjob == "police" or myjob == 'state' or myjob == 'sheriff' then 
+        callsign_command(args[1], args[2])
+    end
+end)
 
-    while canSendGunshot do
-        Wait(5)
+RegisterCommand("open-dispatch", function()
+    openMenu()
+end)
 
-    if exports['isPed']:isPed("myjob") ~= "police" then
-        if IsPedShooting(PlayerPedId()) then
-            if math.random(100) <= 10 then
-                if IsPedInAnyVehicle(PlayerPedId()) then
-                    dispatch('10-71', 'Gunshots Reported From a Vehicle', GetVehicleNumberPlateText(GetVehiclePedIsIn(PlayerPedId(), false)), alertCoord, GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsIn(GetPlayerPed(-1)))), "432") 
-                    canSendGunshot = false
-                    Citizen.Wait(1000)
-                    canSendGunshot = true
-                else
-                    exports["qpixel-dispatch"]:dispatchadd('10-71', "Gun shots Reported", "432")
-                    canSendGunshot = false
-                    Citizen.Wait(3000)
-                    canSendGunshot = true
-                end
+RegisterCommand("map", function()
+    local myjob = exports['qpixel-base']:CurrentJob()
+    if myjob == "police" or myjob == 'state' or myjob == 'sheriff' then 
+    SendNUIMessage({
+        action = "map"
+    })
+  end
+end)
+
+RegisterCommand('911', function(source, args, rawCommand)
+    local msg = rawCommand:sub(5)
+    if string.len(msg) > 0 then
+        local user = exports["qpixel-base"]:GetModule("LocalPlayer")
+        local first_name = user.first_name
+        local last_name = user.last_name
+        local phone_number = user.phone_number
+
+        TriggerEvent('animation:phonecall')
+
+        exports['qpixel-taskbar']:Progress({
+            duration = 10000,
+            label = "Dialing 911",
+        }, function(cancelled)
+            if not cancelled then
+                dispatchadd("911", "911 Call: "..msg, 110)
             end
-        end
-      end
-    end
-  end)
-
-RegisterNetEvent('qpixel-dispatch:911')
-AddEventHandler('qpixel-dispatch:911', function()
-    exports["qpixel-dispatch"]:dispatchadd("911", "An incoming 911 call !", "817")
-end)
-
-RegisterNetEvent('qpixel-dispatch:beepEffect')
-AddEventHandler('qpixel-dispatch:beepEffect', function()
-    if exports['isPed']:isPed('myjob') == "police" then
-        TriggerServerEvent('InteractSound_SV:PlayOnSource', '10-1314', 0.2)
+        end)
+    else
+        TriggerEvent('DoShortHudText', 'Please put a reason after the 911!', 2)
     end
 end)
 
-RegisterNetEvent('qpixel-dispatch:stolenCar')
-AddEventHandler('qpixel-dispatch:stolenCar', function(plate)
-    local playerPed = PlayerPedId()	
-    local padCoords = GetEntityCoords(playerPed)
-    local alertCoord = vector3(padCoords.x, padCoords.y, padCoords.z)
-
-    dispatch('10-99B', 'Stolen Vehicle', plate, alertCoord, GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsIn(GetPlayerPed(-1)))), "432")
+RegisterCommand('311', function(source, args, rawCommand)
+    local msg = rawCommand:sub(5)
+    if string.len(msg) > 0 then
+        local user = exports["qpixel-base"]:GetModule("LocalPlayer")
+        local first_name = user.first_name
+        local last_name = user.last_name
+        local phone_number = user.phone_number
+        TriggerEvent('animation:phonecall')
+        
+        exports['qpixel-taskbar']:Progress({
+            duration = 10000,
+            label = "Dialing 311",
+        }, function(cancelled)
+            if not cancelled then
+                dispatchadd("311", "311 Call: "..msg, 110)
+            end
+        end)
+    else
+        TriggerEvent('DoShortHudText', 'Please put a reason after the 311!', 2)
+    end
 end)
