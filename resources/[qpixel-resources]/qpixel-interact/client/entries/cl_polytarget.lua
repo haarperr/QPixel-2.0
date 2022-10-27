@@ -2624,22 +2624,22 @@ Entries[#Entries + 1] = {
 }
 
 
-Entries[#Entries + 1] = {
-    type = 'polytarget',
-    group = { 'pillbox_checkin' },
-    data = {
-        {
-            id = "pillbox_checkin",
-            label = "Check In",
-            icon = "circle",
-            event = "qpixel-hospitalization:checkin",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 3.0 }
-    }
-}
+-- Entries[#Entries + 1] = {
+--     type = 'polytarget',
+--     group = { 'pillbox_checkin' },
+--     data = {
+--         {
+--             id = "pillbox_checkin",
+--             label = "Check In",
+--             icon = "circle",
+--             event = "qpixel-hospitalization:checkin",
+--             parameters = {}
+--         }
+--     },
+--     options = {
+--         distance = { radius = 3.0 }
+--     }
+-- }
 
 Entries[#Entries + 1] = {
     type = 'polytarget',

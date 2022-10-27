@@ -1653,7 +1653,7 @@ RegisterCommand("evidence", function(source, args)
         if inEvidenceZone then
             TriggerEvent("server-inventory-open", "1", "CASE ID: " .. args[1])
         else
-            TriggerEvent('DoLongHudText', 'This can only be used from Mission Row PD', 2)
+            TriggerEvent('DoLongHudText', 'Must be in the evidence room..', 2) -- more descriptive
         end
     end
 end)
