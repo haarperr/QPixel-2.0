@@ -10,6 +10,8 @@ client_scripts {
 
 server_scripts {
     'server/*.lua',
+    '@qpixel-lib/server/sv_sql.lua',
+    '@qpixel-lib/server/sv_asyncExports.lua',
 }
 
 ui_page 'html/index.html'
@@ -26,7 +28,7 @@ files {
 
 exports {
     'dispatchadd',
-    'officerDownAlert',
+    'policedead',
     'bankRobsnShit',
     'callsign_command'
 }

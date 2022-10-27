@@ -137,12 +137,12 @@ end)
 RegisterServerEvent('dispatch:setcallsign')
 AddEventHandler("dispatch:setcallsign", function()
   local src = source
-  local user = exports['qpixel-base']:GetModule('GetPlayer')(src)
-  if user == nil then return end
-  local cid = user["PlayerData"]["id"]
+  local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
+  local cid = user:getCurrentCharacter().id
+  if cid == nil then return end
 
   local defaultType = 'car'
-  local getCallsign = exports['qpixel-mdt']:GetCallsign(cid) 
+  local getCallsign = pCallSign(cid)
   TriggerClientEvent('qpixel-dispatch:altercallsign;spawn',src,getCallsign,defaultType)
 end)
 
@@ -184,8 +184,9 @@ end)
 RegisterNetEvent("getname")
 AddEventHandler("getname", function()
     local src = source   
-    local user = exports['qpixel-base']:GetModule('GetPlayer')(src)
-    local fullname = user["PlayerData"]["first_name"] .. " " .. user["PlayerData"]["last_name"]
+	local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
+	local character = user:getCurrentCharacter()
+    local fullname = character.first_name .. " " .. character.last_name
     TriggerClientEvent("getname-cl", src, fullname)
 end)
 
@@ -229,9 +230,16 @@ AddEventHandler("dispatch:trigger-dispatch-server:full", function(alertName, str
 end)
 
 RegisterNetEvent("dispatch:trigger-dispatch-server:custom")
-AddEventHandler("dispatch:trigger-dispatch-server:custom", function(alertName, street, alertCoordx, alertCoordy, time, code, icon, pIsEmergency)
+AddEventHandler("dispatch:trigger-dispatch-server:custom", function(pPlayShit, alertName, street, alertCoordx, alertCoordy, time, code, icon, sa)
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(source)
+    local userjob = user:getVar("job")
     dispatch_number = dispatch_number + 1
-    if pIsEmergency then 
+
+    if pPlayShit == true then
+        TriggerClientEvent('qpixel-dispatch:beepEffect', -1)
+    end
+
+    if sa then 
         dispatch_table[dispatch_number] = {
             code = code,
             mod = 1,
@@ -258,15 +266,13 @@ AddEventHandler("dispatch:trigger-dispatch-server:custom", function(alertName, s
         }
         TriggerClientEvent("dispatch:trigger-dispatch-client:custom", -1, dispatch_number, code, alertName, street, alertCoordx, alertCoordy, time, icon, false)
     end
-
-
 end)
-
 
 AddEventHandler('playerDropped', function(reason)
     local src = source   
-    local user = exports['qpixel-base']:GetModule('GetPlayer')(src)
-    local fullname = user["PlayerData"]["first_name"] .. " " .. user["PlayerData"]["last_name"]
+    local user = exports["qpixel-base"]:getModule("Player"):GetUser(src)
+    local character = user:getCurrentCharacter()
+    local fullname = character.first_name .. " " .. character.last_name
     for k,v in pairs(police_table) do
         local check = police_table[k].name
         if police_table[k].name == fullname then
@@ -275,3 +281,12 @@ AddEventHandler('playerDropped', function(reason)
         end
     end
 end)  
+
+function pCallSign(pCid)
+    local result = Await(SQL.execute("SELECT * FROM jobs_whitelist WHERE cid = @cid", {["cid"] = pCid}))
+    if result[1] ~= nil then
+        return result[1].callsign
+    else
+        return '000'
+    end
+end

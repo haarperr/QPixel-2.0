@@ -83,7 +83,7 @@ AddEventHandler('qpixel-duty:PDSuccess', function()
 		SetPedRelationshipGroupDefaultHash(PlayerPedId(),`MISSION2`)
 		SetPedRelationshipGroupHash(PlayerPedId(),`MISSION2`)
 		SetPoliceIgnorePlayer(PlayerPedId(),true)
-		exports['qpixel-dispatch']:callsign_command()
+		TriggerServerEvent('dispatch:setcallsign')
 	else
 		TriggerEvent("DoLongHudText",'You are on duty already!', 2)
 	end
